@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>スマスロミリオンゴッド 神々の軌跡 出目チェッカー</title>
+<title>スマスロミリオンゴッド 〜神々の軌跡〜 出目チェッカー</title>
 
 <style>
 body{
@@ -249,6 +249,24 @@ input{
   border-radius:10px;
   box-shadow:0 0 10px rgba(255,90,90,.6);
 }
+.contact-box{
+  margin-top:30px;
+  padding:15px;
+  border:1px solid #6b4a12;
+  border-radius:12px;
+  background:rgba(20,20,20,.9);
+  text-align:center;
+}
+.line-btn{
+  display:inline-block;
+  padding:12px 20px;
+  background:#06C755;
+  color:#fff;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:bold;
+  box-shadow:0 0 10px rgba(0,255,100,.6);
+}
 @media(max-width:480px){
   .history-layout{
     grid-template-columns:1fr;
@@ -335,7 +353,8 @@ input{
     </div>
 
     <div id="liveResult" class="live-result">
-      入力するとここに結果が出ます
+      <b>リアルタイム判別</b><br><br>
+      入力待ち
     </div>
   </div>
 
@@ -387,6 +406,21 @@ input{
   <button onclick="showEffect('blackout2', this)">ブラックアウト</button>
 </div>
 
+<div class="contact-box">
+  <b style="color:#ffdf6b;">お問い合わせ・情報提供</b><br><br>
+  不具合・情報追加・演出報告などお気軽にどうぞ👇<br><br>
+
+  <a href="https://lin.ee/vNpbW7U" target="_blank" class="line-btn">
+    LINEで送る
+  </a>
+
+  <br><br>
+
+  <span style="font-size:12px;color:#ccc;">
+    ※LINE追加で最新台の情報更新・機能追加のお知らせも受け取れます
+  </span>
+</div>
+
 <div class="note">
 <b>本ツールについて</b><br><br>
 本ツールは「スマスロミリオンゴッド 〜神々の軌跡〜」の出目判定を目的とした非公式ツールです。<br><br>
@@ -417,7 +451,6 @@ const data={
 "V4V":{name:"Vハサミ偶数",info:"頻発でVモード示唆",gaisen:true,chance:true,type:"モード示唆"},
 "V6V":{name:"Vハサミ偶数",info:"頻発でVモード示唆",gaisen:true,chance:true,type:"モード示唆"},
 "V8V":{name:"Vハサミ偶数",info:"頻発でVモード示唆",gaisen:true,chance:true,type:"モード示唆"},
-
 "V1V":{name:"Vハサミ奇数",guarantee:"天国ショート以上確定",gaisen:true,type:"モード示唆"},
 "V3V":{name:"Vハサミ奇数",guarantee:"天国ショート以上確定",gaisen:true,type:"モード示唆"},
 "V5V":{name:"Vハサミ奇数",level:8,guarantee:"天国ショート以上確定",gaisen:true,type:"モード示唆"},
@@ -430,7 +463,6 @@ const data={
 "100":{name:"左奇数＋0ケツテンパイ",info:"GG前兆に期待",gaisen:true,chance:true},
 "300":{name:"左奇数＋0ケツテンパイ",info:"GG前兆に期待",gaisen:true,chance:true},
 "500":{name:"左奇数＋0ケツテンパイ",info:"GG前兆に期待",gaisen:true,chance:true},
-
 "38V":{name:"雅",info:"チャンス目",gaisen:true,chance:true},
 "468":{name:"ヨーロッパ",info:"チャンス目",gaisen:true,chance:true},
 "631":{name:"無罪",info:"チャンス目",gaisen:true,chance:true},
@@ -507,9 +539,7 @@ const data={
 };
 
 const basicData={
-spec:{
-title:"基本スペック",
-body:[
+spec:{title:"基本スペック",body:[
 "初当り確率：1/532.8〜1/294.8",
 "機械割：97.2%〜114.6%",
 "GG中の純増枚数：約7.0枚/G",
@@ -520,31 +550,17 @@ body:[
 "設定4：初当り 1/338.4　機械割 106.9%",
 "設定5：初当り 1/455.4　機械割 111.7%",
 "設定6：初当り 1/294.8　機械割 114.6%"
-]
-},
-
-tenjo:{
-title:"天井恩恵",
-body:[
+]},
+tenjo:{title:"天井恩恵",body:[
 "通常時はGG間1480G+α消化で天井到達。",
 "天井到達時はGG当選＋ループストック振り分けあり。",
 "510G天井・1000G天井でも同様の恩恵が有効。"
-],
-chart:"loop"
-},
-
-reset:{
-title:"リセット恩恵",
-body:[
+],chart:"loop"},
+reset:{title:"リセット恩恵",body:[
 "設定変更時は有利区間がリセットされ、ゲーム数天井も再選択。",
 "約35.5%で1000G以内の短縮天井が選択される。"
-],
-chart:"tenjo"
-},
-
-mode:{
-title:"モード",
-html:`
+],chart:"tenjo"},
+mode:{title:"モード",html:`
 <table class="mode-table">
 <tr><th>表モード</th><th>概要</th></tr>
 <tr><td>低確A</td><td>基本となる低モード</td></tr>
@@ -578,32 +594,20 @@ Vハサミ奇数：天国ショート以上確定<br>
 右→左：モードアップ以上に期待<br>
 左→右＋リプレイ：モードアップ確定<br>
 右→左＋リプレイ：GG濃厚!?
-`
-},
-
-zzone:{
-title:"Z-ZONE / Z-GAME",
-body:[
+`},
+zzone:{title:"Z-ZONE / Z-GAME",body:[
 "Z-ZONEは0図柄揃いなどから移行するGG上乗せゾーン。",
 "継続ゲーム数は5G＋α。",
 "消化中はGGストック抽選とZ-GAME移行抽選を行う。",
 "右上がり黄7・中段黄7成立時は黄7の5連扱いとなり、Z-GAMEへ直行。"
-]
-},
-
-god:{
-title:"GOD・赤7",
-body:[
+]},
+god:{title:"GOD・赤7",body:[
 "GOD揃い：約1/16384。PGG突入。",
 "PGGはGGストック4個以上＋高継続ループストック。",
 "赤7揃い：約1/6900。SGG突入。",
 "SGGはGGストック＋ループストック獲得に期待。"
-]
-},
-
-gaia:{
-title:"ガイア",
-body:[
+]},
+gaia:{title:"ガイア",body:[
 "ガイアナビ（右ナビ）発生でガイアステージ移行のチャンス。",
 "ガイアベル揃い時の周期抽選に当選すると、ガイアステージ移行抽選が行われる。",
 "ガイアモードは低確・通常・天国の3種類。",
@@ -625,12 +629,8 @@ body:[
 "【保障ゲーム数3G獲得抽選】",
 "ハズレ・上段青7・押し順黄7・ガイアベル・赤7フェイク：5.3%",
 "中段青7・右上がり黄7：100%"
-]
-},
-
-rate:{
-title:"小役確率",
-body:[
+]},
+rate:{title:"小役確率",body:[
 "ハズレ：約1/5.2",
 "押し順黄7：約1/1.7",
 "上段青7：約1/7.9",
@@ -640,14 +640,11 @@ body:[
 "中段黄7：約1/963.8",
 "ガイアベル：約1/37.6",
 "GOD揃い：約1/16384"
-]
-}
+]}
 };
 
 const effectData={
-stage:{
-name:"ステージチェンジ",
-rows:[
+stage:{name:"ステージチェンジ",rows:[
 ["右回転→遺跡・泉・森","デフォルト"],
 ["右回転→麓","天国準備以上の期待大"],
 ["右回転→神殿","天国以上の期待大"],
@@ -660,90 +657,54 @@ rows:[
 ["チャンスボタン→神殿","超天国の期待大"],
 ["チャンスボタン→遺跡・泉・森","GG濃厚!?"],
 ["ワイプ→神殿","GG濃厚!?"]
-]
-},
-
-wind:{
-name:"光の風",
-rows:[
+]},
+wind:{name:"光の風",rows:[
 ["左→右","モードアップに期待"],
 ["右→左","モードアップ以上に期待"],
 ["左→右＋リプレイ","モードアップ確定"],
 ["右→左＋リプレイ","GG濃厚!?"]
-]
-},
-
-blackhole:{
-name:"ブラックホール",
-rows:[
+]},
+blackhole:{name:"ブラックホール",rows:[
 ["1回","天国準備以上に期待"],
 ["2連","デフォルト"],
 ["3連","チャンス"],
 ["4連","奇数揃い濃厚!?"]
-]
-},
-
-delay:{
-name:"遅れ",
-rows:[
+]},
+delay:{name:"遅れ",rows:[
 ["ALL赤色＋バラケ目","天国準備以上の期待大"],
 ["奇数ケツテンパイ","天国以上の期待大"],
 ["7ハサミの中に偶数","天国以上の期待大"],
 ["7V0 / 70V","天国以上の期待大"],
 ["700 / 707 / 7VV","超天国の期待大"]
-]
-},
-
-kagerou:{
-name:"陽炎演出",
-rows:[
+]},
+kagerou:{name:"陽炎演出",rows:[
 ["ALL黄色（偶数）","偶数揃いに期待"],
 ["ALL赤色（奇数）","奇数テンパイで前兆示唆"],
 ["その他","GG前兆以上に期待"]
-]
-},
-
-ice:{
-name:"氷演出",
-rows:[
+]},
+ice:{name:"氷演出",rows:[
 ["リール回転開始時","デフォルト"],
 ["レバーON→第1停止","チャンス"],
 ["第1停止時","大チャンス"],
 ["凍結2個","右上がり黄7 or 中段黄7"],
 ["凍結3個","チャンス!?"]
-]
-},
-
-thunder:{
-name:"雷演出",
-rows:[
+]},
+thunder:{name:"雷演出",rows:[
 ["リール回転開始時","デフォルト"],
 ["レバーON→第1停止","チャンス"],
 ["第1停止時","チャンス"],
 ["奇数非テンパイ","裏モード示唆!?"]
-]
-},
-
-mirror:{
-name:"鏡演出",
-rows:[
+]},
+mirror:{name:"鏡演出",rows:[
 ["左のみ","奇数テンパイ"],
 ["左＋中","奇数揃い濃厚!?"],
 ["左のみ＋非テンパイ","GG前兆濃厚!?"]
-]
-},
-
-blackout:{
-name:"消灯演出",
-rows:[
+]},
+blackout:{name:"消灯演出",rows:[
 ["1消灯＋奇数テンパイ","GG前兆濃厚!?"],
 ["第3停止消灯","心臓発展"]
-]
-},
-
-heart:{
-name:"心臓演出",
-rows:[
+]},
+heart:{name:"心臓演出",rows:[
 ["Low→Hi","デフォルト"],
 ["Low→Hi→Hi","チャンス"],
 ["Low→Hi→SHi","GG濃厚!?"],
@@ -751,82 +712,50 @@ rows:[
 ["Lowのみ","GG濃厚!?"],
 ["奇数テンパイ","チャンス"],
 ["第3停止いきなり消灯","チャンス"]
-]
-},
-
-big:{
-name:"図柄巨大化",
-rows:[
+]},
+big:{name:"図柄巨大化",rows:[
 ["3G以上継続","奇数揃い濃厚!?"],
 ["ケツV","大チャンス"],
 ["ケツ7 or 0","GG前兆濃厚!?"]
-]
-},
-
-tornado:{
-name:"竜巻発展",
-rows:[
+]},
+tornado:{name:"竜巻発展",rows:[
 ["奇数＋偶数混在","デフォルト"],
 ["奇数のみ","チャンス"],
 ["奇数のみ＋7あり","GG濃厚!?"],
 ["矛盾発展","GG前兆濃厚!?"],
 ["演出なし→発展","チャンス"],
 ["砂嵐経由","大チャンス"]
-]
-},
-
-door:{
-name:"天空の扉",
-rows:[
+]},
+door:{name:"天空の扉",rows:[
 ["発生","確定役のチャンス"],
 ["強パターン","期待度アップ"],
 ["発展あり","GG前兆に期待"]
-]
-},
-
-sun:{
-name:"太陽の戦車",
-rows:[
+]},
+sun:{name:"太陽の戦車",rows:[
 ["1段階","チャンス"],
 ["2段階","チャンスアップ"],
 ["3段階以上","確定役のチャンス"]
-]
-},
-
-godthunder:{
-name:"神の雷",
-rows:[
+]},
+godthunder:{name:"神の雷",rows:[
 ["発生","確定役のチャンス"]
-]
-},
-
-ura:{
-name:"裏ボタン",
-rows:[
+]},
+ura:{name:"裏ボタン",rows:[
 ["GG告知ゲーム","第3停止後〜次BETで押下。上部LEDでループストック種別 or GGストック数を示唆"],
 ["GG終了画面","第3停止後〜次BETで押下。GGストックの有無を示唆"],
 ["SGG引き戻しZONE","毎ゲームのレバーON〜次BETで押下。LED発光でSGG引き戻し濃厚!?"],
 ["Z-ZONE / Z-GAME","毎ゲームのレバーON〜第3停止で押下。LED発光で黄7成立濃厚!?"],
 ["LED期待度","白＜青＜黄＜緑＜赤＜虹"]
-]
-},
-
-push:{
-name:"チャンスボタン",
-rows:[
+]},
+push:{name:"チャンスボタン",rows:[
 ["台枠1段階点灯","デフォルト"],
 ["台枠2段階点灯","チャンス"],
 ["台枠3段階点灯","チャンスアップ"]
-]
-},
-
-blackout2:{
-name:"ブラックアウト",
-rows:[
+]},
+blackout2:{name:"ブラックアウト",rows:[
 ["発生","GOD揃い濃厚"]
-]
-}
+]}
 };
+
 let current="";
 let currentEffect="";
 let currentBasic="";
@@ -834,20 +763,15 @@ let minSetting=1;
 
 function pressKey(key){
   const display=document.getElementById("display");
-
   if(current.length>=3){
     current="";
     document.getElementById("result").innerHTML="";
     document.getElementById("result").classList.remove("result-reach-box");
     display.classList.remove("rainbow-text");
   }
-
   current+=key;
   display.innerText=current;
-
-  if(current.length===3){
-    check(current);
-  }
+  if(current.length===3)check(current);
 }
 
 function backspace(){
@@ -870,80 +794,33 @@ function clearInput(){
 
 function patternCheck(code){
   if(!/^[0-8]{3}$/.test(code))return null;
-
-  const a=Number(code[0]);
-  const b=Number(code[1]);
-  const c=Number(code[2]);
-
-  const isOdd=n=>n%2===1;
-  const isEven=n=>n%2===0;
-
-  if(a===b&&b===c&&isOdd(a)){
-    return{name:"奇数揃い",guarantee:"AT濃厚!?",type:"特殊出目"};
-  }
-
-  if(a===b&&b===c&&isEven(a)){
-    return null;
-  }
-
-  if(a+1===b&&b+1===c&&isOdd(a)){
-    return{name:"奇数順目",level:5,type:"モード示唆"};
-  }
-
-  if(a+1===b&&b+1===c&&isEven(a)){
-    return{name:"偶数順目",level:3,type:"モード示唆"};
-  }
-
-  if(b===c&&isOdd(b)&&isEven(a)){
-    return{name:"左偶数＋ケツ奇数テンパイ",level:2,type:"モード示唆"};
-  }
-
-  if(b===c&&isOdd(b)&&isOdd(a)){
-    return{name:"左奇数＋ケツ奇数テンパイ",level:4,type:"モード示唆"};
-  }
-
-  if(isOdd(a)&&isOdd(b)&&isOdd(c)){
-    return{name:"奇数のみ",level:1,type:"モード示唆"};
-  }
-
+  const a=Number(code[0]),b=Number(code[1]),c=Number(code[2]);
+  const isOdd=n=>n%2===1,isEven=n=>n%2===0;
+  if(a===b&&b===c&&isOdd(a))return{name:"奇数揃い",guarantee:"AT濃厚!?",type:"特殊出目"};
+  if(a===b&&b===c&&isEven(a))return null;
+  if(a+1===b&&b+1===c&&isOdd(a))return{name:"奇数順目",level:5,type:"モード示唆"};
+  if(a+1===b&&b+1===c&&isEven(a))return{name:"偶数順目",level:3,type:"モード示唆"};
+  if(b===c&&isOdd(b)&&isEven(a))return{name:"左偶数＋ケツ奇数テンパイ",level:2,type:"モード示唆"};
+  if(b===c&&isOdd(b)&&isOdd(a))return{name:"左奇数＋ケツ奇数テンパイ",level:4,type:"モード示唆"};
+  if(isOdd(a)&&isOdd(b)&&isOdd(c))return{name:"奇数のみ",level:1,type:"モード示唆"};
   return null;
 }
 
 function levelColor(level){
-  return{
-    1:"#4da3ff",
-    2:"#39c5bb",
-    3:"#65d96e",
-    4:"#c4e84a",
-    5:"#ffd84a",
-    6:"#ff9f1c",
-    7:"#ff5a5a",
-    8:"#ff3df2"
-  }[level]||"#fff";
+  return{1:"#4da3ff",2:"#39c5bb",3:"#65d96e",4:"#c4e84a",5:"#ffd84a",6:"#ff9f1c",7:"#ff5a5a",8:"#ff3df2"}[level]||"#fff";
 }
 
 function settingColor(s){
-  return{
-    1:"#4da3ff",
-    2:"#39c5bb",
-    3:"#65d96e",
-    4:"#ffd84a",
-    5:"#ff5a5a",
-    6:"#ff3df2"
-  }[s]||"#fff";
+  return{1:"#4da3ff",2:"#39c5bb",3:"#65d96e",4:"#ffd84a",5:"#ff5a5a",6:"#ff3df2"}[s]||"#fff";
 }
 
 function formatCode(code,isReach,level){
   if(isReach){
-    return"<span class='rainbow-code'>"+
-      code.split("").map(ch=>"<span>"+ch+"</span>").join("")+
-      "</span>";
+    return"<span class='rainbow-code'>"+code.split("").map(ch=>"<span>"+ch+"</span>").join("")+"</span>";
   }
-
   if(level){
     return"<span style='color:"+levelColor(level)+";font-weight:bold'>"+code+"</span>";
   }
-
   return"<span style='color:#fff;font-weight:bold'>"+code+"</span>";
 }
 
@@ -951,12 +828,12 @@ function check(code){
   const r=data[code]||patternCheck(code);
   const o=document.getElementById("result");
   const display=document.getElementById("display");
-
   o.classList.remove("result-reach-box");
 
   if(!r){
     o.innerHTML="該当なし<br><span class='small'>通常出目 or データ未登録</span>";
     display.classList.remove("rainbow-text");
+    display.innerText=code;
     return;
   }
 
@@ -964,37 +841,23 @@ function check(code){
   h+="出目："+formatCode(code,r.reach,r.level)+"<br>";
   h+="<span class='result-strong'>"+r.name+"</span><br>";
 
-  if(r.type){
-    h+=r.type+"<br>";
-  }
+  if(r.type)h+=r.type+"<br>";
 
   if(r.reach){
     h+="<span class='rainbow-text'>リーチ目</span><br>";
-    display.classList.add("rainbow-text");
+    display.classList.remove("rainbow-text");
+    display.innerHTML=formatCode(code,true,null);
     o.classList.add("result-reach-box");
   }else{
     display.classList.remove("rainbow-text");
+    display.innerText=code;
   }
 
-  if(r.chance){
-    h+="<span class='chance'>チャンス目</span><br>";
-  }
-
-  if(r.level){
-    h+="<span class='level' style='color:"+levelColor(r.level)+"'>モード期待度："+r.level+"/8</span><br>";
-  }
-
-  if(r.info){
-    h+=r.info+"<br>";
-  }
-
-  if(r.guarantee){
-    h+="<span class='guarantee'>【"+r.guarantee+"】</span><br>";
-  }
-
-  if(!r.kiseki&&r.gaisen){
-    h+="（凱旋情報）";
-  }
+  if(r.chance)h+="<span class='chance'>チャンス目</span><br>";
+  if(r.level)h+="<span class='level' style='color:"+levelColor(r.level)+"'>モード期待度："+r.level+"/8</span><br>";
+  if(r.info)h+=r.info+"<br>";
+  if(r.guarantee)h+="<span class='guarantee'>【"+r.guarantee+"】</span><br>";
+  if(!r.kiseki&&r.gaisen)h+="（凱旋情報）";
 
   o.innerHTML=h;
 }
@@ -1011,19 +874,13 @@ function toggleBox(id){
   if(id==="infoBox"){
     infoBox.classList.toggle("hidden");
     settingBox.classList.add("hidden");
-
-    if(!infoBox.classList.contains("hidden")){
-      infoBtn.classList.add("active-info");
-    }
+    if(!infoBox.classList.contains("hidden"))infoBtn.classList.add("active-info");
   }
 
   if(id==="settingBox"){
     settingBox.classList.toggle("hidden");
     infoBox.classList.add("hidden");
-
-    if(!settingBox.classList.contains("hidden")){
-      settingBtn.classList.add("active-setting");
-    }
+    if(!settingBox.classList.contains("hidden"))settingBtn.classList.add("active-setting");
   }
 }
 
@@ -1032,116 +889,73 @@ function closeSection(){
   document.getElementById("settingBox").classList.add("hidden");
   document.getElementById("infoBtn").classList.remove("active-info");
   document.getElementById("settingBtn").classList.remove("active-setting");
-
-  document.getElementById("menuTop").scrollIntoView({
-    behavior:"smooth"
-  });
+  document.getElementById("menuTop").scrollIntoView({behavior:"smooth"});
 }
 
 function showBasic(key,button){
   const old=document.getElementById("basicDetail");
-
-  document.querySelectorAll(".basic-buttons button").forEach(btn=>{
-    btn.classList.remove("active-button");
-  });
-
+  document.querySelectorAll(".basic-buttons button").forEach(btn=>btn.classList.remove("active-button"));
   if(currentBasic===key&&old){
     old.remove();
     currentBasic="";
     return;
   }
-
   if(old)old.remove();
-
   button.classList.add("active-button");
-
   const b=basicData[key];
-  let h="<div id='basicDetail' class='detail-box'>";
-  h+="<b>"+b.title+"</b><br><br>";
-
+  let h="<div id='basicDetail' class='detail-box'><b>"+b.title+"</b><br><br>";
   if(b.html){
     h+=b.html;
   }else{
     b.body.forEach(line=>{
-      if(line.startsWith("【")){
-        h+="<br><b style='color:#ffdf6b'>"+line+"</b><br>";
-      }else{
-        h+="・"+line+"<br>";
-      }
+      if(line.startsWith("【"))h+="<br><b style='color:#ffdf6b'>"+line+"</b><br>";
+      else h+="・"+line+"<br>";
     });
   }
-
   if(b.chart==="loop"){
-    h+=`
-    <div class="chart-wrap">
-      <canvas id="loopChart" width="240" height="240"></canvas><br>
-      <div class="chart-legend">
-        <span style="color:#4da3ff">■</span> 1%ループ：16.7%<br>
-        <span style="color:#39c5bb">■</span> 25%ループ：16.7%<br>
-        <span style="color:#65d96e">■</span> 50%ループ：16.7%<br>
-        <span style="color:#ff9f1c">■</span> 80%ループ：16.7%<br>
-        <span style="color:#ff5a5a">■</span> 1%ループ＋Z-ZONE：33.2%
-      </div>
-    </div>`;
+    h+=`<div class="chart-wrap"><canvas id="loopChart" width="240" height="240"></canvas><br>
+    <div class="chart-legend">
+    <span style="color:#4da3ff">■</span> 1%ループ：16.7%<br>
+    <span style="color:#39c5bb">■</span> 25%ループ：16.7%<br>
+    <span style="color:#65d96e">■</span> 50%ループ：16.7%<br>
+    <span style="color:#ff9f1c">■</span> 80%ループ：16.7%<br>
+    <span style="color:#ff5a5a">■</span> 1%ループ＋Z-ZONE：33.2%
+    </div></div>`;
   }
-
   if(b.chart==="tenjo"){
-    h+=`
-    <div class="chart-wrap">
-      <canvas id="tenjoChart" width="240" height="240"></canvas><br>
-      <div class="chart-legend">
-        <span style="color:#4da3ff">■</span> 510G天井：15.2%<br>
-        <span style="color:#39c5bb">■</span> 1000G天井：20.3%<br>
-        <span style="color:#ff9f1c">■</span> 1480G天井：64.5%
-      </div>
-    </div>`;
+    h+=`<div class="chart-wrap"><canvas id="tenjoChart" width="240" height="240"></canvas><br>
+    <div class="chart-legend">
+    <span style="color:#4da3ff">■</span> 510G天井：15.2%<br>
+    <span style="color:#39c5bb">■</span> 1000G天井：20.3%<br>
+    <span style="color:#ff9f1c">■</span> 1480G天井：64.5%
+    </div></div>`;
   }
-
   h+="</div>";
-
   button.insertAdjacentHTML("afterend",h);
   currentBasic=key;
-
-  setTimeout(()=>{
-    if(key==="tenjo")drawLoopChart();
-    if(key==="reset")drawTenjoChart();
-  },50);
+  setTimeout(()=>{if(key==="tenjo")drawLoopChart();if(key==="reset")drawTenjoChart();},50);
 }
 
 function showEffect(key,button){
   const old=document.getElementById("effectDetail");
-
-  document.querySelectorAll(".effect-buttons button").forEach(btn=>{
-    btn.classList.remove("active-button");
-  });
-
+  document.querySelectorAll(".effect-buttons button").forEach(btn=>btn.classList.remove("active-button"));
   if(currentEffect===key&&old){
     old.remove();
     currentEffect="";
     return;
   }
-
   if(old)old.remove();
-
   button.classList.add("active-button");
-
   const e=effectData[key];
-  let h="<div id='effectDetail' class='detail-box'>";
-  h+="<b>"+e.name+"</b><br><br>";
-
-  e.rows.forEach(row=>{
-    h+="・"+row[0]+"：<b>"+row[1]+"</b><br>";
-  });
-
+  let h="<div id='effectDetail' class='detail-box'><b>"+e.name+"</b><br><br>";
+  e.rows.forEach(row=>{h+="・"+row[0]+"：<b>"+row[1]+"</b><br>";});
   h+="</div>";
-
   button.insertAdjacentHTML("afterend",h);
   currentEffect=key;
 }
 
 function selectPlate(min){
   minSetting=min;
-
   const text={
     1:"プレートなし：設定示唆なし",
     2:"銅：設定2以上濃厚",
@@ -1150,10 +964,7 @@ function selectPlate(min){
     5:"花火柄：設定5以上濃厚",
     6:"虹：設定6濃厚"
   };
-
-  document.getElementById("plateResult").innerHTML=
-    text[min]+"<br>※計算時にこの条件を反映します。";
-
+  document.getElementById("plateResult").innerHTML=text[min]+"<br>※計算時にこの条件を反映します。";
   calcSetting();
 }
 
@@ -1167,15 +978,7 @@ function calcSetting(){
     return;
   }
 
-  const odds={
-    1:532.8,
-    2:420.4,
-    3:495.9,
-    4:338.4,
-    5:455.4,
-    6:294.8
-  };
-
+  const odds={1:532.8,2:420.4,3:495.9,4:338.4,5:455.4,6:294.8};
   let logs=[];
   let max=-Infinity;
 
@@ -1184,24 +987,19 @@ function calcSetting(){
       logs.push({s:s,log:-Infinity});
       continue;
     }
-
     const p=1/odds[s];
     const log=hits*Math.log(p)+(games-hits)*Math.log(1-p);
-
     logs.push({s:s,log:log});
-
     if(log>max)max=log;
   }
 
   let sum=0;
-
   logs.forEach(x=>{
     x.w=x.log===-Infinity?0:Math.exp(x.log-max);
     sum+=x.w;
   });
 
   const actual=hits?games/hits:0;
-
   let h="";
   h+="<b>現在の初当り確率：約1/"+(hits?actual.toFixed(1):"-")+"</b><br><br>";
 
@@ -1209,30 +1007,22 @@ function calcSetting(){
 
   logs.forEach(x=>{
     const pct=sum?x.w/sum*100:0;
+    if(x.s>=minSetting)expectedSetting+=x.s*(pct/100);
 
-    if(x.s>=minSetting){
-      expectedSetting+=x.s*(pct/100);
-    }
-
-    h+="<span style='color:"+settingColor(x.s)+";font-weight:bold;'>";
-    h+="設定"+x.s+"：";
-    h+="</span>";
-
+    h+="<span style='color:"+settingColor(x.s)+";font-weight:bold;'>設定"+x.s+"：</span>";
     if(x.s<minSetting){
       h+="除外<br>";
     }else{
-      h+="<span style='color:"+settingColor(x.s)+";font-weight:bold;'>"+
-        pct.toFixed(1)+"%</span><br>";
+      h+="<span style='color:"+settingColor(x.s)+";font-weight:bold;'>"+pct.toFixed(1)+"%</span><br>";
     }
   });
 
-  h+="<br><b style='color:#ffdf6b;font-size:18px;'>推定設定：約"+
-    expectedSetting.toFixed(1)+"</b><br>";
-
+  h+="<br><b style='color:#ffdf6b;font-size:18px;'>推定設定：約"+expectedSetting.toFixed(1)+"</b><br>";
   h+="<br><span class='small'>※初当り確率のみの簡易推測です。ユニバプレート選択時は下限設定を反映します。</span>";
 
   document.getElementById("settingResult").innerHTML=h;
   document.getElementById("directResult").innerHTML=h;
+  return h;
 }
 
 function resetDirect(){
@@ -1245,7 +1035,6 @@ function resetDirect(){
 function addHistory(value="",number=null){
   const div=document.getElementById("historyInputs");
   const count=number||div.querySelectorAll("input").length+1;
-
   const input=document.createElement("input");
   input.type="number";
   input.inputMode="numeric";
@@ -1259,7 +1048,6 @@ function addHistory(value="",number=null){
 
     if(e.key==="Enter"){
       e.preventDefault();
-
       if(index<inputs.length-1){
         inputs[index+1].focus();
       }else{
@@ -1276,39 +1064,26 @@ function addHistory(value="",number=null){
   });
 
   input.addEventListener("input",function(){
-    if(input.value.length>4){
-      input.value=input.value.slice(0,4);
-    }
-
+    if(input.value.length>4)input.value=input.value.slice(0,4);
     const inputs=document.querySelectorAll("#historyInputs input");
-
-    if(input===inputs[inputs.length-1]&&input.value!==""){
-      addHistory();
-    }
-
+    if(input===inputs[inputs.length-1]&&input.value!=="")addHistory();
     saveHistory();
-
-    if(input.value.length===3||input.value.length===4){
-      calcHistory();
-    }
+    calcHistory();
   });
 
   div.appendChild(input);
   div.appendChild(document.createElement("br"));
-
   saveHistory();
 }
 
 function calcHistory(){
   const inputs=document.querySelectorAll("#historyInputs input");
-
   let total=0;
   let count=0;
 
   inputs.forEach(i=>{
     const v=Number(i.value);
-
-    if(v>0){
+    if(v>=1){
       total+=v;
       count++;
     }
@@ -1316,7 +1091,7 @@ function calcHistory(){
 
   if(count===0){
     document.getElementById("historyResult").innerHTML="データを入力してください。";
-    document.getElementById("liveResult").innerHTML="入力するとここに結果が出ます";
+    document.getElementById("liveResult").innerHTML="<b>リアルタイム判別</b><br><br>入力待ち";
     return;
   }
 
@@ -1328,35 +1103,31 @@ function calcHistory(){
     "<b>初当り確率：1/"+avg.toFixed(1)+"</b>";
 
   document.getElementById("historyResult").innerHTML=resultHtml;
-
-  document.getElementById("liveResult").innerHTML=
-    "<b>現在の集計</b><br><br>"+
-    "合計："+total+"G<br>"+
-    "初当り："+count+"回<br>"+
-    "<b style='color:#ffdf6b;font-size:18px;'>1/"+avg.toFixed(1)+"</b>";
-
   document.getElementById("gameCount").value=total;
   document.getElementById("hitCount").value=count;
 
-  calcSetting();
+  const settingHtml=calcSetting();
+
+  document.getElementById("liveResult").innerHTML=
+    "<b>リアルタイム判別</b><br><br>"+
+    "合計："+total+"G<br>"+
+    "初当り："+count+"回<br>"+
+    "<b style='color:#ffdf6b;font-size:18px;'>1/"+avg.toFixed(1)+"</b><br><br>"+
+    settingHtml;
+
   saveHistory();
 }
 
 function saveHistory(){
   const inputs=document.querySelectorAll("#historyInputs input");
   const arr=[];
-
-  inputs.forEach(i=>{
-    if(i.value)arr.push(i.value);
-  });
-
+  inputs.forEach(i=>{if(i.value)arr.push(i.value);});
   localStorage.setItem("god_history",JSON.stringify(arr));
 }
 
 function loadHistory(){
   const saved=JSON.parse(localStorage.getItem("god_history")||"[]");
   const div=document.getElementById("historyInputs");
-
   div.innerHTML="";
 
   if(saved.length===0){
@@ -1364,71 +1135,50 @@ function loadHistory(){
     return;
   }
 
-  saved.forEach((v,i)=>{
-    addHistory(v,i+1);
-  });
-
+  saved.forEach((v,i)=>addHistory(v,i+1));
   addHistory();
   calcHistory();
 }
 
 function resetHistory(){
   const saved=localStorage.getItem("god_history");
-
-  if(saved){
-    localStorage.setItem("god_history_backup",saved);
-  }
+  if(saved)localStorage.setItem("god_history_backup",saved);
 
   localStorage.removeItem("god_history");
-
   document.getElementById("historyInputs").innerHTML="";
   addHistory();
 
-  document.getElementById("historyResult").innerHTML=
-    "履歴をリセットしました。直前の履歴は復元できます。";
-
-  document.getElementById("liveResult").innerHTML=
-    "入力するとここに結果が出ます";
-
+  document.getElementById("historyResult").innerHTML="履歴をリセットしました。直前の履歴は復元できます。";
+  document.getElementById("liveResult").innerHTML="<b>リアルタイム判別</b><br><br>入力待ち";
   document.getElementById("settingResult").innerHTML="";
 }
 
 function restoreHistory(){
   const backup=localStorage.getItem("god_history_backup");
-
   if(!backup){
-    document.getElementById("historyResult").innerHTML=
-      "復元できる履歴がありません。";
+    document.getElementById("historyResult").innerHTML="復元できる履歴がありません。";
     return;
   }
-
   localStorage.setItem("god_history",backup);
   loadHistory();
   calcHistory();
-
-  document.getElementById("historyResult").innerHTML+=
-    "<br>直前の履歴を復元しました。";
+  document.getElementById("historyResult").innerHTML+="<br>直前の履歴を復元しました。";
 }
 
 function drawPie(id,data){
   const canvas=document.getElementById(id);
-
   if(!canvas)return;
-
   const ctx=canvas.getContext("2d");
   const cx=canvas.width/2;
   const cy=canvas.height/2;
   const r=95;
-
   ctx.clearRect(0,0,canvas.width,canvas.height);
-
   const total=data.reduce((s,d)=>s+d.value,0);
   let start=-Math.PI/2;
 
   data.forEach(d=>{
     const angle=(d.value/total)*Math.PI*2;
     const end=start+angle;
-
     ctx.beginPath();
     ctx.moveTo(cx,cy);
     ctx.arc(cx,cy,r,start,end);
@@ -1444,7 +1194,6 @@ function drawPie(id,data){
     ctx.shadowBlur=6;
     ctx.shadowOffsetX=1;
     ctx.shadowOffsetY=1;
-
     ctx.fillStyle="#fff";
     ctx.font="bold 13px sans-serif";
     ctx.textAlign="center";
@@ -1454,7 +1203,6 @@ function drawPie(id,data){
     ctx.shadowBlur=0;
     ctx.shadowOffsetX=0;
     ctx.shadowOffsetY=0;
-
     start=end;
   });
 
@@ -1462,7 +1210,6 @@ function drawPie(id,data){
   ctx.arc(cx,cy,43,0,Math.PI*2);
   ctx.fillStyle="#111";
   ctx.fill();
-
   ctx.fillStyle="#ffdf6b";
   ctx.font="bold 13px sans-serif";
   ctx.textAlign="center";
@@ -1489,9 +1236,7 @@ function drawLoopChart(){
 
 document.addEventListener("input",function(e){
   if(e.target.id==="gameCount"||e.target.id==="hitCount"){
-    if(e.target.value.length>4){
-      e.target.value=e.target.value.slice(0,4);
-    }
+    if(e.target.value.length>4)e.target.value=e.target.value.slice(0,4);
   }
 });
 
