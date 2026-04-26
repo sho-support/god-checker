@@ -76,7 +76,7 @@ button:active{
   font-size:15px;
   background:linear-gradient(#735300,#3a2600);
 }
-#result,#infoBox,#settingBox,#effectResult{
+#result,#infoBox,#settingBox{
   margin-top:22px;
   background:rgba(20,20,20,.92);
   border:1px solid #4d3710;
@@ -90,6 +90,13 @@ button:active{
   text-align:center;
   font-size:20px;
   font-weight:bold;
+}
+.result-reach-box{
+  border:2px solid transparent!important;
+  background:
+    linear-gradient(#111,#111) padding-box,
+    linear-gradient(90deg, red, orange, yellow, lime, cyan, blue, violet) border-box!important;
+  box-shadow:0 0 18px rgba(255,220,80,.35);
 }
 .result-strong{
   color:#ffdf6b;
@@ -111,6 +118,17 @@ button:active{
 }
 .level{
   font-weight:bold;
+  font-size:18px;
+}
+.effect-detail{
+  grid-column:1 / -1;
+  background:rgba(20,20,20,.94);
+  border:1px solid #c9a33a;
+  border-radius:12px;
+  padding:14px;
+  text-align:left;
+  line-height:1.8;
+  font-size:14px;
 }
 input{
   font-size:18px;
@@ -216,24 +234,22 @@ input{
 
 <h2>演出法則</h2>
 <div class="effect-buttons">
-  <button onclick="showEffect('stage')">ステチェン</button>
-  <button onclick="showEffect('wind')">光の風</button>
-  <button onclick="showEffect('blackhole')">ブラックホール</button>
-  <button onclick="showEffect('delay')">遅れ</button>
-  <button onclick="showEffect('kagerou')">陽炎</button>
-  <button onclick="showEffect('ice')">氷演出</button>
-  <button onclick="showEffect('thunder')">雷演出</button>
-  <button onclick="showEffect('mirror')">鏡演出</button>
-  <button onclick="showEffect('blackout')">消灯演出</button>
-  <button onclick="showEffect('heart')">心臓演出</button>
-  <button onclick="showEffect('big')">図柄巨大化</button>
-  <button onclick="showEffect('tornado')">竜巻発展</button>
-  <button onclick="showEffect('door')">天空の扉</button>
-  <button onclick="showEffect('push')">チャンスボタン</button>
-  <button onclick="showEffect('blackout2')">ブラックアウト</button>
+  <button onclick="showEffect('stage', this)">ステチェン</button>
+  <button onclick="showEffect('wind', this)">光の風</button>
+  <button onclick="showEffect('blackhole', this)">ブラックホール</button>
+  <button onclick="showEffect('delay', this)">遅れ</button>
+  <button onclick="showEffect('kagerou', this)">陽炎</button>
+  <button onclick="showEffect('ice', this)">氷演出</button>
+  <button onclick="showEffect('thunder', this)">雷演出</button>
+  <button onclick="showEffect('mirror', this)">鏡演出</button>
+  <button onclick="showEffect('blackout', this)">消灯演出</button>
+  <button onclick="showEffect('heart', this)">心臓演出</button>
+  <button onclick="showEffect('big', this)">図柄巨大化</button>
+  <button onclick="showEffect('tornado', this)">竜巻発展</button>
+  <button onclick="showEffect('door', this)">天空の扉</button>
+  <button onclick="showEffect('push', this)">チャンスボタン</button>
+  <button onclick="showEffect('blackout2', this)">ブラックアウト</button>
 </div>
-
-<div id="effectResult">演出ボタンを押すと法則が表示されます。</div>
 
 <div class="note">
 <b>本ツールについて</b><br><br>
@@ -354,239 +370,33 @@ const data = {
 };
 
 const infoData = {
-  tenjo: {
-    title:"天井恩恵",
-    body:[
-      "通常時はGG間1480G+α消化で天井到達。",
-      "天井到達時はGG当選＋ループストック振り分けあり。",
-      "510G天井・1000G天井（リセット時）でも同様の恩恵が有効。",
-      "天井到達時のループストック振り分けは以下。",
-      "1%ループ：16.7%",
-      "25%ループ：16.7%",
-      "50%ループ：16.7%",
-      "80%ループ：16.7%",
-      "1%ループ＋Z-ZONE：33.2%"
-    ]
-  },
-  reset: {
-    title:"リセット恩恵",
-    body:[
-      "設定変更時は有利区間がリセットされ、ゲーム数天井も再選択。",
-      "リセット時は510G / 1000G / 1480Gのいずれかが選ばれる。",
-      "510G天井：15.2%",
-      "1000G天井：20.3%",
-      "1480G天井：64.5%",
-      "約35.5%で1000G以内の短縮天井が選択される。",
-      "510G・1000G天井でも天井恩恵は有効。",
-      "電源OFF→ONのみの場合はゲーム数・モードを引き継ぐ。"
-    ]
-  },
-  mode: {
-    title:"モード",
-    body:[
-      "通常時は表モード・裏モード・ガイアモードなどを意識。",
-      "表モードはGG当選率やGG中のストック当選率に関わる内部モード。",
-      "表モードは低確A・低確B・通常・天国準備・天国・超天国の6種類。",
-      "高モードほどGG当選期待度が上がる。",
-      "天国・超天国滞在中のGG当選はループストック種別が優遇される。",
-      "裏モードは表モードとは別軸で管理され、通常・裏天国の2種類。",
-      "裏天国中はGG当選期待度が大幅アップし、GG当選時は複数ストック獲得に期待。",
-      "裏天国中の下段黄7は大チャンス。",
-      "モードアップ契機はハズレ・赤7フェイク・右上がり黄7・中段青7・中段黄7・SP役など。",
-      "特に中段黄7はモードアップの大チャンス。",
-      "光の風 左→右はモードアップに期待。",
-      "光の風 右→左はモードアップ以上に期待。",
-      "Vハサミ偶数はVモードの大チャンス。",
-      "V0VはVモード確定。",
-      "Vハサミ奇数は天国ショート以上確定。",
-      "ステージは麓で高モード示唆、神殿で前兆示唆、ガイアステージはGG高確率に期待。",
-      "高モード示唆の液晶出目は偶数頭順目、奇数頭＋ケツ0テンパイ、38V、468、631、831など。"
-    ]
-  },
-  zzone: {
-    title:"Z-ZONE / Z-GAME",
-    body:[
-      "Z-ZONEは0図柄揃いなどから移行するGG上乗せゾーン。",
-      "突入契機はガイアステージ中のGG当選時の一部など。",
-      "継続ゲーム数は5G＋α。",
-      "純増は約7.0枚/G。",
-      "消化中はGGストック抽選とZ-GAME移行抽選を行う。",
-      "Z-ZONE中は黄7確率が約1/1.4にアップ。",
-      "黄7成立時はゲーム数減算がストップ。",
-      "黄7を5連続させる、またはレア役の一部でZ-GAME突入に期待。",
-      "右上がり黄7・中段黄7成立時は黄7の5連扱いとなり、Z-GAMEへ直行。",
-      "Z-GAME突入後は黄7が揃い続ける限りGGを上乗せ。",
-      "Z-GAME失敗後はGGへ移行。"
-    ]
-  },
-  god: {
-    title:"GOD揃い / PGG",
-    body:[
-      "GOD揃い確率は約1/16384。",
-      "GOD揃い後はプレミアムゴッドゲーム（PGG）へ突入。",
-      "PGGは期待枚数3000枚以上の最強フラグ。",
-      "恩恵はGGストック4個以上＋高継続ループストック。",
-      "PGGの基本性能はGG50G＋GG3セット以上。",
-      "純増は約7.0枚/G。",
-      "強力なループストックによりロング継続に期待。",
-      "最低でもGG4セット以上を獲得できる。"
-    ]
-  },
-  red7: {
-    title:"赤7揃い / SGG",
-    body:[
-      "赤7揃い確率は約1/6900。",
-      "赤7揃い後はスーパーゴッドゲーム（SGG）へ突入。",
-      "恩恵はSGG＋GGストック1個＋ループストック獲得。",
-      "SGGは純増約7.0枚/GのAT区間。",
-      "SGGは1セット10〜100G。",
-      "1セットごとに75%以上でループ。",
-      "SGG中は上乗せに期待できる。",
-      "従来シリーズと違い、SGG自体で大量出玉獲得を目指すゲーム性。"
-    ]
-  },
-  gaia: {
-    title:"ガイアナビ / ガイアステージ",
-    body:[
-      "ガイアナビ発生時はガイアステージ移行に期待。",
-      "右ナビ発生はガイアステージ移行チャンス。",
-      "ガイアステージ中は専用モードの示唆に注目。",
-      "ガイアステージ中のGG当選時はZ-ZONE突入に期待。"
-    ]
-  },
-  koyaku: {
-    title:"小役履歴抽選",
-    body:[
-      "青7・黄7の連続履歴に注目。",
-      "黄7は3連以上からチャンス。",
-      "黄73連：約0.4%",
-      "黄74連：約20.3%",
-      "黄7 5連以上：GG当選濃厚級。",
-      "リプレイ連続も状態や抽選に注目。",
-      "当選ゲームで出現しやすいチャンス目にも注目。"
-    ]
-  },
-  rate: {
-    title:"小役確率",
-    body:[
-      "ハズレ：約1/5.2",
-      "押し順黄7：約1/1.7",
-      "上段青7：約1/7.9",
-      "中段青7：約1/109.2",
-      "下段黄7：約1/18.4",
-      "右上がり黄7：約1/186.2",
-      "中段黄7：約1/963.8",
-      "共通黄7：約1/1524.1",
-      "ガイアベル：約1/37.6",
-      "赤7フェイク：約1/936.2",
-      "赤7揃い：約1/6900",
-      "SP役：約1/65536",
-      "GOD揃い：約1/16384"
-    ]
-  }
+  tenjo:{title:"天井恩恵",body:["通常時はGG間1480G+α消化で天井到達。","天井到達時はGG当選＋ループストック振り分けあり。","510G天井・1000G天井（リセット時）でも同様の恩恵が有効。","天井到達時のループストック振り分けは以下。","1%ループ：16.7%","25%ループ：16.7%","50%ループ：16.7%","80%ループ：16.7%","1%ループ＋Z-ZONE：33.2%"]},
+  reset:{title:"リセット恩恵",body:["設定変更時は有利区間がリセットされ、ゲーム数天井も再選択。","リセット時は510G / 1000G / 1480Gのいずれかが選ばれる。","510G天井：15.2%","1000G天井：20.3%","1480G天井：64.5%","約35.5%で1000G以内の短縮天井が選択される。","510G・1000G天井でも天井恩恵は有効。","電源OFF→ONのみの場合はゲーム数・モードを引き継ぐ。"]},
+  mode:{title:"モード",body:["通常時は表モード・裏モード・ガイアモードなどを意識。","表モードはGG当選率やGG中のストック当選率に関わる内部モード。","表モードは低確A・低確B・通常・天国準備・天国・超天国の6種類。","高モードほどGG当選期待度が上がる。","天国・超天国滞在中のGG当選はループストック種別が優遇される。","裏モードは表モードとは別軸で管理され、通常・裏天国の2種類。","裏天国中はGG当選期待度が大幅アップし、GG当選時は複数ストック獲得に期待。","裏天国中の下段黄7は大チャンス。","モードアップ契機はハズレ・赤7フェイク・右上がり黄7・中段青7・中段黄7・SP役など。","特に中段黄7はモードアップの大チャンス。","光の風 左→右はモードアップに期待。","光の風 右→左はモードアップ以上に期待。","Vハサミ偶数はVモードの大チャンス。","V0VはVモード確定。","Vハサミ奇数は天国ショート以上確定。","ステージは麓で高モード示唆、神殿で前兆示唆、ガイアステージはGG高確率に期待。","高モード示唆の液晶出目は偶数頭順目、奇数頭＋ケツ0テンパイ、38V、468、631、831など。"]},
+  zzone:{title:"Z-ZONE / Z-GAME",body:["Z-ZONEは0図柄揃いなどから移行するGG上乗せゾーン。","突入契機はガイアステージ中のGG当選時の一部など。","継続ゲーム数は5G＋α。","純増は約7.0枚/G。","消化中はGGストック抽選とZ-GAME移行抽選を行う。","Z-ZONE中は黄7確率が約1/1.4にアップ。","黄7成立時はゲーム数減算がストップ。","黄7を5連続させる、またはレア役の一部でZ-GAME突入に期待。","右上がり黄7・中段黄7成立時は黄7の5連扱いとなり、Z-GAMEへ直行。","Z-GAME突入後は黄7が揃い続ける限りGGを上乗せ。","Z-GAME失敗後はGGへ移行。"]},
+  god:{title:"GOD揃い / PGG",body:["GOD揃い確率は約1/16384。","GOD揃い後はプレミアムゴッドゲーム（PGG）へ突入。","PGGは期待枚数3000枚以上の最強フラグ。","恩恵はGGストック4個以上＋高継続ループストック。","PGGの基本性能はGG50G＋GG3セット以上。","純増は約7.0枚/G。","強力なループストックによりロング継続に期待。","最低でもGG4セット以上を獲得できる。"]},
+  red7:{title:"赤7揃い / SGG",body:["赤7揃い確率は約1/6900。","赤7揃い後はスーパーゴッドゲーム（SGG）へ突入。","恩恵はSGG＋GGストック1個＋ループストック獲得。","SGGは純増約7.0枚/GのAT区間。","SGGは1セット10〜100G。","1セットごとに75%以上でループ。","SGG中は上乗せに期待できる。","従来シリーズと違い、SGG自体で大量出玉獲得を目指すゲーム性。"]},
+  gaia:{title:"ガイアナビ / ガイアステージ",body:["ガイアナビ発生時はガイアステージ移行に期待。","右ナビ発生はガイアステージ移行チャンス。","ガイアステージ中は専用モードの示唆に注目。","ガイアステージ中のGG当選時はZ-ZONE突入に期待。"]},
+  koyaku:{title:"小役履歴抽選",body:["青7・黄7の連続履歴に注目。","黄7は3連以上からチャンス。","黄73連：約0.4%","黄74連：約20.3%","黄7 5連以上：GG当選濃厚級。","リプレイ連続も状態や抽選に注目。","当選ゲームで出現しやすいチャンス目にも注目。"]},
+  rate:{title:"小役確率",body:["ハズレ：約1/5.2","押し順黄7：約1/1.7","上段青7：約1/7.9","中段青7：約1/109.2","下段黄7：約1/18.4","右上がり黄7：約1/186.2","中段黄7：約1/963.8","共通黄7：約1/1524.1","ガイアベル：約1/37.6","赤7フェイク：約1/936.2","赤7揃い：約1/6900","SP役：約1/65536","GOD揃い：約1/16384"]}
 };
 
 const effectData = {
-  stage:{name:"ステージチェンジ",rows:[
-    ["右回転→遺跡・泉・森","デフォルト"],
-    ["右回転→麓","天国準備以上の期待大"],
-    ["右回転→神殿","天国以上の期待大"],
-    ["左回転→遺跡・泉・森","天国準備以上の期待大"],
-    ["左回転→麓","天国以上の期待大"],
-    ["左回転→神殿","超天国の期待大"],
-    ["奥へ進行→神殿","天国以上の期待大"],
-    ["奥へ進行→麓","GG濃厚!?"],
-    ["チャンスボタン→麓","天国以上の期待大"],
-    ["チャンスボタン→神殿","超天国の期待大"],
-    ["チャンスボタン→遺跡・泉・森","GG濃厚!?"],
-    ["ワイプ→神殿","GG濃厚!?"]
-  ]},
-  wind:{name:"光の風",rows:[
-    ["左→右","モードアップに期待"],
-    ["右→左","モードアップ以上に期待"],
-    ["右→左＋リプレイ","GG前兆以上に期待"],
-    ["違和感あり","GG前兆の可能性あり"]
-  ]},
-  blackhole:{name:"ブラックホール",rows:[
-    ["1回","天国準備以上に期待"],
-    ["2連","デフォルト"],
-    ["3連","チャンス"],
-    ["4連","奇数揃い濃厚!?"]
-  ]},
-  delay:{name:"遅れ",rows:[
-    ["ALL赤色＋バラケ目","天国準備以上の期待大"],
-    ["奇数ケツテンパイ","天国以上の期待大"],
-    ["7ハサミの中に偶数","天国以上の期待大"],
-    ["7V0 / 70V","天国以上の期待大"],
-    ["700 / 707 / 7VV","超天国の期待大"]
-  ]},
-  kagerou:{name:"陽炎演出",rows:[
-    ["ALL黄色（偶数）","偶数揃いに期待"],
-    ["ALL赤色（奇数）","奇数テンパイで前兆示唆"],
-    ["その他","GG前兆以上に期待"]
-  ]},
-  ice:{name:"氷演出",rows:[
-    ["リール回転開始時","デフォルト"],
-    ["レバーON→第1停止","チャンス"],
-    ["第1停止時","大チャンス"],
-    ["凍結2個","右上がり黄7 or 中段黄7"],
-    ["凍結3個","チャンス!?"]
-  ]},
-  thunder:{name:"雷演出",rows:[
-    ["リール回転開始時","デフォルト"],
-    ["レバーON→第1停止","チャンス"],
-    ["第1停止時","チャンス"],
-    ["奇数非テンパイ","裏モード示唆!?"]
-  ]},
-  mirror:{name:"鏡演出",rows:[
-    ["左のみ","奇数テンパイ"],
-    ["左＋中","奇数揃い濃厚!?"],
-    ["左のみ＋非テンパイ","GG前兆濃厚!?"]
-  ]},
-  blackout:{name:"消灯演出",rows:[
-    ["1消灯＋奇数テンパイ","GG前兆濃厚!?"],
-    ["第3停止消灯","心臓発展"]
-  ]},
-  heart:{name:"心臓演出",rows:[
-    ["Low→Hi","デフォルト"],
-    ["Low→Hi→Hi","チャンス"],
-    ["Low→Hi→SHi","GG濃厚!?"],
-    ["Low→SHi","GG濃厚!?"],
-    ["Lowのみ","GG濃厚!?"],
-    ["奇数テンパイ","チャンス"],
-    ["第3停止いきなり消灯","チャンス"]
-  ]},
-  big:{name:"図柄巨大化",rows:[
-    ["3G以上継続","奇数揃い濃厚!?"],
-    ["ケツV","大チャンス"],
-    ["ケツ7 or 0","GG前兆濃厚!?"]
-  ]},
-  tornado:{name:"竜巻発展",rows:[
-    ["奇数＋偶数混在","デフォルト"],
-    ["奇数のみ","チャンス"],
-    ["奇数のみ＋7あり","GG濃厚!?"],
-    ["矛盾発展","GG前兆濃厚!?"],
-    ["演出なし→発展","チャンス"],
-    ["砂嵐経由","大チャンス"]
-  ]},
-  door:{name:"天空の扉",rows:[
-    ["発生","チャンス"],
-    ["強パターン","チャンスアップ"],
-    ["発展あり","GG前兆に期待"],
-    ["違和感あり","GG濃厚の可能性あり"]
-  ]},
-  push:{name:"チャンスボタン",rows:[
-    ["台枠1段階点灯","デフォルト"],
-    ["台枠2段階点灯","チャンス"],
-    ["台枠3段階点灯","チャンスアップ"],
-    ["違和感あり","GG前兆の可能性あり"]
-  ]},
-  blackout2:{name:"ブラックアウト",rows:[
-    ["発生","チャンス"],
-    ["長めの暗転","チャンスアップ"],
-    ["発展あり","GG前兆に期待"],
-    ["違和感あり","GG濃厚の可能性あり"]
-  ]}
+  stage:{name:"ステージチェンジ",rows:[["右回転→遺跡・泉・森","デフォルト"],["右回転→麓","天国準備以上の期待大"],["右回転→神殿","天国以上の期待大"],["左回転→遺跡・泉・森","天国準備以上の期待大"],["左回転→麓","天国以上の期待大"],["左回転→神殿","超天国の期待大"],["奥へ進行→神殿","天国以上の期待大"],["奥へ進行→麓","GG濃厚!?"],["チャンスボタン→麓","天国以上の期待大"],["チャンスボタン→神殿","超天国の期待大"],["チャンスボタン→遺跡・泉・森","GG濃厚!?"],["ワイプ→神殿","GG濃厚!?"]]},
+  wind:{name:"光の風",rows:[["左→右","モードアップに期待"],["右→左","モードアップ以上に期待"],["右→左＋リプレイ","GG前兆以上に期待"],["違和感あり","GG前兆の可能性あり"]]},
+  blackhole:{name:"ブラックホール",rows:[["1回","天国準備以上に期待"],["2連","デフォルト"],["3連","チャンス"],["4連","奇数揃い濃厚!?"]]},
+  delay:{name:"遅れ",rows:[["ALL赤色＋バラケ目","天国準備以上の期待大"],["奇数ケツテンパイ","天国以上の期待大"],["7ハサミの中に偶数","天国以上の期待大"],["7V0 / 70V","天国以上の期待大"],["700 / 707 / 7VV","超天国の期待大"]]},
+  kagerou:{name:"陽炎演出",rows:[["ALL黄色（偶数）","偶数揃いに期待"],["ALL赤色（奇数）","奇数テンパイで前兆示唆"],["その他","GG前兆以上に期待"]]},
+  ice:{name:"氷演出",rows:[["リール回転開始時","デフォルト"],["レバーON→第1停止","チャンス"],["第1停止時","大チャンス"],["凍結2個","右上がり黄7 or 中段黄7"],["凍結3個","チャンス!?"]]},
+  thunder:{name:"雷演出",rows:[["リール回転開始時","デフォルト"],["レバーON→第1停止","チャンス"],["第1停止時","チャンス"],["奇数非テンパイ","裏モード示唆!?"]]},
+  mirror:{name:"鏡演出",rows:[["左のみ","奇数テンパイ"],["左＋中","奇数揃い濃厚!?"],["左のみ＋非テンパイ","GG前兆濃厚!?"]]},
+  blackout:{name:"消灯演出",rows:[["1消灯＋奇数テンパイ","GG前兆濃厚!?"],["第3停止消灯","心臓発展"]]},
+  heart:{name:"心臓演出",rows:[["Low→Hi","デフォルト"],["Low→Hi→Hi","チャンス"],["Low→Hi→SHi","GG濃厚!?"],["Low→SHi","GG濃厚!?"],["Lowのみ","GG濃厚!?"],["奇数テンパイ","チャンス"],["第3停止いきなり消灯","チャンス"]]},
+  big:{name:"図柄巨大化",rows:[["3G以上継続","奇数揃い濃厚!?"],["ケツV","大チャンス"],["ケツ7 or 0","GG前兆濃厚!?"]]},
+  tornado:{name:"竜巻発展",rows:[["奇数＋偶数混在","デフォルト"],["奇数のみ","チャンス"],["奇数のみ＋7あり","GG濃厚!?"],["矛盾発展","GG前兆濃厚!?"],["演出なし→発展","チャンス"],["砂嵐経由","大チャンス"]]},
+  door:{name:"天空の扉",rows:[["発生","チャンス"],["強パターン","チャンスアップ"],["発展あり","GG前兆に期待"],["違和感あり","GG濃厚の可能性あり"]]},
+  push:{name:"チャンスボタン",rows:[["台枠1段階点灯","デフォルト"],["台枠2段階点灯","チャンス"],["台枠3段階点灯","チャンスアップ"],["違和感あり","GG前兆の可能性あり"]]},
+  blackout2:{name:"ブラックアウト",rows:[["発生","チャンス"],["長めの暗転","チャンスアップ"],["発展あり","GG前兆に期待"],["違和感あり","GG濃厚の可能性あり"]]}
 };
 
 let current = "";
@@ -600,6 +410,7 @@ function pressKey(key){
   if(current.length >= 3){
     current = "";
     document.getElementById("result").innerHTML = "";
+    document.getElementById("result").classList.remove("result-reach-box");
     display.classList.remove("rainbow-text");
   }
 
@@ -616,6 +427,7 @@ function backspace(){
   current = current.slice(0,-1);
   display.innerText = current || "---";
   document.getElementById("result").innerHTML = "";
+  document.getElementById("result").classList.remove("result-reach-box");
   display.classList.remove("rainbow-text");
 }
 
@@ -624,6 +436,7 @@ function clearInput(){
   current = "";
   display.innerText = "---";
   document.getElementById("result").innerHTML = "";
+  document.getElementById("result").classList.remove("result-reach-box");
   display.classList.remove("rainbow-text");
 }
 
@@ -660,10 +473,26 @@ function patternCheck(code){
   return null;
 }
 
+function levelColor(level){
+  const colors = {
+    1:"#4da3ff",
+    2:"#39c5bb",
+    3:"#65d96e",
+    4:"#c4e84a",
+    5:"#ffd84a",
+    6:"#ff9f1c",
+    7:"#ff5a5a",
+    8:"#ff3df2"
+  };
+  return colors[level] || "#fff";
+}
+
 function check(code){
   const r = data[code] || patternCheck(code);
   const o = document.getElementById("result");
   const display = document.getElementById("display");
+
+  o.classList.remove("result-reach-box");
 
   if(!r){
     o.innerHTML = "該当なし<br><span class='small'>通常出目 or データ未登録</span>";
@@ -682,6 +511,7 @@ function check(code){
   if(r.reach){
     h += "<span class='rainbow-text'>リーチ目</span><br>";
     display.classList.add("rainbow-text");
+    o.classList.add("result-reach-box");
   }else{
     display.classList.remove("rainbow-text");
   }
@@ -691,8 +521,7 @@ function check(code){
   }
 
   if(r.level){
-    const hue = Math.round(230 - (r.level - 1) * (230 / 7));
-    h += "<span class='level' style='color:hsl(" + hue + ",100%,60%)'>モード期待度：" + r.level + "/8</span><br>";
+    h += "<span class='level' style='color:" + levelColor(r.level) + "'>モード期待度：" + r.level + "/8</span><br>";
   }
 
   if(r.info){
@@ -734,23 +563,28 @@ function showInfo(key){
   currentInfo = key;
 }
 
-function showEffect(key){
-  const box = document.getElementById("effectResult");
+function showEffect(key, button){
+  const old = document.getElementById("effectDetail");
 
-  if(currentEffect === key){
-    box.innerHTML = "演出ボタンを押すと法則が表示されます。";
+  if(currentEffect === key && old){
+    old.remove();
     currentEffect = "";
     return;
   }
 
+  if(old) old.remove();
+
   const e = effectData[key];
-  let h = "<b>" + e.name + "</b><br><br>";
+  let h = "<div id='effectDetail' class='effect-detail'>";
+  h += "<b>" + e.name + "</b><br><br>";
 
   e.rows.forEach(row => {
     h += row[0] + "：<b>" + row[1] + "</b><br>";
   });
 
-  box.innerHTML = h;
+  h += "</div>";
+
+  button.insertAdjacentHTML("afterend", h);
   currentEffect = key;
 }
 
