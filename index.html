@@ -3,110 +3,228 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>神々の軌跡 出目チェッカー</title>
+<title>【神々の軌跡】出目チェッカー｜リーチ目・Vハサミ・演出法則・設定判別ツール</title>
+
 <style>
-body{font-family:sans-serif;background:#111;color:#fff;text-align:center;padding:18px}
-h1{font-size:22px}h2{margin-top:40px;border-top:1px solid #444;padding-top:24px}
-#display{margin:18px auto;font-size:34px;font-weight:bold;letter-spacing:6px;background:#222;padding:15px;border-radius:10px;width:180px}
-.keypad,.effect-buttons,.menu-buttons,.plate-buttons{display:grid;grid-template-columns:repeat(3,80px);gap:10px;justify-content:center}
-button{font-size:20px;padding:13px;border:0;border-radius:10px;background:#333;color:#fff}
-button:active{background:#666}.action{background:#555;font-size:16px}
-.menu-buttons{grid-template-columns:repeat(2,minmax(130px,1fr));max-width:420px;margin:0 auto 15px}
-.menu-buttons button,.effect-buttons button,.plate-buttons button{font-size:15px;background:#225588}
-.effect-buttons{grid-template-columns:repeat(2,minmax(130px,1fr));max-width:420px;margin:0 auto}
-.plate-buttons{grid-template-columns:repeat(2,minmax(130px,1fr));max-width:420px;margin:10px auto}
-#result,#effectResult,#infoBox,#settingBox,.support{margin-top:22px;background:#1b1b1b;border-radius:10px;padding:15px;text-align:left;line-height:1.8;font-size:14px}
-#result{text-align:center;font-size:20px;font-weight:bold}
-input{font-size:18px;padding:10px;width:120px;border-radius:8px;border:0;margin:5px}
-.note{margin-top:40px;font-size:12px;color:#ccc;text-align:left;line-height:1.7}
-.hidden{display:none}.good{background:#2f7d32!important}.red{background:#aa3333!important}
+body{
+  font-family:sans-serif;
+  background:radial-gradient(circle at top,#3a2600,#111 45%,#050505);
+  color:#fff;
+  text-align:center;
+  padding:18px;
+  margin:0;
+}
+h1{
+  font-size:23px;
+  color:#f7d36a;
+  text-shadow:0 0 12px #b8860b;
+}
+h2{
+  margin-top:42px;
+  border-top:1px solid #6b4a12;
+  padding-top:24px;
+  color:#f7d36a;
+}
+.lead{
+  font-size:13px;
+  color:#ddd;
+  line-height:1.7;
+}
+#display{
+  margin:18px auto;
+  font-size:36px;
+  font-weight:bold;
+  letter-spacing:6px;
+  background:linear-gradient(#2b2109,#111);
+  border:1px solid #c9a33a;
+  box-shadow:0 0 12px rgba(247,211,106,.25);
+  padding:15px;
+  border-radius:12px;
+  width:190px;
+}
+.keypad,
+.menu-buttons,
+.info-buttons,
+.effect-buttons,
+.plate-buttons{
+  display:grid;
+  gap:10px;
+  justify-content:center;
+}
+.keypad{
+  grid-template-columns:repeat(3,82px);
+}
+button{
+  font-size:20px;
+  padding:13px;
+  border:0;
+  border-radius:10px;
+  background:linear-gradient(#444,#222);
+  color:#fff;
+  box-shadow:0 3px 0 #000;
+}
+button:active{
+  transform:translateY(2px);
+  box-shadow:none;
+}
+.action{
+  background:linear-gradient(#666,#333);
+  font-size:16px;
+}
+.menu-buttons,
+.info-buttons,
+.effect-buttons,
+.plate-buttons{
+  grid-template-columns:repeat(2,minmax(130px,1fr));
+  max-width:440px;
+  margin:0 auto 14px;
+}
+.menu-buttons button,
+.info-buttons button,
+.effect-buttons button,
+.plate-buttons button{
+  font-size:15px;
+  background:linear-gradient(#735300,#3a2600);
+}
+#result,
+#infoBox,
+#settingBox,
+#effectResult{
+  margin-top:22px;
+  background:rgba(20,20,20,.92);
+  border:1px solid #4d3710;
+  border-radius:12px;
+  padding:16px;
+  text-align:left;
+  line-height:1.8;
+  font-size:14px;
+}
+#result{
+  text-align:center;
+  font-size:20px;
+  font-weight:bold;
+}
+.result-strong{
+  color:#ffdf6b;
+  font-size:22px;
+}
+.guarantee{
+  color:#ff5a5a;
+  font-weight:bold;
+}
+input{
+  font-size:18px;
+  padding:10px;
+  width:120px;
+  border-radius:8px;
+  border:0;
+  margin:5px;
+}
+.hidden{
+  display:none;
+}
+.note{
+  margin-top:40px;
+  font-size:12px;
+  color:#ccc;
+  text-align:left;
+  line-height:1.7;
+}
+.small{
+  font-size:12px;
+  color:#ccc;
+}
 </style>
 </head>
 
 <body>
 
 <h1>神々の軌跡<br>出目チェッカー</h1>
+<div class="lead">リーチ目・Vハサミ・モード示唆を3桁入力でチェック</div>
 
 <div id="display">---</div>
 
 <div class="keypad">
-<button onclick="pressKey('1')">1</button><button onclick="pressKey('2')">2</button><button onclick="pressKey('3')">3</button>
-<button onclick="pressKey('4')">4</button><button onclick="pressKey('5')">5</button><button onclick="pressKey('6')">6</button>
-<button onclick="pressKey('7')">7</button><button onclick="pressKey('8')">8</button><button onclick="pressKey('0')">0</button>
-<button onclick="pressKey('V')">V</button><button class="action" onclick="backspace()">消す</button><button class="action" onclick="clearInput()">クリア</button>
+  <button onclick="pressKey('1')">1</button>
+  <button onclick="pressKey('2')">2</button>
+  <button onclick="pressKey('3')">3</button>
+
+  <button onclick="pressKey('4')">4</button>
+  <button onclick="pressKey('5')">5</button>
+  <button onclick="pressKey('6')">6</button>
+
+  <button onclick="pressKey('7')">7</button>
+  <button onclick="pressKey('8')">8</button>
+  <button onclick="pressKey('0')">0</button>
+
+  <button onclick="pressKey('V')">V</button>
+  <button class="action" onclick="backspace()">消す</button>
+  <button class="action" onclick="clearInput()">クリア</button>
 </div>
 
 <div id="result"></div>
 
 <h2>メニュー</h2>
 <div class="menu-buttons">
-<button onclick="toggleBox('infoBox')">基本情報</button>
-<button onclick="toggleBox('settingBox')">設定判別</button>
+  <button onclick="toggleBox('infoBox')">基本情報<br>天井・CZ・小役等</button>
+  <button onclick="toggleBox('settingBox')">設定判別ツール</button>
 </div>
 
 <div id="infoBox" class="hidden">
-<b>基本情報</b><br><br>
-機種名：スマスロ ミリオンゴッド-神々の軌跡-<br>
-型式名：L/ミリオンゴッド/CX<br>
-メーカー：ミズホ<br>
-導入開始日：2026年4月20日<br>
-機械割：97.2%〜114.6%<br><br>
+  <b>基本情報</b><br><br>
 
-<b>天井</b><br>
-AT間最大1480G消化でGG当選。設定変更時は510G / 1000G / 1480Gから抽選。<br><br>
+  <div class="info-buttons">
+    <button onclick="showInfo('tenjo')">天井恩恵</button>
+    <button onclick="showInfo('zzone')">000 / Z-ZONE</button>
+    <button onclick="showInfo('god')">GOD揃い / PGG</button>
+    <button onclick="showInfo('red7')">赤7揃い / SGG</button>
+    <button onclick="showInfo('gaia')">ガイアナビ</button>
+    <button onclick="showInfo('mode')">モード</button>
+    <button onclick="showInfo('koyaku')">小役履歴抽選</button>
+    <button onclick="showInfo('rate')">小役確率</button>
+  </div>
 
-<b>主な確定役</b><br>
-GOD揃い：1/16384<br>
-赤7揃い：1/6900<br>
-SP役：1/65536<br><br>
-
-<b>小役確率</b><br>
-下段黄7：1/18.4<br>
-右上がり黄7：1/186.2<br>
-中段黄7：1/963.8<br>
-上段青7：1/7.9<br>
-中段青7：1/109.2<br>
-ガイアベル：1/37.6<br>
+  <div id="infoResult">ボタンを押すと詳細が表示されます。</div>
 </div>
 
 <div id="settingBox" class="hidden">
-<b>設定判別</b><br><br>
-回転数：<input id="gameCount" type="number" placeholder="例 3000"><br>
-初当たり回数：<input id="hitCount" type="number" placeholder="例 8"><br>
-<button class="good" onclick="calcSetting()">計算する</button>
+  <b>設定判別ツール</b><br><br>
 
-<div id="settingResult" style="margin-top:15px;"></div>
+  回転数：
+  <input id="gameCount" type="number" placeholder="例 3000"><br>
 
-<br><b>ユニバプレート</b><br>
-<div class="plate-buttons">
-<button onclick="selectPlate(1)">なし</button>
-<button onclick="selectPlate(2)">銅</button>
-<button onclick="selectPlate(3)">銀</button>
-<button onclick="selectPlate(4)">金</button>
-<button onclick="selectPlate(5)">花火柄</button>
-<button onclick="selectPlate(6)">虹</button>
-</div>
-<div id="plateResult">プレートを選ぶと設定示唆を反映します。</div>
+  初当たり回数：
+  <input id="hitCount" type="number" placeholder="例 8"><br>
+
+  <button onclick="calcSetting()">計算する</button>
+
+  <div id="settingResult" style="margin-top:15px;"></div>
+
+  <br><b>ユニバプレート</b><br>
+  <div class="plate-buttons">
+    <button onclick="selectPlate(1)">なし</button>
+    <button onclick="selectPlate(2)">銅</button>
+    <button onclick="selectPlate(3)">銀</button>
+    <button onclick="selectPlate(4)">金</button>
+    <button onclick="selectPlate(5)">花火柄</button>
+    <button onclick="selectPlate(6)">虹</button>
+  </div>
+
+  <div id="plateResult">プレートを選ぶと設定示唆を反映します。</div>
 </div>
 
 <h2>演出法則</h2>
 <div class="effect-buttons">
-<button onclick="showEffect('ice')">氷演出</button>
-<button onclick="showEffect('thunder')">雷演出</button>
-<button onclick="showEffect('mirror')">鏡演出</button>
-<button onclick="showEffect('blackout')">消灯演出</button>
-<button onclick="showEffect('heart')">心臓演出</button>
-<button onclick="showEffect('big')">図柄巨大化</button>
-<button onclick="showEffect('tornado')">竜巻発展</button>
+  <button onclick="showEffect('ice')">氷演出</button>
+  <button onclick="showEffect('thunder')">雷演出</button>
+  <button onclick="showEffect('mirror')">鏡演出</button>
+  <button onclick="showEffect('blackout')">消灯演出</button>
+  <button onclick="showEffect('heart')">心臓演出</button>
+  <button onclick="showEffect('big')">図柄巨大化</button>
+  <button onclick="showEffect('tornado')">竜巻発展</button>
 </div>
-<div id="effectResult">演出ボタンを押すと法則が表示されます。</div>
 
-<div class="support">
-<b>応援お願いします</b><br>
-役に立ったらグッドを押してもらえると励みになります。<br><br>
-<button class="good" onclick="likeSite()">👍 グッド</button>
-<div id="likeResult"></div>
-</div>
+<div id="effectResult">演出ボタンを押すと法則が表示されます。</div>
 
 <div class="note">
 <b>本ツールについて</b><br><br>
@@ -114,126 +232,390 @@ SP役：1/65536<br><br>
 ■ 軌跡：神々の軌跡で確認されている出目<br>
 ■ 凱旋情報：神々の軌跡では公開されていないが、前作「神々の凱旋」由来の参考情報<br><br>
 設定判別は初当たり確率をもとにした簡易推測です。実戦値・サンプル不足・ヒキにより大きくブレるため参考情報としてご利用ください。<br><br>
-※情報は随時更新されます
+※情報は随時更新されます。
 </div>
 
 <script>
-const data={
-"153":{name:"奇数のみ",level:1,kiseki:true},"633":{name:"左偶数＋奇数ケツテンパイ",level:2,kiseki:true},
-"234":{name:"偶数順目",level:3,kiseki:true},"456":{name:"偶数順目",level:3,kiseki:true},"678":{name:"偶数順目",level:3,kiseki:true},
-"155":{name:"左奇数＋奇数ケツテンパイ",level:4,kiseki:true},"567":{name:"奇数順目",level:5,kiseki:true},
-"030":{name:"0ハサミ",level:6,kiseki:true},"313":{name:"奇数ハサミ",level:7,kiseki:true},
+const data = {
+  "153": { name:"奇数のみ", level:1, kiseki:true },
+  "633": { name:"左偶数＋奇数ケツテンパイ", level:2, kiseki:true },
+  "234": { name:"偶数順目", level:3, kiseki:true },
+  "456": { name:"偶数順目", level:3, kiseki:true },
+  "678": { name:"偶数順目", level:3, kiseki:true },
+  "155": { name:"左奇数＋奇数ケツテンパイ", level:4, kiseki:true },
+  "567": { name:"奇数順目", level:5, kiseki:true },
+  "030": { name:"0ハサミ", level:6, kiseki:true },
+  "313": { name:"奇数ハサミ", level:7, kiseki:true },
 
-"777":{name:"ゴッド揃い",guarantee:"PGG",kiseki:true},
-"000":{name:"Z-ZONE当選",guarantee:"AT確定CZ",kiseki:true},
-"VVV":{name:"V揃い",guarantee:"3セット以上濃厚",kiseki:true},
+  "777": { name:"ゴッド揃い", guarantee:"PGG", kiseki:true },
+  "000": { name:"Z-ZONE当選", guarantee:"AT確定CZ", kiseki:true },
+  "VVV": { name:"V揃い", guarantee:"3セット以上濃厚", kiseki:true },
 
-"V0V":{name:"Vハサミ偶数",guarantee:"Vモード確定",gaisen:true},
-"V2V":{name:"Vハサミ偶数",info:"Vモードの大チャンス",gaisen:true},
-"V4V":{name:"Vハサミ偶数",info:"Vモードの大チャンス",gaisen:true},
-"V6V":{name:"Vハサミ偶数",info:"Vモードの大チャンス",gaisen:true},
-"V8V":{name:"Vハサミ偶数",info:"Vモードの大チャンス",gaisen:true},
-"V1V":{name:"Vハサミ奇数",guarantee:"天国ショート以上確定",gaisen:true},
-"V3V":{name:"Vハサミ奇数",guarantee:"天国ショート以上確定",gaisen:true},
-"V5V":{name:"Vハサミ奇数",level:8,guarantee:"天国ショート以上確定",gaisen:true},
-"V7V":{name:"Vハサミ奇数",guarantee:"天国ショート以上確定",gaisen:true},
+  "V0V": { name:"Vハサミ偶数", guarantee:"Vモード確定", gaisen:true },
+  "V2V": { name:"Vハサミ偶数", info:"Vモードの大チャンス", gaisen:true },
+  "V4V": { name:"Vハサミ偶数", info:"Vモードの大チャンス", gaisen:true },
+  "V6V": { name:"Vハサミ偶数", info:"Vモードの大チャンス", gaisen:true },
+  "V8V": { name:"Vハサミ偶数", info:"Vモードの大チャンス", gaisen:true },
 
-"007":{name:"ネタ",gaisen:true},"012":{name:"朝イチ目",gaisen:true},"026":{name:"お風呂",gaisen:true},
-"032":{name:"おさつ",gaisen:true},"038":{name:"大宮",gaisen:true},"046":{name:"お城",gaisen:true},
-"04V":{name:"レシーブ",gaisen:true},"075":{name:"おなご",gaisen:true},"081":{name:"オッパイ",gaisen:true},
-"0V0":{name:"顔文字",gaisen:true},"072":{name:"ネタ",info:"期待度？？？",gaisen:true},
-"104":{name:"天使",gaisen:true},"110":{name:"110番",gaisen:true},"123":{name:"旧朝イチ目",gaisen:true},
-"135":{name:"G-ZONE目",gaisen:true},"168":{name:"いろは",gaisen:true},"175":{name:"イナゴ",gaisen:true},
-"184":{name:"イワシ",gaisen:true},"201":{name:"匂い",gaisen:true},"223":{name:"富士山",gaisen:true},
-"280":{name:"ニーハオ",gaisen:true},"283":{name:"翼",gaisen:true},"2V1":{name:"ニブイチ",info:"2分の1",gaisen:true},
-"315":{name:"最高",gaisen:true},"324":{name:"MIZUHO",gaisen:true},"344":{name:"サシシ",gaisen:true},
-"354":{name:"神輿",gaisen:true},"365":{name:"365日",gaisen:true},"415":{name:"よいこ",gaisen:true},
-"423":{name:"しじみ",gaisen:true},"428":{name:"四谷",gaisen:true},"448":{name:"使者",gaisen:true},
-"481":{name:"支配",gaisen:true},"4V8":{name:"渋谷",gaisen:true},
-"508":{name:"ゴーヤ",gaisen:true},"510":{name:"GOD",guarantee:"GOD系出目",gaisen:true},
-"514":{name:"来いよ",gaisen:true},"526":{name:"小次郎",gaisen:true},"543":{name:"暦",gaisen:true},
-"564":{name:"殺し",gaisen:true},"56V":{name:"転ぶ",gaisen:true},"5V0":{name:"ご無礼",gaisen:true},
-"5V4":{name:"拳",gaisen:true},"634":{name:"武蔵",gaisen:true},"664":{name:"ろくむし",gaisen:true},
-"681":{name:"無敗",gaisen:true},"728":{name:"浪速",gaisen:true},"753":{name:"七五三",info:"和み",gaisen:true},
-"758":{name:"名古屋",gaisen:true},"78V":{name:"7頭順目",gaisen:true},
-"801":{name:"ハワイ",gaisen:true},"808":{name:"八百屋",gaisen:true},"821":{name:"ハニー",gaisen:true},
-"841":{name:"弥生",gaisen:true},"845":{name:"梯子",gaisen:true},"850":{name:"ハチ公",gaisen:true},
-"873":{name:"花見",gaisen:true},"87V":{name:"花火",gaisen:true},"884":{name:"林",gaisen:true},
-"V07":{name:"ボーナス",gaisen:true},"V31":{name:"Vサイン",gaisen:true},"V34":{name:"バーサス",gaisen:true}
+  "V1V": { name:"Vハサミ奇数", guarantee:"天国ショート以上確定", gaisen:true },
+  "V3V": { name:"Vハサミ奇数", guarantee:"天国ショート以上確定", gaisen:true },
+  "V5V": { name:"Vハサミ奇数", level:8, guarantee:"天国ショート以上確定", gaisen:true },
+  "V7V": { name:"Vハサミ奇数", guarantee:"天国ショート以上確定", gaisen:true },
+
+  "007": { name:"ネタ", gaisen:true },
+  "012": { name:"朝イチ目", gaisen:true },
+  "026": { name:"お風呂", gaisen:true },
+  "032": { name:"おさつ", gaisen:true },
+  "038": { name:"大宮", gaisen:true },
+  "046": { name:"お城", gaisen:true },
+  "04V": { name:"レシーブ", gaisen:true },
+  "075": { name:"おなご", gaisen:true },
+  "081": { name:"オッパイ", gaisen:true },
+  "0V0": { name:"顔文字", gaisen:true },
+  "072": { name:"ネタ", info:"期待度？？？", gaisen:true },
+
+  "104": { name:"天使", gaisen:true },
+  "110": { name:"110番", gaisen:true },
+  "123": { name:"旧朝イチ目", gaisen:true },
+  "135": { name:"G-ZONE目", gaisen:true },
+  "168": { name:"いろは", gaisen:true },
+  "175": { name:"イナゴ", gaisen:true },
+  "184": { name:"イワシ", gaisen:true },
+  "201": { name:"匂い", gaisen:true },
+  "223": { name:"富士山", gaisen:true },
+  "280": { name:"ニーハオ", gaisen:true },
+  "283": { name:"翼", gaisen:true },
+  "2V1": { name:"ニブイチ", info:"2分の1", gaisen:true },
+
+  "315": { name:"最高", gaisen:true },
+  "324": { name:"MIZUHO", gaisen:true },
+  "344": { name:"サシシ", gaisen:true },
+  "354": { name:"神輿", gaisen:true },
+  "365": { name:"365日", gaisen:true },
+  "415": { name:"よいこ", gaisen:true },
+  "423": { name:"しじみ", gaisen:true },
+  "428": { name:"四谷", gaisen:true },
+  "448": { name:"使者", gaisen:true },
+  "481": { name:"支配", gaisen:true },
+  "4V8": { name:"渋谷", gaisen:true },
+
+  "508": { name:"ゴーヤ", gaisen:true },
+  "510": { name:"GOD", guarantee:"GOD系出目", gaisen:true },
+  "514": { name:"来いよ", gaisen:true },
+  "526": { name:"小次郎", gaisen:true },
+  "543": { name:"暦", gaisen:true },
+  "564": { name:"殺し", gaisen:true },
+  "56V": { name:"転ぶ", gaisen:true },
+  "5V0": { name:"ご無礼", gaisen:true },
+  "5V4": { name:"拳", gaisen:true },
+
+  "634": { name:"武蔵", gaisen:true },
+  "664": { name:"ろくむし", gaisen:true },
+  "681": { name:"無敗", gaisen:true },
+  "728": { name:"浪速", gaisen:true },
+  "753": { name:"七五三", info:"和み", gaisen:true },
+  "758": { name:"名古屋", gaisen:true },
+  "78V": { name:"7頭順目", guarantee:"リーチ目", gaisen:true },
+
+  "801": { name:"ハワイ", gaisen:true },
+  "808": { name:"八百屋", gaisen:true },
+  "821": { name:"ハニー", gaisen:true },
+  "841": { name:"弥生", gaisen:true },
+  "845": { name:"梯子", gaisen:true },
+  "850": { name:"ハチ公", gaisen:true },
+  "873": { name:"花見", gaisen:true },
+  "87V": { name:"花火", gaisen:true },
+  "884": { name:"林", gaisen:true },
+
+  "V07": { name:"ボーナス", gaisen:true },
+  "V31": { name:"Vサイン", gaisen:true },
+  "V34": { name:"バーサス", gaisen:true }
 };
 
-const effectData={
-ice:{name:"氷演出",rows:[["リール回転開始時","デフォルト"],["レバーON→第1停止","チャンス"],["第1停止時","大チャンス"],["凍結2個","右上がり黄7 or 中段黄7"],["凍結3個","チャンス!?"]]},
-thunder:{name:"雷演出",rows:[["リール回転開始時","デフォルト"],["レバーON→第1停止","チャンス"],["第1停止時","チャンス"],["奇数非テンパイ","裏モード示唆!?"]]},
-mirror:{name:"鏡演出",rows:[["左のみ","奇数テンパイ"],["左＋中","奇数揃い濃厚!?"],["左のみ＋非テンパイ","GG前兆濃厚!?"]]},
-blackout:{name:"消灯演出",rows:[["1消灯＋奇数テンパイ","GG前兆濃厚!?"],["第3停止消灯","心臓発展"]]},
-heart:{name:"心臓演出",rows:[["Low→Hi","デフォルト"],["Low→Hi→Hi","チャンス"],["Low→Hi→SHi","GG濃厚!?"],["Low→SHi","GG濃厚!?"],["Lowのみ","GG濃厚!?"],["奇数テンパイ","チャンス"],["第3停止いきなり消灯","チャンス"]]},
-big:{name:"図柄巨大化",rows:[["3G以上継続","奇数揃い濃厚!?"],["ケツV","大チャンス"],["ケツ7 or 0","GG前兆濃厚!?"]]},
-tornado:{name:"竜巻発展",rows:[["奇数＋偶数混在","デフォルト"],["奇数のみ","チャンス"],["奇数のみ＋7あり","GG濃厚!?"],["矛盾発展","GG前兆濃厚!?"],["演出なし→発展","チャンス"],["砂嵐経由","大チャンス"]]}
+const infoData = {
+  tenjo: {
+    title:"天井恩恵",
+    body:[
+      "AT間最大1480G消化でGG当選。",
+      "設定変更時は510G / 1000G / 1480Gから天井が選ばれる可能性あり。",
+      "天井到達時はGG当選に期待。"
+    ]
+  },
+  zzone: {
+    title:"000 / Z-ZONE",
+    body:[
+      "000停止でZ-ZONE当選。",
+      "Z-ZONEはAT確定CZとして扱う。",
+      "出目チェッカーでは「000」で判定可能。"
+    ]
+  },
+  god: {
+    title:"GOD揃い / PGG",
+    body:[
+      "GOD揃いはPGG。",
+      "成立時は大量出玉の契機。",
+      "出目チェッカーでは「777」で判定可能。"
+    ]
+  },
+  red7: {
+    title:"赤7揃い / SGG",
+    body:[
+      "赤7揃いはSGG突入契機。",
+      "SGG中は上乗せに期待。",
+      "GOD揃いと並ぶ重要なプレミア契機。"
+    ]
+  },
+  gaia: {
+    title:"ガイアナビ / ガイアステージ",
+    body:[
+      "ガイアナビ発生時はガイアステージ移行に期待。",
+      "右ナビ発生は特に注目。",
+      "ガイアステージ中は専用モードの示唆に注目。"
+    ]
+  },
+  mode: {
+    title:"モード",
+    body:[
+      "表モード・裏モード・ガイアモードなどを意識。",
+      "Vハサミ偶数はVモードの大チャンス。",
+      "V0VはVモード確定。",
+      "Vハサミ奇数は天国ショート以上確定。"
+    ]
+  },
+  koyaku: {
+    title:"小役履歴抽選",
+    body:[
+      "青7・黄7の連続履歴に注目。",
+      "黄7は3連以上からチャンス。",
+      "黄7の5連以上はGG当選濃厚級。",
+      "リプレイ連続も状態や抽選に注目。"
+    ]
+  },
+  rate: {
+    title:"小役確率",
+    body:[
+      "下段黄7：約1/18.4",
+      "右上がり黄7：約1/186.2",
+      "中段黄7：約1/963.8",
+      "上段青7：約1/7.9",
+      "中段青7：約1/109.2",
+      "ガイアベル：約1/37.6"
+    ]
+  }
 };
 
-let current="",currentEffect="",minSetting=1;
+const effectData = {
+  ice:{name:"氷演出",rows:[
+    ["リール回転開始時","デフォルト"],
+    ["レバーON→第1停止","チャンス"],
+    ["第1停止時","大チャンス"],
+    ["凍結2個","右上がり黄7 or 中段黄7"],
+    ["凍結3個","チャンス!?"]
+  ]},
+  thunder:{name:"雷演出",rows:[
+    ["リール回転開始時","デフォルト"],
+    ["レバーON→第1停止","チャンス"],
+    ["第1停止時","チャンス"],
+    ["奇数非テンパイ","裏モード示唆!?"]
+  ]},
+  mirror:{name:"鏡演出",rows:[
+    ["左のみ","奇数テンパイ"],
+    ["左＋中","奇数揃い濃厚!?"],
+    ["左のみ＋非テンパイ","GG前兆濃厚!?"]
+  ]},
+  blackout:{name:"消灯演出",rows:[
+    ["1消灯＋奇数テンパイ","GG前兆濃厚!?"],
+    ["第3停止消灯","心臓発展"]
+  ]},
+  heart:{name:"心臓演出",rows:[
+    ["Low→Hi","デフォルト"],
+    ["Low→Hi→Hi","チャンス"],
+    ["Low→Hi→SHi","GG濃厚!?"],
+    ["Low→SHi","GG濃厚!?"],
+    ["Lowのみ","GG濃厚!?"],
+    ["奇数テンパイ","チャンス"],
+    ["第3停止いきなり消灯","チャンス"]
+  ]},
+  big:{name:"図柄巨大化",rows:[
+    ["3G以上継続","奇数揃い濃厚!?"],
+    ["ケツV","大チャンス"],
+    ["ケツ7 or 0","GG前兆濃厚!?"]
+  ]},
+  tornado:{name:"竜巻発展",rows:[
+    ["奇数＋偶数混在","デフォルト"],
+    ["奇数のみ","チャンス"],
+    ["奇数のみ＋7あり","GG濃厚!?"],
+    ["矛盾発展","GG前兆濃厚!?"],
+    ["演出なし→発展","チャンス"],
+    ["砂嵐経由","大チャンス"]
+  ]}
+};
+
+let current = "";
+let currentEffect = "";
+let currentInfo = "";
+let minSetting = 1;
 
 function pressKey(key){
- if(current.length>=3){current="";document.getElementById("result").innerHTML=""}
- current+=key;document.getElementById("display").innerText=current;
- if(current.length===3)check(current);
+  if(current.length >= 3){
+    current = "";
+    document.getElementById("result").innerHTML = "";
+  }
+  current += key;
+  document.getElementById("display").innerText = current;
+  if(current.length === 3){
+    check(current);
+  }
 }
-function backspace(){current=current.slice(0,-1);document.getElementById("display").innerText=current||"---";document.getElementById("result").innerHTML=""}
-function clearInput(){current="";document.getElementById("display").innerText="---";document.getElementById("result").innerHTML=""}
+
+function backspace(){
+  current = current.slice(0,-1);
+  document.getElementById("display").innerText = current || "---";
+  document.getElementById("result").innerHTML = "";
+}
+
+function clearInput(){
+  current = "";
+  document.getElementById("display").innerText = "---";
+  document.getElementById("result").innerHTML = "";
+}
+
 function check(code){
- const r=data[code],o=document.getElementById("result");
- if(!r){o.innerHTML="該当なし";return}
- let h="出目："+code+"<br>"+r.name+"<br>";
- if(r.level)h+="モード期待度："+r.level+"/8<br>";
- if(r.info)h+=r.info+"<br>";
- if(r.guarantee)h+="【"+r.guarantee+"】<br>";
- if(!r.kiseki&&r.gaisen)h+="（凱旋情報）";
- o.innerHTML=h;
+  const r = data[code];
+  const o = document.getElementById("result");
+
+  if(!r){
+    o.innerHTML = "該当なし<br><span class='small'>通常出目 or データ未登録</span>";
+    return;
+  }
+
+  let h = "";
+  h += "出目：" + code + "<br>";
+  h += "<span class='result-strong'>" + r.name + "</span><br>";
+
+  if(r.level){
+    h += "モード期待度：" + r.level + "/8<br>";
+  }
+  if(r.info){
+    h += r.info + "<br>";
+  }
+  if(r.guarantee){
+    h += "<span class='guarantee'>【" + r.guarantee + "】</span><br>";
+  }
+  if(!r.kiseki && r.gaisen){
+    h += "（凱旋情報）";
+  }
+
+  o.innerHTML = h;
 }
-function showEffect(key){
- const box=document.getElementById("effectResult");
- if(currentEffect===key){box.innerHTML="演出ボタンを押すと法則が表示されます。";currentEffect="";return}
- const e=effectData[key];let h="<b>"+e.name+"</b><br><br>";
- e.rows.forEach(row=>h+=row[0]+"：<b>"+row[1]+"</b><br>");
- box.innerHTML=h;currentEffect=key;
-}
+
 function toggleBox(id){
- const box=document.getElementById(id);
- box.classList.toggle("hidden");
+  document.getElementById(id).classList.toggle("hidden");
 }
+
+function showInfo(key){
+  const box = document.getElementById("infoResult");
+
+  if(currentInfo === key){
+    box.innerHTML = "ボタンを押すと詳細が表示されます。";
+    currentInfo = "";
+    return;
+  }
+
+  const i = infoData[key];
+  let h = "<br><b>" + i.title + "</b><br><br>";
+  i.body.forEach(line => {
+    h += "・" + line + "<br>";
+  });
+  box.innerHTML = h;
+  currentInfo = key;
+}
+
+function showEffect(key){
+  const box = document.getElementById("effectResult");
+
+  if(currentEffect === key){
+    box.innerHTML = "演出ボタンを押すと法則が表示されます。";
+    currentEffect = "";
+    return;
+  }
+
+  const e = effectData[key];
+  let h = "<b>" + e.name + "</b><br><br>";
+  e.rows.forEach(row => {
+    h += row[0] + "：<b>" + row[1] + "</b><br>";
+  });
+
+  box.innerHTML = h;
+  currentEffect = key;
+}
+
 function selectPlate(min){
- minSetting=min;
- const text={1:"プレートなし：設定示唆なし",2:"銅：設定2以上濃厚",3:"銀：設定3以上濃厚",4:"金：設定4以上濃厚",5:"花火柄：設定5以上濃厚",6:"虹：設定6濃厚"};
- document.getElementById("plateResult").innerHTML=text[min]+"<br>※計算時にこの条件を反映します。";
- calcSetting();
+  minSetting = min;
+  const text = {
+    1:"プレートなし：設定示唆なし",
+    2:"銅：設定2以上濃厚",
+    3:"銀：設定3以上濃厚",
+    4:"金：設定4以上濃厚",
+    5:"花火柄：設定5以上濃厚",
+    6:"虹：設定6濃厚"
+  };
+  document.getElementById("plateResult").innerHTML = text[min] + "<br>※計算時にこの条件を反映します。";
+  calcSetting();
 }
+
 function calcSetting(){
- const games=Number(document.getElementById("gameCount").value);
- const hits=Number(document.getElementById("hitCount").value);
- if(!games||games<=0||hits<0){document.getElementById("settingResult").innerHTML="回転数と初当たり回数を入力してください。";return}
- const odds={1:532.8,2:420.4,3:495.9,4:338.4,5:455.4,6:294.8};
- let logs=[],max=-Infinity;
- for(let s=1;s<=6;s++){
-   if(s<minSetting){logs.push({s,log:-Infinity});continue}
-   const p=1/odds[s];
-   const log=hits*Math.log(p)+(games-hits)*Math.log(1-p);
-   logs.push({s,log}); if(log>max)max=log;
- }
- let sum=0;
- logs.forEach(x=>{x.w=x.log===-Infinity?0:Math.exp(x.log-max);sum+=x.w});
- let actual=games/hits;
- let h="<b>現在の初当たり確率：約1/"+(hits?actual.toFixed(1):"-")+"</b><br><br>";
- logs.forEach(x=>{
-   const pct=sum?x.w/sum*100:0;
-   h+="設定"+x.s+"：";
-   h+=(x.s<minSetting)?"除外<br>":pct.toFixed(1)+"%<br>";
- });
- h+="<br>※初当たり確率のみの簡易推測です。ユニバプレート選択時は下限設定を反映します。";
- document.getElementById("settingResult").innerHTML=h;
-}
-function likeSite(){
- document.getElementById("likeResult").innerText="ありがとうございます！励みになります。";
+  const games = Number(document.getElementById("gameCount").value);
+  const hits = Number(document.getElementById("hitCount").value);
+
+  if(!games || games <= 0 || hits < 0){
+    document.getElementById("settingResult").innerHTML = "回転数と初当たり回数を入力してください。";
+    return;
+  }
+
+  const odds = {
+    1:532.8,
+    2:420.4,
+    3:495.9,
+    4:338.4,
+    5:455.4,
+    6:294.8
+  };
+
+  let logs = [];
+  let max = -Infinity;
+
+  for(let s=1; s<=6; s++){
+    if(s < minSetting){
+      logs.push({s:s, log:-Infinity});
+      continue;
+    }
+
+    const p = 1 / odds[s];
+    const log = hits * Math.log(p) + (games - hits) * Math.log(1 - p);
+    logs.push({s:s, log:log});
+    if(log > max) max = log;
+  }
+
+  let sum = 0;
+  logs.forEach(x => {
+    x.w = x.log === -Infinity ? 0 : Math.exp(x.log - max);
+    sum += x.w;
+  });
+
+  const actual = hits ? games / hits : 0;
+
+  let h = "<b>現在の初当たり確率：約1/" + (hits ? actual.toFixed(1) : "-") + "</b><br><br>";
+
+  logs.forEach(x => {
+    const pct = sum ? x.w / sum * 100 : 0;
+    h += "設定" + x.s + "：";
+    h += x.s < minSetting ? "除外<br>" : pct.toFixed(1) + "%<br>";
+  });
+
+  h += "<br><span class='small'>※初当たり確率のみの簡易推測です。ユニバプレート選択時は下限設定を反映します。</span>";
+
+  document.getElementById("settingResult").innerHTML = h;
 }
 </script>
 
