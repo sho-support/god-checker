@@ -112,6 +112,15 @@ button:active{
   color:#ff5a5a;
   font-weight:bold;
 }
+.rainbow-text{
+  font-weight:bold;
+  background:linear-gradient(90deg, red, orange, yellow, lime, cyan, blue, violet);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.level{
+  font-weight:bold;
+}
 input{
   font-size:18px;
   padding:10px;
@@ -237,99 +246,99 @@ input{
 
 <script>
 const data = {
-  "153": { name:"奇数のみ", level:1, kiseki:true },
-  "633": { name:"左偶数＋奇数ケツテンパイ", level:2, kiseki:true },
-  "234": { name:"偶数順目", level:3, kiseki:true },
-  "456": { name:"偶数順目", level:3, kiseki:true },
-  "678": { name:"偶数順目", level:3, kiseki:true },
-  "155": { name:"左奇数＋奇数ケツテンパイ", level:4, kiseki:true },
-  "567": { name:"奇数順目", level:5, kiseki:true },
-  "030": { name:"0ハサミ", level:6, kiseki:true },
-  "313": { name:"奇数ハサミ", level:7, kiseki:true },
+  "153": { name:"奇数のみ", level:1, kiseki:true, type:"モード示唆" },
+  "633": { name:"左偶数＋奇数ケツテンパイ", level:2, kiseki:true, type:"モード示唆" },
+  "234": { name:"偶数順目", level:3, kiseki:true, type:"モード示唆" },
+  "456": { name:"偶数順目", level:3, kiseki:true, type:"モード示唆" },
+  "678": { name:"偶数順目", level:3, kiseki:true, type:"モード示唆" },
+  "155": { name:"左奇数＋奇数ケツテンパイ", level:4, kiseki:true, type:"モード示唆" },
+  "567": { name:"奇数順目", level:5, kiseki:true, type:"モード示唆" },
+  "030": { name:"0ハサミ", level:6, kiseki:true, type:"モード示唆" },
+  "313": { name:"奇数ハサミ", level:7, kiseki:true, type:"モード示唆" },
 
-  "777": { name:"ゴッド揃い", guarantee:"PGG", kiseki:true },
-  "000": { name:"Z-ZONE当選", guarantee:"AT確定CZ", kiseki:true },
-  "VVV": { name:"V揃い", guarantee:"3セット以上濃厚", kiseki:true },
+  "777": { name:"ゴッド揃い", guarantee:"PGG", kiseki:true, type:"特殊出目" },
+  "000": { name:"Z-ZONE当選", guarantee:"AT確定CZ", kiseki:true, type:"特殊出目" },
+  "VVV": { name:"V揃い", guarantee:"3セット以上濃厚", kiseki:true, type:"特殊出目" },
 
-  "V0V": { name:"Vハサミ偶数", guarantee:"Vモード確定", gaisen:true },
-  "V2V": { name:"Vハサミ偶数", info:"Vモードの大チャンス", gaisen:true },
-  "V4V": { name:"Vハサミ偶数", info:"Vモードの大チャンス", gaisen:true },
-  "V6V": { name:"Vハサミ偶数", info:"Vモードの大チャンス", gaisen:true },
-  "V8V": { name:"Vハサミ偶数", info:"Vモードの大チャンス", gaisen:true },
+  "V0V": { name:"Vハサミ偶数", guarantee:"Vモード確定", gaisen:true, type:"モード示唆" },
+  "V2V": { name:"Vハサミ偶数", info:"Vモードの大チャンス", gaisen:true, type:"モード示唆" },
+  "V4V": { name:"Vハサミ偶数", info:"Vモードの大チャンス", gaisen:true, type:"モード示唆" },
+  "V6V": { name:"Vハサミ偶数", info:"Vモードの大チャンス", gaisen:true, type:"モード示唆" },
+  "V8V": { name:"Vハサミ偶数", info:"Vモードの大チャンス", gaisen:true, type:"モード示唆" },
 
-  "V1V": { name:"Vハサミ奇数", guarantee:"天国ショート以上確定", gaisen:true },
-  "V3V": { name:"Vハサミ奇数", guarantee:"天国ショート以上確定", gaisen:true },
-  "V5V": { name:"Vハサミ奇数", level:8, guarantee:"天国ショート以上確定", gaisen:true },
-  "V7V": { name:"Vハサミ奇数", guarantee:"天国ショート以上確定", gaisen:true },
+  "V1V": { name:"Vハサミ奇数", guarantee:"天国ショート以上確定", gaisen:true, type:"モード示唆" },
+  "V3V": { name:"Vハサミ奇数", guarantee:"天国ショート以上確定", gaisen:true, type:"モード示唆" },
+  "V5V": { name:"Vハサミ奇数", level:8, guarantee:"天国ショート以上確定", gaisen:true, type:"モード示唆" },
+  "V7V": { name:"Vハサミ奇数", guarantee:"天国ショート以上確定", gaisen:true, type:"モード示唆" },
 
-  "007": { name:"ネタ", gaisen:true },
-  "012": { name:"朝イチ目", gaisen:true },
-  "026": { name:"お風呂", gaisen:true },
-  "032": { name:"おさつ", gaisen:true },
-  "038": { name:"大宮", gaisen:true },
-  "046": { name:"お城", gaisen:true },
-  "04V": { name:"レシーブ", gaisen:true },
-  "075": { name:"おなご", gaisen:true },
-  "081": { name:"オッパイ", gaisen:true },
-  "0V0": { name:"顔文字", gaisen:true },
-  "072": { name:"ネタ", info:"期待度？？？", gaisen:true },
+  "007": { name:"ネタ", gaisen:true, reach:true },
+  "012": { name:"朝イチ目", gaisen:true, reach:true },
+  "026": { name:"お風呂", gaisen:true, reach:true },
+  "032": { name:"おさつ", gaisen:true, reach:true },
+  "038": { name:"大宮", gaisen:true, reach:true },
+  "046": { name:"お城", gaisen:true, reach:true },
+  "04V": { name:"レシーブ", gaisen:true, reach:true },
+  "075": { name:"おなご", gaisen:true, reach:true },
+  "081": { name:"オッパイ", gaisen:true, reach:true },
+  "0V0": { name:"顔文字", gaisen:true, reach:true },
+  "072": { name:"ネタ", info:"期待度？？？", gaisen:true, reach:true },
 
-  "104": { name:"天使", gaisen:true },
-  "110": { name:"110番", gaisen:true },
-  "123": { name:"旧朝イチ目", gaisen:true },
-  "135": { name:"G-ZONE目", gaisen:true },
-  "168": { name:"いろは", gaisen:true },
-  "175": { name:"イナゴ", gaisen:true },
-  "184": { name:"イワシ", gaisen:true },
-  "201": { name:"匂い", gaisen:true },
-  "223": { name:"富士山", gaisen:true },
-  "280": { name:"ニーハオ", gaisen:true },
-  "283": { name:"翼", gaisen:true },
-  "2V1": { name:"ニブイチ", info:"2分の1", gaisen:true },
+  "104": { name:"天使", gaisen:true, reach:true },
+  "110": { name:"110番", gaisen:true, reach:true },
+  "123": { name:"旧朝イチ目", gaisen:true, reach:true },
+  "135": { name:"G-ZONE目", gaisen:true, reach:true },
+  "168": { name:"いろは", gaisen:true, reach:true },
+  "175": { name:"イナゴ", gaisen:true, reach:true },
+  "184": { name:"イワシ", gaisen:true, reach:true },
+  "201": { name:"匂い", gaisen:true, reach:true },
+  "223": { name:"富士山", gaisen:true, reach:true },
+  "280": { name:"ニーハオ", gaisen:true, reach:true },
+  "283": { name:"翼", gaisen:true, reach:true },
+  "2V1": { name:"ニブイチ", info:"2分の1", gaisen:true, reach:true },
 
-  "315": { name:"最高", gaisen:true },
-  "324": { name:"MIZUHO", gaisen:true },
-  "344": { name:"サシシ", gaisen:true },
-  "354": { name:"神輿", gaisen:true },
-  "365": { name:"365日", gaisen:true },
-  "415": { name:"よいこ", gaisen:true },
-  "423": { name:"しじみ", gaisen:true },
-  "428": { name:"四谷", gaisen:true },
-  "448": { name:"使者", gaisen:true },
-  "481": { name:"支配", gaisen:true },
-  "4V8": { name:"渋谷", gaisen:true },
+  "315": { name:"最高", gaisen:true, reach:true },
+  "324": { name:"MIZUHO", gaisen:true, reach:true },
+  "344": { name:"サシシ", gaisen:true, reach:true },
+  "354": { name:"神輿", gaisen:true, reach:true },
+  "365": { name:"365日", gaisen:true, reach:true },
+  "415": { name:"よいこ", gaisen:true, reach:true },
+  "423": { name:"しじみ", gaisen:true, reach:true },
+  "428": { name:"四谷", gaisen:true, reach:true },
+  "448": { name:"使者", gaisen:true, reach:true },
+  "481": { name:"支配", gaisen:true, reach:true },
+  "4V8": { name:"渋谷", gaisen:true, reach:true },
 
-  "508": { name:"ゴーヤ", gaisen:true },
-  "510": { name:"GOD", guarantee:"GOD系出目", gaisen:true },
-  "514": { name:"来いよ", gaisen:true },
-  "526": { name:"小次郎", gaisen:true },
-  "543": { name:"暦", gaisen:true },
-  "564": { name:"殺し", gaisen:true },
-  "56V": { name:"転ぶ", gaisen:true },
-  "5V0": { name:"ご無礼", gaisen:true },
-  "5V4": { name:"拳", gaisen:true },
+  "508": { name:"ゴーヤ", gaisen:true, reach:true },
+  "510": { name:"GOD", guarantee:"GOD系出目", gaisen:true, reach:true },
+  "514": { name:"来いよ", gaisen:true, reach:true },
+  "526": { name:"小次郎", gaisen:true, reach:true },
+  "543": { name:"暦", gaisen:true, reach:true },
+  "564": { name:"殺し", gaisen:true, reach:true },
+  "56V": { name:"転ぶ", gaisen:true, reach:true },
+  "5V0": { name:"ご無礼", gaisen:true, reach:true },
+  "5V4": { name:"拳", gaisen:true, reach:true },
 
-  "634": { name:"武蔵", gaisen:true },
-  "664": { name:"ろくむし", gaisen:true },
-  "681": { name:"無敗", gaisen:true },
-  "728": { name:"浪速", gaisen:true },
-  "753": { name:"七五三", info:"和み", gaisen:true },
-  "758": { name:"名古屋", gaisen:true },
-  "78V": { name:"7頭順目", guarantee:"リーチ目", gaisen:true },
+  "634": { name:"武蔵", gaisen:true, reach:true },
+  "664": { name:"ろくむし", gaisen:true, reach:true },
+  "681": { name:"無敗", gaisen:true, reach:true },
+  "728": { name:"浪速", gaisen:true, reach:true },
+  "753": { name:"七五三", info:"和み", gaisen:true, reach:true },
+  "758": { name:"名古屋", gaisen:true, reach:true },
+  "78V": { name:"7頭順目", guarantee:"リーチ目", gaisen:true, reach:true },
 
-  "801": { name:"ハワイ", gaisen:true },
-  "808": { name:"八百屋", gaisen:true },
-  "821": { name:"ハニー", gaisen:true },
-  "841": { name:"弥生", gaisen:true },
-  "845": { name:"梯子", gaisen:true },
-  "850": { name:"ハチ公", gaisen:true },
-  "873": { name:"花見", gaisen:true },
-  "87V": { name:"花火", gaisen:true },
-  "884": { name:"林", gaisen:true },
+  "801": { name:"ハワイ", gaisen:true, reach:true },
+  "808": { name:"八百屋", gaisen:true, reach:true },
+  "821": { name:"ハニー", gaisen:true, reach:true },
+  "841": { name:"弥生", gaisen:true, reach:true },
+  "845": { name:"梯子", gaisen:true, reach:true },
+  "850": { name:"ハチ公", gaisen:true, reach:true },
+  "873": { name:"花見", gaisen:true, reach:true },
+  "87V": { name:"花火", gaisen:true, reach:true },
+  "884": { name:"林", gaisen:true, reach:true },
 
-  "V07": { name:"ボーナス", gaisen:true },
-  "V31": { name:"Vサイン", gaisen:true },
-  "V34": { name:"バーサス", gaisen:true }
+  "V07": { name:"ボーナス", gaisen:true, reach:true },
+  "V31": { name:"Vサイン", gaisen:true, reach:true },
+  "V34": { name:"バーサス", gaisen:true, reach:true }
 };
 
 const infoData = {
@@ -457,35 +466,46 @@ let currentInfo = "";
 let minSetting = 1;
 
 function pressKey(key){
+  const display = document.getElementById("display");
+
   if(current.length >= 3){
     current = "";
     document.getElementById("result").innerHTML = "";
+    display.classList.remove("rainbow-text");
   }
+
   current += key;
-  document.getElementById("display").innerText = current;
+  display.innerText = current;
+
   if(current.length === 3){
     check(current);
   }
 }
 
 function backspace(){
+  const display = document.getElementById("display");
   current = current.slice(0,-1);
-  document.getElementById("display").innerText = current || "---";
+  display.innerText = current || "---";
   document.getElementById("result").innerHTML = "";
+  display.classList.remove("rainbow-text");
 }
 
 function clearInput(){
+  const display = document.getElementById("display");
   current = "";
-  document.getElementById("display").innerText = "---";
+  display.innerText = "---";
   document.getElementById("result").innerHTML = "";
+  display.classList.remove("rainbow-text");
 }
 
 function check(code){
   const r = data[code];
   const o = document.getElementById("result");
+  const display = document.getElementById("display");
 
   if(!r){
     o.innerHTML = "該当なし<br><span class='small'>通常出目 or データ未登録</span>";
+    display.classList.remove("rainbow-text");
     return;
   }
 
@@ -493,15 +513,30 @@ function check(code){
   h += "出目：" + code + "<br>";
   h += "<span class='result-strong'>" + r.name + "</span><br>";
 
-  if(r.level){
-    h += "モード期待度：" + r.level + "/8<br>";
+  if(r.type){
+    h += r.type + "<br>";
   }
+
+  if(r.reach){
+    h += "<span class='rainbow-text'>リーチ目</span><br>";
+    display.classList.add("rainbow-text");
+  }else{
+    display.classList.remove("rainbow-text");
+  }
+
+  if(r.level){
+    const hue = Math.round(230 - (r.level - 1) * (230 / 7));
+    h += "<span class='level' style='color:hsl(" + hue + ",100%,60%)'>モード期待度：" + r.level + "/8</span><br>";
+  }
+
   if(r.info){
     h += r.info + "<br>";
   }
+
   if(r.guarantee){
     h += "<span class='guarantee'>【" + r.guarantee + "】</span><br>";
   }
+
   if(!r.kiseki && r.gaisen){
     h += "（凱旋情報）";
   }
@@ -524,9 +559,11 @@ function showInfo(key){
 
   const i = infoData[key];
   let h = "<br><b>" + i.title + "</b><br><br>";
+
   i.body.forEach(line => {
     h += "・" + line + "<br>";
   });
+
   box.innerHTML = h;
   currentInfo = key;
 }
@@ -542,6 +579,7 @@ function showEffect(key){
 
   const e = effectData[key];
   let h = "<b>" + e.name + "</b><br><br>";
+
   e.rows.forEach(row => {
     h += row[0] + "：<b>" + row[1] + "</b><br>";
   });
@@ -552,6 +590,7 @@ function showEffect(key){
 
 function selectPlate(min){
   minSetting = min;
+
   const text = {
     1:"プレートなし：設定示唆なし",
     2:"銅：設定2以上濃厚",
@@ -560,6 +599,7 @@ function selectPlate(min){
     5:"花火柄：設定5以上濃厚",
     6:"虹：設定6濃厚"
   };
+
   document.getElementById("plateResult").innerHTML = text[min] + "<br>※計算時にこの条件を反映します。";
   calcSetting();
 }
@@ -594,10 +634,12 @@ function calcSetting(){
     const p = 1 / odds[s];
     const log = hits * Math.log(p) + (games - hits) * Math.log(1 - p);
     logs.push({s:s, log:log});
+
     if(log > max) max = log;
   }
 
   let sum = 0;
+
   logs.forEach(x => {
     x.w = x.log === -Infinity ? 0 : Math.exp(x.log - max);
     sum += x.w;
