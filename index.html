@@ -52,11 +52,7 @@ h3{
   width:190px;
   min-height:44px;
 }
-.keypad,
-.menu-buttons,
-.basic-buttons,
-.effect-buttons,
-.plate-buttons{
+.keypad,.menu-buttons,.basic-buttons,.effect-buttons,.plate-buttons{
   display:grid;
   gap:10px;
   justify-content:center;
@@ -81,38 +77,29 @@ button:active{
   background:linear-gradient(#666,#333);
   font-size:16px;
 }
-.menu-buttons,
-.basic-buttons,
-.effect-buttons,
-.plate-buttons{
+.menu-buttons,.basic-buttons,.effect-buttons,.plate-buttons{
   grid-template-columns:repeat(2,minmax(130px,1fr));
   max-width:440px;
   margin:0 auto 14px;
 }
-.info-menu,
-.basic-buttons button{
+.info-menu,.basic-buttons button{
   background:linear-gradient(#1f5f8f,#12324f)!important;
 }
-.setting-menu,
-.plate-buttons button{
+.setting-menu,.plate-buttons button{
   background:linear-gradient(#6b3fa0,#32174f)!important;
 }
 .effect-buttons button{
   font-size:15px;
   background:linear-gradient(#735300,#3a2600)!important;
 }
-.active-button,
-.active-info,
-.active-setting{
+.active-button,.active-info,.active-setting{
   background:linear-gradient(#00e5ff,#008cff)!important;
   color:#fff!important;
   box-shadow:0 0 18px rgba(0,200,255,.9)!important;
   border:2px solid #00e5ff!important;
   font-weight:bold;
 }
-#result,
-#infoBox,
-#settingBox{
+#result,#infoBox,#settingBox{
   margin-top:22px;
   background:rgba(20,20,20,.92);
   border:1px solid #4d3710;
@@ -189,8 +176,7 @@ button:active{
   border-collapse:collapse;
   margin:10px 0;
 }
-.mode-table th,
-.mode-table td{
+.mode-table th,.mode-table td{
   border:1px solid #6b4a12;
   padding:7px;
 }
@@ -224,7 +210,7 @@ input{
 }
 .history-layout{
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:minmax(0,1fr) 210px;
   gap:12px;
   align-items:start;
 }
@@ -238,6 +224,7 @@ input{
   font-size:13px;
   line-height:1.7;
   text-align:left;
+  max-width:210px;
 }
 .close-btn{
   margin:20px auto 0;
@@ -267,9 +254,12 @@ input{
   font-weight:bold;
   box-shadow:0 0 10px rgba(0,255,100,.6);
 }
-@media(max-width:480px){
+@media(max-width:390px){
   .history-layout{
     grid-template-columns:1fr;
+  }
+  .live-result{
+    max-width:none;
   }
 }
 </style>
@@ -366,7 +356,7 @@ input{
   <button onclick="resetDirect()">リセット</button>
 
   <div id="directResult" style="margin-top:15px;"></div>
-  <div id="settingResult" style="margin-top:15px;"></div>
+  <div id="settingResult" style="display:none;"></div>
 
   <br><b>ユニバプレート</b><br>
   <div class="plate-buttons">
@@ -441,11 +431,9 @@ const data={
 "567":{name:"奇数順目",level:5,kiseki:true,type:"モード示唆"},
 "030":{name:"0ハサミ",level:6,kiseki:true,type:"モード示唆"},
 "313":{name:"奇数ハサミ",level:7,kiseki:true,type:"モード示唆"},
-
 "777":{name:"ゴッド揃い",guarantee:"PGG",kiseki:true,type:"特殊出目"},
 "000":{name:"Z-ZONE当選",guarantee:"AT確定CZ",kiseki:true,type:"特殊出目"},
 "VVV":{name:"V揃い",guarantee:"3セット以上濃厚",kiseki:true,type:"特殊出目"},
-
 "V0V":{name:"Vハサミ偶数",guarantee:"Vモード確定",gaisen:true,chance:true,type:"モード示唆"},
 "V2V":{name:"Vハサミ偶数",info:"頻発でVモード示唆",gaisen:true,chance:true,type:"モード示唆"},
 "V4V":{name:"Vハサミ偶数",info:"頻発でVモード示唆",gaisen:true,chance:true,type:"モード示唆"},
@@ -455,7 +443,6 @@ const data={
 "V3V":{name:"Vハサミ奇数",guarantee:"天国ショート以上確定",gaisen:true,type:"モード示唆"},
 "V5V":{name:"Vハサミ奇数",level:8,guarantee:"天国ショート以上確定",gaisen:true,type:"モード示唆"},
 "V7V":{name:"Vハサミ奇数",guarantee:"天国ショート以上確定",gaisen:true,type:"モード示唆"},
-
 "101":{name:"奇数ハサミ＋中0",info:"GG前兆に期待",gaisen:true,chance:true},
 "303":{name:"奇数ハサミ＋中0",info:"GG前兆に期待",gaisen:true,chance:true},
 "505":{name:"奇数ハサミ＋中0",info:"GG前兆に期待",gaisen:true,chance:true},
@@ -467,7 +454,6 @@ const data={
 "468":{name:"ヨーロッパ",info:"チャンス目",gaisen:true,chance:true},
 "631":{name:"無罪",info:"チャンス目",gaisen:true,chance:true},
 "831":{name:"野菜",info:"チャンス目",gaisen:true,chance:true},
-
 "007":{name:"ネタ",gaisen:true,reach:true},
 "012":{name:"朝イチ目",gaisen:true,reach:true},
 "026":{name:"お風呂",gaisen:true,reach:true},
@@ -479,7 +465,6 @@ const data={
 "081":{name:"オッパイ",gaisen:true,reach:true},
 "0V0":{name:"顔文字",gaisen:true,reach:true},
 "072":{name:"ネタ",info:"期待度？？？",gaisen:true,reach:true},
-
 "104":{name:"天使",gaisen:true,reach:true},
 "110":{name:"110番",gaisen:true,reach:true},
 "123":{name:"旧朝イチ目",gaisen:true,reach:true},
@@ -492,7 +477,6 @@ const data={
 "280":{name:"ニーハオ",gaisen:true,reach:true},
 "283":{name:"翼",gaisen:true,reach:true},
 "2V1":{name:"ニブイチ",info:"2分の1",gaisen:true,reach:true},
-
 "315":{name:"最高",gaisen:true,reach:true},
 "324":{name:"MIZUHO",gaisen:true,reach:true},
 "344":{name:"サシシ",gaisen:true,reach:true},
@@ -504,7 +488,6 @@ const data={
 "448":{name:"使者",gaisen:true,reach:true},
 "481":{name:"支配",gaisen:true,reach:true},
 "4V8":{name:"渋谷",gaisen:true,reach:true},
-
 "508":{name:"ゴーヤ",gaisen:true,reach:true},
 "510":{name:"GOD",guarantee:"GOD系出目",gaisen:true,reach:true},
 "514":{name:"来いよ",gaisen:true,reach:true},
@@ -514,7 +497,6 @@ const data={
 "56V":{name:"転ぶ",gaisen:true,reach:true},
 "5V0":{name:"ご無礼",gaisen:true,reach:true},
 "5V4":{name:"拳",gaisen:true,reach:true},
-
 "634":{name:"武蔵",gaisen:true,reach:true},
 "664":{name:"ろくむし",gaisen:true,reach:true},
 "681":{name:"無敗",gaisen:true,reach:true},
@@ -522,7 +504,6 @@ const data={
 "753":{name:"七五三",info:"和み",gaisen:true,reach:true},
 "758":{name:"名古屋",gaisen:true,reach:true},
 "78V":{name:"7頭順目",guarantee:"リーチ目",gaisen:true,reach:true},
-
 "801":{name:"ハワイ",gaisen:true,reach:true},
 "808":{name:"八百屋",gaisen:true,reach:true},
 "821":{name:"ハニー",gaisen:true,reach:true},
@@ -532,228 +513,41 @@ const data={
 "873":{name:"花見",gaisen:true,reach:true},
 "87V":{name:"花火",gaisen:true,reach:true},
 "884":{name:"林",gaisen:true,reach:true},
-
 "V07":{name:"ボーナス",gaisen:true,reach:true},
 "V31":{name:"Vサイン",gaisen:true,reach:true},
 "V34":{name:"バーサス",gaisen:true,reach:true}
 };
 
 const basicData={
-spec:{title:"基本スペック",body:[
-"初当り確率：1/532.8〜1/294.8",
-"機械割：97.2%〜114.6%",
-"GG中の純増枚数：約7.0枚/G",
-"ベース：約30.8G/50枚",
-"設定1：初当り 1/532.8　機械割 97.2%",
-"設定2：初当り 1/420.4　機械割 99.1%",
-"設定3：初当り 1/495.9　機械割 102.1%",
-"設定4：初当り 1/338.4　機械割 106.9%",
-"設定5：初当り 1/455.4　機械割 111.7%",
-"設定6：初当り 1/294.8　機械割 114.6%"
-]},
-tenjo:{title:"天井恩恵",body:[
-"通常時はGG間1480G+α消化で天井到達。",
-"天井到達時はGG当選＋ループストック振り分けあり。",
-"510G天井・1000G天井でも同様の恩恵が有効。"
-],chart:"loop"},
-reset:{title:"リセット恩恵",body:[
-"設定変更時は有利区間がリセットされ、ゲーム数天井も再選択。",
-"約35.5%で1000G以内の短縮天井が選択される。"
-],chart:"tenjo"},
-mode:{title:"モード",html:`
-<table class="mode-table">
-<tr><th>表モード</th><th>概要</th></tr>
-<tr><td>低確A</td><td>基本となる低モード</td></tr>
-<tr><td>低確B</td><td>低確Aより上位の低モード</td></tr>
-<tr><td>通常</td><td>天国準備移行に期待</td></tr>
-<tr><td>天国準備</td><td>天国移行に期待</td></tr>
-<tr><td>天国</td><td>GG当選に期待</td></tr>
-<tr><td>超天国</td><td>GG当選の大チャンス</td></tr>
-</table>
-
-<table class="mode-table">
-<tr><th>裏モード</th><th>概要・示唆</th></tr>
-<tr><td>通常</td><td>基本状態</td></tr>
-<tr><td>裏天国</td><td>
-GG当選期待度が大幅アップ<br>
-・下段黄7でGG当選 → 裏モード期待度UP<br><br>
-<b>裏モード示唆演出</b><br>
-・アルテミスの矢ハズレ → 裏モード示唆<br>
-・雷演出＋奇数非テンパイ → 裏モード示唆
-</td></tr>
-</table>
-
-<b>液晶出目による主な示唆</b><br>
-Vハサミ偶数：Vモード示唆<br>
-V0V：Vモード確定<br>
-Vハサミ奇数：天国ショート以上確定<br>
-奇数順目・奇数ハサミ：高モード期待度アップ<br><br>
-
-<b>光の風</b><br>
-左→右：モードアップに期待<br>
-右→左：モードアップ以上に期待<br>
-左→右＋リプレイ：モードアップ確定<br>
-右→左＋リプレイ：GG濃厚!?
-`},
-zzone:{title:"Z-ZONE / Z-GAME",body:[
-"Z-ZONEは0図柄揃いなどから移行するGG上乗せゾーン。",
-"継続ゲーム数は5G＋α。",
-"消化中はGGストック抽選とZ-GAME移行抽選を行う。",
-"右上がり黄7・中段黄7成立時は黄7の5連扱いとなり、Z-GAMEへ直行。"
-]},
-god:{title:"GOD・赤7",body:[
-"GOD揃い：約1/16384。PGG突入。",
-"PGGはGGストック4個以上＋高継続ループストック。",
-"赤7揃い：約1/6900。SGG突入。",
-"SGGはGGストック＋ループストック獲得に期待。"
-]},
-gaia:{title:"ガイア",body:[
-"ガイアナビ（右ナビ）発生でガイアステージ移行のチャンス。",
-"ガイアベル揃い時の周期抽選に当選すると、ガイアステージ移行抽選が行われる。",
-"ガイアモードは低確・通常・天国の3種類。",
-"ガイアステージはGGの超高確率状態。初期保障ゲーム数は9G。",
-"奇数揃いでGG濃厚、0揃いでZ-ZONE経由のGG。",
-"【ガイアステージ中・成立役別GG当選率】",
-"ハズレ：1.6%",
-"上段青7：1.6%",
-"中段青7：50.0%",
-"押し順黄7：1.6%",
-"右上がり黄7：62.5%",
-"中段黄7：100%",
-"ガイアベル：1.6%",
-"赤7フェイク：1.6%",
-"SP役：100%",
-"【小役履歴GG当選率】",
-"青7 1回：5.9% / 2連：5.9% / 3連：25.0% / 4連：75.0% / 5連以上：100%",
-"黄7 1回：1.2% / 2連：1.2% / 3連：10.2% / 4連：50.0% / 5連以上：100%",
-"【保障ゲーム数3G獲得抽選】",
-"ハズレ・上段青7・押し順黄7・ガイアベル・赤7フェイク：5.3%",
-"中段青7・右上がり黄7：100%"
-]},
-rate:{title:"小役確率",body:[
-"ハズレ：約1/5.2",
-"押し順黄7：約1/1.7",
-"上段青7：約1/7.9",
-"中段青7：約1/109.2",
-"下段黄7：約1/18.4",
-"右上がり黄7：約1/186.2",
-"中段黄7：約1/963.8",
-"ガイアベル：約1/37.6",
-"GOD揃い：約1/16384"
-]}
+spec:{title:"基本スペック",body:["初当り確率：1/532.8〜1/294.8","機械割：97.2%〜114.6%","GG中の純増枚数：約7.0枚/G","ベース：約30.8G/50枚","設定1：初当り 1/532.8　機械割 97.2%","設定2：初当り 1/420.4　機械割 99.1%","設定3：初当り 1/495.9　機械割 102.1%","設定4：初当り 1/338.4　機械割 106.9%","設定5：初当り 1/455.4　機械割 111.7%","設定6：初当り 1/294.8　機械割 114.6%"]},
+tenjo:{title:"天井恩恵",body:["通常時はGG間1480G+α消化で天井到達。","天井到達時はGG当選＋ループストック振り分けあり。","510G天井・1000G天井でも同様の恩恵が有効。"],chart:"loop"},
+reset:{title:"リセット恩恵",body:["設定変更時は有利区間がリセットされ、ゲーム数天井も再選択。","約35.5%で1000G以内の短縮天井が選択される。"],chart:"tenjo"},
+mode:{title:"モード",html:`<table class="mode-table"><tr><th>表モード</th><th>概要</th></tr><tr><td>低確A</td><td>基本となる低モード</td></tr><tr><td>低確B</td><td>低確Aより上位の低モード</td></tr><tr><td>通常</td><td>天国準備移行に期待</td></tr><tr><td>天国準備</td><td>天国移行に期待</td></tr><tr><td>天国</td><td>GG当選に期待</td></tr><tr><td>超天国</td><td>GG当選の大チャンス</td></tr></table><table class="mode-table"><tr><th>裏モード</th><th>概要・示唆</th></tr><tr><td>通常</td><td>基本状態</td></tr><tr><td>裏天国</td><td>GG当選期待度が大幅アップ<br>・下段黄7でGG当選 → 裏モード期待度UP<br><br><b>裏モード示唆演出</b><br>・アルテミスの矢ハズレ → 裏モード示唆<br>・雷演出＋奇数非テンパイ → 裏モード示唆</td></tr></table><b>液晶出目による主な示唆</b><br>Vハサミ偶数：Vモード示唆<br>V0V：Vモード確定<br>Vハサミ奇数：天国ショート以上確定<br>奇数順目・奇数ハサミ：高モード期待度アップ<br><br><b>光の風</b><br>左→右：モードアップに期待<br>右→左：モードアップ以上に期待<br>左→右＋リプレイ：モードアップ確定<br>右→左＋リプレイ：GG濃厚!?`},
+zzone:{title:"Z-ZONE / Z-GAME",body:["Z-ZONEは0図柄揃いなどから移行するGG上乗せゾーン。","継続ゲーム数は5G＋α。","消化中はGGストック抽選とZ-GAME移行抽選を行う。","右上がり黄7・中段黄7成立時は黄7の5連扱いとなり、Z-GAMEへ直行。"]},
+god:{title:"GOD・赤7",body:["GOD揃い：約1/16384。PGG突入。","PGGはGGストック4個以上＋高継続ループストック。","赤7揃い：約1/6900。SGG突入。","SGGはGGストック＋ループストック獲得に期待。"]},
+gaia:{title:"ガイア",body:["ガイアナビ（右ナビ）発生でガイアステージ移行のチャンス。","ガイアベル揃い時の周期抽選に当選すると、ガイアステージ移行抽選が行われる。","ガイアモードは低確・通常・天国の3種類。","ガイアステージはGGの超高確率状態。初期保障ゲーム数は9G。","奇数揃いでGG濃厚、0揃いでZ-ZONE経由のGG。","【ガイアステージ中・成立役別GG当選率】","ハズレ：1.6%","上段青7：1.6%","中段青7：50.0%","押し順黄7：1.6%","右上がり黄7：62.5%","中段黄7：100%","ガイアベル：1.6%","赤7フェイク：1.6%","SP役：100%","【小役履歴GG当選率】","青7 1回：5.9% / 2連：5.9% / 3連：25.0% / 4連：75.0% / 5連以上：100%","黄7 1回：1.2% / 2連：1.2% / 3連：10.2% / 4連：50.0% / 5連以上：100%","【保障ゲーム数3G獲得抽選】","ハズレ・上段青7・押し順黄7・ガイアベル・赤7フェイク：5.3%","中段青7・右上がり黄7：100%"]},
+rate:{title:"小役確率",body:["ハズレ：約1/5.2","押し順黄7：約1/1.7","上段青7：約1/7.9","中段青7：約1/109.2","下段黄7：約1/18.4","右上がり黄7：約1/186.2","中段黄7：約1/963.8","ガイアベル：約1/37.6","GOD揃い：約1/16384"]}
 };
 
 const effectData={
-stage:{name:"ステージチェンジ",rows:[
-["右回転→遺跡・泉・森","デフォルト"],
-["右回転→麓","天国準備以上の期待大"],
-["右回転→神殿","天国以上の期待大"],
-["左回転→遺跡・泉・森","天国準備以上の期待大"],
-["左回転→麓","天国以上の期待大"],
-["左回転→神殿","超天国の期待大"],
-["奥へ進行→神殿","天国以上の期待大"],
-["奥へ進行→麓","GG濃厚!?"],
-["チャンスボタン→麓","天国以上の期待大"],
-["チャンスボタン→神殿","超天国の期待大"],
-["チャンスボタン→遺跡・泉・森","GG濃厚!?"],
-["ワイプ→神殿","GG濃厚!?"]
-]},
-wind:{name:"光の風",rows:[
-["左→右","モードアップに期待"],
-["右→左","モードアップ以上に期待"],
-["左→右＋リプレイ","モードアップ確定"],
-["右→左＋リプレイ","GG濃厚!?"]
-]},
-blackhole:{name:"ブラックホール",rows:[
-["1回","天国準備以上に期待"],
-["2連","デフォルト"],
-["3連","チャンス"],
-["4連","奇数揃い濃厚!?"]
-]},
-delay:{name:"遅れ",rows:[
-["ALL赤色＋バラケ目","天国準備以上の期待大"],
-["奇数ケツテンパイ","天国以上の期待大"],
-["7ハサミの中に偶数","天国以上の期待大"],
-["7V0 / 70V","天国以上の期待大"],
-["700 / 707 / 7VV","超天国の期待大"]
-]},
-kagerou:{name:"陽炎演出",rows:[
-["ALL黄色（偶数）","偶数揃いに期待"],
-["ALL赤色（奇数）","奇数テンパイで前兆示唆"],
-["その他","GG前兆以上に期待"]
-]},
-ice:{name:"氷演出",rows:[
-["リール回転開始時","デフォルト"],
-["レバーON→第1停止","チャンス"],
-["第1停止時","大チャンス"],
-["凍結2個","右上がり黄7 or 中段黄7"],
-["凍結3個","チャンス!?"]
-]},
-thunder:{name:"雷演出",rows:[
-["リール回転開始時","デフォルト"],
-["レバーON→第1停止","チャンス"],
-["第1停止時","チャンス"],
-["奇数非テンパイ","裏モード示唆!?"]
-]},
-mirror:{name:"鏡演出",rows:[
-["左のみ","奇数テンパイ"],
-["左＋中","奇数揃い濃厚!?"],
-["左のみ＋非テンパイ","GG前兆濃厚!?"]
-]},
-blackout:{name:"消灯演出",rows:[
-["1消灯＋奇数テンパイ","GG前兆濃厚!?"],
-["第3停止消灯","心臓発展"]
-]},
-heart:{name:"心臓演出",rows:[
-["Low→Hi","デフォルト"],
-["Low→Hi→Hi","チャンス"],
-["Low→Hi→SHi","GG濃厚!?"],
-["Low→SHi","GG濃厚!?"],
-["Lowのみ","GG濃厚!?"],
-["奇数テンパイ","チャンス"],
-["第3停止いきなり消灯","チャンス"]
-]},
-big:{name:"図柄巨大化",rows:[
-["3G以上継続","奇数揃い濃厚!?"],
-["ケツV","大チャンス"],
-["ケツ7 or 0","GG前兆濃厚!?"]
-]},
-tornado:{name:"竜巻発展",rows:[
-["奇数＋偶数混在","デフォルト"],
-["奇数のみ","チャンス"],
-["奇数のみ＋7あり","GG濃厚!?"],
-["矛盾発展","GG前兆濃厚!?"],
-["演出なし→発展","チャンス"],
-["砂嵐経由","大チャンス"]
-]},
-door:{name:"天空の扉",rows:[
-["発生","確定役のチャンス"],
-["強パターン","期待度アップ"],
-["発展あり","GG前兆に期待"]
-]},
-sun:{name:"太陽の戦車",rows:[
-["1段階","チャンス"],
-["2段階","チャンスアップ"],
-["3段階以上","確定役のチャンス"]
-]},
-godthunder:{name:"神の雷",rows:[
-["発生","確定役のチャンス"]
-]},
-ura:{name:"裏ボタン",rows:[
-["GG告知ゲーム","第3停止後〜次BETで押下。上部LEDでループストック種別 or GGストック数を示唆"],
-["GG終了画面","第3停止後〜次BETで押下。GGストックの有無を示唆"],
-["SGG引き戻しZONE","毎ゲームのレバーON〜次BETで押下。LED発光でSGG引き戻し濃厚!?"],
-["Z-ZONE / Z-GAME","毎ゲームのレバーON〜第3停止で押下。LED発光で黄7成立濃厚!?"],
-["LED期待度","白＜青＜黄＜緑＜赤＜虹"]
-]},
-push:{name:"チャンスボタン",rows:[
-["台枠1段階点灯","デフォルト"],
-["台枠2段階点灯","チャンス"],
-["台枠3段階点灯","チャンスアップ"]
-]},
-blackout2:{name:"ブラックアウト",rows:[
-["発生","GOD揃い濃厚"]
-]}
+stage:{name:"ステージチェンジ",rows:[["右回転→遺跡・泉・森","デフォルト"],["右回転→麓","天国準備以上の期待大"],["右回転→神殿","天国以上の期待大"],["左回転→遺跡・泉・森","天国準備以上の期待大"],["左回転→麓","天国以上の期待大"],["左回転→神殿","超天国の期待大"],["奥へ進行→神殿","天国以上の期待大"],["奥へ進行→麓","GG濃厚!?"],["チャンスボタン→麓","天国以上の期待大"],["チャンスボタン→神殿","超天国の期待大"],["チャンスボタン→遺跡・泉・森","GG濃厚!?"],["ワイプ→神殿","GG濃厚!?"]]},
+wind:{name:"光の風",rows:[["左→右","モードアップに期待"],["右→左","モードアップ以上に期待"],["左→右＋リプレイ","モードアップ確定"],["右→左＋リプレイ","GG濃厚!?"]]},
+blackhole:{name:"ブラックホール",rows:[["1回","天国準備以上に期待"],["2連","デフォルト"],["3連","チャンス"],["4連","奇数揃い濃厚!?"]]},
+delay:{name:"遅れ",rows:[["ALL赤色＋バラケ目","天国準備以上の期待大"],["奇数ケツテンパイ","天国以上の期待大"],["7ハサミの中に偶数","天国以上の期待大"],["7V0 / 70V","天国以上の期待大"],["700 / 707 / 7VV","超天国の期待大"]]},
+kagerou:{name:"陽炎演出",rows:[["ALL黄色（偶数）","偶数揃いに期待"],["ALL赤色（奇数）","奇数テンパイで前兆示唆"],["その他","GG前兆以上に期待"]]},
+ice:{name:"氷演出",rows:[["リール回転開始時","デフォルト"],["レバーON→第1停止","チャンス"],["第1停止時","大チャンス"],["凍結2個","右上がり黄7 or 中段黄7"],["凍結3個","チャンス!?"]]},
+thunder:{name:"雷演出",rows:[["リール回転開始時","デフォルト"],["レバーON→第1停止","チャンス"],["第1停止時","チャンス"],["奇数非テンパイ","裏モード示唆!?"]]},
+mirror:{name:"鏡演出",rows:[["左のみ","奇数テンパイ"],["左＋中","奇数揃い濃厚!?"],["左のみ＋非テンパイ","GG前兆濃厚!?"]]},
+blackout:{name:"消灯演出",rows:[["1消灯＋奇数テンパイ","GG前兆濃厚!?"],["第3停止消灯","心臓発展"]]},
+heart:{name:"心臓演出",rows:[["Low→Hi","デフォルト"],["Low→Hi→Hi","チャンス"],["Low→Hi→SHi","GG濃厚!?"],["Low→SHi","GG濃厚!?"],["Lowのみ","GG濃厚!?"],["奇数テンパイ","チャンス"],["第3停止いきなり消灯","チャンス"]]},
+big:{name:"図柄巨大化",rows:[["3G以上継続","奇数揃い濃厚!?"],["ケツV","大チャンス"],["ケツ7 or 0","GG前兆濃厚!?"]]},
+tornado:{name:"竜巻発展",rows:[["奇数＋偶数混在","デフォルト"],["奇数のみ","チャンス"],["奇数のみ＋7あり","GG濃厚!?"],["矛盾発展","GG前兆濃厚!?"],["演出なし→発展","チャンス"],["砂嵐経由","大チャンス"]]},
+door:{name:"天空の扉",rows:[["発生","確定役のチャンス"],["強パターン","期待度アップ"],["発展あり","GG前兆に期待"]]},
+sun:{name:"太陽の戦車",rows:[["1段階","チャンス"],["2段階","チャンスアップ"],["3段階以上","確定役のチャンス"]]},
+godthunder:{name:"神の雷",rows:[["発生","確定役のチャンス"]]},
+ura:{name:"裏ボタン",rows:[["GG告知ゲーム","第3停止後〜次BETで押下。上部LEDでループストック種別 or GGストック数を示唆"],["GG終了画面","第3停止後〜次BETで押下。GGストックの有無を示唆"],["SGG引き戻しZONE","毎ゲームのレバーON〜次BETで押下。LED発光でSGG引き戻し濃厚!?"],["Z-ZONE / Z-GAME","毎ゲームのレバーON〜第3停止で押下。LED発光で黄7成立濃厚!?"],["LED期待度","白＜青＜黄＜緑＜赤＜虹"]]},
+push:{name:"チャンスボタン",rows:[["台枠1段階点灯","デフォルト"],["台枠2段階点灯","チャンス"],["台枠3段階点灯","チャンスアップ"]]},
+blackout2:{name:"ブラックアウト",rows:[["発生","GOD揃い濃厚"]]}
 };
 
 let current="";
@@ -912,6 +706,7 @@ function showBasic(key,button){
       else h+="・"+line+"<br>";
     });
   }
+
   if(b.chart==="loop"){
     h+=`<div class="chart-wrap"><canvas id="loopChart" width="240" height="240"></canvas><br>
     <div class="chart-legend">
@@ -922,6 +717,7 @@ function showBasic(key,button){
     <span style="color:#ff5a5a">■</span> 1%ループ＋Z-ZONE：33.2%
     </div></div>`;
   }
+
   if(b.chart==="tenjo"){
     h+=`<div class="chart-wrap"><canvas id="tenjoChart" width="240" height="240"></canvas><br>
     <div class="chart-legend">
@@ -930,6 +726,7 @@ function showBasic(key,button){
     <span style="color:#ff9f1c">■</span> 1480G天井：64.5%
     </div></div>`;
   }
+
   h+="</div>";
   button.insertAdjacentHTML("afterend",h);
   currentBasic=key;
@@ -939,13 +736,16 @@ function showBasic(key,button){
 function showEffect(key,button){
   const old=document.getElementById("effectDetail");
   document.querySelectorAll(".effect-buttons button").forEach(btn=>btn.classList.remove("active-button"));
+
   if(currentEffect===key&&old){
     old.remove();
     currentEffect="";
     return;
   }
+
   if(old)old.remove();
   button.classList.add("active-button");
+
   const e=effectData[key];
   let h="<div id='effectDetail' class='detail-box'><b>"+e.name+"</b><br><br>";
   e.rows.forEach(row=>{h+="・"+row[0]+"：<b>"+row[1]+"</b><br>";});
@@ -968,14 +768,9 @@ function selectPlate(min){
   calcSetting();
 }
 
-function calcSetting(){
-  const games=Number(document.getElementById("gameCount").value);
-  const hits=Number(document.getElementById("hitCount").value);
-
-  if(!games||games<=0||hits<0){
-    document.getElementById("settingResult").innerHTML="回転数と初当り回数を入力してください。";
-    document.getElementById("directResult").innerHTML="";
-    return;
+function buildSettingHtml(games,hits){
+  if(!games||games<=0||!hits||hits<=0){
+    return "";
   }
 
   const odds={1:532.8,2:420.4,3:495.9,4:338.4,5:455.4,6:294.8};
@@ -987,9 +782,11 @@ function calcSetting(){
       logs.push({s:s,log:-Infinity});
       continue;
     }
+
     const p=1/odds[s];
     const log=hits*Math.log(p)+(games-hits)*Math.log(1-p);
     logs.push({s:s,log:log});
+
     if(log>max)max=log;
   }
 
@@ -999,16 +796,20 @@ function calcSetting(){
     sum+=x.w;
   });
 
-  const actual=hits?games/hits:0;
-  let h="";
-  h+="<b>現在の初当り確率：約1/"+(hits?actual.toFixed(1):"-")+"</b><br><br>";
-
+  const actual=games/hits;
   let expectedSetting=0;
 
   logs.forEach(x=>{
     const pct=sum?x.w/sum*100:0;
     if(x.s>=minSetting)expectedSetting+=x.s*(pct/100);
+  });
 
+  let h="";
+  h+="<b style='color:#ffdf6b;font-size:22px;text-shadow:0 0 10px #ffdf6b;'>推定設定：約"+expectedSetting.toFixed(1)+"</b><br><br>";
+  h+="<b>現在の初当り確率：約1/"+actual.toFixed(1)+"</b><br><br>";
+
+  logs.forEach(x=>{
+    const pct=sum?x.w/sum*100:0;
     h+="<span style='color:"+settingColor(x.s)+";font-weight:bold;'>設定"+x.s+"：</span>";
     if(x.s<minSetting){
       h+="除外<br>";
@@ -1017,11 +818,23 @@ function calcSetting(){
     }
   });
 
-  h+="<br><b style='color:#ffdf6b;font-size:18px;'>推定設定：約"+expectedSetting.toFixed(1)+"</b><br>";
   h+="<br><span class='small'>※初当り確率のみの簡易推測です。ユニバプレート選択時は下限設定を反映します。</span>";
+  return h;
+}
 
-  document.getElementById("settingResult").innerHTML=h;
+function calcSetting(){
+  const games=Number(document.getElementById("gameCount").value);
+  const hits=Number(document.getElementById("hitCount").value);
+
+  if(!games||games<=0||!hits||hits<=0){
+    document.getElementById("directResult").innerHTML="回転数と初当り回数を入力してください。";
+    document.getElementById("settingResult").innerHTML="";
+    return "";
+  }
+
+  const h=buildSettingHtml(games,hits);
   document.getElementById("directResult").innerHTML=h;
+  document.getElementById("settingResult").innerHTML="";
   return h;
 }
 
@@ -1035,6 +848,7 @@ function resetDirect(){
 function addHistory(value="",number=null){
   const div=document.getElementById("historyInputs");
   const count=number||div.querySelectorAll("input").length+1;
+
   const input=document.createElement("input");
   input.type="number";
   input.inputMode="numeric";
@@ -1065,8 +879,13 @@ function addHistory(value="",number=null){
 
   input.addEventListener("input",function(){
     if(input.value.length>4)input.value=input.value.slice(0,4);
+
     const inputs=document.querySelectorAll("#historyInputs input");
-    if(input===inputs[inputs.length-1]&&input.value!=="")addHistory();
+
+    if(input===inputs[inputs.length-1]&&input.value!==""){
+      addHistory();
+    }
+
     saveHistory();
     calcHistory();
   });
@@ -1096,26 +915,30 @@ function calcHistory(){
   }
 
   const avg=total/count;
+  const settingHtml=buildSettingHtml(total,count);
 
-  const resultHtml=
+  document.getElementById("historyResult").innerHTML=
     "合計回転数："+total+"G<br>"+
     "初当り回数："+count+"回<br>"+
-    "<b>初当り確率：1/"+avg.toFixed(1)+"</b>";
-
-  document.getElementById("historyResult").innerHTML=resultHtml;
-  document.getElementById("gameCount").value=total;
-  document.getElementById("hitCount").value=count;
-
-  const settingHtml=calcSetting();
+    "<b>初当り確率：1/"+avg.toFixed(1)+"</b><br><br>"+
+    settingHtml;
 
   document.getElementById("liveResult").innerHTML=
     "<b>リアルタイム判別</b><br><br>"+
     "合計："+total+"G<br>"+
     "初当り："+count+"回<br>"+
     "<b style='color:#ffdf6b;font-size:18px;'>1/"+avg.toFixed(1)+"</b><br><br>"+
-    settingHtml;
+    "<b style='color:#ffdf6b;'>推定設定：約"+extractExpected(settingHtml)+"</b>";
+
+  document.getElementById("gameCount").value=total;
+  document.getElementById("hitCount").value=count;
 
   saveHistory();
+}
+
+function extractExpected(html){
+  const m=html.match(/推定設定：約([0-9.]+)/);
+  return m?m[1]:"-";
 }
 
 function saveHistory(){
@@ -1150,15 +973,16 @@ function resetHistory(){
 
   document.getElementById("historyResult").innerHTML="履歴をリセットしました。直前の履歴は復元できます。";
   document.getElementById("liveResult").innerHTML="<b>リアルタイム判別</b><br><br>入力待ち";
-  document.getElementById("settingResult").innerHTML="";
 }
 
 function restoreHistory(){
   const backup=localStorage.getItem("god_history_backup");
+
   if(!backup){
     document.getElementById("historyResult").innerHTML="復元できる履歴がありません。";
     return;
   }
+
   localStorage.setItem("god_history",backup);
   loadHistory();
   calcHistory();
@@ -1168,17 +992,21 @@ function restoreHistory(){
 function drawPie(id,data){
   const canvas=document.getElementById(id);
   if(!canvas)return;
+
   const ctx=canvas.getContext("2d");
   const cx=canvas.width/2;
   const cy=canvas.height/2;
   const r=95;
+
   ctx.clearRect(0,0,canvas.width,canvas.height);
+
   const total=data.reduce((s,d)=>s+d.value,0);
   let start=-Math.PI/2;
 
   data.forEach(d=>{
     const angle=(d.value/total)*Math.PI*2;
     const end=start+angle;
+
     ctx.beginPath();
     ctx.moveTo(cx,cy);
     ctx.arc(cx,cy,r,start,end);
@@ -1194,6 +1022,7 @@ function drawPie(id,data){
     ctx.shadowBlur=6;
     ctx.shadowOffsetX=1;
     ctx.shadowOffsetY=1;
+
     ctx.fillStyle="#fff";
     ctx.font="bold 13px sans-serif";
     ctx.textAlign="center";
@@ -1203,6 +1032,7 @@ function drawPie(id,data){
     ctx.shadowBlur=0;
     ctx.shadowOffsetX=0;
     ctx.shadowOffsetY=0;
+
     start=end;
   });
 
@@ -1210,6 +1040,7 @@ function drawPie(id,data){
   ctx.arc(cx,cy,43,0,Math.PI*2);
   ctx.fillStyle="#111";
   ctx.fill();
+
   ctx.fillStyle="#ffdf6b";
   ctx.font="bold 13px sans-serif";
   ctx.textAlign="center";
