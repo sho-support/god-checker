@@ -21,6 +21,7 @@ button:active{transform:translateY(2px);box-shadow:none}
 .info-menu,.basic-buttons button{background:linear-gradient(#1f5f8f,#12324f)!important}
 .setting-menu,.plate-buttons button{background:linear-gradient(#6b3fa0,#32174f)!important}
 .effect-buttons button{font-size:15px;background:linear-gradient(#735300,#3a2600)!important}
+.active-button{background:linear-gradient(#ffdf6b,#b8860b)!important;color:#111!important;box-shadow:0 0 16px rgba(255,223,107,.8)!important;font-weight:bold}
 #result,#infoBox,#settingBox{margin-top:22px;background:rgba(20,20,20,.92);border:1px solid #4d3710;border-radius:12px;padding:16px;text-align:left;line-height:1.8;font-size:14px}
 #result{text-align:center;font-size:20px;font-weight:bold}
 .result-reach-box{border:2px solid transparent!important;background:linear-gradient(#111,#111) padding-box,linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet) border-box!important;box-shadow:0 0 18px rgba(255,220,80,.35)}
@@ -91,7 +92,6 @@ input{font-size:18px;padding:10px;width:120px;border-radius:8px;border:0;margin:
 
 <h3>履歴入力</h3>
 <div id="historyInputs" class="history-inputs"></div>
-<button onclick="addHistory()">＋追加</button>
 <button onclick="calcHistory()">履歴から設定判別</button>
 <button onclick="resetHistory()">履歴リセット</button>
 <button onclick="restoreHistory()">直前の履歴を復元</button>
@@ -147,104 +147,11 @@ input{font-size:18px;padding:10px;width:120px;border-radius:8px;border:0;margin:
 
 <script>
 const data={
-"153":{name:"奇数のみ",level:1,kiseki:true,type:"モード示唆"},
-"633":{name:"左偶数＋ケツ奇数テンパイ",level:2,kiseki:true,type:"モード示唆"},
-"234":{name:"偶数順目",level:3,kiseki:true,type:"モード示唆"},
-"456":{name:"偶数順目",level:3,kiseki:true,type:"モード示唆"},
-"678":{name:"偶数順目",level:3,kiseki:true,type:"モード示唆"},
-"155":{name:"左奇数＋ケツ奇数テンパイ",level:4,kiseki:true,type:"モード示唆"},
-"567":{name:"奇数順目",level:5,kiseki:true,type:"モード示唆"},
-"030":{name:"0ハサミ",level:6,kiseki:true,type:"モード示唆"},
-"313":{name:"奇数ハサミ",level:7,kiseki:true,type:"モード示唆"},
-
-"777":{name:"ゴッド揃い",guarantee:"PGG",kiseki:true,type:"特殊出目"},
-"000":{name:"Z-ZONE当選",guarantee:"AT確定CZ",kiseki:true,type:"特殊出目"},
-"VVV":{name:"V揃い",guarantee:"3セット以上濃厚",kiseki:true,type:"特殊出目"},
-
-"V0V":{name:"Vハサミ偶数",guarantee:"Vモード確定",gaisen:true,chance:true,type:"モード示唆"},
-"V2V":{name:"Vハサミ偶数",info:"頻発でVモード示唆",gaisen:true,chance:true,type:"モード示唆"},
-"V4V":{name:"Vハサミ偶数",info:"頻発でVモード示唆",gaisen:true,chance:true,type:"モード示唆"},
-"V6V":{name:"Vハサミ偶数",info:"頻発でVモード示唆",gaisen:true,chance:true,type:"モード示唆"},
-"V8V":{name:"Vハサミ偶数",info:"頻発でVモード示唆",gaisen:true,chance:true,type:"モード示唆"},
-"V1V":{name:"Vハサミ奇数",guarantee:"天国ショート以上確定",gaisen:true,type:"モード示唆"},
-"V3V":{name:"Vハサミ奇数",guarantee:"天国ショート以上確定",gaisen:true,type:"モード示唆"},
-"V5V":{name:"Vハサミ奇数",level:8,guarantee:"天国ショート以上確定",gaisen:true,type:"モード示唆"},
-"V7V":{name:"Vハサミ奇数",guarantee:"天国ショート以上確定",gaisen:true,type:"モード示唆"},
-
-"101":{name:"奇数ハサミ＋中0",info:"GG前兆に期待",gaisen:true,chance:true},
-"303":{name:"奇数ハサミ＋中0",info:"GG前兆に期待",gaisen:true,chance:true},
-"505":{name:"奇数ハサミ＋中0",info:"GG前兆に期待",gaisen:true,chance:true},
-"707":{name:"奇数ハサミ＋中0",info:"GG前兆に期待",gaisen:true,chance:true},
-"100":{name:"左奇数＋0ケツテンパイ",info:"GG前兆に期待",gaisen:true,chance:true},
-"300":{name:"左奇数＋0ケツテンパイ",info:"GG前兆に期待",gaisen:true,chance:true},
-"500":{name:"左奇数＋0ケツテンパイ",info:"GG前兆に期待",gaisen:true,chance:true},
-"38V":{name:"雅",info:"チャンス目",gaisen:true,chance:true},
-"468":{name:"ヨーロッパ",info:"チャンス目",gaisen:true,chance:true},
-"631":{name:"無罪",info:"チャンス目",gaisen:true,chance:true},
-"831":{name:"野菜",info:"チャンス目",gaisen:true,chance:true},
-
-"007":{name:"ネタ",gaisen:true,reach:true},
-"012":{name:"朝イチ目",gaisen:true,reach:true},
-"026":{name:"お風呂",gaisen:true,reach:true},
-"032":{name:"おさつ",gaisen:true,reach:true},
-"038":{name:"大宮",gaisen:true,reach:true},
-"046":{name:"お城",gaisen:true,reach:true},
-"04V":{name:"レシーブ",gaisen:true,reach:true},
-"075":{name:"おなご",gaisen:true,reach:true},
-"081":{name:"オッパイ",gaisen:true,reach:true},
-"0V0":{name:"顔文字",gaisen:true,reach:true},
-"072":{name:"ネタ",info:"期待度？？？",gaisen:true,reach:true},
-"104":{name:"天使",gaisen:true,reach:true},
-"110":{name:"110番",gaisen:true,reach:true},
-"123":{name:"旧朝イチ目",gaisen:true,reach:true},
-"135":{name:"G-ZONE目",gaisen:true,reach:true},
-"168":{name:"いろは",gaisen:true,reach:true},
-"175":{name:"イナゴ",gaisen:true,reach:true},
-"184":{name:"イワシ",gaisen:true,reach:true},
-"201":{name:"匂い",gaisen:true,reach:true},
-"223":{name:"富士山",gaisen:true,reach:true},
-"280":{name:"ニーハオ",gaisen:true,reach:true},
-"283":{name:"翼",gaisen:true,reach:true},
-"2V1":{name:"ニブイチ",info:"2分の1",gaisen:true,reach:true},
-"315":{name:"最高",gaisen:true,reach:true},
-"324":{name:"MIZUHO",gaisen:true,reach:true},
-"344":{name:"サシシ",gaisen:true,reach:true},
-"354":{name:"神輿",gaisen:true,reach:true},
-"365":{name:"365日",gaisen:true,reach:true},
-"415":{name:"よいこ",gaisen:true,reach:true},
-"423":{name:"しじみ",gaisen:true,reach:true},
-"428":{name:"四谷",gaisen:true,reach:true},
-"448":{name:"使者",gaisen:true,reach:true},
-"481":{name:"支配",gaisen:true,reach:true},
-"4V8":{name:"渋谷",gaisen:true,reach:true},
-"508":{name:"ゴーヤ",gaisen:true,reach:true},
-"510":{name:"GOD",guarantee:"GOD系出目",gaisen:true,reach:true},
-"514":{name:"来いよ",gaisen:true,reach:true},
-"526":{name:"小次郎",gaisen:true,reach:true},
-"543":{name:"暦",gaisen:true,reach:true},
-"564":{name:"殺し",gaisen:true,reach:true},
-"56V":{name:"転ぶ",gaisen:true,reach:true},
-"5V0":{name:"ご無礼",gaisen:true,reach:true},
-"5V4":{name:"拳",gaisen:true,reach:true},
-"634":{name:"武蔵",gaisen:true,reach:true},
-"664":{name:"ろくむし",gaisen:true,reach:true},
-"681":{name:"無敗",gaisen:true,reach:true},
-"728":{name:"浪速",gaisen:true,reach:true},
-"753":{name:"七五三",info:"和み",gaisen:true,reach:true},
-"758":{name:"名古屋",gaisen:true,reach:true},
-"78V":{name:"7頭順目",guarantee:"リーチ目",gaisen:true,reach:true},
-"801":{name:"ハワイ",gaisen:true,reach:true},
-"808":{name:"八百屋",gaisen:true,reach:true},
-"821":{name:"ハニー",gaisen:true,reach:true},
-"841":{name:"弥生",gaisen:true,reach:true},
-"845":{name:"梯子",gaisen:true,reach:true},
-"850":{name:"ハチ公",gaisen:true,reach:true},
-"873":{name:"花見",gaisen:true,reach:true},
-"87V":{name:"花火",gaisen:true,reach:true},
-"884":{name:"林",gaisen:true,reach:true},
-"V07":{name:"ボーナス",gaisen:true,reach:true},
-"V31":{name:"Vサイン",gaisen:true,reach:true},
-"V34":{name:"バーサス",gaisen:true,reach:true}
+"153":{name:"奇数のみ",level:1,kiseki:true,type:"モード示唆"},"633":{name:"左偶数＋ケツ奇数テンパイ",level:2,kiseki:true,type:"モード示唆"},"234":{name:"偶数順目",level:3,kiseki:true,type:"モード示唆"},"456":{name:"偶数順目",level:3,kiseki:true,type:"モード示唆"},"678":{name:"偶数順目",level:3,kiseki:true,type:"モード示唆"},"155":{name:"左奇数＋ケツ奇数テンパイ",level:4,kiseki:true,type:"モード示唆"},"567":{name:"奇数順目",level:5,kiseki:true,type:"モード示唆"},"030":{name:"0ハサミ",level:6,kiseki:true,type:"モード示唆"},"313":{name:"奇数ハサミ",level:7,kiseki:true,type:"モード示唆"},
+"777":{name:"ゴッド揃い",guarantee:"PGG",kiseki:true,type:"特殊出目"},"000":{name:"Z-ZONE当選",guarantee:"AT確定CZ",kiseki:true,type:"特殊出目"},"VVV":{name:"V揃い",guarantee:"3セット以上濃厚",kiseki:true,type:"特殊出目"},
+"V0V":{name:"Vハサミ偶数",guarantee:"Vモード確定",gaisen:true,chance:true,type:"モード示唆"},"V2V":{name:"Vハサミ偶数",info:"頻発でVモード示唆",gaisen:true,chance:true,type:"モード示唆"},"V4V":{name:"Vハサミ偶数",info:"頻発でVモード示唆",gaisen:true,chance:true,type:"モード示唆"},"V6V":{name:"Vハサミ偶数",info:"頻発でVモード示唆",gaisen:true,chance:true,type:"モード示唆"},"V8V":{name:"Vハサミ偶数",info:"頻発でVモード示唆",gaisen:true,chance:true,type:"モード示唆"},"V1V":{name:"Vハサミ奇数",guarantee:"天国ショート以上確定",gaisen:true,type:"モード示唆"},"V3V":{name:"Vハサミ奇数",guarantee:"天国ショート以上確定",gaisen:true,type:"モード示唆"},"V5V":{name:"Vハサミ奇数",level:8,guarantee:"天国ショート以上確定",gaisen:true,type:"モード示唆"},"V7V":{name:"Vハサミ奇数",guarantee:"天国ショート以上確定",gaisen:true,type:"モード示唆"},
+"101":{name:"奇数ハサミ＋中0",info:"GG前兆に期待",gaisen:true,chance:true},"303":{name:"奇数ハサミ＋中0",info:"GG前兆に期待",gaisen:true,chance:true},"505":{name:"奇数ハサミ＋中0",info:"GG前兆に期待",gaisen:true,chance:true},"707":{name:"奇数ハサミ＋中0",info:"GG前兆に期待",gaisen:true,chance:true},"100":{name:"左奇数＋0ケツテンパイ",info:"GG前兆に期待",gaisen:true,chance:true},"300":{name:"左奇数＋0ケツテンパイ",info:"GG前兆に期待",gaisen:true,chance:true},"500":{name:"左奇数＋0ケツテンパイ",info:"GG前兆に期待",gaisen:true,chance:true},"38V":{name:"雅",info:"チャンス目",gaisen:true,chance:true},"468":{name:"ヨーロッパ",info:"チャンス目",gaisen:true,chance:true},"631":{name:"無罪",info:"チャンス目",gaisen:true,chance:true},"831":{name:"野菜",info:"チャンス目",gaisen:true,chance:true},
+"007":{name:"ネタ",gaisen:true,reach:true},"012":{name:"朝イチ目",gaisen:true,reach:true},"026":{name:"お風呂",gaisen:true,reach:true},"032":{name:"おさつ",gaisen:true,reach:true},"038":{name:"大宮",gaisen:true,reach:true},"046":{name:"お城",gaisen:true,reach:true},"04V":{name:"レシーブ",gaisen:true,reach:true},"075":{name:"おなご",gaisen:true,reach:true},"081":{name:"オッパイ",gaisen:true,reach:true},"0V0":{name:"顔文字",gaisen:true,reach:true},"072":{name:"ネタ",info:"期待度？？？",gaisen:true,reach:true},"104":{name:"天使",gaisen:true,reach:true},"110":{name:"110番",gaisen:true,reach:true},"123":{name:"旧朝イチ目",gaisen:true,reach:true},"135":{name:"G-ZONE目",gaisen:true,reach:true},"168":{name:"いろは",gaisen:true,reach:true},"175":{name:"イナゴ",gaisen:true,reach:true},"184":{name:"イワシ",gaisen:true,reach:true},"201":{name:"匂い",gaisen:true,reach:true},"223":{name:"富士山",gaisen:true,reach:true},"280":{name:"ニーハオ",gaisen:true,reach:true},"283":{name:"翼",gaisen:true,reach:true},"2V1":{name:"ニブイチ",info:"2分の1",gaisen:true,reach:true},"315":{name:"最高",gaisen:true,reach:true},"324":{name:"MIZUHO",gaisen:true,reach:true},"344":{name:"サシシ",gaisen:true,reach:true},"354":{name:"神輿",gaisen:true,reach:true},"365":{name:"365日",gaisen:true,reach:true},"415":{name:"よいこ",gaisen:true,reach:true},"423":{name:"しじみ",gaisen:true,reach:true},"428":{name:"四谷",gaisen:true,reach:true},"448":{name:"使者",gaisen:true,reach:true},"481":{name:"支配",gaisen:true,reach:true},"4V8":{name:"渋谷",gaisen:true,reach:true},"508":{name:"ゴーヤ",gaisen:true,reach:true},"510":{name:"GOD",guarantee:"GOD系出目",gaisen:true,reach:true},"514":{name:"来いよ",gaisen:true,reach:true},"526":{name:"小次郎",gaisen:true,reach:true},"543":{name:"暦",gaisen:true,reach:true},"564":{name:"殺し",gaisen:true,reach:true},"56V":{name:"転ぶ",gaisen:true,reach:true},"5V0":{name:"ご無礼",gaisen:true,reach:true},"5V4":{name:"拳",gaisen:true,reach:true},"634":{name:"武蔵",gaisen:true,reach:true},"664":{name:"ろくむし",gaisen:true,reach:true},"681":{name:"無敗",gaisen:true,reach:true},"728":{name:"浪速",gaisen:true,reach:true},"753":{name:"七五三",info:"和み",gaisen:true,reach:true},"758":{name:"名古屋",gaisen:true,reach:true},"78V":{name:"7頭順目",guarantee:"リーチ目",gaisen:true,reach:true},"801":{name:"ハワイ",gaisen:true,reach:true},"808":{name:"八百屋",gaisen:true,reach:true},"821":{name:"ハニー",gaisen:true,reach:true},"841":{name:"弥生",gaisen:true,reach:true},"845":{name:"梯子",gaisen:true,reach:true},"850":{name:"ハチ公",gaisen:true,reach:true},"873":{name:"花見",gaisen:true,reach:true},"87V":{name:"花火",gaisen:true,reach:true},"884":{name:"林",gaisen:true,reach:true},"V07":{name:"ボーナス",gaisen:true,reach:true},"V31":{name:"Vサイン",gaisen:true,reach:true},"V34":{name:"バーサス",gaisen:true,reach:true}
 };
 
 const basicData={
@@ -280,139 +187,32 @@ blackout2:{name:"ブラックアウト",rows:[["発生","GOD揃い濃厚!?"],["�
 
 let current="",currentEffect="",currentBasic="",minSetting=1;
 
-function pressKey(key){
-const display=document.getElementById("display");
-if(current.length>=3){current="";document.getElementById("result").innerHTML="";document.getElementById("result").classList.remove("result-reach-box");display.classList.remove("rainbow-text")}
-current+=key;display.innerText=current;if(current.length===3)check(current);
-}
+function pressKey(key){const display=document.getElementById("display");if(current.length>=3){current="";document.getElementById("result").innerHTML="";document.getElementById("result").classList.remove("result-reach-box");display.classList.remove("rainbow-text")}current+=key;display.innerText=current;if(current.length===3)check(current)}
 function backspace(){const display=document.getElementById("display");current=current.slice(0,-1);display.innerText=current||"---";document.getElementById("result").innerHTML="";document.getElementById("result").classList.remove("result-reach-box");display.classList.remove("rainbow-text")}
 function clearInput(){const display=document.getElementById("display");current="";display.innerText="---";document.getElementById("result").innerHTML="";document.getElementById("result").classList.remove("result-reach-box");display.classList.remove("rainbow-text")}
 
-function patternCheck(code){
-if(!/^[0-8]{3}$/.test(code))return null;
-const a=Number(code[0]),b=Number(code[1]),c=Number(code[2]);
-const isOdd=n=>n%2===1,isEven=n=>n%2===0;
-if(a===b&&b===c&&isOdd(a))return{name:"奇数揃い",guarantee:"AT濃厚!?",type:"特殊出目"};
-if(a===b&&b===c&&isEven(a))return null;
-if(a+1===b&&b+1===c&&isOdd(a))return{name:"奇数順目",level:5,type:"モード示唆"};
-if(a+1===b&&b+1===c&&isEven(a))return{name:"偶数順目",level:3,type:"モード示唆"};
-if(b===c&&isOdd(b)&&isEven(a))return{name:"左偶数＋ケツ奇数テンパイ",level:2,type:"モード示唆"};
-if(b===c&&isOdd(b)&&isOdd(a))return{name:"左奇数＋ケツ奇数テンパイ",level:4,type:"モード示唆"};
-if(isOdd(a)&&isOdd(b)&&isOdd(c))return{name:"奇数のみ",level:1,type:"モード示唆"};
-return null;
-}
+function patternCheck(code){if(!/^[0-8]{3}$/.test(code))return null;const a=Number(code[0]),b=Number(code[1]),c=Number(code[2]);const isOdd=n=>n%2===1,isEven=n=>n%2===0;if(a===b&&b===c&&isOdd(a))return{name:"奇数揃い",guarantee:"AT濃厚!?",type:"特殊出目"};if(a===b&&b===c&&isEven(a))return null;if(a+1===b&&b+1===c&&isOdd(a))return{name:"奇数順目",level:5,type:"モード示唆"};if(a+1===b&&b+1===c&&isEven(a))return{name:"偶数順目",level:3,type:"モード示唆"};if(b===c&&isOdd(b)&&isEven(a))return{name:"左偶数＋ケツ奇数テンパイ",level:2,type:"モード示唆"};if(b===c&&isOdd(b)&&isOdd(a))return{name:"左奇数＋ケツ奇数テンパイ",level:4,type:"モード示唆"};if(isOdd(a)&&isOdd(b)&&isOdd(c))return{name:"奇数のみ",level:1,type:"モード示唆"};return null}
+function levelColor(level){return{1:"#4da3ff",2:"#39c5bb",3:"#65d96e",4:"#c4e84a",5:"#ffd84a",6:"#ff9f1c",7:"#ff5a5a",8:"#ff3df2"}[level]||"#fff"}
+function formatCode(code,isReach,level){if(isReach)return"<span class='rainbow-code'>"+code.split("").map(ch=>"<span>"+ch+"</span>").join("")+"</span>";if(level)return"<span style='color:"+levelColor(level)+";font-weight:bold'>"+code+"</span>";return"<span style='color:#fff;font-weight:bold'>"+code+"</span>"}
+function check(code){const r=data[code]||patternCheck(code),o=document.getElementById("result"),display=document.getElementById("display");o.classList.remove("result-reach-box");if(!r){o.innerHTML="該当なし<br><span class='small'>通常出目 or データ未登録</span>";display.classList.remove("rainbow-text");return}let h="出目："+formatCode(code,r.reach,r.level)+"<br><span class='result-strong'>"+r.name+"</span><br>";if(r.type)h+=r.type+"<br>";if(r.reach){h+="<span class='rainbow-text'>リーチ目</span><br>";display.classList.add("rainbow-text");o.classList.add("result-reach-box")}else display.classList.remove("rainbow-text");if(r.chance)h+="<span class='chance'>チャンス目</span><br>";if(r.level)h+="<span class='level' style='color:"+levelColor(r.level)+"'>モード期待度："+r.level+"/8</span><br>";if(r.info)h+=r.info+"<br>";if(r.guarantee)h+="<span class='guarantee'>【"+r.guarantee+"】</span><br>";if(!r.kiseki&&r.gaisen)h+="（凱旋情報）";o.innerHTML=h}
 
-function levelColor(level){
-return{1:"#4da3ff",2:"#39c5bb",3:"#65d96e",4:"#c4e84a",5:"#ffd84a",6:"#ff9f1c",7:"#ff5a5a",8:"#ff3df2"}[level]||"#fff";
-}
-function formatCode(code,isReach,level){
-if(isReach)return"<span class='rainbow-code'>"+code.split("").map(ch=>"<span>"+ch+"</span>").join("")+"</span>";
-if(level)return"<span style='color:"+levelColor(level)+";font-weight:bold'>"+code+"</span>";
-return"<span style='color:#fff;font-weight:bold'>"+code+"</span>";
-}
-function check(code){
-const r=data[code]||patternCheck(code),o=document.getElementById("result"),display=document.getElementById("display");
-o.classList.remove("result-reach-box");
-if(!r){o.innerHTML="該当なし<br><span class='small'>通常出目 or データ未登録</span>";display.classList.remove("rainbow-text");return}
-let h="出目："+formatCode(code,r.reach,r.level)+"<br><span class='result-strong'>"+r.name+"</span><br>";
-if(r.type)h+=r.type+"<br>";
-if(r.reach){h+="<span class='rainbow-text'>リーチ目</span><br>";display.classList.add("rainbow-text");o.classList.add("result-reach-box")}else display.classList.remove("rainbow-text");
-if(r.chance)h+="<span class='chance'>チャンス目</span><br>";
-if(r.level)h+="<span class='level' style='color:"+levelColor(r.level)+"'>モード期待度："+r.level+"/8</span><br>";
-if(r.info)h+=r.info+"<br>";
-if(r.guarantee)h+="<span class='guarantee'>【"+r.guarantee+"】</span><br>";
-if(!r.kiseki&&r.gaisen)h+="（凱旋情報）";
-o.innerHTML=h;
-}
+function toggleBox(id){const box=document.getElementById(id);box.classList.toggle("hidden")}
+function showBasic(key,button){const old=document.getElementById("basicDetail");document.querySelectorAll(".basic-buttons button").forEach(btn=>btn.classList.remove("active-button"));if(currentBasic===key&&old){old.remove();currentBasic="";return}if(old)old.remove();button.classList.add("active-button");const b=basicData[key];let h="<div id='basicDetail' class='detail-box'><b>"+b.title+"</b><br><br>";if(b.html)h+=b.html;else b.body.forEach(line=>{if(line.startsWith("【"))h+="<br><b style='color:#ffdf6b'>"+line+"</b><br>";else h+="・"+line+"<br>"});if(b.chart==="loop")h+="<div class='chart-wrap'><canvas id='loopChart' width='240' height='240'></canvas><br><div class='chart-legend'><span style='color:#4da3ff'>■</span> 1%ループ：16.7%<br><span style='color:#39c5bb'>■</span> 25%ループ：16.7%<br><span style='color:#65d96e'>■</span> 50%ループ：16.7%<br><span style='color:#ff9f1c'>■</span> 80%ループ：16.7%<br><span style='color:#ff5a5a'>■</span> 1%ループ＋Z-ZONE：33.2%</div></div>";if(b.chart==="tenjo")h+="<div class='chart-wrap'><canvas id='tenjoChart' width='240' height='240'></canvas><br><div class='chart-legend'><span style='color:#4da3ff'>■</span> 510G天井：15.2%<br><span style='color:#39c5bb'>■</span> 1000G天井：20.3%<br><span style='color:#ff9f1c'>■</span> 1480G天井：64.5%</div></div>";h+="</div>";button.insertAdjacentHTML("afterend",h);currentBasic=key;setTimeout(()=>{if(key==="tenjo")drawLoopChart();if(key==="reset")drawTenjoChart()},50)}
+function showEffect(key,button){const old=document.getElementById("effectDetail");document.querySelectorAll(".effect-buttons button").forEach(btn=>btn.classList.remove("active-button"));if(currentEffect===key&&old){old.remove();currentEffect="";return}if(old)old.remove();button.classList.add("active-button");const e=effectData[key];let h="<div id='effectDetail' class='detail-box'><b>"+e.name+"</b><br><br>";e.rows.forEach(row=>h+="・"+row[0]+"：<b>"+row[1]+"</b><br>");h+="</div>";button.insertAdjacentHTML("afterend",h);currentEffect=key}
 
-function toggleBox(id){
-const box=document.getElementById(id);box.classList.toggle("hidden");
-if(id==="infoBox"&&!box.classList.contains("hidden"))setTimeout(()=>{drawLoopChart();drawTenjoChart()},50);
-}
-function showBasic(key,button){
-const old=document.getElementById("basicDetail");
-if(currentBasic===key&&old){old.remove();currentBasic="";return}
-if(old)old.remove();
-const b=basicData[key];let h="<div id='basicDetail' class='detail-box'><b>"+b.title+"</b><br><br>";
-if(b.html)h+=b.html;else b.body.forEach(line=>{if(line.startsWith("【"))h+="<br><b style='color:#ffdf6b'>"+line+"</b><br>";else h+="・"+line+"<br>"});
-if(b.chart==="loop")h+="<div class='chart-wrap'><canvas id='loopChart' width='240' height='240'></canvas><br><div class='chart-legend'><span style='color:#4da3ff'>■</span> 1%ループ：16.7%<br><span style='color:#39c5bb'>■</span> 25%ループ：16.7%<br><span style='color:#65d96e'>■</span> 50%ループ：16.7%<br><span style='color:#ff9f1c'>■</span> 80%ループ：16.7%<br><span style='color:#ff5a5a'>■</span> 1%ループ＋Z-ZONE：33.2%</div></div>";
-if(b.chart==="tenjo")h+="<div class='chart-wrap'><canvas id='tenjoChart' width='240' height='240'></canvas><br><div class='chart-legend'><span style='color:#4da3ff'>■</span> 510G天井：15.2%<br><span style='color:#39c5bb'>■</span> 1000G天井：20.3%<br><span style='color:#ff9f1c'>■</span> 1480G天井：64.5%</div></div>";
-h+="</div>";button.insertAdjacentHTML("afterend",h);currentBasic=key;
-setTimeout(()=>{if(key==="tenjo")drawLoopChart();if(key==="reset")drawTenjoChart()},50);
-}
-function showEffect(key,button){
-const old=document.getElementById("effectDetail");
-if(currentEffect===key&&old){old.remove();currentEffect="";return}
-if(old)old.remove();
-const e=effectData[key];let h="<div id='effectDetail' class='detail-box'><b>"+e.name+"</b><br><br>";
-e.rows.forEach(row=>h+="・"+row[0]+"：<b>"+row[1]+"</b><br>");
-h+="</div>";button.insertAdjacentHTML("afterend",h);currentEffect=key;
-}
+function selectPlate(min){minSetting=min;const text={1:"プレートなし：設定示唆なし",2:"銅：設定2以上濃厚",3:"銀：設定3以上濃厚",4:"金：設定4以上濃厚",5:"花火柄：設定5以上濃厚",6:"虹：設定6濃厚"};document.getElementById("plateResult").innerHTML=text[min]+"<br>※計算時にこの条件を反映します。";calcSetting()}
+function calcSetting(){const games=Number(document.getElementById("gameCount").value),hits=Number(document.getElementById("hitCount").value);if(!games||games<=0||hits<0){document.getElementById("settingResult").innerHTML="回転数と初当り回数を入力してください。";return}const odds={1:532.8,2:420.4,3:495.9,4:338.4,5:455.4,6:294.8};let logs=[],max=-Infinity;for(let s=1;s<=6;s++){if(s<minSetting){logs.push({s,log:-Infinity});continue}const p=1/odds[s];const log=hits*Math.log(p)+(games-hits)*Math.log(1-p);logs.push({s,log});if(log>max)max=log}let sum=0;logs.forEach(x=>{x.w=x.log===-Infinity?0:Math.exp(x.log-max);sum+=x.w});const actual=hits?games/hits:0;let h="<b>現在の初当り確率：約1/"+(hits?actual.toFixed(1):"-")+"</b><br><br>";logs.forEach(x=>{const pct=sum?x.w/sum*100:0;h+="設定"+x.s+"："+(x.s<minSetting?"除外":pct.toFixed(1)+"%")+"<br>"});h+="<br><span class='small'>※初当り確率のみの簡易推測です。ユニバプレート選択時は下限設定を反映します。</span>";document.getElementById("settingResult").innerHTML=h}
 
-function selectPlate(min){
-minSetting=min;
-const text={1:"プレートなし：設定示唆なし",2:"銅：設定2以上濃厚",3:"銀：設定3以上濃厚",4:"金：設定4以上濃厚",5:"花火柄：設定5以上濃厚",6:"虹：設定6濃厚"};
-document.getElementById("plateResult").innerHTML=text[min]+"<br>※計算時にこの条件を反映します。";calcSetting();
-}
-function calcSetting(){
-const games=Number(document.getElementById("gameCount").value),hits=Number(document.getElementById("hitCount").value);
-if(!games||games<=0||hits<0){document.getElementById("settingResult").innerHTML="回転数と初当り回数を入力してください。";return}
-const odds={1:532.8,2:420.4,3:495.9,4:338.4,5:455.4,6:294.8};
-let logs=[],max=-Infinity;
-for(let s=1;s<=6;s++){if(s<minSetting){logs.push({s,log:-Infinity});continue}const p=1/odds[s];const log=hits*Math.log(p)+(games-hits)*Math.log(1-p);logs.push({s,log});if(log>max)max=log}
-let sum=0;logs.forEach(x=>{x.w=x.log===-Infinity?0:Math.exp(x.log-max);sum+=x.w});
-const actual=hits?games/hits:0;let h="<b>現在の初当り確率：約1/"+(hits?actual.toFixed(1):"-")+"</b><br><br>";
-logs.forEach(x=>{const pct=sum?x.w/sum*100:0;h+="設定"+x.s+"："+(x.s<minSetting?"除外":pct.toFixed(1)+"%")+"<br>"});
-h+="<br><span class='small'>※初当り確率のみの簡易推測です。ユニバプレート選択時は下限設定を反映します。</span>";
-document.getElementById("settingResult").innerHTML=h;
-}
-
-function addHistory(value="",number=null){
-const div=document.getElementById("historyInputs");const count=number||div.querySelectorAll("input").length+1;
-const input=document.createElement("input");input.type="number";input.placeholder=count+"回目";input.value=value;
-div.appendChild(input);div.appendChild(document.createElement("br"));saveHistory();
-}
-function calcHistory(){
-const inputs=document.querySelectorAll("#historyInputs input");let total=0,count=0;
-inputs.forEach(i=>{const v=Number(i.value);if(v>0){total+=v;count++}});
-if(count===0){document.getElementById("historyResult").innerHTML="データを入力してください。";return}
-const avg=total/count;
-document.getElementById("historyResult").innerHTML="合計回転数："+total+"G<br>初当り回数："+count+"回<br><b>初当り確率：1/"+avg.toFixed(1)+"</b>";
-document.getElementById("gameCount").value=total;document.getElementById("hitCount").value=count;calcSetting();saveHistory();
-}
-function saveHistory(){
-const inputs=document.querySelectorAll("#historyInputs input");const arr=[];inputs.forEach(i=>{if(i.value)arr.push(i.value)});localStorage.setItem("god_history",JSON.stringify(arr));
-}
-function loadHistory(){
-const saved=JSON.parse(localStorage.getItem("god_history")||"[]");const div=document.getElementById("historyInputs");div.innerHTML="";
-if(saved.length===0){addHistory();return}saved.forEach((v,i)=>addHistory(v,i+1));
-}
-function resetHistory(){
-const saved=localStorage.getItem("god_history");if(saved)localStorage.setItem("god_history_backup",saved);
-localStorage.removeItem("god_history");document.getElementById("historyInputs").innerHTML="";addHistory();
-document.getElementById("historyResult").innerHTML="履歴をリセットしました。直前の履歴は復元できます。";
-}
-function restoreHistory(){
-const backup=localStorage.getItem("god_history_backup");
-if(!backup){document.getElementById("historyResult").innerHTML="復元できる履歴がありません。";return}
-localStorage.setItem("god_history",backup);loadHistory();calcHistory();document.getElementById("historyResult").innerHTML+="<br>直前の履歴を復元しました。";
-}
-
+function addHistory(value="",number=null){const div=document.getElementById("historyInputs");const count=number||div.querySelectorAll("input").length+1;const input=document.createElement("input");input.type="number";input.inputMode="numeric";input.placeholder=count+"回目";input.value=value;input.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();const inputs=Array.from(document.querySelectorAll("#historyInputs input"));const index=inputs.indexOf(input);if(index<inputs.length-1){inputs[index+1].focus()}else{addHistory();const newInputs=document.querySelectorAll("#historyInputs input");newInputs[newInputs.length-1].focus()}}});input.addEventListener("input",function(){const inputs=document.querySelectorAll("#historyInputs input");if(input===inputs[inputs.length-1]&&input.value!==""){addHistory()}saveHistory()});div.appendChild(input);div.appendChild(document.createElement("br"));saveHistory()}
+function calcHistory(){const inputs=document.querySelectorAll("#historyInputs input");let total=0,count=0;inputs.forEach(i=>{const v=Number(i.value);if(v>0){total+=v;count++}});if(count===0){document.getElementById("historyResult").innerHTML="データを入力してください。";return}const avg=total/count;document.getElementById("historyResult").innerHTML="合計回転数："+total+"G<br>初当り回数："+count+"回<br><b>初当り確率：1/"+avg.toFixed(1)+"</b>";document.getElementById("gameCount").value=total;document.getElementById("hitCount").value=count;calcSetting();saveHistory()}
+function saveHistory(){const inputs=document.querySelectorAll("#historyInputs input");const arr=[];inputs.forEach(i=>{if(i.value)arr.push(i.value)});localStorage.setItem("god_history",JSON.stringify(arr))}
+function loadHistory(){const saved=JSON.parse(localStorage.getItem("god_history")||"[]");const div=document.getElementById("historyInputs");div.innerHTML="";if(saved.length===0){addHistory();return}saved.forEach((v,i)=>addHistory(v,i+1))}
+function resetHistory(){const saved=localStorage.getItem("god_history");if(saved)localStorage.setItem("god_history_backup",saved);localStorage.removeItem("god_history");document.getElementById("historyInputs").innerHTML="";addHistory();document.getElementById("historyResult").innerHTML="履歴をリセットしました。直前の履歴は復元できます。"}
+function restoreHistory(){const backup=localStorage.getItem("god_history_backup");if(!backup){document.getElementById("historyResult").innerHTML="復元できる履歴がありません。";return}localStorage.setItem("god_history",backup);loadHistory();calcHistory();document.getElementById("historyResult").innerHTML+="<br>直前の履歴を復元しました。"}
 document.addEventListener("input",e=>{if(e.target.closest("#historyInputs"))saveHistory()});
 window.addEventListener("load",loadHistory);
 
-function drawPie(id,data){
-const canvas=document.getElementById(id);if(!canvas)return;const ctx=canvas.getContext("2d"),cx=canvas.width/2,cy=canvas.height/2,r=95;
-ctx.clearRect(0,0,canvas.width,canvas.height);const total=data.reduce((s,d)=>s+d.value,0);let start=-Math.PI/2;
-data.forEach(d=>{const angle=(d.value/total)*Math.PI*2,end=start+angle;
-ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,start,end);ctx.closePath();ctx.fillStyle=d.color;ctx.fill();
-const mid=start+angle/2,tx=cx+Math.cos(mid)*(r*.62),ty=cy+Math.sin(mid)*(r*.62);
-ctx.shadowColor="rgba(0,0,0,.85)";ctx.shadowBlur=6;ctx.shadowOffsetX=1;ctx.shadowOffsetY=1;
-ctx.fillStyle="#fff";ctx.font="bold 13px sans-serif";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(d.value+"%",tx,ty);
-ctx.shadowBlur=0;ctx.shadowOffsetX=0;ctx.shadowOffsetY=0;start=end});
-ctx.beginPath();ctx.arc(cx,cy,43,0,Math.PI*2);ctx.fillStyle="#111";ctx.fill();
-ctx.fillStyle="#ffdf6b";ctx.font="bold 13px sans-serif";ctx.textAlign="center";ctx.fillText("振り分け",cx,cy+5);
-}
+function drawPie(id,data){const canvas=document.getElementById(id);if(!canvas)return;const ctx=canvas.getContext("2d"),cx=canvas.width/2,cy=canvas.height/2,r=95;ctx.clearRect(0,0,canvas.width,canvas.height);const total=data.reduce((s,d)=>s+d.value,0);let start=-Math.PI/2;data.forEach(d=>{const angle=(d.value/total)*Math.PI*2,end=start+angle;ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,start,end);ctx.closePath();ctx.fillStyle=d.color;ctx.fill();const mid=start+angle/2,tx=cx+Math.cos(mid)*(r*.62),ty=cy+Math.sin(mid)*(r*.62);ctx.shadowColor="rgba(0,0,0,.85)";ctx.shadowBlur=6;ctx.shadowOffsetX=1;ctx.shadowOffsetY=1;ctx.fillStyle="#fff";ctx.font="bold 13px sans-serif";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(d.value+"%",tx,ty);ctx.shadowBlur=0;ctx.shadowOffsetX=0;ctx.shadowOffsetY=0;start=end});ctx.beginPath();ctx.arc(cx,cy,43,0,Math.PI*2);ctx.fillStyle="#111";ctx.fill();ctx.fillStyle="#ffdf6b";ctx.font="bold 13px sans-serif";ctx.textAlign="center";ctx.fillText("振り分け",cx,cy+5)}
 function drawTenjoChart(){drawPie("tenjoChart",[{label:"510G",value:15.2,color:"#4da3ff"},{label:"1000G",value:20.3,color:"#39c5bb"},{label:"1480G",value:64.5,color:"#ff9f1c"}])}
 function drawLoopChart(){drawPie("loopChart",[{label:"1%ループ",value:16.7,color:"#4da3ff"},{label:"25%ループ",value:16.7,color:"#39c5bb"},{label:"50%ループ",value:16.7,color:"#65d96e"},{label:"80%ループ",value:16.7,color:"#ff9f1c"},{label:"1%+Z-ZONE",value:33.2,color:"#ff5a5a"}])}
 </script>
