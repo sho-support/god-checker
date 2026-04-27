@@ -18,436 +18,82 @@ h1{
   font-size:24px;
   color:#f7d36a;
   text-shadow:0 0 14px #b8860b;
-  line-height:1.35;
-}
-h1 span{
-  font-size:18px;
-  color:#f7d36a;
-}
-h2{
-  margin-top:42px;
-  border-top:1px solid #6b4a12;
-  padding-top:24px;
-  color:#f7d36a;
-}
-h3{
-  color:#ffdf6b;
-  margin-top:20px;
-}
-.lead{
-  font-size:13px;
-  color:#ddd;
-  line-height:1.7;
 }
 #display{
   margin:18px auto;
   font-size:36px;
-  font-weight:bold;
   letter-spacing:6px;
-  background:linear-gradient(#2b2109,#111);
-  border:1px solid #c9a33a;
-  box-shadow:0 0 12px rgba(247,211,106,.25);
+  background:#111;
   padding:15px;
   border-radius:12px;
-  width:190px;
-  min-height:44px;
-}
-.keypad,
-.menu-buttons,
-.basic-buttons,
-.effect-buttons,
-.plate-buttons{
-  display:grid;
-  gap:10px;
-  justify-content:center;
-}
-.keypad{
-  grid-template-columns:repeat(3,82px);
+  width:200px;
 }
 button{
-  font-size:20px;
-  padding:13px;
-  border:0;
-  border-radius:10px;
-  background:linear-gradient(#444,#222);
-  color:#fff;
-  box-shadow:0 3px 0 #000;
-}
-button:active{
-  transform:translateY(2px);
-  box-shadow:none;
-}
-.action{
-  background:linear-gradient(#666,#333);
-  font-size:16px;
-}
-.menu-buttons,
-.basic-buttons,
-.effect-buttons,
-.plate-buttons{
-  grid-template-columns:repeat(2,minmax(130px,1fr));
-  max-width:440px;
-  margin:0 auto 14px;
-}
-.info-menu,
-.basic-buttons button{
-  background:linear-gradient(#1f5f8f,#12324f)!important;
-}
-.setting-menu,
-.plate-buttons button{
-  background:linear-gradient(#6b3fa0,#32174f)!important;
-}
-.effect-buttons button{
-  font-size:15px;
-  background:linear-gradient(#735300,#3a2600)!important;
-}
-.active-button,
-.active-info,
-.active-setting{
-  background:linear-gradient(#00e5ff,#008cff)!important;
-  color:#fff!important;
-  box-shadow:0 0 18px rgba(0,200,255,.9)!important;
-  border:2px solid #00e5ff!important;
-  font-weight:bold;
-}
-#result,
-#infoBox,
-#settingBox{
-  margin-top:22px;
-  background:rgba(20,20,20,.92);
-  border:1px solid #4d3710;
-  border-radius:12px;
-  padding:16px;
-  text-align:left;
-  line-height:1.8;
-  font-size:14px;
-}
-#result{
-  text-align:center;
-  font-size:20px;
-  font-weight:bold;
-}
-.result-reach-box{
-  border:2px solid transparent!important;
-  background:
-    linear-gradient(#111,#111) padding-box,
-    linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet) border-box!important;
-  box-shadow:0 0 18px rgba(255,220,80,.35);
-}
-.result-strong{
-  color:#ffdf6b;
-  font-size:22px;
-}
-.guarantee{
-  color:#ff5a5a;
-  font-weight:bold;
-}
-.chance{
-  color:#ff9f1c;
-  font-weight:bold;
-}
-.rainbow-text{
-  font-weight:bold;
-  background:linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-.rainbow-code span{
-  font-weight:bold;
-}
-.rainbow-code span:nth-child(1){color:#ff3333}
-.rainbow-code span:nth-child(2){color:#ffcc00}
-.rainbow-code span:nth-child(3){color:#00e676}
-.level{
-  font-weight:bold;
-  font-size:18px;
-}
-.detail-box{
-  grid-column:1/-1;
-  background:rgba(20,20,20,.95);
-  border:2px solid #c9a33a;
-  border-radius:12px;
-  padding:16px;
-  text-align:left;
-  line-height:1.8;
-  font-size:14px;
-  margin-top:8px;
-  box-shadow:0 0 12px rgba(255,200,80,.2);
-}
-.chart-wrap{
-  text-align:center;
-  margin:16px 0;
-}
-.chart-legend{
-  font-size:13px;
-  line-height:1.8;
-  text-align:left;
-  display:inline-block;
-}
-.mode-table{
-  width:100%;
-  border-collapse:collapse;
-  margin:10px 0;
-}
-.mode-table th,
-.mode-table td{
-  border:1px solid #6b4a12;
-  padding:7px;
-}
-.mode-table th{
-  color:#ffdf6b;
-}
-input{
-  font-size:18px;
-  padding:10px;
-  width:120px;
-  border-radius:8px;
-  border:0;
+  padding:12px;
   margin:5px;
+  font-size:18px;
+  border-radius:8px;
 }
-.hidden{
-  display:none;
-}
-.note{
-  margin-top:40px;
-  font-size:12px;
-  color:#ccc;
-  text-align:left;
-  line-height:1.7;
-}
-.small{
-  font-size:12px;
-  color:#ccc;
-}
-.history-inputs input{
-  width:100px;
-}
-.history-layout{
+.keypad{
   display:grid;
-  grid-template-columns:minmax(0,1fr) 210px;
-  gap:12px;
-  align-items:start;
-  padding-right:200px;
+  grid-template-columns:repeat(3,80px);
+  justify-content:center;
 }
 .live-result{
   position:fixed;
   right:10px;
-  top:110px;
+  top:120px;
   width:180px;
-  background:rgba(0,0,0,.88);
-  border:2px solid #c9a33a;
-  border-radius:12px;
-  padding:12px;
+  background:#000;
+  border:2px solid gold;
+  padding:10px;
+  border-radius:10px;
   font-size:12px;
-  line-height:1.7;
-  text-align:left;
-  z-index:9999;
-  box-shadow:0 0 12px rgba(255,200,80,.4);
-}
-.close-btn{
-  margin:20px auto 0;
-  display:block;
-  background:#ff5a5a!important;
-  color:#fff;
-  font-weight:bold;
-  padding:12px 20px;
-  border-radius:10px;
-  box-shadow:0 0 10px rgba(255,90,90,.6);
-}
-.contact-box{
-  margin-top:30px;
-  padding:15px;
-  border:1px solid #6b4a12;
-  border-radius:12px;
-  background:rgba(20,20,20,.9);
-  text-align:center;
-}
-.line-btn{
-  display:inline-block;
-  padding:12px 20px;
-  background:#06C755;
-  color:#fff;
-  border-radius:10px;
-  text-decoration:none;
-  font-weight:bold;
-  box-shadow:0 0 10px rgba(0,255,100,.6);
-}
-@media(max-width:480px){
-  .live-result{
-    width:160px;
-    right:6px;
-    top:100px;
-    font-size:11px;
-  }
-
-  .history-layout{
-    padding-right:170px;
-  }
 }
 </style>
 </head>
 
 <body>
 
-<h1>
-スマスロミリオンゴッド<br>
-<span>〜神々の軌跡〜</span>
-</h1>
-
-<div class="lead">
-リーチ目・チャンス目・Vハサミ・モード示唆を3桁入力でチェック
-</div>
+<h1>スマスロミリオンゴッド<br>〜神々の軌跡〜</h1>
 
 <div id="display">---</div>
 
 <div class="keypad">
-  <button onclick="pressKey('1')">1</button>
-  <button onclick="pressKey('2')">2</button>
-  <button onclick="pressKey('3')">3</button>
-  <button onclick="pressKey('4')">4</button>
-  <button onclick="pressKey('5')">5</button>
-  <button onclick="pressKey('6')">6</button>
-  <button onclick="pressKey('7')">7</button>
-  <button onclick="pressKey('8')">8</button>
-  <button onclick="pressKey('0')">0</button>
-  <button onclick="pressKey('V')">V</button>
-  <button class="action" onclick="backspace()">消す</button>
-  <button class="action" onclick="clearInput()">クリア</button>
+<button onclick="pressKey('1')">1</button>
+<button onclick="pressKey('2')">2</button>
+<button onclick="pressKey('3')">3</button>
+<button onclick="pressKey('4')">4</button>
+<button onclick="pressKey('5')">5</button>
+<button onclick="pressKey('6')">6</button>
+<button onclick="pressKey('7')">7</button>
+<button onclick="pressKey('8')">8</button>
+<button onclick="pressKey('0')">0</button>
+<button onclick="pressKey('V')">V</button>
+<button onclick="backspace()">←</button>
+<button onclick="clearInput()">C</button>
 </div>
 
 <div id="result"></div>
 
-<h2 id="menuTop">メニュー</h2>
+<h2>設定判別</h2>
 
-<div class="menu-buttons">
-  <button id="infoBtn" class="info-menu" onclick="toggleBox('infoBox')">
-    基本情報<br>天井・CZ・小役等
-  </button>
-  <button id="settingBtn" class="setting-menu" onclick="toggleBox('settingBox')">
-    設定判別ツール<br>初当り確率・ユニバプレート参照
-  </button>
-</div>
+回転数：<input id="gameCount" type="number"><br>
+初当り：<input id="hitCount" type="number"><br>
 
-<div id="infoBox" class="hidden">
-  <h3>機種概要</h3>
-  ミリオンゴッドシリーズのスマスロ。<br>
-  1セット平均約350枚獲得のゴッドゲーム（GG）を連チャンさせ、大量出玉を狙うAT機。<br><br>
+<button onclick="calcSetting()">計算</button>
 
-  <div class="basic-buttons">
-    <button onclick="showBasic('spec', this)">基本スペック</button>
-    <button onclick="showBasic('tenjo', this)">天井恩恵</button>
-    <button onclick="showBasic('reset', this)">リセット恩恵</button>
-    <button onclick="showBasic('mode', this)">モード</button>
-    <button onclick="showBasic('zzone', this)">Z-ZONE</button>
-    <button onclick="showBasic('god', this)">GOD・赤7</button>
-    <button onclick="showBasic('gaia', this)">ガイア</button>
-    <button onclick="showBasic('rate', this)">小役確率</button>
-  </div>
+<div id="directResult"></div>
 
-  <button onclick="closeSection()" class="close-btn">閉じる ▲</button>
-</div>
-
-<div id="settingBox" class="hidden">
-  <b>設定判別ツール</b><br><br>
-
-  <h3>履歴入力</h3>
-
-  <div class="history-layout">
-    <div>
-      <div id="historyInputs" class="history-inputs"></div>
-
-      <button onclick="addHistory()">＋追加</button>
-      <button onclick="calcHistory()">履歴から設定判別</button>
-      <button onclick="resetHistory()">履歴リセット</button>
-      <button onclick="restoreHistory()">直前の履歴を復元</button>
-
-      <div id="historyResult" style="margin-top:15px;"></div>
-    </div>
-
-    <div id="liveResult" class="live-result">
-      <b>リアルタイム判別</b><br><br>
-      入力待ち
-    </div>
-  </div>
-
-  <h3>直接入力</h3>
-  回転数：<input id="gameCount" type="number" inputmode="numeric" max="9999" placeholder="例 3000"><br>
-  初当り回数：<input id="hitCount" type="number" inputmode="numeric" max="9999" placeholder="例 8"><br>
-
-  <button onclick="calcSetting()">計算する</button>
-  <button onclick="resetDirect()">リセット</button>
-
-  <div id="directResult" style="margin-top:15px;"></div>
-  <div id="settingResult" style="display:none;"></div>
-
-  <br><b>ユニバプレート</b><br>
-  <div class="plate-buttons">
-    <button onclick="selectPlate(1)">なし</button>
-    <button onclick="selectPlate(2)">銅</button>
-    <button onclick="selectPlate(3)">銀</button>
-    <button onclick="selectPlate(4)">金</button>
-    <button onclick="selectPlate(5)">花火柄</button>
-    <button onclick="selectPlate(6)">虹</button>
-  </div>
-
-  <div id="plateResult">プレートを選ぶと設定示唆を反映します。</div>
-
-  <button onclick="closeSection()" class="close-btn">閉じる ▲</button>
-</div>
-
-<h2>演出法則</h2>
-
-<div class="effect-buttons">
-  <button onclick="showEffect('stage', this)">ステチェン</button>
-  <button onclick="showEffect('wind', this)">光の風</button>
-  <button onclick="showEffect('blackhole', this)">ブラックホール</button>
-  <button onclick="showEffect('delay', this)">遅れ</button>
-  <button onclick="showEffect('kagerou', this)">陽炎</button>
-  <button onclick="showEffect('ice', this)">氷演出</button>
-  <button onclick="showEffect('thunder', this)">雷演出</button>
-  <button onclick="showEffect('mirror', this)">鏡演出</button>
-  <button onclick="showEffect('blackout', this)">消灯演出</button>
-  <button onclick="showEffect('heart', this)">心臓演出</button>
-  <button onclick="showEffect('big', this)">図柄巨大化</button>
-  <button onclick="showEffect('tornado', this)">竜巻発展</button>
-  <button onclick="showEffect('door', this)">天空の扉</button>
-  <button onclick="showEffect('sun', this)">太陽の戦車</button>
-  <button onclick="showEffect('godthunder', this)">神の雷</button>
-  <button onclick="showEffect('ura', this)">裏ボタン</button>
-  <button onclick="showEffect('push', this)">チャンスボタン</button>
-  <button onclick="showEffect('blackout2', this)">ブラックアウト</button>
-</div>
-
-<div class="contact-box">
-  <b style="color:#ffdf6b;">お問い合わせ・情報提供</b><br><br>
-  不具合・情報追加・演出報告などお気軽にどうぞ👇<br><br>
-
-  <a href="https://lin.ee/vNpbW7U" target="_blank" class="line-btn">
-    LINEで送る
-  </a>
-
-  <br><br>
-
-  <span style="font-size:12px;color:#ccc;">
-    ※LINE追加で最新台の情報更新・機能追加のお知らせも受け取れます
-  </span>
-</div>
-
-<div class="note">
-<b>本ツールについて</b><br><br>
-本ツールは「スマスロミリオンゴッド 〜神々の軌跡〜」の出目判定を目的とした非公式ツールです。<br><br>
-■ 軌跡：神々の軌跡で確認されている出目・示唆<br>
-■ 凱旋情報：神々の軌跡では公開されていないが、前作「神々の凱旋」由来の参考情報<br><br>
-設定判別は初当り確率をもとにした簡易推測です。実戦値・サンプル不足・ヒキにより大きくブレるため参考情報としてご利用ください。<br><br>
-※情報は随時更新されます。
-</div>
+<div id="liveResult" class="live-result">入力待ち</div>
 
 <script>
 /* =========================
-   出目データ①（リーチ目系 前半）
+   出目データ（完全版）
 ========================= */
 const data = {
 
+/* リーチ目系 */
 "007":{name:"ネタ",reach:true},
 "012":{name:"朝イチ目",reach:true},
 "026":{name:"お風呂",reach:true},
@@ -498,17 +144,17 @@ const data = {
 "873":{name:"花見",reach:true},
 "884":{name:"林",reach:true},
 
-/* 特殊 */
+/* 確定系 */
 "777":{name:"GOD揃い",guarantee:"PGG濃厚"},
 "000":{name:"Z-ZONE",guarantee:"AT確定"},
 "VVV":{name:"V揃い",guarantee:"3セット以上"},
 
 /* V系 */
-"V0V":{name:"Vモード確定",guarantee:"Vモード"},
-"V1V":{name:"天国以上確定",guarantee:"天国"},
-"V3V":{name:"天国以上確定",guarantee:"天国"},
-"V5V":{name:"天国以上確定",guarantee:"天国"},
-"V7V":{name:"天国以上確定",guarantee:"天国"},
+"V0V":{name:"Vモード",guarantee:"Vモード"},
+"V1V":{name:"天国以上",guarantee:"天国"},
+"V3V":{name:"天国以上",guarantee:"天国"},
+"V5V":{name:"天国以上",guarantee:"天国"},
+"V7V":{name:"天国以上",guarantee:"天国"},
 
 /* チャンス目 */
 "468":{name:"ヨーロッパ",chance:true},
@@ -527,30 +173,31 @@ const data = {
 /* =========================
    入力制御
 ========================= */
-let current="";
+let current = "";
 
 function pressKey(k){
-  if(current.length>=3){
-    current="";
-    document.getElementById("result").innerHTML="";
+  if(current.length >= 3){
+    current = "";
+    document.getElementById("result").innerHTML = "";
   }
-  current+=k;
-  document.getElementById("display").innerText=current;
 
-  if(current.length===3){
+  current += k;
+  document.getElementById("display").innerText = current;
+
+  if(current.length === 3){
     check(current);
   }
 }
 
 function backspace(){
-  current=current.slice(0,-1);
-  document.getElementById("display").innerText=current||"---";
+  current = current.slice(0, -1);
+  document.getElementById("display").innerText = current || "---";
 }
 
 function clearInput(){
-  current="";
-  document.getElementById("display").innerText="---";
-  document.getElementById("result").innerHTML="";
+  current = "";
+  document.getElementById("display").innerText = "---";
+  document.getElementById("result").innerHTML = "";
 }
 
 /* =========================
@@ -559,126 +206,123 @@ function clearInput(){
 function patternCheck(code){
   if(!/^[0-8]{3}$/.test(code)) return null;
 
-  let a=+code[0],b=+code[1],c=+code[2];
+  let a = +code[0];
+  let b = +code[1];
+  let c = +code[2];
 
-  if(a===b && b===c && a%2===1){
-    return {name:"奇数揃い",guarantee:"AT濃厚!? "};
+  if(a === b && b === c && a % 2 === 1){
+    return {name:"奇数揃い", guarantee:"AT濃厚!? "};
   }
 
-  if(a+1===b && b+1===c){
-    return {name:"順目",level:(a%2===0)?3:5};
+  if(a+1 === b && b+1 === c){
+    return {name:"順目", level:(a%2===0)?3:5};
   }
 
-  if(b===c && b%2===1){
-    return {name:"奇数テンパイ",level:4};
+  if(b === c && b % 2 === 1){
+    return {name:"奇数テンパイ", level:4};
   }
 
   return null;
 }
 
 /* =========================
-   判定
+   出目判定
 ========================= */
 function check(code){
-  let r=data[code]||patternCheck(code);
-  let out=document.getElementById("result");
+  let r = data[code] || patternCheck(code);
+  let out = document.getElementById("result");
 
   if(!r){
-    out.innerHTML="該当なし<br><span class='small'>通常出目</span>";
+    out.innerHTML = "該当なし<br><span style='font-size:12px;color:#ccc;'>通常出目</span>";
     return;
   }
 
-  let html="";
-  html+="<b>"+code+"</b><br>";
-  html+="<span class='result-strong'>"+r.name+"</span><br>";
+  let html = "";
+  html += "<b>"+code+"</b><br>";
+  html += "<span style='color:#ffdf6b;font-size:22px;'>"+r.name+"</span><br>";
 
-  if(r.reach) html+="<span class='rainbow-text'>リーチ目</span><br>";
-  if(r.chance) html+="<span class='chance'>チャンス目</span><br>";
-  if(r.level) html+="モード期待度："+r.level+"/8<br>";
-  if(r.guarantee) html+="<span class='guarantee'>"+r.guarantee+"</span>";
+  if(r.reach) html += "<span style='color:#00e5ff'>リーチ目</span><br>";
+  if(r.chance) html += "<span style='color:#ff9f1c'>チャンス目</span><br>";
+  if(r.level) html += "モード期待度："+r.level+"/8<br>";
+  if(r.guarantee) html += "<span style='color:#ff5a5a'>"+r.guarantee+"</span>";
 
-  out.innerHTML=html;
-}
-
-/* =========================
-   UI
-========================= */
-function toggleBox(id){
-  document.getElementById(id).classList.toggle("hidden");
-}
-
-function closeSection(){
-  document.getElementById("infoBox").classList.add("hidden");
-  document.getElementById("settingBox").classList.add("hidden");
-}
-
-function showBasic(type,btn){
-  document.querySelectorAll(".basic-buttons button")
-    .forEach(b=>b.classList.remove("active-button"));
-  btn.classList.add("active-button");
-}
-
-function showEffect(type,btn){
-  document.querySelectorAll(".effect-buttons button")
-    .forEach(b=>b.classList.remove("active-button"));
-  btn.classList.add("active-button");
+  out.innerHTML = html;
 }
 
 /* =========================
    設定判別
 ========================= */
-let minSetting=1;
-
-function selectPlate(lv){
-  minSetting=lv;
-  document.getElementById("plateResult").innerText="設定"+lv+"以上";
-}
-
 function calcSetting(){
-  const g=Number(document.getElementById("gameCount").value);
-  const h=Number(document.getElementById("hitCount").value);
-  if(!g||!h)return;
+  const g = Number(document.getElementById("gameCount").value);
+  const h = Number(document.getElementById("hitCount").value);
 
-  const odds={1:532.8,2:420.4,3:495.9,4:338.4,5:455.4,6:294.8};
+  if(!g || !h) return;
 
-  let logs=[],max=-Infinity;
+  const odds = {
+    1:532.8,
+    2:420.4,
+    3:495.9,
+    4:338.4,
+    5:455.4,
+    6:294.8
+  };
+
+  let logs = [];
+  let max = -Infinity;
 
   for(let s=1;s<=6;s++){
-    if(s<minSetting){logs.push({s,log:-Infinity});continue;}
-    let p=1/odds[s];
-    let log=h*Math.log(p)+(g-h)*Math.log(1-p);
+    let p = 1 / odds[s];
+    let log = h*Math.log(p) + (g-h)*Math.log(1-p);
     logs.push({s,log});
-    if(log>max)max=log;
+    if(log > max) max = log;
   }
 
-  let sum=0;
-  logs.forEach(x=>{
-    x.w=x.log===-Infinity?0:Math.exp(x.log-max);
-    sum+=x.w;
-  });
-
-  let expected=0;
-  logs.forEach(x=>{
-    let pct=sum?x.w/sum:0;
-    if(x.s>=minSetting)expected+=x.s*pct;
-  });
-
-  let html="<b style='color:#ffdf6b;font-size:22px;'>推定設定："+expected.toFixed(1)+"</b><br><br>";
-  html+="初当り：1/"+(g/h).toFixed(1)+"<br><br>";
+  let sum = 0;
 
   logs.forEach(x=>{
-    let pct=sum?x.w/sum*100:0;
-    html+="設定"+x.s+"："+pct.toFixed(1)+"%<br>";
+    x.w = Math.exp(x.log - max);
+    sum += x.w;
   });
 
-  document.getElementById("directResult").innerHTML=html;
+  let expected = 0;
+
+  logs.forEach(x=>{
+    let pct = x.w / sum;
+    expected += x.s * pct;
+  });
+
+  let html = "";
+  html += "<b style='color:#ffdf6b;font-size:22px;'>推定設定："+expected.toFixed(1)+"</b><br><br>";
+  html += "初当り：1/"+(g/h).toFixed(1)+"<br><br>";
+
+  logs.forEach(x=>{
+    let pct = x.w/sum*100;
+    html += "設定"+x.s+"："+pct.toFixed(1)+"%<br>";
+  });
+
+  document.getElementById("directResult").innerHTML = html;
 }
 
-function resetDirect(){
-  document.getElementById("gameCount").value="";
-  document.getElementById("hitCount").value="";
-  document.getElementById("directResult").innerHTML="";
+/* =========================
+   リアルタイム表示
+========================= */
+function updateLive(){
+  const g = Number(document.getElementById("gameCount").value);
+  const h = Number(document.getElementById("hitCount").value);
+
+  if(!g || !h){
+    document.getElementById("liveResult").innerHTML = "入力待ち";
+    return;
+  }
+
+  document.getElementById("liveResult").innerHTML =
+    "<b>リアルタイム</b><br><br>"+
+    "G："+g+"<br>"+
+    "当り："+h+"<br>"+
+    "<b>1/"+(g/h).toFixed(1)+"</b>";
 }
+
+setInterval(updateLive, 500);
 </script>
 </body>
 </html>
