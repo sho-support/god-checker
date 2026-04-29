@@ -842,19 +842,36 @@ function buildSettingHtml(games,hits){
 }
 
 function calcSetting(){
-  const games=Number(document.getElementById("gameCount").value);
-  const hits=Number(document.getElementById("hitCount").value);
+  const games = Number(document.getElementById("gameCount").value);
+  const hits = Number(document.getElementById("hitCount").value);
 
-  if(!games||games<=0||!hits||hits<=0){
-    document.getElementById("directResult").innerHTML="回転数と初当り回数を入力してください。";
-    document.getElementById("settingResult").innerHTML="";
+  if(!games || games <= 0 || !hits || hits <= 0){
+    document.getElementById("directResult").innerHTML = "回転数と初当り回数を入力してください。";
+    document.getElementById("settingResult").innerHTML = "";
+
+    document.getElementById("liveResult").innerHTML =
+      "<b>リアルタイム判別</b><br><br>入力待ち";
+
     return "";
   }
 
-  const h=buildSettingHtml(games,hits);
-  document.getElementById("directResult").innerHTML=h;
-  document.getElementById("settingResult").innerHTML="";
+  const actual = games / hits;
+  const h = buildSettingHtml(games, hits);
+
+  document.getElementById("directResult").innerHTML = h;
+  document.getElementById("settingResult").innerHTML = "";
+
+  // ←ここが重要（リアルタイム側にも反映）
+  document.getElementById("liveResult").innerHTML =
+    "<b>リアルタイム判別</b><br><br>" +
+    "合計：" + games + "G<br>" +
+    "初当り：" + hits + "回<br>" +
+    "<b style='color:#ffdf6b;font-size:18px;'>1/" + actual.toFixed(1) + "</b><br><br>" +
+    "<b style='color:#ffdf6b;'>推定設定：約" + extractExpected(h) + "</b><br><br>" +
+    "<span style='font-size:12px;color:#ccc;'>※本ツールは参考情報であり、正確性や結果を保証するものではありません。</span>";
+
   return h;
+}
 }
 
 function resetDirect(){
