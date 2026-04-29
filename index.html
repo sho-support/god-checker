@@ -1074,11 +1074,18 @@ document.addEventListener("input",function(e){
 window.addEventListener("load",loadHistory);
 </script>
 <style>
-.live-result{
-  position:fixed!important;
-  right:10px!important;
-  top:220px!important;
-  z-index:9999!important;
+#settingBox .history-layout{
+  position:relative;
+}
+
+#settingBox .live-result{
+  display:block!important;
+  position:sticky!important;
+  top:140px!important;
+  right:auto!important;
+  width:auto!important;
+  max-width:210px!important;
+  z-index:1!important;
 }
 </style>
 </body>
