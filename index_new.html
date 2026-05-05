@@ -450,9 +450,7 @@ const data = {
   if(a===b && b===c && isOdd(a)){
     return {name:"奇数揃い",type:"特殊出目",guarantee:"AT濃厚!?"};
   }
-if(isOdd(a) && isOdd(b) && isOdd(c)){
-  return {name:"奇数のみ",type:"モード示唆",level:1};
-}
+
   if(a+1===b && b+1===c && isOdd(a)){
     return {name:"奇数順目",type:"モード示唆",level:5,guarantee:"天国準備以上濃厚"};
   }
