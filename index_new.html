@@ -64,9 +64,7 @@ button{
   background:#333;
   color:#fff;
 }
-button:active{
-  background:#666;
-}
+button:active{background:#666;}
 .action{
   font-size:16px;
   background:#555;
@@ -86,18 +84,10 @@ button:active{
   font-size:22px;
   font-weight:bold;
 }
-.red{
-  color:#ff5a5a;
-  font-weight:bold;
-}
-.blue{
-  color:#66ccff;
-  font-weight:bold;
-}
-.orange{
-  color:#ff9f1c;
-  font-weight:bold;
-}
+.red{color:#ff5a5a;font-weight:bold;}
+.blue{color:#66ccff;font-weight:bold;}
+.orange{color:#ff9f1c;font-weight:bold;}
+.green{color:#66ff99;font-weight:bold;}
 .rainbow-text{
   font-weight:bold;
   font-size:24px;
@@ -170,9 +160,7 @@ button:active{
   padding:12px;
   line-height:1.7;
 }
-.hidden{
-  display:none;
-}
+.hidden{display:none;}
 .content{
   max-width:760px;
   margin:40px auto;
@@ -193,9 +181,7 @@ button:active{
   margin:40px 0;
   font-size:13px;
 }
-.footer a{
-  color:#f7d36a;
-}
+.footer a{color:#f7d36a;}
 .small{
   color:#ccc;
   font-size:13px;
@@ -218,7 +204,7 @@ hr{
 <h1>神々の軌跡<br>出目チェッカー</h1>
 
 <div class="lead">
-リーチ目・チャンス目・Vハサミ・高モード示唆・ガイアナビ時の期待度を3桁入力で確認できます。
+リーチ目・チャンス目・Vハサミ・高モード示唆・ガイア系出目を3桁入力で確認できます。
 </div>
 
 <div id="display">---</div>
@@ -251,12 +237,17 @@ hr{
 </div>
 
 <div class="content">
-
 <h2>このツールについて</h2>
 <p>
 本ツールはスマスロ「ミリオンゴッド 神々の軌跡」の液晶出目を入力し、
 リーチ目・チャンス目・モード示唆・Vハサミ系の示唆を確認するための非公式ツールです。
 前作「神々の凱旋」で確認されていた出目については、参考情報として「凱旋情報」と表示しています。
+</p>
+
+<h2>ガイア系出目について</h2>
+<p>
+ガイアナビ発生時・ガイアベル成立時は、通常時とは別にガイアステージ期待度として表示します。
+通常出目としての示唆と、ガイア系出目としての示唆が両方ある場合は、両方を表示します。
 </p>
 
 <h2>使い方</h2>
@@ -280,7 +271,6 @@ hr{
 当選・設定・モード滞在を保証するものではありません。
 最終的な遊技判断はご自身の責任で行ってください。
 </p>
-
 </div>
 
 <div class="footer">
@@ -295,13 +285,14 @@ let inputHistory = JSON.parse(localStorage.getItem("god_deme_history") || "[]");
 const data = {
   "153":{name:"奇数のみ",type:"モード示唆",info:"モード期待度 1/8",kiseki:true},
   "633":{name:"左偶数＋ケツ奇数テンパイ",type:"モード示唆",info:"モード期待度 2/8",kiseki:true},
-  "234":{name:"偶数順目",type:"モード示唆",info:"モード期待度 3/8",kiseki:true},
-  "456":{name:"偶数順目",type:"モード示唆",info:"モード期待度 3/8",kiseki:true},
-  "678":{name:"偶数順目",type:"モード示唆",info:"モード期待度 3/8",kiseki:true},
+  "234":{name:"偶数順目",type:"モード示唆",info:"モード期待度 3/8",guarantee:"天国準備以上濃厚（青7成立時）",kiseki:true},
+  "456":{name:"偶数順目",type:"モード示唆",info:"モード期待度 3/8",guarantee:"天国準備以上濃厚（青7成立時）",kiseki:true},
+  "678":{name:"偶数順目",type:"モード示唆",info:"モード期待度 3/8",guarantee:"天国準備以上濃厚（青7成立時）",kiseki:true},
   "155":{name:"左奇数＋ケツ奇数テンパイ",type:"モード示唆",info:"モード期待度 4/8",kiseki:true},
-  "567":{name:"奇数順目",type:"モード示唆",info:"モード期待度 5/8",kiseki:true},
-  "030":{name:"0ハサミ",type:"モード示唆",info:"モード期待度 6/8",kiseki:true},
-  "313":{name:"奇数ハサミ",type:"モード示唆",info:"モード期待度 7/8",kiseki:true},
+  "345":{name:"奇数順目",type:"モード示唆",info:"モード期待度 5/8",guarantee:"天国準備以上濃厚／ハズレ成立時は天国ショート以上濃厚",kiseki:true},
+  "567":{name:"奇数順目",type:"モード示唆",info:"モード期待度 5/8",guarantee:"天国準備以上濃厚／ハズレ成立時は天国ショート以上濃厚",kiseki:true},
+  "030":{name:"0ハサミ",type:"モード示唆",info:"モード期待度 6/8",guarantee:"天国準備以上濃厚",kiseki:true},
+  "313":{name:"奇数ハサミ",type:"モード示唆",info:"モード期待度 7/8",guarantee:"天国準備以上濃厚",kiseki:true},
 
   "777":{name:"ゴッド揃い",type:"特殊出目",guarantee:"PGG",kiseki:true},
   "000":{name:"Z-ZONE当選",type:"特殊出目",guarantee:"AT確定CZ",kiseki:true},
@@ -312,11 +303,12 @@ const data = {
   "V4V":{name:"Vハサミ偶数",type:"モード示唆",info:"頻発でVモード示唆",gaisen:true},
   "V6V":{name:"Vハサミ偶数",type:"モード示唆",info:"頻発でVモード示唆",gaisen:true},
   "V8V":{name:"Vハサミ偶数",type:"モード示唆",info:"頻発でVモード示唆",gaisen:true},
-
-  "V1V":{name:"Vハサミ奇数",type:"モード示唆",guarantee:"天国ショート以上確定",gaisen:true},
-  "V3V":{name:"Vハサミ奇数",type:"モード示唆",guarantee:"天国ショート以上確定",gaisen:true},
-  "V5V":{name:"Vハサミ奇数",type:"モード示唆",info:"モード期待度 8/8",guarantee:"天国ショート以上確定",gaisen:true},
+  "V1V":{name:"Vハサミ奇数",type:"モード示唆",guarantee:"天国ショート以上濃厚",gaisen:true},
+  "V3V":{name:"Vハサミ奇数",type:"モード示唆",guarantee:"天国ショート以上濃厚",gaisen:true},
+  "V5V":{name:"Vハサミ奇数",type:"モード示唆",info:"モード期待度 8/8",guarantee:"天国ショート以上濃厚",gaisen:true},
   "V7V":{name:"Vハサミ奇数",type:"モード示唆",guarantee:"超天国濃厚",gaisen:true},
+  "V00":{name:"V＋0ケツテンパイ",type:"モード示唆",guarantee:"天国ショート以上濃厚",gaisen:true},
+  "V77":{name:"V＋7ケツテンパイ",type:"モード示唆",guarantee:"天国ショート以上濃厚",gaisen:true},
 
   "1V3":{name:"イビサ島",type:"リーチ目",guarantee:"GG本前兆濃厚",kiseki:true},
   "223":{name:"富士山",type:"リーチ目",guarantee:"GG本前兆濃厚",kiseki:true},
@@ -327,16 +319,15 @@ const data = {
   "808":{name:"八百屋",type:"リーチ目",guarantee:"GG本前兆濃厚",kiseki:true},
   "V31":{name:"Vサイン",type:"リーチ目",guarantee:"GG本前兆濃厚",kiseki:true},
 
-  "200":{name:"偶数頭＋ケツ0テンパイ",type:"チャンス目",info:"高モード示唆",chanceLevel:4,kiseki:true},
-  "300":{name:"奇数頭＋ケツ0テンパイ",type:"チャンス目",info:"高モード示唆",chanceLevel:5,kiseki:true},
   "38V":{name:"雅",type:"チャンス目",info:"高モード示唆",chanceLevel:6,kiseki:true},
   "461":{name:"鎧",type:"チャンス目",info:"高モード示唆",chanceLevel:6,kiseki:true},
   "468":{name:"ヨーロッパ",type:"チャンス目",info:"高モード示唆",chanceLevel:6,kiseki:true},
   "631":{name:"無罪",type:"チャンス目",info:"高モード示唆",chanceLevel:6,kiseki:true},
   "831":{name:"野菜",type:"チャンス目",info:"高モード示唆",chanceLevel:6,kiseki:true},
-
   "100":{name:"左奇数＋00",type:"チャンス目",info:"GG前兆に期待",chanceLevel:5,gaisen:true},
+  "300":{name:"左奇数＋00",type:"チャンス目",info:"GG前兆に期待",chanceLevel:5,kiseki:true},
   "500":{name:"左奇数＋00",type:"チャンス目",info:"GG前兆に期待",chanceLevel:5,gaisen:true},
+  "200":{name:"左偶数＋00",type:"チャンス目",info:"高モード示唆",chanceLevel:4,kiseki:true},
   "400":{name:"左偶数＋00",type:"チャンス目",info:"高モード示唆",chanceLevel:4,gaisen:true},
   "600":{name:"左偶数＋00",type:"チャンス目",info:"高モード示唆",chanceLevel:4,gaisen:true},
   "800":{name:"左偶数＋00",type:"チャンス目",info:"高モード示唆",chanceLevel:4,gaisen:true},
@@ -344,6 +335,31 @@ const data = {
   "303":{name:"奇数ハサミ＋中0",type:"チャンス目",info:"GG前兆に期待",chanceLevel:5,gaisen:true},
   "505":{name:"奇数ハサミ＋中0",type:"チャンス目",info:"GG前兆に期待",chanceLevel:5,gaisen:true},
   "707":{name:"奇数ハサミ＋中0",type:"チャンス目",info:"GG前兆に期待",chanceLevel:5,gaisen:true},
+
+  "700":{name:"7＋0ケツテンパイ",type:"モード示唆",guarantee:"超天国濃厚",gaisen:true},
+  "727":{name:"7ハサミ＋中偶数",type:"遅れ時示唆",guarantee:"天国準備以上濃厚（遅れ時）",gaisen:true},
+  "747":{name:"7ハサミ＋中偶数",type:"遅れ時示唆",guarantee:"天国準備以上濃厚（遅れ時）",gaisen:true},
+  "767":{name:"7ハサミ＋中偶数",type:"遅れ時示唆",guarantee:"天国準備以上濃厚（遅れ時）",gaisen:true},
+  "787":{name:"7ハサミ＋中偶数",type:"遅れ時示唆",guarantee:"天国準備以上濃厚（遅れ時）",gaisen:true},
+  "70V":{name:"遅れ＋ハズレ時示唆",type:"遅れ時示唆",guarantee:"天国以上の期待大（遅れ時）",gaisen:true},
+  "7V0":{name:"遅れ＋ハズレ時示唆",type:"遅れ時示唆",guarantee:"天国以上の期待大（遅れ時）",gaisen:true},
+  "707":{name:"奇数ハサミ＋中0",type:"チャンス目／遅れ時示唆",info:"GG前兆に期待",chanceLevel:5,guarantee:"遅れ時は超天国の期待大",gaisen:true},
+  "7VV":{name:"遅れ＋ハズレ時示唆",type:"遅れ時示唆",guarantee:"超天国の期待大（遅れ時）",gaisen:true},
+
+  "010":{name:"0ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
+  "050":{name:"0ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
+  "070":{name:"0ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
+  "131":{name:"奇ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
+  "151":{name:"奇ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
+  "171":{name:"奇ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
+  "353":{name:"奇ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
+  "373":{name:"奇ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
+  "515":{name:"奇ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
+  "535":{name:"奇ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
+  "575":{name:"奇ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
+  "717":{name:"奇ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
+  "737":{name:"奇ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
+  "757":{name:"奇ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
 
   "007":{name:"ネタ",type:"リーチ目",gaisen:true},
   "012":{name:"朝イチ目",type:"リーチ目",gaisen:true},
@@ -510,7 +526,7 @@ function buildResultHtml(code){
   if(g){
     html += "<hr>";
     html += "<span class='hit'>" + g.name + "</span><br>";
-    html += "<span class='blue'>" + g.info + "</span><br>";
+    html += "<span class='green'>" + g.info + "</span><br>";
   }
 
   if(!r && !g){
@@ -563,7 +579,9 @@ function renderHistory(){
       item.classList.add("reach");
     }
 
-    item.innerHTML = "<span class='history-no'>" + (index + 1) + ".</span>" + code;
+    const historyNo = inputHistory.length - index;
+
+    item.innerHTML = "<span class='history-no'>" + historyNo + ".</span>" + code;
     item.onclick = () => showHistoryDetail(code);
     list.appendChild(item);
   });
