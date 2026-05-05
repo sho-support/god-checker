@@ -42,12 +42,15 @@ h1{
   border-radius:12px;
   width:190px;
   padding:15px;
+  min-height:46px;
 }
-.rainbow-input{
-  background:linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+.rainbow-code span{
+  font-weight:bold;
 }
+.rainbow-code span:nth-child(1){color:#ff3333;}
+.rainbow-code span:nth-child(2){color:#ffdf3a;}
+.rainbow-code span:nth-child(3){color:#33d6ff;}
+
 .keypad{
   display:grid;
   grid-template-columns:repeat(3,82px);
@@ -110,6 +113,64 @@ button:active{
     linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet) border-box!important;
   box-shadow:0 0 18px rgba(255,220,80,.35);
 }
+
+.history-toggle{
+  margin-top:10px;
+  background:#4a3610;
+  color:#ffdf6b;
+  font-size:17px;
+  padding:12px 18px;
+}
+.history-box{
+  max-width:760px;
+  margin:18px auto;
+  background:#161616;
+  border:1px solid #6b4a12;
+  border-radius:12px;
+  padding:14px;
+  text-align:left;
+}
+.history-controls{
+  text-align:center;
+  margin-bottom:12px;
+}
+.history-reset{
+  background:#7a2424;
+  font-size:15px;
+  padding:10px 14px;
+}
+#historyList{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  margin-bottom:14px;
+}
+.history-item{
+  background:#222;
+  border:1px solid #555;
+  border-radius:8px;
+  padding:9px 4px;
+  text-align:center;
+  font-weight:bold;
+  cursor:pointer;
+}
+.history-item.reach{
+  border:2px solid transparent;
+  background:
+    linear-gradient(#222,#222) padding-box,
+    linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet) border-box;
+}
+#historyDetail{
+  background:#1b1b1b;
+  border:1px solid #555;
+  border-radius:10px;
+  padding:12px;
+  line-height:1.7;
+}
+.hidden{
+  display:none;
+}
+
 .content{
   max-width:760px;
   margin:40px auto;
@@ -142,6 +203,11 @@ hr{
   border-top:1px solid #444;
   margin:14px 0;
 }
+@media(max-width:480px){
+  #historyList{
+    grid-template-columns:repeat(3,1fr);
+  }
+}
 </style>
 </head>
 
@@ -172,6 +238,16 @@ hr{
 
 <div id="result">3桁の出目を入力してください。</div>
 
+<button class="history-toggle" onclick="toggleHistory()">出目履歴↓</button>
+
+<div id="historyBox" class="history-box hidden">
+  <div class="history-controls">
+    <button class="history-reset" onclick="resetHistory()">履歴リセット</button>
+  </div>
+  <div id="historyList"></div>
+  <div id="historyDetail">履歴の出目を押すと説明が表示されます。</div>
+</div>
+
 <div class="content">
 
 <h2>このツールについて</h2>
@@ -185,7 +261,7 @@ hr{
 <p>
 数字またはVを3桁入力すると、自動で判定結果が表示されます。
 4桁目を押すと自動で新しい入力に切り替わります。
-出目によっては通常時の示唆に加えて、ガイアナビ時の期待度も表示されます。
+入力した出目は履歴に残り、あとからタップして確認できます。
 </p>
 
 <h2>関連ページ</h2>
@@ -212,40 +288,51 @@ hr{
 
 <script>
 let current = "";
+let inputHistory = JSON.parse(localStorage.getItem("god_deme_history") || "[]");
 
-function pressKey(k){
+function setDisplay(text, rainbow=false){
   const display = document.getElementById("display");
 
+  if(!rainbow){
+    display.innerText = text || "---";
+    return;
+  }
+
+  display.innerHTML =
+    "<span class='rainbow-code'>" +
+    text.split("").map(ch => "<span>" + ch + "</span>").join("") +
+    "</span>";
+}
+
+function pressKey(k){
   if(current.length >= 3){
     current = "";
     document.getElementById("result").innerHTML = "";
     document.getElementById("result").classList.remove("result-reach-box");
-    display.classList.remove("rainbow-input");
+    setDisplay("---");
   }
 
   current += k;
-  display.innerText = current;
 
   if(current.length === 3){
-    display.classList.add("rainbow-input");
+    setDisplay(current, true);
     check(current);
+    addHistory(current);
+  }else{
+    setDisplay(current);
   }
 }
 
 function backspace(){
-  const display = document.getElementById("display");
   current = current.slice(0,-1);
-  display.innerText = current || "---";
-  display.classList.remove("rainbow-input");
+  setDisplay(current || "---");
   document.getElementById("result").innerHTML = "3桁の出目を入力してください。";
   document.getElementById("result").classList.remove("result-reach-box");
 }
 
 function clearInput(){
-  const display = document.getElementById("display");
   current = "";
-  display.innerText = "---";
-  display.classList.remove("rainbow-input");
+  setDisplay("---");
   document.getElementById("result").innerHTML = "3桁の出目を入力してください。";
   document.getElementById("result").classList.remove("result-reach-box");
 }
@@ -314,7 +401,6 @@ const data = {
   "081":{name:"オッパイ",type:"リーチ目",gaisen:true},
   "0V0":{name:"顔文字",type:"リーチ目",gaisen:true},
   "072":{name:"ネタ",type:"ネタ出目",info:"期待度？？？",gaisen:true},
-
   "104":{name:"天使",type:"リーチ目",gaisen:true},
   "110":{name:"110番",type:"リーチ目",gaisen:true},
   "123":{name:"旧朝イチ目",type:"リーチ目",gaisen:true},
@@ -326,7 +412,6 @@ const data = {
   "280":{name:"ニーハオ",type:"リーチ目",gaisen:true},
   "283":{name:"翼",type:"リーチ目",gaisen:true},
   "2V1":{name:"ニブイチ",type:"リーチ目",info:"2分の1",gaisen:true},
-
   "324":{name:"MIZUHO",type:"リーチ目",gaisen:true},
   "344":{name:"サシシ",type:"リーチ目",gaisen:true},
   "354":{name:"神輿",type:"リーチ目",gaisen:true},
@@ -344,7 +429,6 @@ const data = {
   "56V":{name:"転ぶ",type:"リーチ目",gaisen:true},
   "5V0":{name:"ご無礼",type:"リーチ目",gaisen:true},
   "5V4":{name:"拳",type:"リーチ目",gaisen:true},
-
   "664":{name:"ろくむし",type:"リーチ目",gaisen:true},
   "681":{name:"無敗",type:"リーチ目",gaisen:true},
   "728":{name:"浪速",type:"リーチ目",gaisen:true},
@@ -401,19 +485,14 @@ function gaiaCheck(code){
   return null;
 }
 
-function check(code){
+function buildResultHtml(code){
   const r = data[code];
   const g = gaiaCheck(code);
-  const resultBox = document.getElementById("result");
-
-  resultBox.classList.remove("result-reach-box");
-
   let html = "";
 
   if(r){
     if(r.type === "リーチ目"){
       html += "<span class='rainbow-text'>" + r.name + "</span><br>";
-      resultBox.classList.add("result-reach-box");
     }else{
       html += "<span class='hit'>" + r.name + "</span><br>";
     }
@@ -435,8 +514,73 @@ function check(code){
     html = "該当なし<br><span class='small'>通常出目 or データ未登録</span>";
   }
 
-  resultBox.innerHTML = html;
+  return html;
 }
+
+function check(code){
+  const r = data[code];
+  const resultBox = document.getElementById("result");
+
+  resultBox.classList.remove("result-reach-box");
+
+  if(r && r.type === "リーチ目"){
+    resultBox.classList.add("result-reach-box");
+  }
+
+  resultBox.innerHTML = buildResultHtml(code);
+}
+
+function toggleHistory(){
+  const box = document.getElementById("historyBox");
+  box.classList.toggle("hidden");
+  renderHistory();
+}
+
+function addHistory(code){
+  inputHistory = inputHistory.filter(item => item !== code);
+  inputHistory.unshift(code);
+  inputHistory = inputHistory.slice(0,20);
+  localStorage.setItem("god_deme_history", JSON.stringify(inputHistory));
+  renderHistory();
+}
+
+function renderHistory(){
+  const list = document.getElementById("historyList");
+  list.innerHTML = "";
+
+  if(inputHistory.length === 0){
+    list.innerHTML = "<div class='small'>履歴はまだありません。</div>";
+    document.getElementById("historyDetail").innerHTML = "履歴の出目を押すと説明が表示されます。";
+    return;
+  }
+
+  inputHistory.forEach(code=>{
+    const r = data[code];
+    const item = document.createElement("div");
+    item.className = "history-item";
+
+    if(r && r.type === "リーチ目"){
+      item.classList.add("reach");
+    }
+
+    item.innerText = code;
+    item.onclick = () => showHistoryDetail(code);
+    list.appendChild(item);
+  });
+}
+
+function showHistoryDetail(code){
+  document.getElementById("historyDetail").innerHTML =
+    "<b>出目：" + code + "</b><br><br>" + buildResultHtml(code);
+}
+
+function resetHistory(){
+  inputHistory = [];
+  localStorage.removeItem("god_deme_history");
+  renderHistory();
+}
+
+renderHistory();
 </script>
 
 </body>
