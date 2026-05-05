@@ -44,13 +44,12 @@ h1{
   padding:15px;
   min-height:46px;
 }
-.rainbow-code span{
+.display-rainbow{
   font-weight:bold;
+  background:linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
-.rainbow-code span:nth-child(1){color:#ff3333;}
-.rainbow-code span:nth-child(2){color:#ffdf3a;}
-.rainbow-code span:nth-child(3){color:#33d6ff;}
-
 .keypad{
   display:grid;
   grid-template-columns:repeat(3,82px);
@@ -113,7 +112,6 @@ button:active{
     linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet) border-box!important;
   box-shadow:0 0 18px rgba(255,220,80,.35);
 }
-
 .history-toggle{
   margin-top:10px;
   background:#4a3610;
@@ -160,6 +158,11 @@ button:active{
     linear-gradient(#222,#222) padding-box,
     linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet) border-box;
 }
+.history-no{
+  color:#ffdf6b;
+  font-size:12px;
+  margin-right:3px;
+}
 #historyDetail{
   background:#1b1b1b;
   border:1px solid #555;
@@ -170,7 +173,6 @@ button:active{
 .hidden{
   display:none;
 }
-
 .content{
   max-width:760px;
   margin:40px auto;
@@ -289,53 +291,6 @@ hr{
 <script>
 let current = "";
 let inputHistory = JSON.parse(localStorage.getItem("god_deme_history") || "[]");
-
-function setDisplay(text, rainbow=false){
-  const display = document.getElementById("display");
-
-  if(!rainbow){
-    display.innerText = text || "---";
-    return;
-  }
-
-  display.innerHTML =
-    "<span class='rainbow-code'>" +
-    text.split("").map(ch => "<span>" + ch + "</span>").join("") +
-    "</span>";
-}
-
-function pressKey(k){
-  if(current.length >= 3){
-    current = "";
-    document.getElementById("result").innerHTML = "";
-    document.getElementById("result").classList.remove("result-reach-box");
-    setDisplay("---");
-  }
-
-  current += k;
-
-  if(current.length === 3){
-    setDisplay(current, true);
-    check(current);
-    addHistory(current);
-  }else{
-    setDisplay(current);
-  }
-}
-
-function backspace(){
-  current = current.slice(0,-1);
-  setDisplay(current || "---");
-  document.getElementById("result").innerHTML = "3桁の出目を入力してください。";
-  document.getElementById("result").classList.remove("result-reach-box");
-}
-
-function clearInput(){
-  current = "";
-  setDisplay("---");
-  document.getElementById("result").innerHTML = "3桁の出目を入力してください。";
-  document.getElementById("result").classList.remove("result-reach-box");
-}
 
 const data = {
   "153":{name:"奇数のみ",type:"モード示唆",info:"モード期待度 1/8",kiseki:true},
@@ -485,6 +440,54 @@ function gaiaCheck(code){
   return null;
 }
 
+function isReach(code){
+  return data[code] && data[code].type === "リーチ目";
+}
+
+function setDisplay(text, rainbow=false){
+  const display = document.getElementById("display");
+
+  if(!rainbow){
+    display.innerText = text || "---";
+    return;
+  }
+
+  display.innerHTML = "<span class='display-rainbow'>" + text + "</span>";
+}
+
+function pressKey(k){
+  if(current.length >= 3){
+    current = "";
+    document.getElementById("result").innerHTML = "";
+    document.getElementById("result").classList.remove("result-reach-box");
+    setDisplay("---");
+  }
+
+  current += k;
+
+  if(current.length === 3){
+    setDisplay(current, isReach(current));
+    check(current);
+    addHistory(current);
+  }else{
+    setDisplay(current);
+  }
+}
+
+function backspace(){
+  current = current.slice(0,-1);
+  setDisplay(current || "---");
+  document.getElementById("result").innerHTML = "3桁の出目を入力してください。";
+  document.getElementById("result").classList.remove("result-reach-box");
+}
+
+function clearInput(){
+  current = "";
+  setDisplay("---");
+  document.getElementById("result").innerHTML = "3桁の出目を入力してください。";
+  document.getElementById("result").classList.remove("result-reach-box");
+}
+
 function buildResultHtml(code){
   const r = data[code];
   const g = gaiaCheck(code);
@@ -518,12 +521,11 @@ function buildResultHtml(code){
 }
 
 function check(code){
-  const r = data[code];
   const resultBox = document.getElementById("result");
 
   resultBox.classList.remove("result-reach-box");
 
-  if(r && r.type === "リーチ目"){
+  if(isReach(code)){
     resultBox.classList.add("result-reach-box");
   }
 
@@ -537,7 +539,6 @@ function toggleHistory(){
 }
 
 function addHistory(code){
-  inputHistory = inputHistory.filter(item => item !== code);
   inputHistory.unshift(code);
   inputHistory = inputHistory.slice(0,20);
   localStorage.setItem("god_deme_history", JSON.stringify(inputHistory));
@@ -554,16 +555,15 @@ function renderHistory(){
     return;
   }
 
-  inputHistory.forEach(code=>{
-    const r = data[code];
+  inputHistory.forEach((code,index)=>{
     const item = document.createElement("div");
     item.className = "history-item";
 
-    if(r && r.type === "リーチ目"){
+    if(isReach(code)){
       item.classList.add("reach");
     }
 
-    item.innerText = code;
+    item.innerHTML = "<span class='history-no'>" + (index + 1) + ".</span>" + code;
     item.onclick = () => showHistoryDetail(code);
     list.appendChild(item);
   });
