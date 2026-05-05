@@ -474,7 +474,7 @@ document.querySelectorAll("details").forEach(function(detail){
 /* 演出表示タップで閉じる */
 document.addEventListener("click", function(e){
   const detail = document.getElementById("effectDetail");
-  if(detail && detail.contains(e.target) && !e.target.closest("table")){
+  if(detail && detail.contains(e.target) && ){
     detail.remove();
     currentEffect = "";
     document.querySelectorAll(".effect-buttons button")
