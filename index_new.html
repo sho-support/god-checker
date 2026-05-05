@@ -17,6 +17,7 @@ gtag('js', new Date());
 gtag('config', 'G-91KST8GF26');
 </script>
 
+  
 <style>
 body{
   font-family:sans-serif;
@@ -215,6 +216,61 @@ hr{
     grid-template-columns:repeat(3,1fr);
   }
 }
+  .menu-buttons{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  max-width:420px;
+  margin:20px auto 30px;
+}
+
+.menu-btn{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:12px;
+  padding:16px;
+  border-radius:12px;
+  background:linear-gradient(135deg,#d4a017,#7a5c10);
+  color:#fff;
+  text-decoration:none;
+  font-weight:bold;
+  border:1px solid #c9a33a;
+  box-shadow:0 4px 12px rgba(0,0,0,.4);
+}
+
+.menu-btn i{
+  font-size:20px;
+  width:24px;
+  text-align:center;
+}
+  ...
+.menu-btn:active{
+  transform:scale(.97);
+  background:linear-gradient(135deg,#ffcc33,#8c6b15);
+}
+
+/* ←ここ（251と252の間）に追加 */
+details{
+  background:#1b1b1b;
+  border:1px solid #6b4a12;
+  border-radius:10px;
+  margin:12px auto;
+  padding:12px;
+  max-width:760px;
+}
+
+summary{
+  color:#f7d36a;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+details p{
+  color:#ddd;
+  margin-top:10px;
+}
+
 </style>
 </head>
 
@@ -273,44 +329,53 @@ hr{
 </div>
 
 <div class="content">
-<h2>このツールについて</h2>
-<p>
-本ツールはスマスロ「ミリオンゴッド 神々の軌跡」の液晶出目を入力し、
-リーチ目・チャンス目・モード示唆・Vハサミ系の示唆を確認するための非公式ツールです。
-前作「神々の凱旋」で公開されていた出目については、参考情報として「凱旋情報」と表示しています。
-</p>
 
-<h2>ガイア系出目について</h2>
-<p>
-ガイアナビ発生時・ガイアステージ中に意味がある出目は、通常時の判定とは別に
-「ガイアナビ時」または「ガイアステージ中」として表示します。
-通常時のリーチ目・チャンス目・モード示唆と、ガイア系の示唆が両方ある場合は両方を表示します。
-</p>
+<details>
+  <summary>このツールについて</summary>
+  <p>
+    本ツールはスマスロ「ミリオンゴッド 神々の軌跡」の液晶出目を入力し、
+    リーチ目・チャンス目・モード示唆・Vハサミ系の出目を確認するための非公式ツールです。<br><br>
+    前作「神々の凱旋」で公開されていた出目については、参考情報として「凱旋情報」と表示しています。<br><br>
+    実戦中に出目の意味を素早く確認できるよう、通常時の判定に加えて、ガイア系・遅れ時の示唆も別枠で表示します。
+  </p>
+</details>
 
-<h2>遅れ時の出目について</h2>
-<p>
-遅れ発生時に意味がある出目は、通常時の判定とは別に「遅れ時」として表示します。
-同じ出目でも通常時と遅れ時で意味が異なる場合は、両方の情報を確認できます。
-</p>
+<details>
+  <summary>ガイア系出目について</summary>
+  <p>
+    ガイアナビ発生時・ガイアステージ中に意味がある出目は、通常時の判定とは別に
+    「ガイアナビ時」または「ガイアステージ中」として表示します。<br><br>
+    通常時のリーチ目・チャンス目・モード示唆と、ガイア系の出目示唆が両方ある場合は、両方を表示します。
+  </p>
+</details>
 
-<h2>使い方</h2>
-<p>
-数字またはVを3桁入力すると、自動で判定結果が表示されます。
-4桁目を押すと自動で新しい入力に切り替わります。
-入力した出目は履歴に残り、あとからタップして確認できます。
-</p>
+<details>
+  <summary>遅れ時の出目について</summary>
+  <p>
+    遅れ発生時に意味がある出目は、通常時の判定とは別に「遅れ時」として表示します。<br><br>
+    同じ出目でも通常時と遅れ時で意味が異なる場合があるため、結果欄では通常時の情報と遅れ時の情報を分けて確認できます。
+  </p>
+</details>
 
-<h2>関連ページ</h2>
+<details>
+  <summary>使い方</summary>
+  <p>
+    数字またはVを3桁入力すると、自動で判定結果が表示されます。<br>
+    4桁目を押すと自動で新しい入力に切り替わります。<br>
+    入力した出目は履歴に残り、あとからタップして確認できます。
+  </p>
+</details>
 
+<details>
+  <summary>注意事項</summary>
+  <p>
+    本ツールは遊技情報を整理するための参考ツールです。<br>
+    当選・設定・モード滞在を保証するものではありません。<br>
+    最終的な遊技判断はご自身の責任で行ってください。
+  </p>
+</details>
 
-<h2>注意事項</h2>
-<p>
-本ツールは遊技情報を整理するための参考ツールです。
-当選・設定・モード滞在を保証するものではありません。
-最終的な遊技判断はご自身の責任で行ってください。
-</p>
 </div>
-
 <div class="footer">
   <a href="privacy.html">プライバシーポリシー・免責事項</a> ｜
   <a href="contact.html">お問い合わせ</a>
