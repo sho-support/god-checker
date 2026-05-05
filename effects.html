@@ -143,6 +143,7 @@ button:active{
 <h2>演出法則</h2>
 
 <div class="effect-buttons">
+  <button onclick="showEffect('gaia', this)">ガイア</button>
   <button onclick="showEffect('delay', this)">遅れ</button>
   <button onclick="showEffect('stage', this)">ステチェン</button>
   <button onclick="showEffect('wind', this)">光の風</button>
@@ -186,6 +187,22 @@ delay:{
   ],
   extra:true
 },
+
+gaia:{
+  name:"ガイアステージ・ガイアベル",
+  rows:[
+    ["基本性能","ガイアベル成立時の一部で移行。保障9GのGG超高確率状態"],
+    ["特徴","GG当選でZ-ZONE突入のチャンス。奇数揃いはGG当選濃厚、0揃いはGG当選＋Z-ZONE突入濃厚"],
+    ["ガイアベル示唆","0頭＜0頭＋奇数＜0頭＋ケツ奇数テンパイ＜0ハサミ＋中偶数＜0ハサミ＋中奇数＜0V7・07V"],
+    ["GG抽選","中段青7は50.0%、右上がり黄7は62.5%、中段黄7・SP役は100%"],
+    ["小役履歴","青7・黄7とも5連以上でGG当選濃厚"],
+    ["Z-ZONE抽選","GG当選時にZ-ZONE抽選。設定1は15.0%"],
+    ["保障G加算","保障3G以下時に加算抽選。中段青7・右上がり黄7は加算濃厚"],
+    ["転落抽選","保障G数消化後、ハズレ時や押し順黄7のハズレ目で転落抽選"]
+  ],
+  gaia:true
+},
+  
 stage:{
   name:"ステージチェンジ",
   rows:[
@@ -384,11 +401,87 @@ function showEffect(key,button){
     `;
   }
 
+if(e.gaia){
+  h+=`
+    <br>
+    <b style="color:#ffdf6b;">ガイアベル（ガイアナビ）時の出目示唆</b>
+    <table class="delay-table">
+      <tr><th>液晶出目</th><th>ガイアモード期待度</th></tr>
+      <tr><td>0頭</td><td>低</td></tr>
+      <tr><td>0頭＋奇数</td><td>↓</td></tr>
+      <tr><td>0頭＋ケツ奇数テンパイ</td><td>↓</td></tr>
+      <tr><td>0ハサミ＋中は偶数</td><td>↓</td></tr>
+      <tr><td>0ハサミ＋中は奇数</td><td><span class="red">高</span></td></tr>
+      <tr><td>0V7 / 07V</td><td><span class="red">高</span></td></tr>
+    </table>
+
+    <br>
+    <b style="color:#ffdf6b;">ガイアステージ中の前兆示唆出目</b>
+    <table class="delay-table">
+      <tr><th>液晶出目</th><th>法則</th></tr>
+      <tr><td>奇数テンパイ</td><td>ナビ発生時は前兆滞在濃厚</td></tr>
+      <tr><td>0ハサミ＋中は偶数</td><td>前兆滞在濃厚</td></tr>
+      <tr><td>0頭＋ケツ奇数テンパイ</td><td>前兆滞在濃厚</td></tr>
+      <tr><td>奇数ハサミ＋中は0</td><td>前兆滞在濃厚</td></tr>
+      <tr><td>0テンパイ＋右は偶数</td><td>0揃いに期待＋前兆滞在濃厚</td></tr>
+      <tr><td>0ハサミ＋中は奇数</td><td>前兆滞在濃厚</td></tr>
+      <tr><td>0テンパイ＋右は奇数</td><td><span class="red">0揃いに期待＋前兆滞在濃厚</span></td></tr>
+    </table>
+
+    <br>
+    <b style="color:#ffdf6b;">ガイアステージ中の成立役別GG当選率</b>
+    <table class="delay-table">
+      <tr><th>成立役</th><th>GG当選率</th></tr>
+      <tr><td>ハズレ / 上段青7 / 赤7フェイク / 押し順黄7 / ガイアベル</td><td>1.6%</td></tr>
+      <tr><td>中段青7</td><td>50.0%</td></tr>
+      <tr><td>右上がり黄7</td><td>62.5%</td></tr>
+      <tr><td>中段黄7 / SP役</td><td><span class="red">100%</span></td></tr>
+    </table>
+
+    <br>
+    <b style="color:#ffdf6b;">ガイアステージ中の専用演出</b>
+    <table class="delay-table">
+      <tr><th>演出</th><th>法則</th></tr>
+      <tr><td>雷雲：雲</td><td>連続するほどチャンス</td></tr>
+      <tr><td>雷雲：雷雨</td><td>奇数非テンパイならGG本前兆以上濃厚!? 上段青7成立で前兆滞在濃厚</td></tr>
+      <tr><td>雷雲：雷雨＋剣</td><td>プレミアム役・中段黄7・赤7フェイクに期待。対応役否定でGG濃厚＋Z-ZONE突入に期待</td></tr>
+      <tr><td>オーロラ</td><td>上段青7 / 中段青7 / 右上がり黄7の一部で発生。対応役否定でGG本前兆以上濃厚!?</td></tr>
+      <tr><td>満月</td><td>4G継続で0揃い濃厚!?</td></tr>
+      <tr><td>演出なし＋偶数頭バラケ目</td><td>保障G数消化後は転落のピンチ</td></tr>
+    </table>
+
+    <p class="small">
+      ※ガイア系の示唆は通常時の出目判定とは別枠で確認してください。
+    </p>
+  `;
+}
+  
   h+="</div>";
 
   button.insertAdjacentHTML("afterend",h);
   currentEffect=key;
-}
+ 
+
+/* details開閉（中タップで閉じる） */
+document.querySelectorAll("details").forEach(function(detail){
+  detail.addEventListener("click", function(e){
+    if(e.target.tagName.toLowerCase() !== "summary"){
+      detail.removeAttribute("open");
+    }
+  });
+});
+
+/* 演出表示タップで閉じる */
+document.addEventListener("click", function(e){
+  const detail = document.getElementById("effectDetail");
+  if(detail && detail.contains(e.target) && !e.target.closest("table")){
+    detail.remove();
+    currentEffect = "";
+    document.querySelectorAll(".effect-buttons button")
+      .forEach(btn=>btn.classList.remove("active-button"));
+  }
+});
+
 </script>
 
 </body>
