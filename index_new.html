@@ -324,7 +324,7 @@ details p{
 
   <a href="setting.html" class="menu-btn">
     <i class="fa-solid fa-chart-line"></i>
-    初当たり確率から設定推測
+    初当たり確率からの設定推測ツール
   </a>
 </div>
 
@@ -830,18 +830,36 @@ function renderHistory(){
   });
 }
 
-function showHistoryDetail(code){
-  document.getElementById("historyDetail").innerHTML=
-    "<b>出目："+code+"</b><br><br>"+buildResultHtml(code);
-}
+let currentDetail = "";
 
+function showHistoryDetail(code){
+  const detail = document.getElementById("historyDetail");
+
+  if(currentDetail === code){
+    detail.innerHTML = "履歴の出目を押すと説明が表示されます。";
+    currentDetail = "";
+    return;
+  }
+
+  detail.innerHTML =
+    "<b>出目：" + code + "</b><br><br>" + buildResultHtml(code);
+
+  currentDetail = code;
+}
 function resetHistory(){
   inputHistory=[];
   localStorage.removeItem("god_deme_history");
   renderHistory();
 }
-
 renderHistory();
+
+document.querySelectorAll("details").forEach(function(detail){
+  detail.addEventListener("click", function(e){
+    if(e.target.tagName.toLowerCase() !== "summary"){
+      detail.removeAttribute("open");
+    }
+  });
+});
 </script>
 
 </body>
