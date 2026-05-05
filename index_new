@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>神々の軌跡 出目チェッカー｜リーチ目・Vハサミ・モード示唆を確認</title>
+
+<!-- Analytics OK -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-91KST8GF26"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-91KST8GF26');
+</script>
+
+<style>
+body{
+  font-family:sans-serif;
+  background:#111;
+  color:#fff;
+  text-align:center;
+  padding:20px;
+}
+h1{
+  color:#f7d36a;
+}
+#display{
+  font-size:32px;
+  margin:20px;
+  letter-spacing:5px;
+}
+.keypad{
+  display:grid;
+  grid-template-columns:repeat(3,80px);
+  gap:10px;
+  justify-content:center;
+}
+button{
+  padding:15px;
+  font-size:20px;
+  border-radius:10px;
+  border:0;
+  background:#333;
+  color:#fff;
+}
+button:active{background:#666}
+#result{
+  margin-top:20px;
+  font-size:18px;
+}
+.content{
+  max-width:700px;
+  margin:40px auto;
+  text-align:left;
+  line-height:1.8;
+}
+.links a{
+  display:block;
+  margin:10px 0;
+  color:#f7d36a;
+}
+.footer{
+  margin-top:40px;
+  font-size:12px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>神々の軌跡 出目チェッカー</h1>
+
+<p>リーチ目・Vハサミ・モード示唆を簡単に確認できます。</p>
+
+<div id="display">---</div>
+
+<div class="keypad">
+<button onclick="pressKey('1')">1</button>
+<button onclick="pressKey('2')">2</button>
+<button onclick="pressKey('3')">3</button>
+<button onclick="pressKey('4')">4</button>
+<button onclick="pressKey('5')">5</button>
+<button onclick="pressKey('6')">6</button>
+<button onclick="pressKey('7')">7</button>
+<button onclick="pressKey('8')">8</button>
+<button onclick="pressKey('0')">0</button>
+<button onclick="pressKey('V')">V</button>
+<button onclick="clearInput()">C</button>
+</div>
+
+<div id="result"></div>
+
+<div class="content">
+<h2>このツールについて</h2>
+<p>
+本ツールはスマスロ「ミリオンゴッド 神々の軌跡」における出目を入力することで、
+リーチ目・チャンス目・モード示唆を簡単に確認できる非公式ツールです。
+</p>
+
+<h2>使い方</h2>
+<p>
+数字またはVを3桁入力すると、該当する出目情報が表示されます。
+実戦中の確認用としてご利用ください。
+</p>
+
+<h2>関連情報</h2>
+<div class="links">
+<a href="guide.html">出目の見方・リーチ目解説</a>
+<a href="effects.html">演出法則まとめ</a>
+<a href="setting.html">設定推測ツール</a>
+<a href="basic.html">基本情報・天井・小役確率</a>
+</div>
+
+<h2>注意事項</h2>
+<p>
+本ツールは遊技情報を整理するための参考ツールです。
+設定や当選を保証するものではありません。
+最終的な判断はご自身の責任で行ってください。
+</p>
+</div>
+
+<div class="footer">
+<a href="privacy.html">プライバシーポリシー</a> |
+<a href="contact.html">お問い合わせ</a>
+</div>
+
+<script>
+let current="";
+
+function pressKey(k){
+  if(current.length>=3){
+    current="";
+  }
+  current+=k;
+  document.getElementById("display").innerText=current;
+
+  if(current.length===3){
+    check(current);
+  }
+}
+
+function clearInput(){
+  current="";
+  document.getElementById("display").innerText="---";
+  document.getElementById("result").innerText="";
+}
+
+const data={
+"V5V":"天国ショート以上確定",
+"V0V":"Vモード確定",
+"510":"GOD系出目"
+};
+
+function check(code){
+  if(data[code]){
+    document.getElementById("result").innerText=data[code];
+  }else{
+    document.getElementById("result").innerText="該当なし";
+  }
+}
+</script>
+
+</body>
+</html>
