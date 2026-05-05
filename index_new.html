@@ -44,11 +44,15 @@ h1{
   padding:15px;
   min-height:46px;
 }
-.display-rainbow{
+.display-rainbow,
+.rainbow-text{
   font-weight:bold;
   background:linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+}
+.rainbow-text{
+  font-size:24px;
 }
 .keypad{
   display:grid;
@@ -86,15 +90,15 @@ button:active{background:#666;}
 }
 .red{color:#ff5a5a;font-weight:bold;}
 .blue{color:#66ccff;font-weight:bold;}
+.lv1txt{color:#888;font-weight:bold;}
+.lv2txt{color:#66ccff;font-weight:bold;}
+.lv3txt{color:#33cc99;font-weight:bold;}
+.lv4txt{color:#66ff66;font-weight:bold;}
+.lv5txt{color:#ffcc00;font-weight:bold;}
+.lv6txt{color:#ff9933;font-weight:bold;}
+.lv7txt{color:#ff5a5a;font-weight:bold;}
 .orange{color:#ff9f1c;font-weight:bold;}
 .green{color:#66ff99;font-weight:bold;}
-.rainbow-text{
-  font-weight:bold;
-  font-size:24px;
-  background:linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
 .result-reach-box{
   border:2px solid transparent!important;
   background:
@@ -147,6 +151,17 @@ button:active{background:#666;}
   background:
     linear-gradient(#222,#222) padding-box,
     linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet) border-box;
+}
+.history-item.lv1{border:2px solid #555;}
+.history-item.lv2{border:2px solid #66ccff;}
+.history-item.lv3{border:2px solid #33cc99;}
+.history-item.lv4{border:2px solid #66ff66;}
+.history-item.lv5{border:2px solid #ffcc00;}
+.history-item.lv6{border:2px solid #ff9933;}
+.history-item.lv7{border:2px solid #ff5a5a;}
+.history-item.lv8{
+  border:2px solid #ff2222;
+  box-shadow:0 0 10px rgba(255,0,0,.7);
 }
 .history-no{
   color:#ffdf6b;
@@ -241,13 +256,20 @@ hr{
 <p>
 本ツールはスマスロ「ミリオンゴッド 神々の軌跡」の液晶出目を入力し、
 リーチ目・チャンス目・モード示唆・Vハサミ系の示唆を確認するための非公式ツールです。
-前作「神々の凱旋」で確認されていた出目については、参考情報として「凱旋情報」と表示しています。
+前作「神々の凱旋」で公開されていた出目については、参考情報として「凱旋情報」と表示しています。
 </p>
 
 <h2>ガイア系出目について</h2>
 <p>
-ガイアナビ発生時・ガイアベル成立時は、通常時とは別にガイアステージ期待度として表示します。
-通常出目としての示唆と、ガイア系出目としての示唆が両方ある場合は、両方を表示します。
+ガイアナビ発生時・ガイアステージ中に意味がある出目は、通常時の判定とは別に
+「ガイアナビ時」または「ガイアステージ中」として表示します。
+通常時のリーチ目・チャンス目・モード示唆と、ガイア系の示唆が両方ある場合は両方を表示します。
+</p>
+
+<h2>遅れ時の出目について</h2>
+<p>
+遅れ発生時に意味がある出目は、通常時の判定とは別に「遅れ時」として表示します。
+同じ出目でも通常時と遅れ時で意味が異なる場合は、両方の情報を確認できます。
 </p>
 
 <h2>使い方</h2>
@@ -283,206 +305,364 @@ let current = "";
 let inputHistory = JSON.parse(localStorage.getItem("god_deme_history") || "[]");
 
 const data = {
-  "153":{name:"奇数のみ",type:"モード示唆",info:"モード期待度 1/8",kiseki:true},
-  "633":{name:"左偶数＋ケツ奇数テンパイ",type:"モード示唆",info:"モード期待度 2/8",kiseki:true},
-  "234":{name:"偶数順目",type:"モード示唆",info:"モード期待度 3/8",guarantee:"天国準備以上濃厚（青7成立時）",kiseki:true},
-  "456":{name:"偶数順目",type:"モード示唆",info:"モード期待度 3/8",guarantee:"天国準備以上濃厚（青7成立時）",kiseki:true},
-  "678":{name:"偶数順目",type:"モード示唆",info:"モード期待度 3/8",guarantee:"天国準備以上濃厚（青7成立時）",kiseki:true},
-  "155":{name:"左奇数＋ケツ奇数テンパイ",type:"モード示唆",info:"モード期待度 4/8",kiseki:true},
-  "345":{name:"奇数順目",type:"モード示唆",info:"モード期待度 5/8",guarantee:"天国準備以上濃厚／ハズレ成立時は天国ショート以上濃厚",kiseki:true},
-  "567":{name:"奇数順目",type:"モード示唆",info:"モード期待度 5/8",guarantee:"天国準備以上濃厚／ハズレ成立時は天国ショート以上濃厚",kiseki:true},
-  "030":{name:"0ハサミ",type:"モード示唆",info:"モード期待度 6/8",guarantee:"天国準備以上濃厚",kiseki:true},
-  "313":{name:"奇数ハサミ",type:"モード示唆",info:"モード期待度 7/8",guarantee:"天国準備以上濃厚",kiseki:true},
+    "153":{normal:{name:"奇数のみ",type:"モード示唆",level:1}},
+  "633":{normal:{name:"左偶数＋ケツ奇数テンパイ",type:"モード示唆",level:2}},
+  "234":{normal:{name:"偶数順目",type:"モード示唆",level:3,guarantee:"天国準備以上濃厚（青7成立時）"}},
+  "456":{normal:{name:"偶数順目",type:"モード示唆",level:3,guarantee:"天国準備以上濃厚（青7成立時）"}},
+  "678":{normal:{name:"偶数順目",type:"モード示唆",level:3,guarantee:"天国準備以上濃厚（青7成立時）"}},
+  "155":{normal:{name:"左奇数＋ケツ奇数テンパイ",type:"モード示唆",level:4}},
+  "345":{normal:{name:"奇数順目",type:"モード示唆",level:5,guarantee:"天国準備以上濃厚／ハズレ時は天国ショート以上濃厚"}},
+  "567":{normal:{name:"奇数順目",type:"モード示唆",level:5,guarantee:"天国準備以上濃厚／ハズレ時は天国ショート以上濃厚"}},
+  "030":{normal:{name:"0ハサミ",type:"モード示唆",level:6,guarantee:"天国準備以上濃厚"}},
+  "313":{normal:{name:"奇数ハサミ",type:"モード示唆",level:7,guarantee:"天国準備以上濃厚"}},
 
-  "777":{name:"ゴッド揃い",type:"特殊出目",guarantee:"PGG",kiseki:true},
-  "000":{name:"Z-ZONE当選",type:"特殊出目",guarantee:"AT確定CZ",kiseki:true},
-  "VVV":{name:"V揃い",type:"特殊出目",guarantee:"3セット以上濃厚",kiseki:true},
+  "777":{normal:{name:"ゴッド揃い",type:"特殊出目",guarantee:"PGG"}},
+  "000":{normal:{name:"Z-ZONE当選",type:"特殊出目",guarantee:"AT確定CZ"}},
+  "VVV":{normal:{name:"V揃い",type:"特殊出目",guarantee:"3セット以上濃厚"}},
 
-  "V0V":{name:"Vハサミ偶数",type:"モード示唆",guarantee:"Vモード確定",gaisen:true},
-  "V2V":{name:"Vハサミ偶数",type:"モード示唆",info:"頻発でVモード示唆",gaisen:true},
-  "V4V":{name:"Vハサミ偶数",type:"モード示唆",info:"頻発でVモード示唆",gaisen:true},
-  "V6V":{name:"Vハサミ偶数",type:"モード示唆",info:"頻発でVモード示唆",gaisen:true},
-  "V8V":{name:"Vハサミ偶数",type:"モード示唆",info:"頻発でVモード示唆",gaisen:true},
-  "V1V":{name:"Vハサミ奇数",type:"モード示唆",guarantee:"天国ショート以上濃厚",gaisen:true},
-  "V3V":{name:"Vハサミ奇数",type:"モード示唆",guarantee:"天国ショート以上濃厚",gaisen:true},
-  "V5V":{name:"Vハサミ奇数",type:"モード示唆",info:"モード期待度 8/8",guarantee:"天国ショート以上濃厚",gaisen:true},
-  "V7V":{name:"Vハサミ奇数",type:"モード示唆",guarantee:"超天国濃厚",gaisen:true},
-  "V00":{name:"V＋0ケツテンパイ",type:"モード示唆",guarantee:"天国ショート以上濃厚",gaisen:true},
-  "V77":{name:"V＋7ケツテンパイ",type:"モード示唆",guarantee:"天国ショート以上濃厚",gaisen:true},
+  "V0V":{normal:{name:"Vハサミ偶数",type:"モード示唆",guarantee:"Vモード確定",source:"凱旋情報"}},
+  "V2V":{normal:{name:"Vハサミ偶数",type:"モード示唆",info:"頻発でVモード示唆",source:"凱旋情報"}},
+  "V4V":{normal:{name:"Vハサミ偶数",type:"モード示唆",info:"頻発でVモード示唆",source:"凱旋情報"}},
+  "V6V":{normal:{name:"Vハサミ偶数",type:"モード示唆",info:"頻発でVモード示唆",source:"凱旋情報"}},
+  "V8V":{normal:{name:"Vハサミ偶数",type:"モード示唆",info:"頻発でVモード示唆",source:"凱旋情報"}},
+  "V1V":{normal:{name:"Vハサミ奇数",type:"モード示唆",level:8,guarantee:"天国ショート以上濃厚",source:"凱旋情報"}},
+  "V3V":{normal:{name:"Vハサミ奇数",type:"モード示唆",level:8,guarantee:"天国ショート以上濃厚",source:"凱旋情報"}},
+  "V5V":{normal:{name:"Vハサミ奇数",type:"モード示唆",level:8,guarantee:"天国ショート以上濃厚",source:"凱旋情報"}},
+  "V7V":{normal:{name:"Vハサミ奇数",type:"モード示唆",level:8,guarantee:"超天国濃厚",source:"凱旋情報"}},
+  "V00":{normal:{name:"V＋0ケツテンパイ",type:"モード示唆",guarantee:"天国ショート以上濃厚",source:"凱旋情報"}},
+  "V77":{normal:{name:"V＋7ケツテンパイ",type:"モード示唆",guarantee:"天国ショート以上濃厚",source:"凱旋情報"}},
 
-  "1V3":{name:"イビサ島",type:"リーチ目",guarantee:"GG本前兆濃厚",kiseki:true},
-  "223":{name:"富士山",type:"リーチ目",guarantee:"GG本前兆濃厚",kiseki:true},
-  "315":{name:"最高",type:"リーチ目",guarantee:"GG本前兆濃厚",kiseki:true},
-  "4V8":{name:"渋谷",type:"リーチ目",guarantee:"GG本前兆濃厚",kiseki:true},
-  "526":{name:"小次郎",type:"リーチ目",guarantee:"GG本前兆濃厚",kiseki:true},
-  "634":{name:"武蔵",type:"リーチ目",guarantee:"GG本前兆濃厚",kiseki:true},
-  "808":{name:"八百屋",type:"リーチ目",guarantee:"GG本前兆濃厚",kiseki:true},
-  "V31":{name:"Vサイン",type:"リーチ目",guarantee:"GG本前兆濃厚",kiseki:true},
+  "1V3":{normal:{name:"☆イビサ島",type:"リーチ目",guarantee:"GG本前兆濃厚"}},
+  "223":{normal:{name:"☆富士山",type:"リーチ目",guarantee:"GG本前兆濃厚"}},
+  "315":{normal:{name:"☆最高",type:"リーチ目",guarantee:"GG本前兆濃厚"}},
+  "4V8":{normal:{name:"☆渋谷",type:"リーチ目",guarantee:"GG本前兆濃厚"}},
+  "526":{normal:{name:"☆小次郎",type:"リーチ目",guarantee:"GG本前兆濃厚"}},
+  "634":{normal:{name:"☆武蔵",type:"リーチ目",guarantee:"GG本前兆濃厚"}},
+  "808":{normal:{name:"☆八百屋",type:"リーチ目",guarantee:"GG本前兆濃厚"}},
+  "V31":{normal:{name:"☆Vサイン",type:"リーチ目",guarantee:"GG本前兆濃厚"}},
 
-  "38V":{name:"雅",type:"チャンス目",info:"高モード示唆",chanceLevel:6,kiseki:true},
-  "461":{name:"鎧",type:"チャンス目",info:"高モード示唆",chanceLevel:6,kiseki:true},
-  "468":{name:"ヨーロッパ",type:"チャンス目",info:"高モード示唆",chanceLevel:6,kiseki:true},
-  "631":{name:"無罪",type:"チャンス目",info:"高モード示唆",chanceLevel:6,kiseki:true},
-  "831":{name:"野菜",type:"チャンス目",info:"高モード示唆",chanceLevel:6,kiseki:true},
-  "100":{name:"左奇数＋00",type:"チャンス目",info:"GG前兆に期待",chanceLevel:5,gaisen:true},
-  "300":{name:"左奇数＋00",type:"チャンス目",info:"GG前兆に期待",chanceLevel:5,kiseki:true},
-  "500":{name:"左奇数＋00",type:"チャンス目",info:"GG前兆に期待",chanceLevel:5,gaisen:true},
-  "200":{name:"左偶数＋00",type:"チャンス目",info:"高モード示唆",chanceLevel:4,kiseki:true},
-  "400":{name:"左偶数＋00",type:"チャンス目",info:"高モード示唆",chanceLevel:4,gaisen:true},
-  "600":{name:"左偶数＋00",type:"チャンス目",info:"高モード示唆",chanceLevel:4,gaisen:true},
-  "800":{name:"左偶数＋00",type:"チャンス目",info:"高モード示唆",chanceLevel:4,gaisen:true},
-  "101":{name:"奇数ハサミ＋中0",type:"チャンス目",info:"GG前兆に期待",chanceLevel:5,gaisen:true},
-  "303":{name:"奇数ハサミ＋中0",type:"チャンス目",info:"GG前兆に期待",chanceLevel:5,gaisen:true},
-  "505":{name:"奇数ハサミ＋中0",type:"チャンス目",info:"GG前兆に期待",chanceLevel:5,gaisen:true},
-  "707":{name:"奇数ハサミ＋中0",type:"チャンス目",info:"GG前兆に期待",chanceLevel:5,gaisen:true},
+  "007":{normal:{name:"007",type:"リーチ目",source:"凱旋情報"},gaia:{name:"ガイアステージ中",level:"7/7",info:"0揃い前兆濃厚"}},
+  "012":{normal:{name:"朝イチ目",type:"リーチ目",source:"凱旋情報"}},
+  "026":{normal:{name:"お風呂",type:"リーチ目",source:"凱旋情報"}},
+  "032":{normal:{name:"おさつ",type:"リーチ目",source:"凱旋情報"}},
+  "038":{normal:{name:"大宮",type:"リーチ目",source:"凱旋情報"}},
+  "046":{normal:{name:"お城",type:"リーチ目",source:"凱旋情報"}},
+  "04V":{normal:{name:"レシーブ",type:"リーチ目",source:"凱旋情報"}},
+  "075":{normal:{name:"おなご",type:"リーチ目",source:"凱旋情報"}},
+  "081":{normal:{name:"オッパイ",type:"リーチ目",source:"凱旋情報"}},
+  "0V0":{normal:{name:"顔文字",type:"リーチ目",source:"凱旋情報"}},
+  "104":{normal:{name:"天使",type:"リーチ目",source:"凱旋情報"}},
+  "110":{normal:{name:"110番",type:"リーチ目",source:"凱旋情報"}},
+  "123":{normal:{name:"旧朝イチ目",type:"リーチ目",source:"凱旋情報"}},
+  "135":{normal:{name:"G-ZONE目",type:"リーチ目",source:"凱旋情報"}},
+  "168":{normal:{name:"いろは",type:"リーチ目",source:"凱旋情報"}},
+  "175":{normal:{name:"イナゴ",type:"リーチ目",source:"凱旋情報"}},
+  "184":{normal:{name:"鰯（イワシ）",type:"リーチ目",source:"凱旋情報"}},
+  "201":{normal:{name:"匂い",type:"リーチ目",source:"凱旋情報"}},
+  "280":{normal:{name:"ニーハオ",type:"リーチ目",source:"凱旋情報"}},
+  "283":{normal:{name:"翼",type:"リーチ目",source:"凱旋情報"}},
+  "2V1":{normal:{name:"ニブイチ、2分1",type:"リーチ目",source:"凱旋情報"}},
+  "324":{normal:{name:"MIZUHO",type:"リーチ目",source:"凱旋情報"}},
+  "344":{normal:{name:"サシシ",type:"リーチ目",source:"凱旋情報"}},
+  "354":{normal:{name:"神輿",type:"リーチ目",source:"凱旋情報"}},
+  "365":{normal:{name:"365日",type:"リーチ目",source:"凱旋情報"}},
+  "415":{normal:{name:"よいこ",type:"リーチ目",source:"凱旋情報"}},
+  "423":{normal:{name:"しじみ",type:"リーチ目",source:"凱旋情報"}},
+  "428":{normal:{name:"四谷",type:"リーチ目",source:"凱旋情報"}},
+  "448":{normal:{name:"使者",type:"リーチ目",source:"凱旋情報"}},
+  "481":{normal:{name:"支配",type:"リーチ目",source:"凱旋情報"}},
+  "508":{normal:{name:"ゴーヤ",type:"リーチ目",source:"凱旋情報"}},
+  "510":{normal:{name:"GOD",type:"リーチ目",guarantee:"GOD系出目",source:"凱旋情報"}},
+  "514":{normal:{name:"来いよ",type:"リーチ目",source:"凱旋情報"}},
+  "543":{normal:{name:"暦（コヨミ）",type:"リーチ目",source:"凱旋情報"}},
+  "564":{normal:{name:"殺し",type:"リーチ目",source:"凱旋情報"}},
+  "56V":{normal:{name:"転ぶ",type:"リーチ目",source:"凱旋情報"}},
+  "5V0":{normal:{name:"ご無礼",type:"リーチ目",source:"凱旋情報"}},
+  "5V4":{normal:{name:"拳",type:"リーチ目",source:"凱旋情報"}},
+  "664":{normal:{name:"ろくむし",type:"リーチ目",source:"凱旋情報"}},
+  "681":{normal:{name:"無敗",type:"リーチ目",source:"凱旋情報"}},
+  "728":{normal:{name:"浪速",type:"リーチ目",source:"凱旋情報"}},
+  "753":{normal:{name:"和み、七五三",type:"リーチ目",source:"凱旋情報"}},
+  "758":{normal:{name:"名古屋",type:"リーチ目",source:"凱旋情報"}},
+  "78V":{normal:{name:"7頭順目",type:"リーチ目",source:"凱旋情報"}},
+  "801":{normal:{name:"ハワイ",type:"リーチ目",source:"凱旋情報"}},
+  "821":{normal:{name:"ハニー",type:"リーチ目",source:"凱旋情報"}},
+  "841":{normal:{name:"弥生",type:"リーチ目",source:"凱旋情報"}},
+  "845":{normal:{name:"梯子",type:"リーチ目",source:"凱旋情報"}},
+  "850":{normal:{name:"ハチ公",type:"リーチ目",source:"凱旋情報"}},
+  "873":{normal:{name:"花見",type:"リーチ目",source:"凱旋情報"}},
+  "87V":{normal:{name:"花火",type:"リーチ目",source:"凱旋情報"}},
+  "884":{normal:{name:"林",type:"リーチ目",source:"凱旋情報"}},
+  "V07":{normal:{name:"ボーナス",type:"リーチ目",source:"凱旋情報"}},
+  "V34":{normal:{name:"バーサス",type:"リーチ目",source:"凱旋情報"}},
 
-  "700":{name:"7＋0ケツテンパイ",type:"モード示唆",guarantee:"超天国濃厚",gaisen:true},
-  "727":{name:"7ハサミ＋中偶数",type:"遅れ時示唆",guarantee:"天国準備以上濃厚（遅れ時）",gaisen:true},
-  "747":{name:"7ハサミ＋中偶数",type:"遅れ時示唆",guarantee:"天国準備以上濃厚（遅れ時）",gaisen:true},
-  "767":{name:"7ハサミ＋中偶数",type:"遅れ時示唆",guarantee:"天国準備以上濃厚（遅れ時）",gaisen:true},
-  "787":{name:"7ハサミ＋中偶数",type:"遅れ時示唆",guarantee:"天国準備以上濃厚（遅れ時）",gaisen:true},
-  "70V":{name:"遅れ＋ハズレ時示唆",type:"遅れ時示唆",guarantee:"天国以上の期待大（遅れ時）",gaisen:true},
-  "7V0":{name:"遅れ＋ハズレ時示唆",type:"遅れ時示唆",guarantee:"天国以上の期待大（遅れ時）",gaisen:true},
-  "707":{name:"奇数ハサミ＋中0",type:"チャンス目／遅れ時示唆",info:"GG前兆に期待",chanceLevel:5,guarantee:"遅れ時は超天国の期待大",gaisen:true},
-  "7VV":{name:"遅れ＋ハズレ時示唆",type:"遅れ時示唆",guarantee:"超天国の期待大（遅れ時）",gaisen:true},
+  "38V":{normal:{name:"雅",type:"チャンス目",info:"高モード示唆",chanceLevel:6}},
+  "461":{normal:{name:"鎧",type:"チャンス目",info:"高モード示唆",chanceLevel:6}},
+  "468":{normal:{name:"ヨーロッパ",type:"チャンス目",info:"高モード示唆",chanceLevel:6}},
+  "631":{normal:{name:"無罪",type:"チャンス目",info:"高モード示唆",chanceLevel:6}},
+  "831":{normal:{name:"野菜",type:"チャンス目",info:"高モード示唆",chanceLevel:6}},
+  "100":{normal:{name:"左奇数＋00",type:"チャンス目",info:"GG前兆に期待",chanceLevel:5,source:"凱旋情報"}},
+  "300":{normal:{name:"左奇数＋00",type:"チャンス目",info:"GG前兆に期待",chanceLevel:5}},
+  "500":{normal:{name:"左奇数＋00",type:"チャンス目",info:"GG前兆に期待",chanceLevel:5,source:"凱旋情報"}},
+  "200":{normal:{name:"左偶数＋00",type:"チャンス目",info:"高モード示唆",chanceLevel:4}},
+  "400":{normal:{name:"左偶数＋00",type:"チャンス目",info:"高モード示唆",chanceLevel:4,source:"凱旋情報"}},
+  "600":{normal:{name:"左偶数＋00",type:"チャンス目",info:"高モード示唆",chanceLevel:4,source:"凱旋情報"}},
+  "800":{normal:{name:"左偶数＋00",type:"チャンス目",info:"高モード示唆",chanceLevel:4,source:"凱旋情報"}},
+  "101":{normal:{name:"奇数ハサミ＋中0",type:"チャンス目",info:"GG前兆に期待",chanceLevel:5,source:"凱旋情報"}},
+  "303":{normal:{name:"奇数ハサミ＋中0",type:"チャンス目",info:"GG前兆に期待",chanceLevel:5,source:"凱旋情報"}},
+  "505":{normal:{name:"奇数ハサミ＋中0",type:"チャンス目",info:"GG前兆に期待",chanceLevel:5,source:"凱旋情報"}},
+  "707":{normal:{name:"奇数ハサミ＋中0",type:"チャンス目",info:"GG前兆に期待",chanceLevel:5,source:"凱旋情報"},delay:{name:"遅れ時",guarantee:"超天国の期待大"}},
 
-  "010":{name:"0ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
-  "050":{name:"0ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
-  "070":{name:"0ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
-  "131":{name:"奇ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
-  "151":{name:"奇ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
-  "171":{name:"奇ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
-  "353":{name:"奇ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
-  "373":{name:"奇ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
-  "515":{name:"奇ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
-  "535":{name:"奇ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
-  "575":{name:"奇ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
-  "717":{name:"奇ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
-  "737":{name:"奇ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
-  "757":{name:"奇ハサミ＋中奇数",type:"モード示唆",guarantee:"天国準備以上濃厚",gaisen:true},
-
-  "007":{name:"ネタ",type:"リーチ目",gaisen:true},
-  "012":{name:"朝イチ目",type:"リーチ目",gaisen:true},
-  "026":{name:"お風呂",type:"リーチ目",gaisen:true},
-  "032":{name:"おさつ",type:"リーチ目",gaisen:true},
-  "038":{name:"大宮",type:"リーチ目",gaisen:true},
-  "046":{name:"お城",type:"リーチ目",gaisen:true},
-  "04V":{name:"レシーブ",type:"リーチ目",gaisen:true},
-  "075":{name:"おなご",type:"リーチ目",gaisen:true},
-  "081":{name:"オッパイ",type:"リーチ目",gaisen:true},
-  "0V0":{name:"顔文字",type:"リーチ目",gaisen:true},
-  "072":{name:"ネタ",type:"ネタ出目",info:"期待度？？？",gaisen:true},
-  "104":{name:"天使",type:"リーチ目",gaisen:true},
-  "110":{name:"110番",type:"リーチ目",gaisen:true},
-  "123":{name:"旧朝イチ目",type:"リーチ目",gaisen:true},
-  "135":{name:"G-ZONE目",type:"リーチ目",gaisen:true},
-  "168":{name:"いろは",type:"リーチ目",gaisen:true},
-  "175":{name:"イナゴ",type:"リーチ目",gaisen:true},
-  "184":{name:"イワシ",type:"リーチ目",gaisen:true},
-  "201":{name:"匂い",type:"リーチ目",gaisen:true},
-  "280":{name:"ニーハオ",type:"リーチ目",gaisen:true},
-  "283":{name:"翼",type:"リーチ目",gaisen:true},
-  "2V1":{name:"ニブイチ",type:"リーチ目",info:"2分の1",gaisen:true},
-  "324":{name:"MIZUHO",type:"リーチ目",gaisen:true},
-  "344":{name:"サシシ",type:"リーチ目",gaisen:true},
-  "354":{name:"神輿",type:"リーチ目",gaisen:true},
-  "365":{name:"365日",type:"リーチ目",gaisen:true},
-  "415":{name:"よいこ",type:"リーチ目",gaisen:true},
-  "423":{name:"しじみ",type:"リーチ目",gaisen:true},
-  "428":{name:"四谷",type:"リーチ目",gaisen:true},
-  "448":{name:"使者",type:"リーチ目",gaisen:true},
-  "481":{name:"支配",type:"リーチ目",gaisen:true},
-  "508":{name:"ゴーヤ",type:"リーチ目",gaisen:true},
-  "510":{name:"GOD",type:"リーチ目",guarantee:"GOD系出目",gaisen:true},
-  "514":{name:"来いよ",type:"リーチ目",gaisen:true},
-  "543":{name:"暦",type:"リーチ目",gaisen:true},
-  "564":{name:"殺し",type:"リーチ目",gaisen:true},
-  "56V":{name:"転ぶ",type:"リーチ目",gaisen:true},
-  "5V0":{name:"ご無礼",type:"リーチ目",gaisen:true},
-  "5V4":{name:"拳",type:"リーチ目",gaisen:true},
-  "664":{name:"ろくむし",type:"リーチ目",gaisen:true},
-  "681":{name:"無敗",type:"リーチ目",gaisen:true},
-  "728":{name:"浪速",type:"リーチ目",gaisen:true},
-  "753":{name:"七五三",type:"リーチ目",info:"和み",gaisen:true},
-  "758":{name:"名古屋",type:"リーチ目",gaisen:true},
-  "78V":{name:"7頭順目",type:"リーチ目",gaisen:true},
-  "801":{name:"ハワイ",type:"リーチ目",gaisen:true},
-  "821":{name:"ハニー",type:"リーチ目",gaisen:true},
-  "841":{name:"弥生",type:"リーチ目",gaisen:true},
-  "845":{name:"梯子",type:"リーチ目",gaisen:true},
-  "850":{name:"ハチ公",type:"リーチ目",gaisen:true},
-  "873":{name:"花見",type:"リーチ目",gaisen:true},
-  "87V":{name:"花火",type:"リーチ目",gaisen:true},
-  "884":{name:"林",type:"リーチ目",gaisen:true},
-  "V07":{name:"ボーナス",type:"リーチ目",gaisen:true},
-  "V34":{name:"バーサス",type:"リーチ目",gaisen:true}
+  "700":{normal:{name:"7＋0ケツテンパイ",type:"モード示唆",guarantee:"超天国濃厚",source:"凱旋情報"},delay:{name:"遅れ時",guarantee:"超天国の期待大"}},
+  "727":{delay:{name:"7ハサミ＋中偶数",guarantee:"天国準備以上濃厚"}},
+  "747":{delay:{name:"7ハサミ＋中偶数",guarantee:"天国準備以上濃厚"}},
+  "767":{delay:{name:"7ハサミ＋中偶数",guarantee:"天国準備以上濃厚"}},
+  "787":{delay:{name:"7ハサミ＋中偶数",guarantee:"天国準備以上濃厚"}},
+  "70V":{delay:{name:"70V",guarantee:"天国以上の期待大"}},
+  "7V0":{delay:{name:"7V0",guarantee:"天国以上の期待大"}},
+  "7VV":{delay:{name:"7VV",guarantee:"超天国の期待大"}}
 };
-
-function gaiaCheck(code){
+  function patternNormal(code){
   if(!/^[0-8V]{3}$/.test(code)) return null;
 
-  if(code === "0V7" || code === "07V"){
-    return {name:"ガイア強パターン",info:"ガイアステージ期待度 7/7（ガイアナビ時）"};
+  if(/^V[2468]V$/.test(code)){
+    return {name:"Vハサミ偶数",type:"モード示唆",info:"頻発でVモード示唆",source:"凱旋情報"};
   }
 
-  if(code[0] === "0" && code[1] === "0" && ["1","3","5","7"].includes(code[2])){
-    return {name:"0テンパイ＋右奇数",info:"ガイアステージ期待度 7/7（ガイアナビ時）｜0揃いに期待＋前兆滞在濃厚"};
+  if(/^V[135]V$/.test(code)){
+    return {name:"Vハサミ奇数",type:"モード示唆",level:8,guarantee:"天国ショート以上濃厚",source:"凱旋情報"};
   }
 
-  if(code[0] === "0" && code[1] === "0" && ["2","4","6","8"].includes(code[2])){
-    return {name:"0テンパイ＋右偶数",info:"ガイアステージ期待度 5/7（ガイアナビ時）｜0揃いに期待＋前兆滞在濃厚"};
+  if(!/^[0-8]{3}$/.test(code)) return null;
+
+  const a=Number(code[0]);
+  const b=Number(code[1]);
+  const c=Number(code[2]);
+  const isOdd=n=>n%2===1;
+  const isEven=n=>n%2===0;
+
+  if(a===b && b===c && isOdd(a)){
+    return {name:"奇数揃い",type:"特殊出目",guarantee:"AT濃厚!?"};
   }
 
-  if(code[0] === "0" && code[2] === "0" && ["1","3","5","7"].includes(code[1])){
-    return {name:"0ハサミ＋中奇数",info:"ガイアステージ期待度 7/7（ガイアナビ時）｜前兆滞在濃厚"};
+  if(a+1===b && b+1===c && isOdd(a)){
+    return {name:"奇数順目",type:"モード示唆",level:5,guarantee:"天国準備以上濃厚"};
   }
 
-  if(code[0] === "0" && code[2] === "0" && ["2","4","6","8"].includes(code[1])){
-    return {name:"0ハサミ＋中偶数",info:"ガイアステージ期待度 4/7（ガイアナビ時）｜前兆滞在濃厚"};
+  if(a+1===b && b+1===c && isEven(a)){
+    return {name:"偶数順目",type:"モード示唆",level:3};
   }
 
-  if(code[0] === "0" && code[1] === code[2] && ["1","3","5","7"].includes(code[1])){
-    return {name:"0頭＋ケツ奇数テンパイ",info:"ガイアステージ期待度 3/7（ガイアナビ時）｜前兆滞在濃厚"};
+  if(a===0 && c===0){
+    return {name:"0ハサミ",type:"モード示唆",level:isOdd(b)?6:4,guarantee:isOdd(b)?"天国準備以上濃厚":""};
   }
 
-  if(code[0] === "0" && (["1","3","5","7"].includes(code[1]) || ["1","3","5","7"].includes(code[2]))){
-    return {name:"0頭＋奇数",info:"ガイアステージ期待度 2/7（ガイアナビ時）"};
+  if(isOdd(a) && isOdd(c) && a===c){
+    return {name:"奇数ハサミ",type:"モード示唆",level:7,guarantee:"天国準備以上濃厚"};
   }
 
-  if(code[0] === "0"){
-    return {name:"0頭",info:"ガイアステージ期待度 1/7（ガイアナビ時）"};
+  if(b===c && isOdd(b) && isEven(a)){
+    return {name:"左偶数＋ケツ奇数テンパイ",type:"モード示唆",level:2};
+  }
+
+  if(b===c && isOdd(b) && isOdd(a)){
+    return {name:"左奇数＋ケツ奇数テンパイ",type:"モード示唆",level:4};
+  }
+
+  if(isOdd(a) && isOdd(b) && isOdd(c)){
+    return {name:"奇数のみ",type:"モード示唆",level:1};
   }
 
   return null;
 }
 
+function gaiaCheck(code){
+  if(!/^[0-8V]{3}$/.test(code)) return null;
+
+  if(code==="0V7" || code==="07V"){
+    return {name:"ガイア強パターン",level:"7/7",info:"ガイアステージ期待度 高"};
+  }
+
+  if(!/^[0-8]{3}$/.test(code)) return null;
+
+  const a=code[0], b=code[1], c=code[2];
+  const odd=["1","3","5","7"];
+  const even=["2","4","6","8"];
+
+  if(a==="0" && b==="0" && odd.includes(c)){
+    return {name:"0テンパイ＋右奇数",level:"7/7",info:"0揃いに期待＋前兆滞在濃厚"};
+  }
+
+  if(a==="0" && b==="0" && even.includes(c)){
+    return {name:"0テンパイ＋右偶数",level:"5/7",info:"0揃いに期待＋前兆滞在濃厚"};
+  }
+
+  if(a==="0" && c==="0" && odd.includes(b)){
+    return {name:"0ハサミ＋中奇数",level:"7/7",info:"前兆滞在濃厚"};
+  }
+
+  if(a==="0" && c==="0" && even.includes(b)){
+    return {name:"0ハサミ＋中偶数",level:"4/7",info:"前兆滞在濃厚"};
+  }
+
+  if(a==="0" && b===c && odd.includes(b)){
+    return {name:"0頭＋ケツ奇数テンパイ",level:"3/7",info:"前兆滞在濃厚"};
+  }
+
+  if(a==="0" && (odd.includes(b) || odd.includes(c))){
+    return {name:"0頭＋奇数",level:"2/7",info:"ガイアステージ期待度 低〜中"};
+  }
+
+  if(a==="0"){
+    return {name:"0頭",level:"1/7",info:"ガイアステージ期待度 低"};
+  }
+
+  return null;
+}
+
+function delayCheck(code){
+  if(!/^[0-8V]{3}$/.test(code)) return null;
+
+  if(code==="700" || code==="707" || code==="7VV"){
+    return {name:code,guarantee:"超天国の期待大"};
+  }
+
+  if(code==="70V" || code==="7V0"){
+    return {name:code,guarantee:"天国以上の期待大"};
+  }
+
+  if(/^7[2468]7$/.test(code)){
+    return {name:"7ハサミ＋中偶数",guarantee:"天国準備以上濃厚"};
+  }
+
+  if(!/^[0-8]{3}$/.test(code)) return null;
+
+  const b=Number(code[1]);
+  const c=Number(code[2]);
+
+  if(b===c && c%2===1){
+    return {name:"ケツ奇数テンパイ",guarantee:"天国以上の期待大"};
+  }
+
+  return null;
+}
+
+function getRecord(code){
+  const base=data[code] || {};
+  const normal=base.normal || patternNormal(code);
+  const gaia=base.gaia || gaiaCheck(code);
+  const delay=base.delay || delayCheck(code);
+
+  return {
+    normal:normal || null,
+    gaia:gaia || null,
+    delay:delay || null
+  };
+}
+
 function isReach(code){
-  return data[code] && data[code].type === "リーチ目";
+  const rec=getRecord(code);
+  return rec.normal && rec.normal.type==="リーチ目";
+}
+
+function bestLevel(code){
+  const rec=getRecord(code);
+  let level=0;
+
+  if(rec.normal){
+    if(rec.normal.type==="リーチ目") return 99;
+    if(rec.normal.level) level=Math.max(level,rec.normal.level);
+    if(rec.normal.chanceLevel) level=Math.max(level,rec.normal.chanceLevel);
+  }
+
+  if(rec.gaia && rec.gaia.level){
+    const n=parseInt(rec.gaia.level);
+    if(!isNaN(n)) level=Math.max(level,n);
+  }
+
+  if(rec.delay) level=Math.max(level,7);
+
+  return level;
+}
+
+function levelText(level){
+  if(level===8){
+    return "<span class='rainbow-text'>モード期待度 8/8</span><br>";
+  }
+  return "<span class='lv"+level+"txt'>モード期待度 "+level+"/8</span><br>";
+}
+
+function buildNormalHtml(r){
+  let html="";
+
+  if(r.type==="リーチ目"){
+    html+="<span class='rainbow-text'>"+r.name+"</span><br>";
+  }else{
+    html+="<span class='hit'>"+r.name+"</span><br>";
+  }
+
+  if(r.type) html+=r.type+"<br>";
+  if(r.level) html+=levelText(r.level);
+  if(r.info) html+="<span class='blue'>"+r.info+"</span><br>";
+  if(r.chanceLevel) html+="<span class='orange'>チャンス目期待度 "+r.chanceLevel+"/8</span><br>";
+  if(r.guarantee) html+="<span class='red'>【"+r.guarantee+"】</span><br>";
+  if(r.source) html+="<span class='small'>（"+r.source+"）</span><br>";
+
+  return html;
+}
+
+function buildResultHtml(code){
+  const rec=getRecord(code);
+  let html="";
+
+  if(rec.normal){
+    html+=buildNormalHtml(rec.normal);
+  }
+
+  if(rec.gaia){
+    if(html) html+="<hr>";
+    html+="<span class='hit'>ガイアナビ時／ガイアステージ中</span><br>";
+    html+="<span class='green'>"+rec.gaia.name+"</span><br>";
+    html+="<span class='green'>ガイアステージ期待度 "+rec.gaia.level+"</span><br>";
+    if(rec.gaia.info) html+="<span class='green'>"+rec.gaia.info+"</span><br>";
+  }
+
+  if(rec.delay){
+    if(html) html+="<hr>";
+    html+="<span class='hit'>遅れ時</span><br>";
+    html+="<span class='red'>【"+rec.delay.guarantee+"】</span><br>";
+  }
+
+  if(!html){
+    html="該当なし<br><span class='small'>通常出目 or データ未登録</span>";
+  }
+
+  return html;
 }
 
 function setDisplay(text, rainbow=false){
-  const display = document.getElementById("display");
+  const display=document.getElementById("display");
 
   if(!rainbow){
-    display.innerText = text || "---";
+    display.innerText=text || "---";
     return;
   }
 
-  display.innerHTML = "<span class='display-rainbow'>" + text + "</span>";
+  display.innerHTML="<span class='display-rainbow'>"+text+"</span>";
 }
 
 function pressKey(k){
-  if(current.length >= 3){
-    current = "";
-    document.getElementById("result").innerHTML = "";
+  if(current.length>=3){
+    current="";
+    document.getElementById("result").innerHTML="";
     document.getElementById("result").classList.remove("result-reach-box");
     setDisplay("---");
   }
 
-  current += k;
+  current+=k;
 
-  if(current.length === 3){
-    setDisplay(current, isReach(current));
+  if(current.length===3){
+    setDisplay(current,isReach(current));
     check(current);
     addHistory(current);
   }else{
@@ -491,109 +671,86 @@ function pressKey(k){
 }
 
 function backspace(){
-  current = current.slice(0,-1);
+  current=current.slice(0,-1);
   setDisplay(current || "---");
-  document.getElementById("result").innerHTML = "3桁の出目を入力してください。";
+  document.getElementById("result").innerHTML="3桁の出目を入力してください。";
   document.getElementById("result").classList.remove("result-reach-box");
 }
 
 function clearInput(){
-  current = "";
+  current="";
   setDisplay("---");
-  document.getElementById("result").innerHTML = "3桁の出目を入力してください。";
+  document.getElementById("result").innerHTML="3桁の出目を入力してください。";
   document.getElementById("result").classList.remove("result-reach-box");
 }
 
-function buildResultHtml(code){
-  const r = data[code];
-  const g = gaiaCheck(code);
-  let html = "";
-
-  if(r){
-    if(r.type === "リーチ目"){
-      html += "<span class='rainbow-text'>" + r.name + "</span><br>";
-    }else{
-      html += "<span class='hit'>" + r.name + "</span><br>";
-    }
-
-    if(r.type) html += r.type + "<br>";
-    if(r.info) html += "<span class='blue'>" + r.info + "</span><br>";
-    if(r.chanceLevel) html += "<span class='orange'>チャンス目期待度 " + r.chanceLevel + "/8</span><br>";
-    if(r.guarantee) html += "<span class='red'>【" + r.guarantee + "】</span><br>";
-    if(r.gaisen && !r.kiseki) html += "（凱旋情報）<br>";
-  }
-
-  if(g){
-    html += "<hr>";
-    html += "<span class='hit'>" + g.name + "</span><br>";
-    html += "<span class='green'>" + g.info + "</span><br>";
-  }
-
-  if(!r && !g){
-    html = "該当なし<br><span class='small'>通常出目 or データ未登録</span>";
-  }
-
-  return html;
-}
-
 function check(code){
-  const resultBox = document.getElementById("result");
-
+  const resultBox=document.getElementById("result");
   resultBox.classList.remove("result-reach-box");
 
   if(isReach(code)){
     resultBox.classList.add("result-reach-box");
   }
 
-  resultBox.innerHTML = buildResultHtml(code);
+  resultBox.innerHTML=buildResultHtml(code);
 }
 
 function toggleHistory(){
-  const box = document.getElementById("historyBox");
+  const box=document.getElementById("historyBox");
   box.classList.toggle("hidden");
   renderHistory();
 }
 
 function addHistory(code){
   inputHistory.unshift(code);
-  inputHistory = inputHistory.slice(0,20);
-  localStorage.setItem("god_deme_history", JSON.stringify(inputHistory));
+  inputHistory=inputHistory.slice(0,20);
+  localStorage.setItem("god_deme_history",JSON.stringify(inputHistory));
   renderHistory();
 }
 
-function renderHistory(){
-  const list = document.getElementById("historyList");
-  list.innerHTML = "";
+function getHistoryClass(code){
+  if(isReach(code)) return "reach";
 
-  if(inputHistory.length === 0){
-    list.innerHTML = "<div class='small'>履歴はまだありません。</div>";
-    document.getElementById("historyDetail").innerHTML = "履歴の出目を押すと説明が表示されます。";
+  const lv=bestLevel(code);
+  if(lv>=8) return "lv8";
+  if(lv>=7) return "lv7";
+  if(lv>=6) return "lv6";
+  if(lv>=5) return "lv5";
+  if(lv>=4) return "lv4";
+  if(lv>=3) return "lv3";
+  if(lv>=2) return "lv2";
+  if(lv>=1) return "lv1";
+
+  return "";
+}
+
+function renderHistory(){
+  const list=document.getElementById("historyList");
+  list.innerHTML="";
+
+  if(inputHistory.length===0){
+    list.innerHTML="<div class='small'>履歴はまだありません。</div>";
+    document.getElementById("historyDetail").innerHTML="履歴の出目を押すと説明が表示されます。";
     return;
   }
 
   inputHistory.forEach((code,index)=>{
-    const item = document.createElement("div");
-    item.className = "history-item";
-
-    if(isReach(code)){
-      item.classList.add("reach");
-    }
-
-    const historyNo = inputHistory.length - index;
-
-    item.innerHTML = "<span class='history-no'>" + historyNo + ".</span>" + code;
-    item.onclick = () => showHistoryDetail(code);
+    const item=document.createElement("div");
+    item.className="history-item "+getHistoryClass(code);
+    const historyNo=inputHistory.length-index;
+    item.innerHTML="<span class='history-no'>"+historyNo+".</span>"+code;
+    item.onclick=()=>showHistoryDetail(code);
     list.appendChild(item);
   });
 }
 
 function showHistoryDetail(code){
-  document.getElementById("historyDetail").innerHTML =
-    "<b>出目：" + code + "</b><br><br>" + buildResultHtml(code);
+  document.getElementById("historyDetail").innerHTML=
+    "<b>出目："+code+"</b><br><br>"+buildResultHtml(code);
 }
 
 function resetHistory(){
-  inputHistory = [];
+  inputHistory=[];
   localStorage.removeItem("god_deme_history");
   renderHistory();
 }
