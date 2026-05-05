@@ -351,6 +351,7 @@ const data = {
   "075":{normal:{name:"おなご",type:"リーチ目",source:"凱旋情報"}},
   "081":{normal:{name:"オッパイ",type:"リーチ目",source:"凱旋情報"}},
   "0V0":{normal:{name:"顔文字",type:"リーチ目",source:"凱旋情報"}},
+  "072":{normal:{name:"ネタ",type:"ネタ出目",info:"期待度？？？",source:"凱旋情報"}},
   "104":{normal:{name:"天使",type:"リーチ目",source:"凱旋情報"}},
   "110":{normal:{name:"110番",type:"リーチ目",source:"凱旋情報"}},
   "123":{normal:{name:"旧朝イチ目",type:"リーチ目",source:"凱旋情報"}},
@@ -429,22 +430,29 @@ const data = {
     return {name:"Vハサミ偶数",type:"モード示唆",info:"頻発でVモード示唆",source:"凱旋情報"};
   }
 
-  if(/^V[135]V$/.test(code)){
-    return {name:"Vハサミ奇数",type:"モード示唆",level:8,guarantee:"天国ショート以上濃厚",source:"凱旋情報"};
+  if(/^V[1357]V$/.test(code)){
+  if(code === "V7V"){
+    return {name:"Vハサミ奇数",type:"モード示唆",level:8,guarantee:"超天国濃厚",source:"凱旋情報"};
   }
+  return {name:"Vハサミ奇数",type:"モード示唆",level:8,guarantee:"天国ショート以上濃厚",source:"凱旋情報"};
+}
+ 
 
   if(!/^[0-8]{3}$/.test(code)) return null;
 
   const a=Number(code[0]);
   const b=Number(code[1]);
   const c=Number(code[2]);
+  const isOdd = n => n % 2 === 1;
   const isOdd=n=>n%2===1;
   const isEven=n=>n%2===0;
 
   if(a===b && b===c && isOdd(a)){
     return {name:"奇数揃い",type:"特殊出目",guarantee:"AT濃厚!?"};
   }
-
+if(isOdd(a) && isOdd(b) && isOdd(c)){
+  return {name:"奇数のみ",type:"モード示唆",level:1};
+}
   if(a+1===b && b+1===c && isOdd(a)){
     return {name:"奇数順目",type:"モード示唆",level:5,guarantee:"天国準備以上濃厚"};
   }
