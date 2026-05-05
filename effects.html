@@ -1,1 +1,395 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>神々の軌跡 演出法則まとめ｜遅れ・光の風・ブラックホール</title>
 
+<style>
+body{
+  font-family:sans-serif;
+  background:#111;
+  color:#fff;
+  text-align:center;
+  padding:18px;
+  margin:0;
+}
+h1{
+  color:#f7d36a;
+  font-size:26px;
+  line-height:1.35;
+}
+h2{
+  color:#f7d36a;
+  border-top:1px solid #6b4a12;
+  padding-top:24px;
+  margin-top:36px;
+}
+.lead{
+  color:#ddd;
+  line-height:1.7;
+  font-size:15px;
+}
+.top-link a{
+  color:#f7d36a;
+  text-decoration:none;
+  font-weight:bold;
+}
+.effect-buttons{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(130px,1fr));
+  gap:10px;
+  max-width:520px;
+  margin:20px auto;
+}
+button{
+  font-size:15px;
+  padding:13px;
+  border:0;
+  border-radius:10px;
+  background:linear-gradient(#735300,#3a2600);
+  color:#fff;
+  box-shadow:0 3px 0 #000;
+}
+button:active{
+  transform:translateY(2px);
+  box-shadow:none;
+}
+.active-button{
+  background:linear-gradient(#00e5ff,#008cff)!important;
+  color:#fff!important;
+  box-shadow:0 0 18px rgba(0,200,255,.9)!important;
+  border:2px solid #00e5ff!important;
+  font-weight:bold;
+}
+.detail-box{
+  grid-column:1/-1;
+  background:rgba(20,20,20,.95);
+  border:2px solid #c9a33a;
+  border-radius:12px;
+  padding:16px;
+  text-align:left;
+  line-height:1.8;
+  font-size:14px;
+  margin-top:8px;
+  box-shadow:0 0 12px rgba(255,200,80,.2);
+}
+.delay-table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:12px;
+}
+.delay-table th,
+.delay-table td{
+  border:1px solid #6b4a12;
+  padding:8px;
+  vertical-align:top;
+}
+.delay-table th{
+  color:#ffdf6b;
+  background:rgba(255,215,100,.08);
+}
+.red{color:#ff5a5a;font-weight:bold;}
+.orange{color:#ff9f1c;font-weight:bold;}
+.green{color:#66ff99;font-weight:bold;}
+.small{
+  font-size:12px;
+  color:#ccc;
+  line-height:1.7;
+}
+.note{
+  max-width:760px;
+  margin:30px auto;
+  background:#1b1b1b;
+  border:1px solid #6b4a12;
+  border-radius:12px;
+  padding:16px;
+  text-align:left;
+  line-height:1.8;
+}
+.footer{
+  margin:40px 0;
+  font-size:13px;
+}
+.footer a{
+  color:#f7d36a;
+}
+@media(max-width:480px){
+  .effect-buttons{
+    grid-template-columns:1fr 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="top-link">
+  <a href="index.html">← 出目チェッカーへ戻る</a>
+</div>
+
+<h1>神々の軌跡<br>演出法則まとめ</h1>
+
+<div class="lead">
+遅れ・光の風・ブラックホール・ステージチェンジなど、実戦中に確認したい演出法則をまとめています。
+</div>
+
+<div class="note">
+<b style="color:#ffdf6b;">使い方</b><br>
+各演出ボタンを押すと法則が表示されます。もう一度同じボタンを押すと閉じます。<br>
+特に「遅れ」は出目によってモード示唆が強くなるため、出目チェッカーとあわせて確認してください。
+</div>
+
+<h2>演出法則</h2>
+
+<div class="effect-buttons">
+  <button onclick="showEffect('delay', this)">遅れ</button>
+  <button onclick="showEffect('stage', this)">ステチェン</button>
+  <button onclick="showEffect('wind', this)">光の風</button>
+  <button onclick="showEffect('blackhole', this)">ブラックホール</button>
+  <button onclick="showEffect('kagerou', this)">陽炎</button>
+  <button onclick="showEffect('ice', this)">氷演出</button>
+  <button onclick="showEffect('thunder', this)">雷演出</button>
+  <button onclick="showEffect('mirror', this)">鏡演出</button>
+  <button onclick="showEffect('blackout', this)">消灯演出</button>
+  <button onclick="showEffect('heart', this)">心臓演出</button>
+  <button onclick="showEffect('big', this)">図柄巨大化</button>
+  <button onclick="showEffect('tornado', this)">竜巻発展</button>
+  <button onclick="showEffect('door', this)">天空の扉</button>
+  <button onclick="showEffect('sun', this)">太陽の戦車</button>
+  <button onclick="showEffect('godthunder', this)">神の雷</button>
+  <button onclick="showEffect('ura', this)">裏ボタン</button>
+  <button onclick="showEffect('push', this)">チャンスボタン</button>
+  <button onclick="showEffect('blackout2', this)">ブラックアウト</button>
+</div>
+
+<div class="note">
+<b style="color:#ffdf6b;">注意事項</b><br>
+本ページは演出法則を整理した非公式まとめです。演出・出目・状態によって示唆内容が変わる場合があります。最終判断は自己責任でお願いします。
+</div>
+
+<div class="footer">
+  <a href="index.html">出目チェッカーへ戻る</a> ｜
+  <a href="privacy.html">プライバシーポリシー・免責事項</a>
+</div>
+
+<script>
+const effectData={
+delay:{
+  name:"遅れ演出",
+  rows:[
+    ["ALL赤色＋バラケ目","天国準備以上の期待大"],
+    ["奇数ケツテンパイ","天国以上の期待大"],
+    ["7ハサミ＋中偶数","天国準備以上濃厚"],
+    ["70V / 7V0","天国以上の期待大"],
+    ["700 / 707 / 7VV","超天国の期待大"]
+  ],
+  extra:true
+},
+stage:{
+  name:"ステージチェンジ",
+  rows:[
+    ["右回転→遺跡・泉・森","デフォルト"],
+    ["右回転→麓","天国準備以上の期待大"],
+    ["右回転→神殿","天国以上の期待大"],
+    ["左回転→遺跡・泉・森","天国準備以上の期待大"],
+    ["左回転→麓","天国以上の期待大"],
+    ["左回転→神殿","超天国の期待大"],
+    ["奥へ進行→神殿","天国以上の期待大"],
+    ["奥へ進行→麓","GG濃厚!?"],
+    ["チャンスボタン→麓","天国以上の期待大"],
+    ["チャンスボタン→神殿","超天国の期待大"],
+    ["チャンスボタン→遺跡・泉・森","GG濃厚!?"],
+    ["ワイプ→神殿","GG濃厚!?"]
+  ]
+},
+wind:{
+  name:"光の風",
+  rows:[
+    ["左→右","モードアップに期待"],
+    ["右→左","モードアップ以上に期待"],
+    ["左→右＋リプレイ","モードアップ確定"],
+    ["右→左＋リプレイ","GG濃厚!?"]
+  ]
+},
+blackhole:{
+  name:"ブラックホール",
+  rows:[
+    ["1回","天国準備以上に期待"],
+    ["2連","デフォルト"],
+    ["3連","チャンス"],
+    ["4連","奇数揃い濃厚!?"]
+  ]
+},
+kagerou:{
+  name:"陽炎演出",
+  rows:[
+    ["ALL黄色（偶数）","偶数揃いに期待"],
+    ["ALL赤色（奇数）","奇数テンパイで前兆示唆"],
+    ["その他","GG前兆以上に期待"]
+  ]
+},
+ice:{
+  name:"氷演出",
+  rows:[
+    ["リール回転開始時","デフォルト"],
+    ["レバーON→第1停止","チャンス"],
+    ["第1停止時","大チャンス"],
+    ["凍結2個","右上がり黄7 or 中段黄7"],
+    ["凍結3個","チャンス!?"]
+  ]
+},
+thunder:{
+  name:"雷演出",
+  rows:[
+    ["リール回転開始時","デフォルト"],
+    ["レバーON→第1停止","チャンス"],
+    ["第1停止時","チャンス"],
+    ["奇数非テンパイ","裏モード示唆!?"]
+  ]
+},
+mirror:{
+  name:"鏡演出",
+  rows:[
+    ["左のみ","奇数テンパイ"],
+    ["左＋中","奇数揃い濃厚!?"],
+    ["左のみ＋非テンパイ","GG前兆濃厚!?"]
+  ]
+},
+blackout:{
+  name:"消灯演出",
+  rows:[
+    ["1消灯＋奇数テンパイ","GG前兆濃厚!?"],
+    ["第3停止消灯","心臓発展"]
+  ]
+},
+heart:{
+  name:"心臓演出",
+  rows:[
+    ["Low→Hi","デフォルト"],
+    ["Low→Hi→Hi","チャンス"],
+    ["Low→Hi→SHi","GG濃厚!?"],
+    ["Low→SHi","GG濃厚!?"],
+    ["Lowのみ","GG濃厚!?"],
+    ["奇数テンパイ","チャンス"],
+    ["第3停止いきなり消灯","チャンス"]
+  ]
+},
+big:{
+  name:"図柄巨大化",
+  rows:[
+    ["3G以上継続","奇数揃い濃厚!?"],
+    ["ケツV","大チャンス"],
+    ["ケツ7 or 0","GG前兆濃厚!?"]
+  ]
+},
+tornado:{
+  name:"竜巻発展",
+  rows:[
+    ["奇数＋偶数混在","デフォルト"],
+    ["奇数のみ","チャンス"],
+    ["奇数のみ＋7あり","GG濃厚!?"],
+    ["矛盾発展","GG前兆濃厚!?"],
+    ["演出なし→発展","チャンス"],
+    ["砂嵐経由","大チャンス"]
+  ]
+},
+door:{
+  name:"天空の扉",
+  rows:[
+    ["発生","確定役のチャンス"],
+    ["強パターン","期待度アップ"],
+    ["発展あり","GG前兆に期待"]
+  ]
+},
+sun:{
+  name:"太陽の戦車",
+  rows:[
+    ["1段階","チャンス"],
+    ["2段階","チャンスアップ"],
+    ["3段階以上","確定役のチャンス"]
+  ]
+},
+godthunder:{
+  name:"神の雷",
+  rows:[
+    ["発生","確定役のチャンス"]
+  ]
+},
+ura:{
+  name:"裏ボタン",
+  rows:[
+    ["GG告知ゲーム","第3停止後〜次BETで押下。上部LEDでループストック種別 or GGストック数を示唆"],
+    ["GG終了画面","第3停止後〜次BETで押下。GGストックの有無を示唆"],
+    ["SGG引き戻しZONE","毎ゲームのレバーON〜次BETで押下。LED発光でSGG引き戻し濃厚!?"],
+    ["Z-ZONE / Z-GAME","毎ゲームのレバーON〜第3停止で押下。LED発光で黄7成立濃厚!?"],
+    ["LED期待度","白＜青＜黄＜緑＜赤＜虹"]
+  ]
+},
+push:{
+  name:"チャンスボタン",
+  rows:[
+    ["台枠1段階点灯","デフォルト"],
+    ["台枠2段階点灯","チャンス"],
+    ["台枠3段階点灯","チャンスアップ"]
+  ]
+},
+blackout2:{
+  name:"ブラックアウト",
+  rows:[
+    ["発生","GOD揃い濃厚"]
+  ]
+}
+};
+
+let currentEffect="";
+
+function showEffect(key,button){
+  const old=document.getElementById("effectDetail");
+  document.querySelectorAll(".effect-buttons button").forEach(btn=>btn.classList.remove("active-button"));
+
+  if(currentEffect===key && old){
+    old.remove();
+    currentEffect="";
+    return;
+  }
+
+  if(old)old.remove();
+
+  button.classList.add("active-button");
+
+  const e=effectData[key];
+  let h="<div id='effectDetail' class='detail-box'>";
+  h+="<b style='color:#ffdf6b;font-size:18px;'>"+e.name+"</b><br><br>";
+
+  e.rows.forEach(row=>{
+    h+="・"+row[0]+"：<b>"+row[1]+"</b><br>";
+  });
+
+  if(e.extra){
+    h+=`
+      <br>
+      <b style="color:#ffdf6b;">遅れ時の出目一覧</b>
+      <table class="delay-table">
+        <tr><th>出目</th><th>示唆内容</th></tr>
+        <tr><td>ALL赤色＋バラケ目</td><td>天国準備以上の期待大</td></tr>
+        <tr><td>奇数ケツテンパイ</td><td>天国以上の期待大</td></tr>
+        <tr><td>7ハサミ＋中偶数<br>727 / 747 / 767 / 787</td><td>天国準備以上濃厚</td></tr>
+        <tr><td>70V / 7V0</td><td>天国以上の期待大</td></tr>
+        <tr><td>700 / 707 / 7VV</td><td><span class="red">超天国の期待大</span></td></tr>
+      </table>
+      <p class="small">
+      ※遅れ発生時の出目示唆です。通常時の出目判定とは別に確認してください。
+      </p>
+    `;
+  }
+
+  h+="</div>";
+
+  button.insertAdjacentHTML("afterend",h);
+  currentEffect=key;
+}
+</script>
+
+</body>
+</html>
