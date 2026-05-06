@@ -278,7 +278,6 @@ hr{
   width:24px;
   text-align:center;
 }
-  ...
 .menu-btn:active{
   transform:scale(.97);
   background:linear-gradient(135deg,#ffcc33,#8c6b15);
@@ -530,10 +529,10 @@ const data = {
   "707":{normal:{name:"奇数ハサミ＋中0",type:"チャンス目",info:"GG前兆に期待",chanceLevel:5,source:"凱旋情報"},delay:{name:"遅れ時",guarantee:"超天国の期待大"}},
 
   "700":{normal:{name:"7＋0ケツテンパイ",type:"モード示唆",guarantee:"超天国濃厚",source:"凱旋情報"},delay:{name:"遅れ時",guarantee:"超天国の期待大"}},
-  "727":{delay:{name:"7ハサミ＋中偶数",guarantee:"天国準備以上濃厚"}},
-  "747":{delay:{name:"7ハサミ＋中偶数",guarantee:"天国準備以上濃厚"}},
-  "767":{delay:{name:"7ハサミ＋中偶数",guarantee:"天国準備以上濃厚"}},
-  "787":{delay:{name:"7ハサミ＋中偶数",guarantee:"天国準備以上濃厚"}},
+ "727":{delay:{name:"7ハサミ＋中偶数",guarantee:"天国以上の期待大"}},
+"747":{delay:{name:"7ハサミ＋中偶数",guarantee:"天国以上の期待大"}},
+"767":{delay:{name:"7ハサミ＋中偶数",guarantee:"天国以上の期待大"}},
+"787":{delay:{name:"7ハサミ＋中偶数",guarantee:"天国以上の期待大"}},
   "70V":{delay:{name:"70V",guarantee:"天国以上の期待大"}},
   "7V0":{delay:{name:"7V0",guarantee:"天国以上の期待大"}},
   "7VV":{delay:{name:"7VV",guarantee:"超天国の期待大"}}
@@ -654,9 +653,9 @@ function delayCheck(code){
     return {name:code,guarantee:"天国以上の期待大"};
   }
 
-  if(/^7[2468]7$/.test(code)){
-    return {name:"7ハサミ＋中偶数",guarantee:"天国準備以上濃厚"};
-  }
+if(/^7[2468]7$/.test(code)){
+  return {name:"7ハサミ＋中偶数",guarantee:"天国以上の期待大"};
+}
 
   if(!/^[0-8]{3}$/.test(code)) return null;
 
