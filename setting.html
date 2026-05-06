@@ -4,8 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>神々の軌跡｜初当たり確率から設定推測ツール</title>
-
+<title>
+神々の軌跡 設定判別ツール｜初当たり・ユニバプレート対応
+</title>
+  
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-91KST8GF26"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
@@ -195,12 +197,19 @@ details p{
 .delay-table td{
   background:#1a1a1a;
 }
+  .info-text{
+  color:#ddd;
+  line-height:1.9;
+  margin-top:16px;
+  text-align:left;
+  font-size:15px;
+}
 </style>
 </head>
 
 <body>
 
-<a class="back-btn" href="./">← 出目チェッカーへ戻る</a>
+<a class="back-btn" href="index.html">← 出目チェッカーへ戻る</a>
 <h1>神々の軌跡<br>初当たり確率から設定推測ツール</h1>
 
 <div class="lead">
@@ -210,20 +219,56 @@ details p{
 <div class="box">
 
 <details>
-  <summary>設定別 初当たり確率</summary>
+  <summary>設定別 初当たり確率・特徴</summary>
 
   <table class="delay-table">
     <tr>
       <th>設定</th>
       <th>初当たり確率</th>
+      <th>特徴</th>
     </tr>
-    <tr><td>設定1</td><td>1/532.8</td></tr>
-    <tr><td>設定2</td><td>1/420.4</td></tr>
-    <tr><td>設定3</td><td>1/495.9</td></tr>
-    <tr><td>設定4</td><td>1/338.4</td></tr>
-    <tr><td>設定5</td><td>1/455.4</td></tr>
-    <tr><td>設定6</td><td>1/294.8</td></tr>
+
+    <tr>
+      <td>設定1</td>
+      <td>1/532.8</td>
+      <td>初当たりが最も重い低設定域。基本的には厳しい数値。</td>
+    </tr>
+
+    <tr>
+      <td>設定2</td>
+      <td>1/420.4</td>
+      <td>偶数設定らしく初当たりは軽め。ただし出玉率は低く、過信は禁物。</td>
+    </tr>
+
+    <tr>
+      <td>設定3</td>
+      <td>1/495.9</td>
+      <td>奇数設定で初当たりは重め。偶数より一撃性・GGループ性能に期待。</td>
+    </tr>
+
+    <tr>
+      <td>設定4</td>
+      <td>1/338.4</td>
+      <td>初当たりがかなり軽くなる高設定域。安定感が出やすい。</td>
+    </tr>
+
+    <tr>
+      <td>設定5</td>
+      <td>1/455.4</td>
+      <td>初当たりは重めだが出玉率は高い。荒波寄りで一撃性能に期待。</td>
+    </tr>
+
+    <tr>
+      <td>設定6</td>
+      <td>1/294.8</td>
+      <td>初当たりが別格で軽い最上位設定。安定感と出玉率の高さが強み。</td>
+    </tr>
   </table>
+
+  <p class="info-text">
+    偶数設定は奇数設定よりAT初当たりが軽めで、特に設定6は大きく優遇されています。
+    一方で、奇数設定は初当たりが重い代わりにGGループ性能・一撃性に寄った特徴があります。
+  </p>
 </details>
 
 <details>
@@ -246,18 +291,29 @@ details p{
   <h2>履歴入力</h2>
   
   <p class="small">
-    初当たりまでに回した通常時ゲーム数を、1回ごとに入力してください。
-  </p>
-
+  GG初当たりまでに回した通常時ゲーム数を、1回ごとに入力してください。<br>
+  入力した履歴から設定1〜6の期待度を自動計算します。
+</p>
+<div class="info-text">
+  ※サンプル数が少ない場合は結果が大きくブレることがあります。
+</div>
   <div class="history-layout">
     <div>
       <div id="historyInputs" class="history-inputs"></div>
 
-      <button class="gold-btn" onclick="addHistory()">＋追加</button>
-      <button class="blue-btn" onclick="calcHistory()">履歴から設定判別</button>
-      <button class="red-btn" onclick="resetHistory()">履歴リセット</button>
-      <button onclick="restoreHistory()">直前の履歴を復元</button>
+  <button class="gold-btn" onclick="addHistory()">＋追加</button>
 
+<button class="blue-btn" onclick="calcHistory()">
+履歴から設定判別
+</button>
+
+<button class="red-btn" onclick="resetHistory()">
+履歴リセット
+</button>
+
+<button class="gold-btn" onclick="restoreHistory()">
+直前の履歴を復元
+</button>
       <div id="historyResult" class="result-box">履歴を入力してください。</div>
     </div>
 
@@ -325,6 +381,7 @@ details p{
   <details>
     <summary>使い方</summary>
     <p>
+      
       履歴入力では、初当たりまでに回した通常時ゲーム数を1回ごとに入力してください。<br><br>
       直接入力では、合計通常時ゲーム数とGG初当たり回数を入力してください。<br><br>
       ユニバプレートが出ている場合は、該当するプレートを選択してから計算してください。
