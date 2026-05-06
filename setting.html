@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>神々の軌跡｜初当たり確率から設定推測ツール</title>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-91KST8GF26"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-91KST8GF26');
+</script>
+
+<style>
+body{
+  font-family:sans-serif;
+  background:#111;
+  color:#fff;
+  text-align:center;
+  padding:18px;
+  margin:0;
+}
+h1{
+  color:#f7d36a;
+  font-size:26px;
+  line-height:1.35;
+}
+.lead{
+  color:#ddd;
+  line-height:1.7;
+  font-size:15px;
+}
+.box{
+  max-width:760px;
+  margin:22px auto;
+  background:#1b1b1b;
+  border:1px solid #6b4a12;
+  border-radius:12px;
+  padding:16px;
+  line-height:1.8;
+}
+h2{
+  color:#f7d36a;
+  margin-top:0;
+}
+h3{
+  color:#ffdf6b;
+}
+input{
+  font-size:18px;
+  padding:10px;
+  width:130px;
+  border-radius:8px;
+  border:0;
+  margin:6px;
+  text-align:center;
+}
+button{
+  font-size:16px;
+  padding:12px 14px;
+  border:0;
+  border-radius:10px;
+  background:#333;
+  color:#fff;
+  margin:5px;
+}
+button:active{
+  background:#666;
+}
+.gold-btn{
+  background:linear-gradient(135deg,#d4a017,#7a5c10);
+  color:#fff;
+  font-weight:bold;
+  border:1px solid #c9a33a;
+}
+.red-btn{
+  background:#7a2424;
+}
+.blue-btn{
+  background:#1f5f8f;
+}
+.plate-buttons{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  max-width:520px;
+  margin:12px auto;
+}
+.plate-buttons button{
+  background:linear-gradient(#6b3fa0,#32174f);
+}
+.result-box{
+  margin-top:16px;
+  background:#111;
+  border:1px solid #555;
+  border-radius:10px;
+  padding:14px;
+  line-height:1.8;
+}
+.live-result{
+  background:rgba(0,0,0,.55);
+  border:2px solid #c9a33a;
+  border-radius:12px;
+  padding:14px;
+  font-size:14px;
+  line-height:1.8;
+  text-align:left;
+}
+.history-layout{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 230px;
+  gap:14px;
+  align-items:start;
+}
+.history-inputs input{
+  width:110px;
+}
+.setting-line{
+  margin:5px 0;
+  font-weight:bold;
+}
+.note{
+  font-size:12px;
+  color:#ccc;
+  line-height:1.7;
+  text-align:left;
+}
+.small{
+  font-size:12px;
+  color:#ccc;
+}
+.back-btn{
+  display:inline-block;
+  margin:20px auto;
+  padding:13px 18px;
+  border-radius:10px;
+  background:linear-gradient(#4a3610,#241700);
+  color:#ffdf6b;
+  text-decoration:none;
+  font-weight:bold;
+  border:1px solid #c9a33a;
+}
+details{
+  background:#1b1b1b;
+  border:1px solid #6b4a12;
+  border-radius:10px;
+  margin:12px auto;
+  padding:12px;
+  max-width:760px;
+  text-align:left;
+}
+summary{
+  color:#f7d36a;
+  font-weight:bold;
+  cursor:pointer;
+  font-size:17px;
+}
+details p{
+  color:#ddd;
+  line-height:1.8;
+  margin-top:12px;
+}
+@media(max-width:520px){
+  .history-layout{
+    grid-template-columns:1fr;
+  }
+  .live-result{
+    text-align:center;
+  }
+  .plate-buttons{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<a class="back-btn" href="index_new.html">← 出目チェッカーへ戻る</a>
+
+<h1>神々の軌跡<br>初当たり確率から設定推測ツール</h1>
+
+<div class="lead">
+通常時ゲーム数とGG初当たり回数から、設定1〜6の期待度を計算します。
+</div>
+
+<div class="box">
+  <h2>履歴入力</h2>
+  <p class="small">
+    初当たりまでに回した通常時ゲーム数を、1回ごとに入力してください。
+  </p>
+
+  <div class="history-layout">
+    <div>
+      <div id="historyInputs" class="history-inputs"></div>
+
+      <button class="gold-btn" onclick="addHistory()">＋追加</button>
+      <button class="blue-btn" onclick="calcHistory()">履歴から設定判別</button>
+      <button class="red-btn" onclick="resetHistory()">履歴リセット</button>
+      <button onclick="restoreHistory()">直前の履歴を復元</button>
+
+      <div id="historyResult" class="result-box">履歴を入力してください。</div>
+    </div>
+
+    <div id="liveResult" class="live-result">
+      <b>リアルタイム判別</b><br><br>
+      入力待ち
+      <p class="small">
+        ※参考情報です。最終判断は自己責任でお願いします。
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="box">
+  <h2>直接入力</h2>
+
+  <div>
+    通常時ゲーム数<br>
+    <input id="gameCount" type="number" inputmode="numeric" max="99999" placeholder="例 3000">
+  </div>
+
+  <div>
+    GG初当たり回数<br>
+    <input id="hitCount" type="number" inputmode="numeric" max="9999" placeholder="例 8">
+  </div>
+
+  <button class="gold-btn" onclick="calcSetting()">計算する</button>
+  <button onclick="resetDirect()">リセット</button>
+
+  <div id="directResult" class="result-box">回転数と初当たり回数を入力してください。</div>
+</div>
+<div class="box">
+  <h2>ユニバプレート</h2>
+
+  <p class="small">
+    プレートを選ぶと、設定下限を反映して計算します。
+  </p>
+
+  <div class="plate-buttons">
+    <button onclick="selectPlate(1)">なし</button>
+    <button onclick="selectPlate(2)">銅</button>
+    <button onclick="selectPlate(3)">銀</button>
+    <button onclick="selectPlate(4)">金</button>
+    <button onclick="selectPlate(5)">花火柄</button>
+    <button onclick="selectPlate(6)">虹</button>
+  </div>
+
+  <div id="plateResult" class="result-box">
+    プレートを選ぶと設定示唆を反映します。
+  </div>
+</div>
+
+<div class="box">
+  <details>
+    <summary>このツールについて</summary>
+    <p>
+      本ツールはスマスロ「ミリオンゴッド 神々の軌跡」の初当たり確率から、
+      設定1〜6の期待度を簡易的に推測するための非公式ツールです。<br><br>
+      通常時ゲーム数とGG初当たり回数を入力することで、
+      現在の初当たり確率、推定設定、各設定の期待度を表示します。<br><br>
+      ユニバプレートによる設定下限も反映できます。
+    </p>
+  </details>
+
+  <details>
+    <summary>使い方</summary>
+    <p>
+      履歴入力では、初当たりまでに回した通常時ゲーム数を1回ごとに入力してください。<br><br>
+      直接入力では、合計通常時ゲーム数とGG初当たり回数を入力してください。<br><br>
+      ユニバプレートが出ている場合は、該当するプレートを選択してから計算してください。
+    </p>
+  </details>
+
+  <details>
+    <summary>注意事項</summary>
+    <p>
+      本ツールは初当たり確率のみを用いた簡易推測です。<br><br>
+      実際の設定判断では、出玉推移、モード移行、示唆演出、ユニバプレート、
+      小役、実戦状況などを含めて総合的に判断してください。<br><br>
+      当選・設定・収支を保証するものではありません。
+    </p>
+  </details>
+</div>
+
+<a class="back-btn" href="index_new.html">← 出目チェッカーへ戻る</a>
+
+<script>
+let minSetting=1;
+
+const odds={
+  1:532.8,
+  2:420.4,
+  3:495.9,
+  4:338.4,
+  5:455.4,
+  6:294.8
+};
+
+function settingColor(s){
+  return{
+    1:"#4da3ff",
+    2:"#39c5bb",
+    3:"#65d96e",
+    4:"#ffd84a",
+    5:"#ff5a5a",
+    6:"#ff3df2"
+  }[s] || "#fff";
+}
+
+function selectPlate(min){
+  minSetting=min;
+
+  const text={
+    1:"プレートなし：設定示唆なし",
+    2:"銅：設定2以上濃厚",
+    3:"銀：設定3以上濃厚",
+    4:"金：設定4以上濃厚",
+    5:"花火柄：設定5以上濃厚",
+    6:"虹：設定6濃厚"
+  };
+
+  document.getElementById("plateResult").innerHTML=
+    text[min]+"<br><span class='small'>※計算時にこの条件を反映します。</span>";
+
+  calcSetting();
+  calcHistory();
+}
+
+function buildSettingHtml(games,hits){
+  if(!games || games<=0 || !hits || hits<=0){
+    return "";
+  }
+
+  let logs=[];
+  let max=-Infinity;
+
+  for(let s=1;s<=6;s++){
+    if(s<minSetting){
+      logs.push({s:s,log:-Infinity});
+      continue;
+    }
+
+    const p=1/odds[s];
+    const log=hits*Math.log(p)+(games-hits)*Math.log(1-p);
+
+    logs.push({s:s,log:log});
+
+    if(log>max){
+      max=log;
+    }
+  }
+
+  let sum=0;
+
+  logs.forEach(x=>{
+    x.w=x.log===-Infinity ? 0 : Math.exp(x.log-max);
+    sum+=x.w;
+  });
+
+  const actual=games/hits;
+  let expectedSetting=0;
+
+  logs.forEach(x=>{
+    const pct=sum ? x.w/sum*100 : 0;
+    if(x.s>=minSetting){
+      expectedSetting+=x.s*(pct/100);
+    }
+  });
+
+  let h="";
+
+  h+="<b style='color:#ffdf6b;font-size:24px;text-shadow:0 0 10px #ffdf6b;'>推定設定：約"+expectedSetting.toFixed(1)+"</b><br><br>";
+  h+="<b>現在の初当たり確率：約1/"+actual.toFixed(1)+"</b><br><br>";
+
+  logs.forEach(x=>{
+    const pct=sum ? x.w/sum*100 : 0;
+
+    h+="<div class='setting-line' style='color:"+settingColor(x.s)+"'>";
+    h+="設定"+x.s+"：";
+
+    if(x.s<minSetting){
+      h+="除外";
+    }else{
+      h+=pct.toFixed(1)+"%";
+    }
+
+    h+="</div>";
+  });
+
+  h+="<br><span class='small'>※初当たり確率のみの簡易推測です。ユニバプレート選択時は下限設定を反映します。</span>";
+
+  return h;
+}
+
+function extractExpected(html){
+  const m=html.match(/推定設定：約([0-9.]+)/);
+  return m ? m[1] : "-";
+}
+  function calcSetting(){
+  const games=Number(document.getElementById("gameCount").value);
+  const hits=Number(document.getElementById("hitCount").value);
+
+  if(!games || games<=0 || !hits || hits<=0){
+    document.getElementById("directResult").innerHTML=
+      "回転数と初当たり回数を入力してください。";
+    return;
+  }
+
+  const h=buildSettingHtml(games,hits);
+  const actual=games/hits;
+
+  document.getElementById("directResult").innerHTML=h;
+
+  document.getElementById("liveResult").innerHTML=
+    "<b>リアルタイム判別</b><br><br>"+
+    "合計："+games+"G<br>"+
+    "初当たり："+hits+"回<br>"+
+    "<b style='color:#ffdf6b;font-size:18px;'>1/"+actual.toFixed(1)+"</b><br><br>"+
+    "<b style='color:#ffdf6b;'>推定設定：約"+extractExpected(h)+"</b>"+
+    "<p class='small'>※参考情報です。最終判断は自己責任でお願いします。</p>";
+}
+
+function resetDirect(){
+  document.getElementById("gameCount").value="";
+  document.getElementById("hitCount").value="";
+  document.getElementById("directResult").innerHTML=
+    "回転数と初当たり回数を入力してください。";
+}
+
+function addHistory(value="",number=null){
+  const div=document.getElementById("historyInputs");
+  const count=number || div.querySelectorAll("input").length+1;
+
+  const input=document.createElement("input");
+  input.type="number";
+  input.inputMode="numeric";
+  input.max=99999;
+  input.placeholder=count+"回目";
+  input.value=value;
+
+  input.addEventListener("keydown",function(e){
+    const inputs=Array.from(document.querySelectorAll("#historyInputs input"));
+    const index=inputs.indexOf(input);
+
+    if(e.key==="Enter"){
+      e.preventDefault();
+
+      if(index<inputs.length-1){
+        inputs[index+1].focus();
+      }else{
+        addHistory();
+        const newInputs=document.querySelectorAll("#historyInputs input");
+        newInputs[newInputs.length-1].focus();
+      }
+    }
+
+    if(e.key==="Backspace" && input.value==="" && index>0){
+      e.preventDefault();
+      inputs[index-1].focus();
+    }
+  });
+
+  input.addEventListener("input",function(){
+    if(input.value.length>5){
+      input.value=input.value.slice(0,5);
+    }
+
+    const inputs=document.querySelectorAll("#historyInputs input");
+
+    if(input===inputs[inputs.length-1] && input.value!==""){
+      addHistory();
+    }
+
+    saveHistory();
+    calcHistory();
+  });
+
+  div.appendChild(input);
+  div.appendChild(document.createElement("br"));
+
+  saveHistory();
+}
+
+function calcHistory(){
+  const inputs=document.querySelectorAll("#historyInputs input");
+  let total=0;
+  let count=0;
+
+  inputs.forEach(i=>{
+    const v=Number(i.value);
+
+    if(v>=1){
+      total+=v;
+      count++;
+    }
+  });
+
+  if(count===0){
+    document.getElementById("historyResult").innerHTML=
+      "履歴を入力してください。";
+    document.getElementById("liveResult").innerHTML=
+      "<b>リアルタイム判別</b><br><br>入力待ち";
+    return;
+  }
+
+  const avg=total/count;
+  const settingHtml=buildSettingHtml(total,count);
+
+  document.getElementById("historyResult").innerHTML=
+    "合計通常時ゲーム数："+total+"G<br>"+
+    "GG初当たり回数："+count+"回<br>"+
+    "<b>初当たり確率：1/"+avg.toFixed(1)+"</b><br><br>"+
+    settingHtml;
+
+  document.getElementById("liveResult").innerHTML=
+    "<b>リアルタイム判別</b><br><br>"+
+    "合計："+total+"G<br>"+
+    "初当たり："+count+"回<br>"+
+    "<b style='color:#ffdf6b;font-size:18px;'>1/"+avg.toFixed(1)+"</b><br><br>"+
+    "<b style='color:#ffdf6b;'>推定設定：約"+extractExpected(settingHtml)+"</b>"+
+    "<p class='small'>※参考情報です。最終判断は自己責任でお願いします。</p>";
+
+  document.getElementById("gameCount").value=total;
+  document.getElementById("hitCount").value=count;
+
+  saveHistory();
+}
+
+function saveHistory(){
+  const inputs=document.querySelectorAll("#historyInputs input");
+  const arr=[];
+
+  inputs.forEach(i=>{
+    if(i.value){
+      arr.push(i.value);
+    }
+  });
+
+  localStorage.setItem("god_setting_history",JSON.stringify(arr));
+}
+
+function loadHistory(){
+  const saved=JSON.parse(localStorage.getItem("god_setting_history") || "[]");
+  const div=document.getElementById("historyInputs");
+
+  div.innerHTML="";
+
+  if(saved.length===0){
+    addHistory();
+    return;
+  }
+
+  saved.forEach((v,i)=>{
+    addHistory(v,i+1);
+  });
+
+  addHistory();
+  calcHistory();
+}
+
+function resetHistory(){
+  const saved=localStorage.getItem("god_setting_history");
+
+  if(saved){
+    localStorage.setItem("god_setting_history_backup",saved);
+  }
+
+  localStorage.removeItem("god_setting_history");
+
+  document.getElementById("historyInputs").innerHTML="";
+  addHistory();
+
+  document.getElementById("historyResult").innerHTML=
+    "履歴をリセットしました。直前の履歴は復元できます。";
+
+  document.getElementById("liveResult").innerHTML=
+    "<b>リアルタイム判別</b><br><br>入力待ち";
+}
+
+function restoreHistory(){
+  const backup=localStorage.getItem("god_setting_history_backup");
+
+  if(!backup){
+    document.getElementById("historyResult").innerHTML=
+      "復元できる履歴がありません。";
+    return;
+  }
+
+  localStorage.setItem("god_setting_history",backup);
+
+  loadHistory();
+  calcHistory();
+
+  document.getElementById("historyResult").innerHTML+=
+    "<br>直前の履歴を復元しました。";
+}
+
+document.addEventListener("input",function(e){
+  if(e.target.id==="gameCount" || e.target.id==="hitCount"){
+    if(e.target.value.length>5){
+      e.target.value=e.target.value.slice(0,5);
+    }
+  }
+});
+
+document.querySelectorAll("details").forEach(function(detail){
+  detail.addEventListener("click",function(e){
+    if(e.target.tagName.toLowerCase()!=="summary"){
+      detail.removeAttribute("open");
+    }
+  });
+});
+
+window.addEventListener("load",loadHistory);
+</script>
+
+</body>
+</html>
