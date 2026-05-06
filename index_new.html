@@ -59,6 +59,19 @@ h1{
 .rainbow-text{
   font-size:24px;
 }
+  .rainbow-label{
+  font-weight:bold;
+  background:linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+  .max-level{
+  color:#ff3b3b;
+  text-shadow:
+    0 0 6px rgba(255,0,0,.7),
+    0 0 12px rgba(255,80,80,.5);
+  font-weight:bold;
+}
 .keypad{
   display:grid;
   grid-template-columns:repeat(3,82px);
@@ -709,7 +722,7 @@ function bestLevel(code){
 
 function levelText(level){
   if(level===8){
-    return "<span class='rainbow-text'>モード期待度 8/8</span><br>";
+    return "<span class="max-level">モード期待度 8/8</span><br>";
   }
   return "<span class='lv"+level+"txt'>モード期待度 "+level+"/8</span><br>";
 }
@@ -727,7 +740,13 @@ function buildNormalHtml(r){
   if(r.level) html+=levelText(r.level);
   if(r.info) html+="<span class='blue'>"+r.info+"</span><br>";
   if(r.chanceLevel) html+="<span class='orange'>チャンス目期待度 "+r.chanceLevel+"/8</span><br>";
-  if(r.guarantee) html+="<span class='red'>【"+r.guarantee+"】</span><br>";
+if(r.guarantee){
+  if(r.guarantee.includes("AT濃厚")){
+    html+="<span class='rainbow-label'>【"+r.guarantee+"】</span><br>";
+  }else{
+    html+="<span class='red'>【"+r.guarantee+"】</span><br>";
+  }
+}
   if(r.source) html+="<span class='small'>（"+r.source+"）</span><br>";
 
   return html;
