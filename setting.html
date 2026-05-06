@@ -179,8 +179,7 @@ details p{
 
 <body>
 
-<a class="back-btn" href="index_new.html">← 出目チェッカーへ戻る</a>
-
+<a class="back-btn" href="./">← 出目チェッカーへ戻る</a>
 <h1>神々の軌跡<br>初当たり確率から設定推測ツール</h1>
 
 <div class="lead">
@@ -579,6 +578,11 @@ function resetHistory(){
 
   document.getElementById("liveResult").innerHTML=
     "<b>リアルタイム判別</b><br><br>入力待ち";
+
+  document.getElementById("gameCount").value="";
+  document.getElementById("hitCount").value="";
+  document.getElementById("directResult").innerHTML=
+    "回転数と初当たり回数を入力してください。";
 }
 
 function restoreHistory(){
