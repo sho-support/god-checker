@@ -599,6 +599,7 @@ const data = {
 function gaiaCheck(code){
   if(!/^[0-8V]{3}$/.test(code)) return null;
 
+  if(["000","111","333","555","777","VVV"].includes(code)) return null;
   if(code==="0V7" || code==="07V"){
     return {name:"ガイア強パターン",level:"7/7",info:"ガイアステージ期待度 高"};
   }
@@ -642,6 +643,8 @@ function gaiaCheck(code){
 
 function delayCheck(code){
   if(!/^[0-8V]{3}$/.test(code)) return null;
+
+  if(["111","333","555","777"].includes(code)) return null;
 
   if(code==="700" || code==="707" || code==="7VV"){
     return {name:code,guarantee:"超天国の期待大"};
