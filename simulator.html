@@ -470,7 +470,33 @@ let totalGames = 0;
 let history = [];
 let autoTimer = null;
 let nextNormalHit = null;
+let historyDisplayLimit = 3;
+function saveState(){
+  const data = {
+    currentGame,
+    currentGodGame,
+    totalGames,
+    history,
+    nextNormalHit
+  };
+  localStorage.setItem("god_simulator_state", JSON.stringify(data));
+}
 
+function loadState(){
+  const saved = localStorage.getItem("god_simulator_state");
+  if(!saved) return;
+
+  try{
+    const data = JSON.parse(saved);
+    currentGame = data.currentGame || 0;
+    currentGodGame = data.currentGodGame || 0;
+    totalGames = data.totalGames || 0;
+    history = data.history || [];
+    nextNormalHit = data.nextNormalHit ?? null;
+  }catch(e){
+    localStorage.removeItem("god_simulator_state");
+  }
+}
 const reachList = [
   "007","012","026","032","038","046","04V","075","081","0V0","072","104","110","123","135","168",
   "175","184","201","223","280","283","2V1","315","324","344","354","365","415","423","428","448",
@@ -481,10 +507,15 @@ const reachList = [
 function applySetting(){
   const select = document.getElementById("settingSelect");
   const normalRate = document.getElementById("normalRate");
+
   if(select.value !== "custom"){
     normalRate.value = select.value;
-    nextNormalHit = null;
+    normalRate.disabled = true;
+  }else{
+    normalRate.disabled = false;
   }
+
+  nextNormalHit = null;
 }
 
 function updateCeilingVisibility(){
@@ -557,7 +588,62 @@ function randomFrom(arr){
 function isKnownReach(s){
   return reachList.includes(s);
 }
+function judgeDeme(reels){
+  const s = reels.join("");
+  const a = reels[0];
+  const b = reels[1];
+  const c = reels[2];
 
+  const odd = ["1","3","5","7"];
+
+  if(reachList.includes(s)){
+    return "リーチ目";
+  }
+
+  if(a === b && b === c){
+    return "ゾロ目";
+  }
+
+  if(a === "V" && c === "V"){
+    return "Vハサミ";
+  }
+
+  if(a === "0" && c === "0"){
+    return "0ハサミ";
+  }
+
+  if(odd.includes(a) && a === b){
+    return "奇数テンパイ";
+  }
+
+  if(odd.includes(b) && b === c){
+    return "奇数ケツテンパイ";
+  }
+
+  if(odd.includes(a) && odd.includes(c)){
+    return "奇数ハサミ";
+  }
+
+  if(["123","234","345","456","567","678"].includes(s)){
+    return "順目";
+  }
+
+  return "バラケ目";
+}
+
+function makeTextFromDeme(reels,type){
+  const deme = judgeDeme(reels);
+
+  if(type === "hot"){
+    return deme + "。強い前兆かも...！";
+  }
+
+  if(type === "chance"){
+    return deme + "。少しざわつく...";
+  }
+
+  return deme + "停止。";
+}
 function makeNormalMissReels(){
   const symbols = ["0","1","2","3","4","5","6","8","V"];
   let r;
@@ -599,36 +685,35 @@ function makePreNoticeDisplay(){
 
   if(remain <= 32){
     if(remain <= 7){
-      return {reels:makeChanceReels("strong"), text:randomHotText(), type:"hot"};
+      const reels = makeChanceReels("strong");
+      return {reels:reels, text:makeTextFromDeme(reels,"hot"), type:"hot"};
     }
+
     if(remain <= 16){
-      return {reels:makeChanceReels("middle"), text:randomMiddleText(), type:"chance"};
+      const reels = makeChanceReels("middle");
+      return {reels:reels, text:makeTextFromDeme(reels,"chance"), type:"chance"};
     }
-    return {reels:makeChanceReels("weak"), text:randomWeakText(), type:"chance"};
+
+    const reels = makeChanceReels("weak");
+    return {reels:reels, text:makeTextFromDeme(reels,"chance"), type:"chance"};
   }
 
   const roll = Math.random();
 
   if(roll < 0.03){
-    return {reels:makeChanceReels("strong"), text:randomFalseStrongText(), type:"hot"};
+    const reels = makeChanceReels("strong");
+    return {reels:reels, text:makeTextFromDeme(reels,"hot"), type:"hot"};
   }
 
   if(roll < 0.13){
-    return {reels:makeChanceReels("weak"), text:randomFalseWeakText(), type:"chance"};
+    const reels = makeChanceReels("weak");
+    return {reels:reels, text:makeTextFromDeme(reels,"chance"), type:"chance"};
   }
 
+  const reels = makeNormalMissReels();
   return {
-    reels:makeNormalMissReels(),
-    text:randomFrom([
-      "静寂...",
-      "何も起きない。",
-      "バラケ目停止。",
-      "風が通り過ぎた。",
-      "小さな違和感だけが残った。",
-      "通常の空気が流れる。",
-      "淡々とゲームが進む。",
-      "まだ神の気配は遠い。"
-    ]),
+    reels:reels,
+    text:makeTextFromDeme(reels,"normal"),
     type:""
   };
 }
@@ -1017,12 +1102,13 @@ function updateDisplay(){
   document.getElementById("maxGodGame").innerText = maxGod;
 
   document.getElementById("godCount").innerHTML =
-    godCount === 0 ? "0回" : "<span class='rainbow-inline'>" + rateText(godCount) + "</span>";
+  "<span class='rainbow-inline'>" + rateText(godCount) + "</span>";
   document.getElementById("redCount").innerText = rateText(redCount);
   document.getElementById("normalCount").innerText = rateText(normalCount);
   document.getElementById("ceilingCount").innerText = rateText(ceilingCount);
 
   updateHistory();
+  saveState();
 }
 
 function updateHistory(){
@@ -1033,11 +1119,34 @@ function updateHistory(){
     return;
   }
 
-  historyBox.innerHTML = history.map((h,i)=>
+  const shown = history.slice(0, historyDisplayLimit);
+
+  let html = shown.map((h,i)=>
     "<div class='history-item " + h.cls + "'>" +
     (history.length - i) + "回目：" + h.game + "Gで" + h.type +
+    (h.detail ? "<br><span class='small'>" + h.detail + "</span>" : "") +
     "</div>"
   ).join("");
+
+  if(history.length > historyDisplayLimit){
+    html += "<div style='margin-top:10px;'>" +
+      "<button onclick='showHistory(10)'>10件表示</button>" +
+      "<button onclick='showHistory(50)'>50件表示</button>" +
+      "<button onclick='showHistoryAll()'>全て表示</button>" +
+      "</div>";
+  }
+
+  historyBox.innerHTML = html;
+}
+
+function showHistory(n){
+  historyDisplayLimit = n;
+  updateHistory();
+}
+
+function showHistoryAll(){
+  historyDisplayLimit = history.length;
+  updateHistory();
 }
 
 function resetSim(){
@@ -1046,16 +1155,19 @@ function resetSim(){
   currentGodGame = 0;
   totalGames = 0;
   history = [];
+  historyDisplayLimit = 3;
   nextNormalHit = null;
+  localStorage.removeItem("god_simulator_state");
   document.getElementById("result").innerHTML = "レバーを押してください";
   setEffect("静寂...","");
   setReels(["-","-","-"]);
   updateDisplay();
 }
-
+loadState();
 setReels(["-","-","-"]);
 updateCeilingVisibility();
 handleSpinModeChange();
+applySetting();
 updateDisplay();
 </script>
 
