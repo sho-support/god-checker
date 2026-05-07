@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>神々の軌跡｜初当たり・GOD・赤7 同時抽選シミュレーター</title>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-91KST8GF26"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-91KST8GF26');
+</script>
+
+<style>
+body{
+  font-family:sans-serif;
+  background:#111;
+  color:#fff;
+  margin:0;
+  padding:18px;
+  text-align:center;
+}
+h1{
+  color:#f7d36a;
+  font-size:26px;
+  line-height:1.35;
+}
+.lead{
+  color:#ddd;
+  line-height:1.8;
+  max-width:760px;
+  margin:0 auto 22px;
+  font-size:15px;
+}
+.box{
+  max-width:760px;
+  margin:22px auto;
+  background:#1b1b1b;
+  border:1px solid #6b4a12;
+  border-radius:12px;
+  padding:16px;
+  line-height:1.8;
+}
+h2{
+  color:#f7d36a;
+  margin-top:0;
+}
+label{
+  display:block;
+  margin:10px 0;
+}
+input{
+  font-size:18px;
+  padding:10px;
+  width:120px;
+  border-radius:8px;
+  border:0;
+  text-align:center;
+}
+select{
+  font-size:18px;
+  padding:10px;
+  border-radius:8px;
+}
+button{
+  font-size:18px;
+  padding:13px 18px;
+  border:0;
+  border-radius:10px;
+  margin:6px;
+  color:#fff;
+  font-weight:bold;
+  background:linear-gradient(135deg,#d4a017,#7a5c10);
+  border:1px solid #c9a33a;
+}
+button:active{
+  transform:scale(.96);
+}
+.lever{
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  font-size:28px;
+  margin:22px auto;
+  display:block;
+  background:
+    radial-gradient(circle at 30% 25%,#fff1a8,#d4a017 35%,#5a3700 75%);
+  color:#111;
+  box-shadow:0 0 22px rgba(255,210,80,.55);
+}
+.mode-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  max-width:520px;
+  margin:15px auto;
+}
+.mode-grid label{
+  background:#111;
+  border:1px solid #6b4a12;
+  border-radius:10px;
+  padding:10px;
+}
+.result{
+  font-size:22px;
+  font-weight:bold;
+  margin-top:18px;
+  line-height:1.8;
+}
+.gold{
+  color:#ffdf6b;
+}
+.red{
+  color:#ff5a5a;
+}
+.rainbow{
+  font-weight:bold;
+  background:linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.history{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin-top:15px;
+}
+.history-item{
+  padding:10px;
+  border-radius:10px;
+  font-weight:bold;
+  border:1px solid #555;
+}
+.hit-god{
+  background:linear-gradient(135deg,#6b4a00,#d4a017);
+  color:#111;
+}
+.hit-red{
+  background:linear-gradient(135deg,#5a0000,#c70000);
+  color:#fff;
+}
+.hit-normal{
+  background:linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet);
+  color:#111;
+}
+.stat-table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:12px;
+}
+.stat-table th,
+.stat-table td{
+  border:1px solid #6b4a12;
+  padding:9px;
+}
+.stat-table th{
+  color:#ffdf6b;
+  background:#3a2a08;
+}
+.stat-table td{
+  background:#151515;
+}
+.back-btn{
+  display:inline-block;
+  margin:14px auto;
+  padding:13px 18px;
+  border-radius:10px;
+  background:linear-gradient(#4a3610,#241700);
+  color:#ffdf6b;
+  text-decoration:none;
+  font-weight:bold;
+  border:1px solid #c9a33a;
+}
+.small{
+  font-size:12px;
+  color:#bbb;
+  line-height:1.7;
+}
+@media(max-width:520px){
+  .mode-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<a class="back-btn" href="index.html">← 出目チェッカーへ戻る</a>
+
+<h1>神々の軌跡<br>初当たり確率シミュレーター</h1>
+
+<div class="lead">
+初当たり・GOD揃い・赤7揃いを同時に抽選できる体感シミュレーターです。<br>
+実機再現ではなく、確率の重さを体感するための遊びツールです。
+</div>
+
+<div class="box">
+  <h2>確率設定</h2>
+
+  <label>
+    設定選択：
+    <select id="settingSelect" onchange="applySetting()">
+      <option value="532.8">設定1：1/532.8</option>
+      <option value="420.4">設定2：1/420.4</option>
+      <option value="495.9">設定3：1/495.9</option>
+      <option value="338.4">設定4：1/338.4</option>
+      <option value="455.4">設定5：1/455.4</option>
+      <option value="294.8">設定6：1/294.8</option>
+      <option value="custom">任意入力</option>
+    </select>
+  </label>
+
+  <label>
+    初当たり確率：1/
+    <input id="normalRate" type="number" step="0.1" value="532.8">
+  </label>
+
+  <label>
+    GOD揃い確率：1/
+    <input id="godRate" type="number" step="1" value="16384">
+  </label>
+
+  <label>
+    赤7揃い確率：1/
+    <input id="redRate" type="number" step="1" value="6900">
+  </label>
+</div>
+
+<div class="box">
+  <h2>抽選回数</h2>
+
+  <div class="mode-grid">
+    <label><input type="radio" name="spinCount" value="1" checked> 1回</label>
+    <label><input type="radio" name="spinCount" value="10"> 10回</label>
+    <label><input type="radio" name="spinCount" value="100"> 100回</label>
+    <label><input type="radio" name="spinCount" value="1000"> 1000回</label>
+  </div>
+
+  <button class="lever" onclick="pullLever()">レバー</button>
+
+  <div id="result" class="result">レバーを押してください</div>
+
+  <div class="small">
+    ※GOD揃い・赤7揃い・初当たりが同じゲームで重なった場合は、GOD揃い ＞ 赤7揃い ＞ 初当たり の順で表示します。
+  </div>
+</div>
+
+<div class="box">
+  <h2>現在の状態</h2>
+
+  <table class="stat-table">
+    <tr><th>項目</th><th>数値</th></tr>
+    <tr><td>現在ハマり</td><td id="currentGame">0G</td></tr>
+    <tr><td>総ゲーム数</td><td id="totalGames">0G</td></tr>
+    <tr><td>総当選回数</td><td id="totalHits">0回</td></tr>
+    <tr><td>平均当選ゲーム数</td><td id="avgHit">-</td></tr>
+    <tr><td>最大ハマり</td><td id="maxGame">-</td></tr>
+    <tr><td>最短当選</td><td id="minGame">-</td></tr>
+    <tr><td>GOD揃い</td><td id="godCount">0回</td></tr>
+    <tr><td>赤7揃い</td><td id="redCount">0回</td></tr>
+    <tr><td>初当たり</td><td id="normalCount">0回</td></tr>
+  </table>
+</div>
+
+<div class="box">
+  <h2>当選履歴</h2>
+
+  <div id="history" class="history">
+    履歴なし
+  </div>
+
+  <button onclick="resetSim()">リセット</button>
+</div>
+
+<div class="box">
+  <h2>使い方</h2>
+
+  <p class="small">
+    レバーを押すと、選択した回数分だけ抽選します。<br>
+    途中でGOD揃い・赤7揃い・初当たりのいずれかに当選した場合、その時点で抽選を終了します。<br><br>
+    例：100回抽選中に63G目で赤7揃いに当選した場合、「63Gで赤7揃い」として履歴に追加され、次回の抽選はまた1G目から始まります。<br><br>
+    100回抽選して当たらなかった場合は、現在ハマりが100G加算され、次回の抽選に持ち越されます。
+  </p>
+</div>
+
+<div style="margin-top:35px;">
+  <a class="back-btn" href="basic.html">基本情報を見る</a>
+  <a class="back-btn" href="setting.html">設定推測ツールを見る</a>
+</div>
+
+<script>
+let currentGame = 0;
+let totalGames = 0;
+let history = [];
+
+function applySetting(){
+  const select = document.getElementById("settingSelect");
+  const normalRate = document.getElementById("normalRate");
+
+  if(select.value !== "custom"){
+    normalRate.value = select.value;
+  }
+}
+
+function getSpinCount(){
+  return Number(document.querySelector('input[name="spinCount"]:checked').value);
+}
+
+function hit(rate){
+  return Math.random() < 1 / rate;
+}
+
+function pullLever(){
+  const normalRate = Number(document.getElementById("normalRate").value);
+  const godRate = Number(document.getElementById("godRate").value);
+  const redRate = Number(document.getElementById("redRate").value);
+  const spins = getSpinCount();
+
+  if(!normalRate || !godRate || !redRate || normalRate <= 0 || godRate <= 0 || redRate <= 0){
+    document.getElementById("result").innerHTML = "確率を正しく入力してください";
+    return;
+  }
+
+  for(let i=1; i<=spins; i++){
+    currentGame++;
+    totalGames++;
+
+    const god = hit(godRate);
+    const red = hit(redRate);
+    const normal = hit(normalRate);
+
+    if(god || red || normal){
+      let type = "";
+      let cls = "";
+
+      if(god){
+        type = "GOD揃い";
+        cls = "hit-god";
+      }else if(red){
+        type = "赤7揃い";
+        cls = "hit-red";
+      }else{
+        type = "初当たり";
+        cls = "hit-normal";
+      }
+
+      history.unshift({
+        game: currentGame,
+        type: type,
+        cls: cls
+      });
+
+      document.getElementById("result").innerHTML =
+        "<span class='" + (cls === "hit-god" ? "gold" : cls === "hit-red" ? "red" : "rainbow") + "'>" +
+        currentGame + "Gで" + type + "！</span>";
+
+      currentGame = 0;
+      updateDisplay();
+      return;
+    }
+  }
+
+  document.getElementById("result").innerHTML =
+    spins + "G回しました。まだ当たりなし。<br>現在ハマり：" + currentGame + "G";
+
+  updateDisplay();
+}
+
+function updateDisplay(){
+  const hits = history.length;
+  const totalHitGames = history.reduce((sum,h)=>sum+h.game,0);
+  const avg = hits ? (totalHitGames / hits).toFixed(1) + "G" : "-";
+  const max = hits ? Math.max(...history.map(h=>h.game)) + "G" : "-";
+  const min = hits ? Math.min(...history.map(h=>h.game)) + "G" : "-";
+
+  const godCount = history.filter(h=>h.type==="GOD揃い").length;
+  const redCount = history.filter(h=>h.type==="赤7揃い").length;
+  const normalCount = history.filter(h=>h.type==="初当たり").length;
+
+  document.getElementById("currentGame").innerText = currentGame + "G";
+  document.getElementById("totalGames").innerText = totalGames + "G";
+  document.getElementById("totalHits").innerText = hits + "回";
+  document.getElementById("avgHit").innerText = avg;
+  document.getElementById("maxGame").innerText = max;
+  document.getElementById("minGame").innerText = min;
+  document.getElementById("godCount").innerText = godCount + "回";
+  document.getElementById("redCount").innerText = redCount + "回";
+  document.getElementById("normalCount").innerText = normalCount + "回";
+
+  const historyBox = document.getElementById("history");
+
+  if(history.length === 0){
+    historyBox.innerHTML = "履歴なし";
+    return;
+  }
+
+  historyBox.innerHTML = history.map((h,i)=>
+    "<div class='history-item " + h.cls + "'>" +
+    (history.length - i) + "回目：" + h.game + "Gで" + h.type +
+    "</div>"
+  ).join("");
+}
+
+function resetSim(){
+  currentGame = 0;
+  totalGames = 0;
+  history = [];
+  document.getElementById("result").innerHTML = "レバーを押してください";
+  updateDisplay();
+}
+
+updateDisplay();
+</script>
+
+</body>
+</html>
