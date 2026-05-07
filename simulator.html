@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>神々の軌跡｜初当たり・GOD・赤7 同時抽選シミュレーター</title>
+<title>神々の軌跡｜同時抽選シミュレーター</title>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-91KST8GF26"></script>
 <script>
@@ -31,12 +31,12 @@ h1{
 .lead{
   color:#ddd;
   line-height:1.8;
-  max-width:760px;
+  max-width:820px;
   margin:0 auto 22px;
   font-size:15px;
 }
 .box{
-  max-width:820px;
+  max-width:850px;
   margin:22px auto;
   background:#1b1b1b;
   border:1px solid #6b4a12;
@@ -86,11 +86,14 @@ button:active{
   color:#111;
   box-shadow:0 0 22px rgba(255,210,80,.55);
 }
+.stop-btn{
+  background:linear-gradient(135deg,#7a0000,#c70000);
+}
 .mode-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:8px;
-  max-width:620px;
+  max-width:650px;
   margin:15px auto;
 }
 .mode-grid label{
@@ -104,6 +107,52 @@ button:active{
   font-weight:bold;
   margin-top:18px;
   line-height:1.8;
+}
+.reel-area{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin:20px auto;
+}
+.reel{
+  width:82px;
+  height:82px;
+  background:#050505;
+  border:2px solid #c9a33a;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:42px;
+  font-weight:bold;
+  color:#ffdf6b;
+  box-shadow:inset 0 0 10px rgba(255,215,0,.25);
+}
+.reel.god{
+  color:#fff;
+  background:linear-gradient(135deg,red,orange,yellow,lime,cyan,blue,violet);
+  -webkit-text-stroke:1px #111;
+}
+.reel.red7{
+  color:#ff3333;
+  border-color:#ff3333;
+}
+.reel.normal-hit{
+  color:#ffdf6b;
+}
+.reel.miss{
+  color:#ddd;
+}
+.effect-box{
+  background:#101010;
+  border:1px solid #6b4a12;
+  border-radius:12px;
+  padding:14px;
+  margin:18px auto;
+  max-width:650px;
+  font-size:20px;
+  font-weight:bold;
+  color:#ddd;
 }
 .history{
   display:flex;
@@ -129,6 +178,10 @@ button:active{
   background:linear-gradient(135deg,#6b4a00,#d4a017);
   color:#111;
 }
+.hit-ceiling{
+  background:linear-gradient(135deg,#003366,#0077cc);
+  color:#fff;
+}
 .rainbow-text{
   font-weight:bold;
   background:linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet);
@@ -141,6 +194,10 @@ button:active{
 }
 .gold-text{
   color:#ffdf6b;
+  font-weight:bold;
+}
+.blue-text{
+  color:#66ccff;
   font-weight:bold;
 }
 .stat-table{
@@ -171,43 +228,43 @@ button:active{
   font-weight:bold;
   border:1px solid #c9a33a;
 }
+.menu-buttons{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  max-width:420px;
+  margin:20px auto;
+}
+.menu-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+  border-radius:12px;
+  background:linear-gradient(135deg,#d4a017,#7a5c10);
+  color:#fff;
+  text-decoration:none;
+  font-weight:bold;
+  border:1px solid #c9a33a;
+}
 .small{
   font-size:12px;
   color:#bbb;
   line-height:1.7;
 }
-.chart{
+.chart-wrap{
   margin-top:16px;
-  text-align:left;
-}
-.bar-row{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  margin:8px 0;
-}
-.bar-label{
-  width:72px;
-  font-size:12px;
-  color:#ddd;
-}
-.bar-wrap{
-  flex:1;
-  background:#222;
+  background:#101010;
   border:1px solid #555;
+  border-radius:10px;
+  padding:10px;
+}
+canvas{
+  width:100%;
+  max-width:760px;
+  height:360px;
+  background:#151515;
   border-radius:8px;
-  overflow:hidden;
-}
-.bar{
-  height:24px;
-  min-width:3px;
-  background:linear-gradient(90deg,#d4a017,#ffdf6b);
-}
-.bar-value{
-  width:70px;
-  font-size:12px;
-  color:#ddd;
-  text-align:right;
 }
 @media(max-width:520px){
   .mode-grid{
@@ -215,6 +272,11 @@ button:active{
   }
   input{
     width:100px;
+  }
+  .reel{
+    width:68px;
+    height:68px;
+    font-size:34px;
   }
 }
 </style>
@@ -228,7 +290,7 @@ button:active{
 
 <div class="lead">
 初当たり・GOD揃い・赤7揃いを同時抽選できる確率体感シミュレーターです。<br>
-実機再現ではなく、確率の重さやハマりを体感するための遊びツールです。
+天井、GOD間、履歴、グラフ、簡易演出つきで遊べます。
 </div>
 
 <div class="box">
@@ -250,25 +312,34 @@ button:active{
   <label>初当たり確率：1/<input id="normalRate" type="number" step="0.1" value="532.8"></label>
   <label>GOD揃い確率：1/<input id="godRate" type="number" step="1" value="16384"></label>
   <label>赤7揃い確率：1/<input id="redRate" type="number" step="1" value="6900"></label>
+
+  <h2>天井設定</h2>
+
+  <div class="mode-grid">
+    <label><input type="radio" name="ceilingMode" value="on" checked> 天井ON</label>
+    <label><input type="radio" name="ceilingMode" value="off"> 天井OFF</label>
+  </div>
+
+  <label>天井ゲーム数：<input id="ceilingGame" type="number" value="1500" min="1" max="100000"> G</label>
 </div>
 
 <div class="box">
-  <h2>現在の状態</h2>
+  <h2>シミュレーション結果</h2>
 
   <table class="stat-table">
     <tr><th>項目</th><th>数値</th></tr>
-    <tr><td>現在ハマり</td><td id="currentGame">0G</td></tr>
+    <tr><td>現在ハマリ</td><td id="currentGame">0G</td></tr>
+    <tr><td>現在GOD間</td><td id="currentGodGame">0G</td></tr>
     <tr><td>総ゲーム数</td><td id="totalGames">0G</td></tr>
     <tr><td>総当選回数</td><td id="totalHits">0回</td></tr>
     <tr><td>平均当選ゲーム数</td><td id="avgHit">-</td></tr>
-    <tr><td>最大ハマり</td><td id="maxGame">-</td></tr>
+    <tr><td>最大ハマリ</td><td id="maxGame">-</td></tr>
     <tr><td>最短当選</td><td id="minGame">-</td></tr>
+    <tr><td>最大GOD間</td><td id="maxGodGame">-</td></tr>
     <tr><td>GOD揃い</td><td id="godCount">0回</td></tr>
     <tr><td>赤7揃い</td><td id="redCount">0回</td></tr>
     <tr><td>初当たり</td><td id="normalCount">0回</td></tr>
-    <tr><td>実測 GOD確率</td><td id="godActual">-</td></tr>
-    <tr><td>実測 赤7確率</td><td id="redActual">-</td></tr>
-    <tr><td>実測 初当たり確率</td><td id="normalActual">-</td></tr>
+    <tr><td>天井当選</td><td id="ceilingCount">0回</td></tr>
   </table>
 </div>
 
@@ -276,11 +347,11 @@ button:active{
   <h2>抽選回数</h2>
 
   <div class="mode-grid">
-    <label><input type="radio" name="spinCount" value="1" checked> 1回</label>
-    <label><input type="radio" name="spinCount" value="10"> 10回</label>
-    <label><input type="radio" name="spinCount" value="100"> 100回</label>
-    <label><input type="radio" name="spinCount" value="1000"> 1000回</label>
-    <label><input type="radio" name="spinCount" value="custom"> 任意</label>
+    <label><input type="radio" name="spinCount" value="1" checked onchange="handleSpinModeChange()"> 1回</label>
+    <label><input type="radio" name="spinCount" value="10" onchange="handleSpinModeChange()"> 10回</label>
+    <label><input type="radio" name="spinCount" value="100" onchange="handleSpinModeChange()"> 100回</label>
+    <label><input type="radio" name="spinCount" value="1000" onchange="handleSpinModeChange()"> 1000回</label>
+    <label><input type="radio" name="spinCount" value="custom" onchange="handleSpinModeChange()"> 任意</label>
   </div>
 
   <label>
@@ -291,51 +362,80 @@ button:active{
 
   <h2>抽選モード</h2>
   <div class="mode-grid">
-    <label><input type="radio" name="simMode" value="stop" checked> 当たったら止める</label>
-    <label><input type="radio" name="simMode" value="full"> 最後まで回す</label>
+    <label><input type="radio" name="simMode" value="stop" checked> 当選で停止</label>
+    <label><input type="radio" name="simMode" value="full"> 最後まで</label>
   </div>
 
-  <button class="lever" onclick="pullLever()">レバー</button>
+  <h2>オート</h2>
+  <div class="mode-grid">
+    <label><input type="radio" name="autoSpeed" value="off" checked> OFF</label>
+    <label><input type="radio" name="autoSpeed" value="300"> 0.3秒</label>
+    <label><input type="radio" name="autoSpeed" value="500"> 0.5秒</label>
+    <label><input type="radio" name="autoSpeed" value="1000"> 1秒</label>
+  </div>
+
+  <button onclick="startAuto()">オート開始</button>
+  <button class="stop-btn" onclick="stopAuto()">停止</button>
+
+  <div class="effect-box" id="effectText">静寂...</div>
+
+  <div class="reel-area">
+    <div id="reel1" class="reel">-</div>
+    <div id="reel2" class="reel">-</div>
+    <div id="reel3" class="reel">-</div>
+  </div>
+
+  <button class="lever" onclick="manualLever()">レバー</button>
 
   <div id="result" class="result">レバーを押してください</div>
 
   <div class="small">
-    ※同じゲームで複数当選した場合は、GOD揃い ＞ 赤7揃い ＞ 初当たり の順で表示します。<br>
-    ※任意回数は最大10000回です。
+    ※オートは1回抽選の時だけ使えます。<br>
+    ※0.3秒オートは負荷軽減のため3桁同時表示します。<br>
+    ※同じゲームで複数当選した場合は、GOD揃い ＞ 赤7揃い ＞ 初当たり の順で表示します。
   </div>
 </div>
 
 <div class="box">
   <h2>当選履歴</h2>
-
   <div id="history" class="history">履歴なし</div>
-
   <button onclick="resetSim()">リセット</button>
 </div>
 
 <div class="box">
   <h2>当選ゲーム数グラフ</h2>
-  <div id="chart" class="chart">履歴が増えるとグラフが表示されます。</div>
+  <p class="small">横軸：当選回数　縦軸：当選ゲーム数</p>
+  <div class="chart-wrap">
+    <canvas id="hitChart" width="760" height="360"></canvas>
+  </div>
 </div>
 
 <div class="box">
   <h2>使い方</h2>
   <p class="small">
-    「当たったら止める」は、選択した回数の途中で当選した時点で終了します。<br>
-    「最後まで回す」は、10000回など指定したゲーム数を最後まで一気に回し、その中で発生した当選履歴をまとめて表示します。<br><br>
-    GOD揃いは虹色、赤7揃いは赤色、初当たりは金色で表示します。
+    「当選で停止」は、選択した回数の途中で当選した時点で終了します。<br>
+    「最後まで」は、10000回など指定したゲーム数を最後まで一気に回し、その中で発生した当選履歴をまとめて表示します。<br><br>
+    GOD揃いは虹、赤7揃いは赤、初当たりは金、天井当選は青で表示します。
   </p>
 </div>
 
-<div style="margin-top:35px;">
-  <a class="back-btn" href="basic.html">基本情報を見る</a>
-  <a class="back-btn" href="setting.html">設定推測ツールを見る</a>
+<div class="box">
+  <h2>関連ページ</h2>
+  <div class="menu-buttons">
+    <a href="index.html" class="menu-btn">出目チェッカー</a>
+    <a href="reach.html" class="menu-btn">出目一覧・リーチ目まとめ</a>
+    <a href="basic.html" class="menu-btn">基本情報・天井まとめ</a>
+    <a href="setting.html" class="menu-btn">設定推測ツール</a>
+    <a href="effects.html" class="menu-btn">演出法則まとめ</a>
+  </div>
 </div>
 
 <script>
 let currentGame = 0;
+let currentGodGame = 0;
 let totalGames = 0;
 let history = [];
+let autoTimer = null;
 
 function applySetting(){
   const select = document.getElementById("settingSelect");
@@ -361,6 +461,16 @@ function getMode(){
   return document.querySelector('input[name="simMode"]:checked').value;
 }
 
+function ceilingEnabled(){
+  return document.querySelector('input[name="ceilingMode"]:checked').value === "on";
+}
+
+function getCeiling(){
+  let n = Number(document.getElementById("ceilingGame").value);
+  if(!n || n < 1) n = 1500;
+  return n;
+}
+
 function isHit(rate){
   return Math.random() < 1 / rate;
 }
@@ -370,49 +480,221 @@ function judgeGame(normalRate,godRate,redRate){
   const red = isHit(redRate);
   const normal = isHit(normalRate);
 
-  if(god) return {type:"GOD揃い", cls:"hit-god", textCls:"rainbow-text"};
-  if(red) return {type:"赤7揃い", cls:"hit-red", textCls:"red-text"};
-  if(normal) return {type:"初当たり", cls:"hit-normal", textCls:"gold-text"};
+  if(god) return {type:"GOD揃い", cls:"hit-god", textCls:"rainbow-text", reels:["7","7","7"]};
+  if(red) return {type:"赤7揃い", cls:"hit-red", textCls:"red-text", reels:["S","S","S"]};
+  if(normal){
+    const odds = ["1","3","5"];
+    const n = odds[Math.floor(Math.random()*odds.length)];
+    return {type:"初当たり", cls:"hit-normal", textCls:"gold-text", reels:[n,n,n]};
+  }
+
+  if(ceilingEnabled() && currentGame >= getCeiling()){
+    const odds = ["1","3","5"];
+    const n = odds[Math.floor(Math.random()*odds.length)];
+    return {type:"天井当選", cls:"hit-ceiling", textCls:"blue-text", reels:[n,n,n]};
+  }
+
   return null;
 }
 
-function pullLever(){
+function makeMissReels(){
+  const symbols = ["0","1","2","3","4","5","6","7","8","V"];
+  let r;
+
+  do{
+    r = [
+      symbols[Math.floor(Math.random()*symbols.length)],
+      symbols[Math.floor(Math.random()*symbols.length)],
+      symbols[Math.floor(Math.random()*symbols.length)]
+    ];
+  }while(
+    r[0] === r[1] && r[1] === r[2] ||
+    isKnownReach(r.join(""))
+  );
+
+  return r;
+}
+
+function isKnownReach(s){
+  const reachList = [
+    "007","012","026","032","038","046","04V","075","081","0V0","072","104","110","123","135","168",
+    "175","184","201","223","280","283","2V1","315","324","344","354","365","415","423","428","448",
+    "481","4V8","508","510","514","526","543","564","56V","5V0","5V4","634","664","681","728","753",
+    "758","78V","801","808","821","841","845","850","873","87V","884","V07","V31","V34"
+  ];
+  return reachList.includes(s);
+}
+
+function clearReelClasses(){
+  ["reel1","reel2","reel3"].forEach(id=>{
+    const el = document.getElementById(id);
+    el.className = "reel";
+  });
+}
+
+function setReels(reels,cls){
+  clearReelClasses();
+  reels.forEach((v,i)=>{
+    const el = document.getElementById("reel"+(i+1));
+    el.innerText = v;
+    if(cls === "hit-god") el.classList.add("god");
+    else if(cls === "hit-red") el.classList.add("red7");
+    else if(cls === "hit-normal" || cls === "hit-ceiling") el.classList.add("normal-hit");
+    else el.classList.add("miss");
+  });
+}
+
+function animateReels(reels,cls,fast){
+  if(fast){
+    setReels(reels,cls);
+    return;
+  }
+
+  clearReelClasses();
+  document.getElementById("reel1").innerText = "-";
+  document.getElementById("reel2").innerText = "-";
+  document.getElementById("reel3").innerText = "-";
+
+  setTimeout(()=>{ setSingleReel(1,reels[0],cls); },120);
+  setTimeout(()=>{ setSingleReel(2,reels[1],cls); },240);
+  setTimeout(()=>{ setSingleReel(3,reels[2],cls); },360);
+}
+
+function setSingleReel(num,value,cls){
+  const el = document.getElementById("reel"+num);
+  el.innerText = value;
+  el.className = "reel";
+  if(cls === "hit-god") el.classList.add("god");
+  else if(cls === "hit-red") el.classList.add("red7");
+  else if(cls === "hit-normal" || cls === "hit-ceiling") el.classList.add("normal-hit");
+  else el.classList.add("miss");
+}
+
+function effectText(hitData){
+  if(!hitData){
+    const misses = [
+      "静寂...",
+      "何も起きない。",
+      "バラケ目停止。",
+      "風が通り過ぎた。",
+      "小さな違和感だけが残った。"
+    ];
+    return misses[Math.floor(Math.random()*misses.length)];
+  }
+
+  if(hitData.type === "GOD揃い"){
+    const godEffects = [
+      "ブラックアウト... GOD降臨！",
+      "虹の光が走った... GOD揃い！",
+      "神の気配... GOD揃い！",
+      "画面が沈黙した... 7・7・7！"
+    ];
+    return godEffects[Math.floor(Math.random()*godEffects.length)];
+  }
+
+  if(hitData.type === "赤7揃い"){
+    return "赤い光が走った... S・S・S！";
+  }
+
+  if(hitData.type === "天井当選"){
+    return "天井到達。救済発動！";
+  }
+
+  return "奇数が揃った... GG当選！";
+}
+
+function recordHit(hitData){
+  const record = {
+    game: currentGame,
+    godGame: currentGodGame,
+    type: hitData.type,
+    cls: hitData.cls,
+    textCls: hitData.textCls
+  };
+
+  history.unshift(record);
+
+  if(hitData.type === "GOD揃い"){
+    currentGodGame = 0;
+  }
+
+  currentGame = 0;
+  return record;
+}
+
+function oneGame(showEffect,fast){
   const normalRate = Number(document.getElementById("normalRate").value);
   const godRate = Number(document.getElementById("godRate").value);
   const redRate = Number(document.getElementById("redRate").value);
-  const spins = getSpinCount();
-  const mode = getMode();
 
   if(!normalRate || !godRate || !redRate || normalRate <= 0 || godRate <= 0 || redRate <= 0){
     document.getElementById("result").innerHTML = "確率を正しく入力してください";
+    return {error:true};
+  }
+
+  currentGame++;
+  currentGodGame++;
+  totalGames++;
+
+  const hitData = judgeGame(normalRate,godRate,redRate);
+
+  if(hitData){
+    const record = recordHit(hitData);
+
+    if(showEffect){
+      document.getElementById("effectText").innerText = effectText(hitData);
+      animateReels(hitData.reels, hitData.cls, fast);
+      document.getElementById("result").innerHTML =
+        "<span class='" + hitData.textCls + "'>" +
+        record.game + "Gで" + record.type + "！</span>";
+    }
+
+    updateDisplay();
+    return {hit:true, record};
+  }
+
+  if(showEffect){
+    const missReels = makeMissReels();
+    document.getElementById("effectText").innerText = effectText(null);
+    animateReels(missReels, "miss", fast);
+    document.getElementById("result").innerHTML =
+      "ハズレ。現在ハマリ：" + currentGame + "G<br>現在GOD間：" + currentGodGame + "G";
+  }
+
+  updateDisplay();
+  return {hit:false};
+}
+
+function manualLever(){
+  stopAuto();
+  runSpin(false);
+}
+
+function runSpin(autoFast){
+  const spins = getSpinCount();
+  const mode = getMode();
+
+  if(spins === 1){
+    oneGame(true,autoFast);
     return;
   }
 
   let hitsThisTime = [];
 
   for(let i=1; i<=spins; i++){
-    currentGame++;
-    totalGames++;
+    const res = oneGame(false,true);
+    if(res.error) return;
 
-    const hitData = judgeGame(normalRate,godRate,redRate);
-
-    if(hitData){
-      const record = {
-        game: currentGame,
-        type: hitData.type,
-        cls: hitData.cls,
-        textCls: hitData.textCls
-      };
-
-      history.unshift(record);
-      hitsThisTime.push(record);
-
-      currentGame = 0;
-
+    if(res.hit){
+      hitsThisTime.push(res.record);
       if(mode === "stop"){
+        document.getElementById("effectText").innerText = effectText({
+          type:res.record.type,
+          cls:res.record.cls
+        });
         document.getElementById("result").innerHTML =
-          "<span class='" + hitData.textCls + "'>" +
-          record.game + "Gで" + record.type + "！</span>";
+          "<span class='" + res.record.textCls + "'>" +
+          res.record.game + "Gで" + res.record.type + "！</span>";
         updateDisplay();
         return;
       }
@@ -420,25 +702,58 @@ function pullLever(){
   }
 
   if(mode === "full"){
-    if(hitsThisTime.length){
-      document.getElementById("result").innerHTML =
-        spins + "G回しました。<br>" +
-        hitsThisTime.length + "回当選しました。";
-    }else{
-      document.getElementById("result").innerHTML =
-        spins + "G回しました。<br>当選なし。現在ハマり：" + currentGame + "G";
-    }
+    document.getElementById("result").innerHTML =
+      spins + "G回しました。<br>" + hitsThisTime.length + "回当選しました。";
   }else{
     document.getElementById("result").innerHTML =
-      spins + "G回しました。まだ当たりなし。<br>現在ハマり：" + currentGame + "G";
+      spins + "G回しました。まだ当たりなし。<br>現在ハマリ：" + currentGame + "G";
   }
 
   updateDisplay();
 }
 
+function startAuto(){
+  const spins = getSpinCount();
+  if(spins !== 1){
+    document.getElementById("result").innerHTML = "オートは1回抽選の時だけ使えます。";
+    return;
+  }
+
+  stopAuto();
+
+  const speed = document.querySelector('input[name="autoSpeed"]:checked').value;
+
+  if(speed === "off"){
+    document.getElementById("result").innerHTML = "オート速度を選んでください。";
+    return;
+  }
+
+  const ms = Number(speed);
+  const fast = ms === 300;
+
+  autoTimer = setInterval(()=>{
+    oneGame(true,fast);
+  },ms);
+
+  document.getElementById("result").innerHTML = "オート中...";
+}
+
+function stopAuto(){
+  if(autoTimer){
+    clearInterval(autoTimer);
+    autoTimer = null;
+  }
+}
+
+function handleSpinModeChange(){
+  if(getSpinCount() !== 1){
+    stopAuto();
+  }
+}
+
 function rateText(count){
   if(count === 0) return "-";
-  return "1/" + (totalGames / count).toFixed(1);
+  return count + "回（1/" + (totalGames / count).toFixed(1) + "）";
 }
 
 function updateDisplay(){
@@ -448,26 +763,29 @@ function updateDisplay(){
   const max = hits ? Math.max(...history.map(h=>h.game)) + "G" : "-";
   const min = hits ? Math.min(...history.map(h=>h.game)) + "G" : "-";
 
-  const godCount = history.filter(h=>h.type==="GOD揃い").length;
+  const godRecords = history.filter(h=>h.type==="GOD揃い");
+  const godCount = godRecords.length;
   const redCount = history.filter(h=>h.type==="赤7揃い").length;
   const normalCount = history.filter(h=>h.type==="初当たり").length;
+  const ceilingCount = history.filter(h=>h.type==="天井当選").length;
+  const maxGod = godCount ? Math.max(...godRecords.map(h=>h.godGame)) + "G" : "-";
 
   document.getElementById("currentGame").innerText = currentGame + "G";
+  document.getElementById("currentGodGame").innerText = currentGodGame + "G";
   document.getElementById("totalGames").innerText = totalGames + "G";
   document.getElementById("totalHits").innerText = hits + "回";
   document.getElementById("avgHit").innerText = avg;
   document.getElementById("maxGame").innerText = max;
   document.getElementById("minGame").innerText = min;
-  document.getElementById("godCount").innerText = godCount + "回";
-  document.getElementById("redCount").innerText = redCount + "回";
-  document.getElementById("normalCount").innerText = normalCount + "回";
+  document.getElementById("maxGodGame").innerText = maxGod;
 
-  document.getElementById("godActual").innerText = rateText(godCount);
-  document.getElementById("redActual").innerText = rateText(redCount);
-  document.getElementById("normalActual").innerText = rateText(normalCount);
+  document.getElementById("godCount").innerText = rateText(godCount);
+  document.getElementById("redCount").innerText = rateText(redCount);
+  document.getElementById("normalCount").innerText = rateText(normalCount);
+  document.getElementById("ceilingCount").innerText = rateText(ceilingCount);
 
   updateHistory();
-  updateChart();
+  drawChart();
 }
 
 function updateHistory(){
@@ -485,35 +803,80 @@ function updateHistory(){
   ).join("");
 }
 
-function updateChart(){
-  const chart = document.getElementById("chart");
+function drawChart(){
+  const canvas = document.getElementById("hitChart");
+  const ctx = canvas.getContext("2d");
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  ctx.fillStyle = "#151515";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
 
   if(history.length === 0){
-    chart.innerHTML = "履歴が増えるとグラフが表示されます。";
+    ctx.fillStyle = "#bbb";
+    ctx.font = "18px sans-serif";
+    ctx.fillText("履歴が増えるとグラフが表示されます。",30,180);
     return;
   }
 
   const list = history.slice().reverse();
-  const max = Math.max(...list.map(h=>h.game));
+  const maxY = Math.max(...list.map(h=>h.game), getCeiling());
+  const padding = 45;
+  const w = canvas.width - padding*2;
+  const h = canvas.height - padding*2;
 
-  chart.innerHTML = list.map((h,i)=>{
-    const width = Math.max(3, (h.game / max) * 100);
-    return "<div class='bar-row'>" +
-      "<div class='bar-label'>" + (i+1) + "回目</div>" +
-      "<div class='bar-wrap'><div class='bar' style='width:" + width + "%'></div></div>" +
-      "<div class='bar-value'>" + h.game + "G</div>" +
-    "</div>";
-  }).join("");
+  ctx.strokeStyle = "#777";
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(padding,padding);
+  ctx.lineTo(padding,padding+h);
+  ctx.lineTo(padding+w,padding+h);
+  ctx.stroke();
+
+  ctx.fillStyle = "#ccc";
+  ctx.font = "12px sans-serif";
+  ctx.fillText("G数",8,20);
+  ctx.fillText("当選回数",canvas.width-80,canvas.height-12);
+
+  list.forEach((item,i)=>{
+    const x = padding + (list.length === 1 ? w/2 : (i/(list.length-1))*w);
+    const y = padding + h - (item.game/maxY)*h;
+
+    let color = "#d4a017";
+    if(item.type === "GOD揃い") color = "#00e5ff";
+    if(item.type === "赤7揃い") color = "#ff3333";
+    if(item.type === "天井当選") color = "#3399ff";
+
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(x,y,5,0,Math.PI*2);
+    ctx.fill();
+
+    if(i>0){
+      const prev = list[i-1];
+      const px = padding + ((i-1)/(list.length-1))*w;
+      const py = padding + h - (prev.game/maxY)*h;
+      ctx.strokeStyle = "#666";
+      ctx.beginPath();
+      ctx.moveTo(px,py);
+      ctx.lineTo(x,y);
+      ctx.stroke();
+    }
+  });
 }
 
 function resetSim(){
+  stopAuto();
   currentGame = 0;
+  currentGodGame = 0;
   totalGames = 0;
   history = [];
   document.getElementById("result").innerHTML = "レバーを押してください";
+  document.getElementById("effectText").innerText = "静寂...";
+  setReels(["-","-","-"],"miss");
   updateDisplay();
 }
 
+setReels(["-","-","-"],"miss");
 updateDisplay();
 </script>
 
