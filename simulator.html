@@ -20,53 +20,53 @@ body{
   background:#111;
   color:#fff;
   margin:0;
-  padding:18px;
+  padding:14px;
   text-align:center;
 }
 h1{
   color:#f7d36a;
-  font-size:26px;
+  font-size:25px;
   line-height:1.35;
 }
 .lead{
   color:#ddd;
-  line-height:1.8;
+  line-height:1.7;
   max-width:820px;
-  margin:0 auto 22px;
-  font-size:15px;
+  margin:0 auto 16px;
+  font-size:14px;
 }
 .box{
   max-width:850px;
-  margin:22px auto;
+  margin:16px auto;
   background:#1b1b1b;
   border:1px solid #6b4a12;
   border-radius:12px;
-  padding:16px;
-  line-height:1.8;
+  padding:14px;
+  line-height:1.7;
 }
 h2{
   color:#f7d36a;
-  margin-top:0;
+  margin:0 0 12px;
 }
 label{
   display:block;
-  margin:10px 0;
+  margin:7px 0;
 }
 input,select{
-  font-size:18px;
-  padding:10px;
+  font-size:17px;
+  padding:9px;
   border-radius:8px;
   border:0;
   text-align:center;
 }
 input{
-  width:120px;
+  width:112px;
 }
 button{
-  font-size:18px;
-  padding:13px 18px;
+  font-size:17px;
+  padding:12px 16px;
   border-radius:10px;
-  margin:6px;
+  margin:5px;
   color:#fff;
   font-weight:bold;
   background:linear-gradient(135deg,#d4a017,#7a5c10);
@@ -76,11 +76,11 @@ button:active{
   transform:scale(.96);
 }
 .lever{
-  width:150px;
-  height:150px;
+  width:140px;
+  height:140px;
   border-radius:50%;
-  font-size:28px;
-  margin:22px auto;
+  font-size:27px;
+  margin:16px auto;
   display:block;
   background:radial-gradient(circle at 30% 25%,#fff1a8,#d4a017 35%,#5a3700 75%);
   color:#111;
@@ -94,71 +94,89 @@ button:active{
   grid-template-columns:repeat(3,1fr);
   gap:8px;
   max-width:650px;
-  margin:15px auto;
+  margin:10px auto;
 }
 .mode-grid label{
   background:#111;
   border:1px solid #6b4a12;
   border-radius:10px;
-  padding:10px;
+  padding:9px 6px;
+  white-space:nowrap;
+}
+.mode-stop{
+  border-color:#c9a33a!important;
+  background:#211700!important;
+}
+.mode-full{
+  border-color:#3388ff!important;
+  background:#071a33!important;
 }
 .result{
-  font-size:22px;
+  font-size:21px;
   font-weight:bold;
-  margin-top:18px;
-  line-height:1.8;
+  margin-top:12px;
+  line-height:1.7;
 }
 .reel-area{
   display:flex;
   justify-content:center;
-  gap:12px;
-  margin:20px auto;
+  gap:10px;
+  margin:14px auto;
 }
 .reel{
-  width:82px;
-  height:82px;
+  width:78px;
+  height:78px;
   background:#050505;
   border:2px solid #c9a33a;
   border-radius:12px;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:42px;
+  font-size:40px;
   font-weight:bold;
-  color:#ffdf6b;
   box-shadow:inset 0 0 10px rgba(255,215,0,.25);
 }
-.reel.god{
-  color:#fff;
-  background:linear-gradient(135deg,red,orange,yellow,lime,cyan,blue,violet);
-  -webkit-text-stroke:1px #111;
-}
-.reel.red7{
+.sym-red{
   color:#ff3333;
-  border-color:#ff3333;
 }
-.reel.normal-hit{
+.sym-yellow{
   color:#ffdf6b;
 }
-.reel.miss{
-  color:#ddd;
+.sym-v{
+  color:#fff;
+}
+.sym-rainbow{
+  background:linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 .effect-box{
   background:#101010;
   border:1px solid #6b4a12;
   border-radius:12px;
-  padding:14px;
-  margin:18px auto;
+  padding:12px;
+  margin:14px auto;
   max-width:650px;
-  font-size:20px;
+  font-size:19px;
   font-weight:bold;
   color:#ddd;
+}
+.effect-chance{
+  color:#ffb347;
+}
+.effect-hot{
+  color:#ffdf6b;
+}
+.effect-god{
+  background:linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 .history{
   display:flex;
   flex-direction:column;
   gap:8px;
-  margin-top:15px;
+  margin-top:12px;
 }
 .history-item{
   padding:10px;
@@ -203,7 +221,7 @@ button:active{
 .stat-table{
   width:100%;
   border-collapse:collapse;
-  margin-top:12px;
+  margin-top:10px;
 }
 .stat-table th,
 .stat-table td{
@@ -217,10 +235,27 @@ button:active{
 .stat-table td{
   background:#151515;
 }
+.stat-god{
+  color:#fff;
+  background:linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet);
+  font-weight:bold;
+}
+.stat-red{
+  color:#ff5a5a;
+  font-weight:bold;
+}
+.stat-normal{
+  color:#ffdf6b;
+  font-weight:bold;
+}
+.stat-ceiling{
+  color:#66ccff;
+  font-weight:bold;
+}
 .back-btn{
   display:inline-block;
-  margin:14px auto;
-  padding:13px 18px;
+  margin:12px auto;
+  padding:12px 16px;
   border-radius:10px;
   background:linear-gradient(#4a3610,#241700);
   color:#ffdf6b;
@@ -231,15 +266,15 @@ button:active{
 .menu-buttons{
   display:flex;
   flex-direction:column;
-  gap:12px;
+  gap:10px;
   max-width:420px;
-  margin:20px auto;
+  margin:16px auto;
 }
 .menu-btn{
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:16px;
+  padding:15px;
   border-radius:12px;
   background:linear-gradient(135deg,#d4a017,#7a5c10);
   color:#fff;
@@ -252,19 +287,11 @@ button:active{
   color:#bbb;
   line-height:1.7;
 }
-.chart-wrap{
-  margin-top:16px;
-  background:#101010;
-  border:1px solid #555;
-  border-radius:10px;
-  padding:10px;
+.compact-row{
+  margin-top:8px;
 }
-canvas{
-  width:100%;
-  max-width:760px;
-  height:360px;
-  background:#151515;
-  border-radius:8px;
+.hidden{
+  display:none;
 }
 @media(max-width:520px){
   .mode-grid{
@@ -274,8 +301,8 @@ canvas{
     width:100px;
   }
   .reel{
-    width:68px;
-    height:68px;
+    width:66px;
+    height:66px;
     font-size:34px;
   }
 }
@@ -290,7 +317,7 @@ canvas{
 
 <div class="lead">
 初当たり・GOD揃い・赤7揃いを同時抽選できる確率体感シミュレーターです。<br>
-天井、GOD間、履歴、グラフ、簡易演出つきで遊べます。
+天井、GOD間、履歴、簡易演出つきで遊べます。
 </div>
 
 <div class="box">
@@ -336,15 +363,14 @@ canvas{
     <tr><td>最大ハマリ</td><td id="maxGame">-</td></tr>
     <tr><td>最短当選</td><td id="minGame">-</td></tr>
     <tr><td>最大GOD間</td><td id="maxGodGame">-</td></tr>
-    <tr><td>GOD揃い</td><td id="godCount">0回</td></tr>
-    <tr><td>赤7揃い</td><td id="redCount">0回</td></tr>
-    <tr><td>初当たり</td><td id="normalCount">0回</td></tr>
-    <tr><td>天井当選</td><td id="ceilingCount">0回</td></tr>
+    <tr><td>GOD揃い</td><td id="godCount" class="stat-god">0回</td></tr>
+    <tr><td>赤7揃い</td><td id="redCount" class="stat-red">0回</td></tr>
+    <tr><td>初当たり</td><td id="normalCount" class="stat-normal">0回</td></tr>
+    <tr><td>天井当選</td><td id="ceilingCount" class="stat-ceiling">0回</td></tr>
   </table>
 </div>
-
 <div class="box">
-  <h2>抽選回数</h2>
+  <h2>抽選</h2>
 
   <div class="mode-grid">
     <label><input type="radio" name="spinCount" value="1" checked onchange="handleSpinModeChange()"> 1回</label>
@@ -354,28 +380,32 @@ canvas{
     <label><input type="radio" name="spinCount" value="custom" onchange="handleSpinModeChange()"> 任意</label>
   </div>
 
-  <label>
+  <div class="compact-row">
     任意回数：
     <input id="customSpin" type="number" value="10000" min="1" max="10000">
     回
-  </label>
+  </div>
 
   <h2>抽選モード</h2>
+
   <div class="mode-grid">
-    <label><input type="radio" name="simMode" value="stop" checked> 当選で停止</label>
-    <label><input type="radio" name="simMode" value="full"> 最後まで</label>
+    <label class="mode-stop"><input type="radio" name="simMode" value="stop" checked> 当選で停止</label>
+    <label class="mode-full"><input type="radio" name="simMode" value="full"> 最後まで</label>
   </div>
 
-  <h2>オート</h2>
-  <div class="mode-grid">
-    <label><input type="radio" name="autoSpeed" value="off" checked> OFF</label>
-    <label><input type="radio" name="autoSpeed" value="300"> 0.3秒</label>
-    <label><input type="radio" name="autoSpeed" value="500"> 0.5秒</label>
-    <label><input type="radio" name="autoSpeed" value="1000"> 1秒</label>
-  </div>
+  <div id="autoBox">
+    <h2>オート</h2>
 
-  <button onclick="startAuto()">オート開始</button>
-  <button class="stop-btn" onclick="stopAuto()">停止</button>
+    <div class="mode-grid">
+      <label><input type="radio" name="autoSpeed" value="off" checked> OFF</label>
+      <label><input type="radio" name="autoSpeed" value="300"> 0.3秒</label>
+      <label><input type="radio" name="autoSpeed" value="500"> 0.5秒</label>
+      <label><input type="radio" name="autoSpeed" value="1000"> 1秒</label>
+    </div>
+
+    <button onclick="startAuto()">オート開始</button>
+    <button class="stop-btn" onclick="stopAuto()">停止</button>
+  </div>
 
   <div class="effect-box" id="effectText">静寂...</div>
 
@@ -392,7 +422,7 @@ canvas{
   <div class="small">
     ※オートは1回抽選の時だけ使えます。<br>
     ※0.3秒オートは負荷軽減のため3桁同時表示します。<br>
-    ※同じゲームで複数当選した場合は、GOD揃い ＞ 赤7揃い ＞ 初当たり の順で表示します。
+    ※疑似前兆は初当たり・天井当選のみ対象です。GOD揃い・赤7揃いは前兆なしで突然当選します。
   </div>
 </div>
 
@@ -403,18 +433,12 @@ canvas{
 </div>
 
 <div class="box">
-  <h2>当選ゲーム数グラフ</h2>
-  <p class="small">横軸：当選回数　縦軸：当選ゲーム数</p>
-  <div class="chart-wrap">
-    <canvas id="hitChart" width="760" height="360"></canvas>
-  </div>
-</div>
-
-<div class="box">
   <h2>使い方</h2>
   <p class="small">
     「当選で停止」は、選択した回数の途中で当選した時点で終了します。<br>
     「最後まで」は、10000回など指定したゲーム数を最後まで一気に回し、その中で発生した当選履歴をまとめて表示します。<br><br>
+    1回抽選時は、初当たり・天井当選の32G前から疑似前兆が発生することがあります。<br>
+    前兆中は奇数バラケ目や7絡み、強めの出目が出やすくなります。<br><br>
     GOD揃いは虹、赤7揃いは赤、初当たりは金、天井当選は青で表示します。
   </p>
 </div>
@@ -437,11 +461,21 @@ let totalGames = 0;
 let history = [];
 let autoTimer = null;
 
+let nextNormalHit = null;
+
+const reachList = [
+  "007","012","026","032","038","046","04V","075","081","0V0","072","104","110","123","135","168",
+  "175","184","201","223","280","283","2V1","315","324","344","354","365","415","423","428","448",
+  "481","4V8","508","510","514","526","543","564","56V","5V0","5V4","634","664","681","728","753",
+  "758","78V","801","808","821","841","845","850","873","87V","884","V07","V31","V34"
+];
+
 function applySetting(){
   const select = document.getElementById("settingSelect");
   const normalRate = document.getElementById("normalRate");
   if(select.value !== "custom"){
     normalRate.value = select.value;
+    nextNormalHit = null;
   }
 }
 
@@ -475,121 +509,253 @@ function isHit(rate){
   return Math.random() < 1 / rate;
 }
 
-function judgeGame(normalRate,godRate,redRate){
-  const god = isHit(godRate);
-  const red = isHit(redRate);
-  const normal = isHit(normalRate);
+function drawGeometric(rate){
+  let count = 1;
+  while(Math.random() >= 1 / rate){
+    count++;
+    if(count > 1000000) break;
+  }
+  return count;
+}
 
-  if(god) return {type:"GOD揃い", cls:"hit-god", textCls:"rainbow-text", reels:["7","7","7"]};
-  if(red) return {type:"赤7揃い", cls:"hit-red", textCls:"red-text", reels:["S","S","S"]};
-  if(normal){
-    const odds = ["1","3","5"];
-    const n = odds[Math.floor(Math.random()*odds.length)];
-    return {type:"初当たり", cls:"hit-normal", textCls:"gold-text", reels:[n,n,n]};
+function ensureNextNormalHit(){
+  if(nextNormalHit !== null) return;
+
+  const normalRate = Number(document.getElementById("normalRate").value);
+  if(!normalRate || normalRate <= 0){
+    nextNormalHit = 999999;
+    return;
   }
 
+  nextNormalHit = drawGeometric(normalRate);
+}
+
+function remainingToNormalOrCeiling(){
+  ensureNextNormalHit();
+
+  const normalRemain = nextNormalHit;
+  const ceilingRemain = ceilingEnabled() ? Math.max(1, getCeiling() - currentGame) : 999999;
+
+  return Math.min(normalRemain, ceilingRemain);
+}
+
+function judgeGame(){
+  const normalRate = Number(document.getElementById("normalRate").value);
+  const godRate = Number(document.getElementById("godRate").value);
+  const redRate = Number(document.getElementById("redRate").value);
+
+  if(!normalRate || !godRate || !redRate || normalRate <= 0 || godRate <= 0 || redRate <= 0){
+    return {error:true};
+  }
+
+  const god = isHit(godRate);
+  const red = isHit(redRate);
+
+  if(god){
+    nextNormalHit--;
+    return {type:"GOD揃い", cls:"hit-god", textCls:"rainbow-text", reels:["7","7","7"]};
+  }
+
+  if(red){
+    nextNormalHit--;
+    return {type:"赤7揃い", cls:"hit-red", textCls:"red-text", reels:["S","S","S"]};
+  }
+
+  ensureNextNormalHit();
+
   if(ceilingEnabled() && currentGame >= getCeiling()){
-    const odds = ["1","3","5"];
-    const n = odds[Math.floor(Math.random()*odds.length)];
+    nextNormalHit = null;
+    const n = randomFrom(["1","3","5"]);
     return {type:"天井当選", cls:"hit-ceiling", textCls:"blue-text", reels:[n,n,n]};
   }
 
+  if(nextNormalHit <= 1){
+    nextNormalHit = null;
+    const n = randomFrom(["1","3","5"]);
+    return {type:"初当たり", cls:"hit-normal", textCls:"gold-text", reels:[n,n,n]};
+  }
+
+  nextNormalHit--;
   return null;
 }
 
-function makeMissReels(){
-  const symbols = ["0","1","2","3","4","5","6","7","8","V"];
+function randomFrom(arr){
+  return arr[Math.floor(Math.random()*arr.length)];
+}
+
+function isKnownReach(s){
+  return reachList.includes(s);
+}
+
+function makeNormalMissReels(){
+  const symbols = ["0","1","2","3","4","5","6","8","V"];
   let r;
 
   do{
     r = [
-      symbols[Math.floor(Math.random()*symbols.length)],
-      symbols[Math.floor(Math.random()*symbols.length)],
-      symbols[Math.floor(Math.random()*symbols.length)]
+      randomFrom(symbols),
+      randomFrom(symbols),
+      randomFrom(symbols)
     ];
   }while(
-    r[0] === r[1] && r[1] === r[2] ||
+    (r[0] === r[1] && r[1] === r[2]) ||
     isKnownReach(r.join(""))
   );
 
   return r;
 }
 
-function isKnownReach(s){
-  const reachList = [
-    "007","012","026","032","038","046","04V","075","081","0V0","072","104","110","123","135","168",
-    "175","184","201","223","280","283","2V1","315","324","344","354","365","415","423","428","448",
-    "481","4V8","508","510","514","526","543","564","56V","5V0","5V4","634","664","681","728","753",
-    "758","78V","801","808","821","841","845","850","873","87V","884","V07","V31","V34"
+function makePreNoticeReels(remain){
+  const normalLike = [
+    ["1","5","3"],
+    ["3","1","5"],
+    ["1","1","5"],
+    ["1","3","1"],
+    ["3","5","1"],
+    ["5","1","3"]
   ];
-  return reachList.includes(s);
-}
 
-function clearReelClasses(){
-  ["reel1","reel2","reel3"].forEach(id=>{
-    const el = document.getElementById(id);
-    el.className = "reel";
-  });
-}
+  const middleLike = [
+    ["5","7","1"],
+    ["1","7","5"],
+    ["7","1","7"],
+    ["5","7","3"],
+    ["7","3","1"]
+  ];
 
-function setReels(reels,cls){
-  clearReelClasses();
-  reels.forEach((v,i)=>{
-    const el = document.getElementById("reel"+(i+1));
-    el.innerText = v;
-    if(cls === "hit-god") el.classList.add("god");
-    else if(cls === "hit-red") el.classList.add("red7");
-    else if(cls === "hit-normal" || cls === "hit-ceiling") el.classList.add("normal-hit");
-    else el.classList.add("miss");
-  });
-}
+  const strongLike = [
+    ["V","3","V"],
+    ["V","5","V"],
+    ["V","7","V"],
+    ["7","V","7"],
+    ["7","3","7"],
+    ["7","5","7"]
+  ];
 
-function animateReels(reels,cls,fast){
-  if(fast){
-    setReels(reels,cls);
-    return;
+  const missLike = [
+    ["2","4","5"],
+    ["6","2","8"],
+    ["0","4","6"],
+    ["2","8","4"],
+    ["6","4","2"]
+  ];
+
+  const chance = Math.random();
+
+  if(chance > 0.66){
+    return randomFrom(missLike);
   }
 
-  clearReelClasses();
-  document.getElementById("reel1").innerText = "-";
-  document.getElementById("reel2").innerText = "-";
-  document.getElementById("reel3").innerText = "-";
+  if(remain <= 5){
+    return randomFrom(strongLike);
+  }
 
-  setTimeout(()=>{ setSingleReel(1,reels[0],cls); },120);
-  setTimeout(()=>{ setSingleReel(2,reels[1],cls); },240);
-  setTimeout(()=>{ setSingleReel(3,reels[2],cls); },360);
+  if(remain <= 10){
+    return Math.random() < 0.65 ? randomFrom(strongLike) : randomFrom(middleLike);
+  }
+
+  if(remain <= 20){
+    return Math.random() < 0.55 ? randomFrom(middleLike) : randomFrom(normalLike);
+  }
+
+  return randomFrom(normalLike);
 }
 
-function setSingleReel(num,value,cls){
-  const el = document.getElementById("reel"+num);
-  el.innerText = value;
-  el.className = "reel";
-  if(cls === "hit-god") el.classList.add("god");
-  else if(cls === "hit-red") el.classList.add("red7");
-  else if(cls === "hit-normal" || cls === "hit-ceiling") el.classList.add("normal-hit");
-  else el.classList.add("miss");
+function makePreNoticeText(remain){
+  const weak = [
+    "少しざわつく...",
+    "奇数が気になる。",
+    "空気が少し変わった。",
+    "何かが近い気がする。"
+  ];
+
+  const middle = [
+    "前兆かも？",
+    "7が絡み始めた...",
+    "ざわつきが強くなる。",
+    "怪しい気配が濃くなる。"
+  ];
+
+  const strong = [
+    "強い気配...！",
+    "一気に空気が変わった！",
+    "かなり怪しい出目だ！",
+    "当たりが近いかも！？"
+  ];
+
+  if(remain <= 10) return randomFrom(strong);
+  if(remain <= 20) return randomFrom(middle);
+  return randomFrom(weak);
 }
 
-function effectText(hitData){
-  if(!hitData){
-    const misses = [
+function makeMissForDisplay(){
+  const remain = remainingToNormalOrCeiling();
+
+  if(remain <= 32){
+    return {
+      reels: makePreNoticeReels(remain),
+      text: makePreNoticeText(remain),
+      chance: true,
+      hot: remain <= 10
+    };
+  }
+
+  return {
+    reels: makeNormalMissReels(),
+    text: randomFrom([
       "静寂...",
       "何も起きない。",
       "バラケ目停止。",
       "風が通り過ぎた。",
       "小さな違和感だけが残った。"
-    ];
-    return misses[Math.floor(Math.random()*misses.length)];
+    ]),
+    chance: false,
+    hot: false
+  };
+}
+
+function symbolClass(v){
+  if(["0","1","3","5"].includes(v)) return "sym-red";
+  if(["2","4","6","8"].includes(v)) return "sym-yellow";
+  if(v === "7") return "sym-rainbow";
+  return "sym-v";
+}
+
+function setReels(reels){
+  reels.forEach((v,i)=>{
+    const el = document.getElementById("reel"+(i+1));
+    el.innerHTML = "<span class='" + symbolClass(v) + "'>" + v + "</span>";
+  });
+}
+
+function animateReels(reels,fast){
+  if(fast){
+    setReels(reels);
+    return;
   }
 
+  document.getElementById("reel1").innerText = "-";
+  document.getElementById("reel2").innerText = "-";
+  document.getElementById("reel3").innerText = "-";
+
+  setTimeout(()=>{ setOneReel(1,reels[0]); },120);
+  setTimeout(()=>{ setOneReel(2,reels[1]); },240);
+  setTimeout(()=>{ setOneReel(3,reels[2]); },360);
+}
+
+function setOneReel(num,value){
+  document.getElementById("reel"+num).innerHTML =
+    "<span class='" + symbolClass(value) + "'>" + value + "</span>";
+}
+
+function hitEffectText(hitData){
   if(hitData.type === "GOD揃い"){
-    const godEffects = [
+    return randomFrom([
       "ブラックアウト... GOD降臨！",
       "虹の光が走った... GOD揃い！",
-      "神の気配... GOD揃い！",
-      "画面が沈黙した... 7・7・7！"
-    ];
-    return godEffects[Math.floor(Math.random()*godEffects.length)];
+      "神の気配... 7・7・7！",
+      "静寂からの衝撃... GOD揃い！"
+    ]);
   }
 
   if(hitData.type === "赤7揃い"){
@@ -601,6 +767,17 @@ function effectText(hitData){
   }
 
   return "奇数が揃った... GG当選！";
+}
+
+function setEffect(text,type){
+  const box = document.getElementById("effectText");
+  box.className = "effect-box";
+
+  if(type === "chance") box.classList.add("effect-chance");
+  if(type === "hot") box.classList.add("effect-hot");
+  if(type === "god") box.classList.add("effect-god");
+
+  box.innerText = text;
 }
 
 function recordHit(hitData){
@@ -622,28 +799,42 @@ function recordHit(hitData){
   return record;
 }
 
-function oneGame(showEffect,fast){
+function validateRates(){
   const normalRate = Number(document.getElementById("normalRate").value);
   const godRate = Number(document.getElementById("godRate").value);
   const redRate = Number(document.getElementById("redRate").value);
 
-  if(!normalRate || !godRate || !redRate || normalRate <= 0 || godRate <= 0 || redRate <= 0){
+  return normalRate > 0 && godRate > 0 && redRate > 0;
+}
+
+function oneGame(showEffect,fast){
+  if(!validateRates()){
     document.getElementById("result").innerHTML = "確率を正しく入力してください";
     return {error:true};
   }
+
+  ensureNextNormalHit();
+
+  const preDisplay = showEffect ? makeMissForDisplay() : null;
 
   currentGame++;
   currentGodGame++;
   totalGames++;
 
-  const hitData = judgeGame(normalRate,godRate,redRate);
+  const hitData = judgeGame();
+
+  if(hitData && hitData.error){
+    document.getElementById("result").innerHTML = "確率を正しく入力してください";
+    return {error:true};
+  }
 
   if(hitData){
     const record = recordHit(hitData);
 
     if(showEffect){
-      document.getElementById("effectText").innerText = effectText(hitData);
-      animateReels(hitData.reels, hitData.cls, fast);
+      const effect = hitEffectText(hitData);
+      setEffect(effect, hitData.type === "GOD揃い" ? "god" : "hot");
+      animateReels(hitData.reels, fast);
       document.getElementById("result").innerHTML =
         "<span class='" + hitData.textCls + "'>" +
         record.game + "Gで" + record.type + "！</span>";
@@ -654,9 +845,8 @@ function oneGame(showEffect,fast){
   }
 
   if(showEffect){
-    const missReels = makeMissReels();
-    document.getElementById("effectText").innerText = effectText(null);
-    animateReels(missReels, "miss", fast);
+    setEffect(preDisplay.text, preDisplay.hot ? "hot" : preDisplay.chance ? "chance" : "");
+    animateReels(preDisplay.reels, fast);
     document.getElementById("result").innerHTML =
       "ハズレ。現在ハマリ：" + currentGame + "G<br>現在GOD間：" + currentGodGame + "G";
   }
@@ -688,10 +878,6 @@ function runSpin(autoFast){
     if(res.hit){
       hitsThisTime.push(res.record);
       if(mode === "stop"){
-        document.getElementById("effectText").innerText = effectText({
-          type:res.record.type,
-          cls:res.record.cls
-        });
         document.getElementById("result").innerHTML =
           "<span class='" + res.record.textCls + "'>" +
           res.record.game + "Gで" + res.record.type + "！</span>";
@@ -746,13 +932,18 @@ function stopAuto(){
 }
 
 function handleSpinModeChange(){
-  if(getSpinCount() !== 1){
+  const autoBox = document.getElementById("autoBox");
+
+  if(getSpinCount() === 1){
+    autoBox.classList.remove("hidden");
+  }else{
     stopAuto();
+    autoBox.classList.add("hidden");
   }
 }
 
 function rateText(count){
-  if(count === 0) return "-";
+  if(count === 0) return "0回";
   return count + "回（1/" + (totalGames / count).toFixed(1) + "）";
 }
 
@@ -785,7 +976,6 @@ function updateDisplay(){
   document.getElementById("ceilingCount").innerText = rateText(ceilingCount);
 
   updateHistory();
-  drawChart();
 }
 
 function updateHistory(){
@@ -803,80 +993,21 @@ function updateHistory(){
   ).join("");
 }
 
-function drawChart(){
-  const canvas = document.getElementById("hitChart");
-  const ctx = canvas.getContext("2d");
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-
-  ctx.fillStyle = "#151515";
-  ctx.fillRect(0,0,canvas.width,canvas.height);
-
-  if(history.length === 0){
-    ctx.fillStyle = "#bbb";
-    ctx.font = "18px sans-serif";
-    ctx.fillText("履歴が増えるとグラフが表示されます。",30,180);
-    return;
-  }
-
-  const list = history.slice().reverse();
-  const maxY = Math.max(...list.map(h=>h.game), getCeiling());
-  const padding = 45;
-  const w = canvas.width - padding*2;
-  const h = canvas.height - padding*2;
-
-  ctx.strokeStyle = "#777";
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(padding,padding);
-  ctx.lineTo(padding,padding+h);
-  ctx.lineTo(padding+w,padding+h);
-  ctx.stroke();
-
-  ctx.fillStyle = "#ccc";
-  ctx.font = "12px sans-serif";
-  ctx.fillText("G数",8,20);
-  ctx.fillText("当選回数",canvas.width-80,canvas.height-12);
-
-  list.forEach((item,i)=>{
-    const x = padding + (list.length === 1 ? w/2 : (i/(list.length-1))*w);
-    const y = padding + h - (item.game/maxY)*h;
-
-    let color = "#d4a017";
-    if(item.type === "GOD揃い") color = "#00e5ff";
-    if(item.type === "赤7揃い") color = "#ff3333";
-    if(item.type === "天井当選") color = "#3399ff";
-
-    ctx.fillStyle = color;
-    ctx.beginPath();
-    ctx.arc(x,y,5,0,Math.PI*2);
-    ctx.fill();
-
-    if(i>0){
-      const prev = list[i-1];
-      const px = padding + ((i-1)/(list.length-1))*w;
-      const py = padding + h - (prev.game/maxY)*h;
-      ctx.strokeStyle = "#666";
-      ctx.beginPath();
-      ctx.moveTo(px,py);
-      ctx.lineTo(x,y);
-      ctx.stroke();
-    }
-  });
-}
-
 function resetSim(){
   stopAuto();
   currentGame = 0;
   currentGodGame = 0;
   totalGames = 0;
   history = [];
+  nextNormalHit = null;
   document.getElementById("result").innerHTML = "レバーを押してください";
-  document.getElementById("effectText").innerText = "静寂...";
-  setReels(["-","-","-"],"miss");
+  setEffect("静寂...","");
+  setReels(["-","-","-"]);
   updateDisplay();
 }
 
-setReels(["-","-","-"],"miss");
+setReels(["-","-","-"]);
+handleSpinModeChange();
 updateDisplay();
 </script>
 
