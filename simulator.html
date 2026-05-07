@@ -342,7 +342,7 @@ button:active{
     </select>
   </label>
 
-  <label>初当たり確率：1/<input id="normalRate" type="number" step="0.1" value="532.8"></label>
+  <label id="normalRateBox">初当たり確率：1/<input id="normalRate" type="number" step="0.1" value="532.8"></label>
   <label>GOD揃い確率：1/<input id="godRate" type="number" step="1" value="16384"></label>
   <label>赤7揃い確率：1/<input id="redRate" type="number" step="1" value="6900"></label>
 
@@ -507,12 +507,15 @@ const reachList = [
 function applySetting(){
   const select = document.getElementById("settingSelect");
   const normalRate = document.getElementById("normalRate");
+  const normalRateBox = document.getElementById("normalRateBox");
 
   if(select.value !== "custom"){
     normalRate.value = select.value;
     normalRate.disabled = true;
+    normalRateBox.classList.add("hidden");
   }else{
     normalRate.disabled = false;
+    normalRateBox.classList.remove("hidden");
   }
 
   nextNormalHit = null;
@@ -890,15 +893,79 @@ function hitEffectText(hitData){
     "神殿が応えた... GG当選！"
   ]);
 }
+function makeHitDetail(hitData){
+  if(hitData.type === "GOD揃い"){
+    const godRate = Number(document.getElementById("godRate").value) || 16384;
 
+    const premiumChance = godRate / 65536;
+    const ultraPremiumChance = godRate / 100000;
+
+    const r = Math.random();
+
+    if(r < ultraPremiumChance){
+      return randomFrom([
+        "激レアプレミア：神の祝福",
+        "激レアプレミア：天空フリーズ",
+        "激レアプレミア：全回転風停止"
+      ]);
+    }
+
+    if(r < ultraPremiumChance + premiumChance){
+      return randomFrom([
+        "プレミア：神殿虹発光",
+        "プレミア：金扉出現",
+        "プレミア：無音からGOD揃い",
+        "プレミア：祝福の鐘",
+        "プレミア：神の一撃",
+        "プレミア：虹の風",
+        "プレミア：天空のざわめき"
+      ]);
+    }
+
+    return randomFrom([
+      "ブラックアウトからGOD揃い",
+      "虹の光が走ってGOD揃い",
+      "静寂から突然のGOD揃い",
+      "通常停止からGOD揃い"
+    ]);
+  }
+
+  if(hitData.type === "赤7揃い"){
+    return randomFrom([
+      "赤い閃光から赤7揃い",
+      "静寂から赤7揃い",
+      "違和感停止から赤7揃い",
+      "通常停止から突然の赤7揃い"
+    ]);
+  }
+
+  if(hitData.type === "天井当選"){
+    return randomFrom([
+      "天井到達から当選",
+      "長いハマリの末に救済発動",
+      "天井ゲーム数到達で当選"
+    ]);
+  }
+
+  return randomFrom([
+    "奇数テンパイから当選",
+    "奇数ハサミから当選",
+    "Vハサミ後に当選",
+    "強前兆から当選",
+    "ざわつき継続から当選",
+    "リーチ目停止から当選",
+    "通常停止から突然当選"
+  ]);
+}
 function recordHit(hitData){
-  const record = {
-    game:currentGame,
-    godGame:currentGodGame,
-    type:hitData.type,
-    cls:hitData.cls,
-    textCls:hitData.textCls
-  };
+ const record = {
+  game:currentGame,
+  godGame:currentGodGame,
+  type:hitData.type,
+  cls:hitData.cls,
+  textCls:hitData.textCls,
+  detail: makeHitDetail(hitData)
+};
 
   history.unshift(record);
 
