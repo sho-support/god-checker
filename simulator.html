@@ -360,6 +360,7 @@ button:active{
 
 <div class="box">
   <h2>シミュレーション結果</h2>
+  <button class="stop-btn" onclick="resetSim()">シミュレーションリセット</button>
 
   <table class="stat-table">
     <tr><th>項目</th><th>数値</th></tr>
@@ -623,8 +624,15 @@ function judgeDeme(reels){
     return "奇数ケツテンパイ";
   }
 
-  if(odd.includes(a) && odd.includes(c)){
+  // 左右が同じ奇数の時だけ「奇数ハサミ」
+  if(odd.includes(a) && a === c){
     return "奇数ハサミ";
+  }
+
+  // 奇数が2つ以上あるが、テンパイでもハサミでもない場合
+  const oddCount = [a,b,c].filter(x => odd.includes(x)).length;
+  if(oddCount >= 2){
+    return "奇数バラケ目";
   }
 
   if(["123","234","345","456","567","678"].includes(s)){
@@ -719,59 +727,6 @@ function makePreNoticeDisplay(){
     text:makeTextFromDeme(reels,"normal"),
     type:""
   };
-}
-
-function randomWeakText(){
-  return randomFrom([
-    "少しざわつく...",
-    "奇数が気になる。",
-    "空気が少し変わった。",
-    "何かが近い気がする。",
-    "弱い前兆かも？",
-    "いつもより少しだけ怪しい。"
-  ]);
-}
-
-function randomMiddleText(){
-  return randomFrom([
-    "前兆かも？",
-    "7が絡み始めた...",
-    "ざわつきが強くなる。",
-    "怪しい気配が濃くなる。",
-    "奇数と7の気配が増えてきた。",
-    "少し期待したくなる出目だ。"
-  ]);
-}
-
-function randomHotText(){
-  return randomFrom([
-    "強い気配...！",
-    "一気に空気が変わった！",
-    "かなり怪しい出目だ！",
-    "当たりが近いかも！？",
-    "7絡みが強い！",
-    "神殿の空気が濃くなる..."
-  ]);
-}
-
-function randomFalseWeakText(){
-  return randomFrom([
-    "ざわ...でもまだ分からない。",
-    "弱い前兆っぽい。",
-    "奇数バラケ目。少し気になる。",
-    "一瞬だけ空気が変わった。",
-    "ガセか本物か..."
-  ]);
-}
-
-function randomFalseStrongText(){
-  return randomFrom([
-    "強そうな出目...でも油断禁物。",
-    "7絡み！かなり怪しい。",
-    "強い前兆っぽい出目。",
-    "期待したくなる停止形。",
-    "これは追いたくなる..."
-  ]);
 }
 
 function symbolClass(v){
