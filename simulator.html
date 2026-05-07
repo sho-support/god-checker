@@ -79,12 +79,17 @@ button:active{
   width:140px;
   height:140px;
   border-radius:50%;
-  font-size:27px;
+  font-size:26px;
   margin:16px auto;
   display:block;
   background:radial-gradient(circle at 30% 25%,#fff1a8,#d4a017 35%,#5a3700 75%);
   color:#111;
   box-shadow:0 0 22px rgba(255,210,80,.55);
+}
+.lever.auto{
+  font-size:22px;
+  background:radial-gradient(circle at 30% 25%,#ffe0e0,#c70000 40%,#4a0000 80%);
+  color:#fff;
 }
 .stop-btn{
   background:linear-gradient(135deg,#7a0000,#c70000);
@@ -101,7 +106,13 @@ button:active{
   border:1px solid #6b4a12;
   border-radius:10px;
   padding:9px 6px;
-  white-space:nowrap;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  min-height:58px;
+  line-height:1.25;
 }
 .mode-stop{
   border-color:#c9a33a!important;
@@ -145,7 +156,13 @@ button:active{
 .sym-v{
   color:#fff;
 }
-.sym-rainbow{
+.sym-s{
+  color:#ff3333;
+}
+.sym-rainbow,
+.rainbow-text,
+.rainbow-inline{
+  font-weight:bold;
   background:linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
@@ -200,12 +217,6 @@ button:active{
   background:linear-gradient(135deg,#003366,#0077cc);
   color:#fff;
 }
-.rainbow-text{
-  font-weight:bold;
-  background:linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
 .red-text{
   color:#ff5a5a;
   font-weight:bold;
@@ -234,11 +245,6 @@ button:active{
 }
 .stat-table td{
   background:#151515;
-}
-.stat-god{
-  color:#fff;
-  background:linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet);
-  font-weight:bold;
 }
 .stat-red{
   color:#ff5a5a;
@@ -291,7 +297,7 @@ button:active{
   margin-top:8px;
 }
 .hidden{
-  display:none;
+  display:none!important;
 }
 @media(max-width:520px){
   .mode-grid{
@@ -317,7 +323,7 @@ button:active{
 
 <div class="lead">
 初当たり・GOD揃い・赤7揃いを同時抽選できる確率体感シミュレーターです。<br>
-天井、GOD間、履歴、簡易演出つきで遊べます。
+天井、GOD間、履歴、疑似前兆、簡易演出つきで遊べます。
 </div>
 
 <div class="box">
@@ -343,11 +349,13 @@ button:active{
   <h2>天井設定</h2>
 
   <div class="mode-grid">
-    <label><input type="radio" name="ceilingMode" value="on" checked> 天井ON</label>
-    <label><input type="radio" name="ceilingMode" value="off"> 天井OFF</label>
+    <label><input type="radio" name="ceilingMode" value="on" checked onchange="updateCeilingVisibility()"> 天井ON</label>
+    <label><input type="radio" name="ceilingMode" value="off" onchange="updateCeilingVisibility()"> 天井OFF</label>
   </div>
 
-  <label>天井ゲーム数：<input id="ceilingGame" type="number" value="1500" min="1" max="100000"> G</label>
+  <div id="ceilingInputBox">
+    <label>天井ゲーム数：<input id="ceilingGame" type="number" value="1500" min="1" max="100000"> G</label>
+  </div>
 </div>
 
 <div class="box">
@@ -363,12 +371,13 @@ button:active{
     <tr><td>最大ハマリ</td><td id="maxGame">-</td></tr>
     <tr><td>最短当選</td><td id="minGame">-</td></tr>
     <tr><td>最大GOD間</td><td id="maxGodGame">-</td></tr>
-    <tr><td>GOD揃い</td><td id="godCount" class="stat-god">0回</td></tr>
+    <tr><td>GOD揃い</td><td id="godCount">0回</td></tr>
     <tr><td>赤7揃い</td><td id="redCount" class="stat-red">0回</td></tr>
     <tr><td>初当たり</td><td id="normalCount" class="stat-normal">0回</td></tr>
     <tr><td>天井当選</td><td id="ceilingCount" class="stat-ceiling">0回</td></tr>
   </table>
 </div>
+
 <div class="box">
   <h2>抽選</h2>
 
@@ -397,10 +406,10 @@ button:active{
     <h2>オート</h2>
 
     <div class="mode-grid">
-      <label><input type="radio" name="autoSpeed" value="off" checked> OFF</label>
-      <label><input type="radio" name="autoSpeed" value="300"> 0.3秒</label>
-      <label><input type="radio" name="autoSpeed" value="500"> 0.5秒</label>
-      <label><input type="radio" name="autoSpeed" value="1000"> 1秒</label>
+      <label><input type="radio" name="autoSpeed" value="off" checked onchange="changeAutoSpeed()"> OFF</label>
+      <label><input type="radio" name="autoSpeed" value="300" onchange="changeAutoSpeed()"> 超高速</label>
+      <label><input type="radio" name="autoSpeed" value="500" onchange="changeAutoSpeed()"> 高速</label>
+      <label><input type="radio" name="autoSpeed" value="1000" onchange="changeAutoSpeed()"> 通常</label>
     </div>
 
     <button onclick="startAuto()">オート開始</button>
@@ -415,13 +424,13 @@ button:active{
     <div id="reel3" class="reel">-</div>
   </div>
 
-  <button class="lever" onclick="manualLever()">レバー</button>
+  <button id="leverButton" class="lever" onclick="leverAction()">レバー</button>
 
   <div id="result" class="result">レバーを押してください</div>
 
   <div class="small">
     ※オートは1回抽選の時だけ使えます。<br>
-    ※0.3秒オートは負荷軽減のため3桁同時表示します。<br>
+    ※超高速オートは負荷軽減のため3桁同時表示します。<br>
     ※疑似前兆は初当たり・天井当選のみ対象です。GOD揃い・赤7揃いは前兆なしで突然当選します。
   </div>
 </div>
@@ -437,8 +446,8 @@ button:active{
   <p class="small">
     「当選で停止」は、選択した回数の途中で当選した時点で終了します。<br>
     「最後まで」は、10000回など指定したゲーム数を最後まで一気に回し、その中で発生した当選履歴をまとめて表示します。<br><br>
-    1回抽選時は、初当たり・天井当選の32G前から疑似前兆が発生することがあります。<br>
-    前兆中は奇数バラケ目や7絡み、強めの出目が出やすくなります。<br><br>
+    1回抽選時は、初当たり・天井当選の32G前から本前兆が発生します。<br>
+    さらにハズレ中にも、弱めのガセ前兆・強めのガセ前兆が発生することがあります。<br><br>
     GOD揃いは虹、赤7揃いは赤、初当たりは金、天井当選は青で表示します。
   </p>
 </div>
@@ -460,7 +469,6 @@ let currentGodGame = 0;
 let totalGames = 0;
 let history = [];
 let autoTimer = null;
-
 let nextNormalHit = null;
 
 const reachList = [
@@ -477,6 +485,11 @@ function applySetting(){
     normalRate.value = select.value;
     nextNormalHit = null;
   }
+}
+
+function updateCeilingVisibility(){
+  const box = document.getElementById("ceilingInputBox");
+  box.classList.toggle("hidden", !ceilingEnabled());
 }
 
 function getSpinCount(){
@@ -532,51 +545,9 @@ function ensureNextNormalHit(){
 
 function remainingToNormalOrCeiling(){
   ensureNextNormalHit();
-
   const normalRemain = nextNormalHit;
   const ceilingRemain = ceilingEnabled() ? Math.max(1, getCeiling() - currentGame) : 999999;
-
   return Math.min(normalRemain, ceilingRemain);
-}
-
-function judgeGame(){
-  const normalRate = Number(document.getElementById("normalRate").value);
-  const godRate = Number(document.getElementById("godRate").value);
-  const redRate = Number(document.getElementById("redRate").value);
-
-  if(!normalRate || !godRate || !redRate || normalRate <= 0 || godRate <= 0 || redRate <= 0){
-    return {error:true};
-  }
-
-  const god = isHit(godRate);
-  const red = isHit(redRate);
-
-  if(god){
-    nextNormalHit--;
-    return {type:"GOD揃い", cls:"hit-god", textCls:"rainbow-text", reels:["7","7","7"]};
-  }
-
-  if(red){
-    nextNormalHit--;
-    return {type:"赤7揃い", cls:"hit-red", textCls:"red-text", reels:["S","S","S"]};
-  }
-
-  ensureNextNormalHit();
-
-  if(ceilingEnabled() && currentGame >= getCeiling()){
-    nextNormalHit = null;
-    const n = randomFrom(["1","3","5"]);
-    return {type:"天井当選", cls:"hit-ceiling", textCls:"blue-text", reels:[n,n,n]};
-  }
-
-  if(nextNormalHit <= 1){
-    nextNormalHit = null;
-    const n = randomFrom(["1","3","5"]);
-    return {type:"初当たり", cls:"hit-normal", textCls:"gold-text", reels:[n,n,n]};
-  }
-
-  nextNormalHit--;
-  return null;
 }
 
 function randomFrom(arr){
@@ -592,11 +563,7 @@ function makeNormalMissReels(){
   let r;
 
   do{
-    r = [
-      randomFrom(symbols),
-      randomFrom(symbols),
-      randomFrom(symbols)
-    ];
+    r = [randomFrom(symbols), randomFrom(symbols), randomFrom(symbols)];
   }while(
     (r[0] === r[1] && r[1] === r[2]) ||
     isKnownReach(r.join(""))
@@ -605,119 +572,125 @@ function makeNormalMissReels(){
   return r;
 }
 
-function makePreNoticeReels(remain){
-  const normalLike = [
-    ["1","5","3"],
-    ["3","1","5"],
-    ["1","1","5"],
-    ["1","3","1"],
-    ["3","5","1"],
-    ["5","1","3"]
-  ];
-
-  const middleLike = [
-    ["5","7","1"],
-    ["1","7","5"],
-    ["7","1","7"],
-    ["5","7","3"],
-    ["7","3","1"]
-  ];
-
-  const strongLike = [
-    ["V","3","V"],
-    ["V","5","V"],
-    ["V","7","V"],
-    ["7","V","7"],
-    ["7","3","7"],
-    ["7","5","7"]
-  ];
-
-  const missLike = [
-    ["2","4","5"],
-    ["6","2","8"],
-    ["0","4","6"],
-    ["2","8","4"],
-    ["6","4","2"]
-  ];
-
-  const chance = Math.random();
-
-  if(chance > 0.66){
-    return randomFrom(missLike);
-  }
-
-  if(remain <= 5){
-    return randomFrom(strongLike);
-  }
-
-  if(remain <= 10){
-    return Math.random() < 0.65 ? randomFrom(strongLike) : randomFrom(middleLike);
-  }
-
-  if(remain <= 20){
-    return Math.random() < 0.55 ? randomFrom(middleLike) : randomFrom(normalLike);
-  }
-
-  return randomFrom(normalLike);
-}
-
-function makePreNoticeText(remain){
+function makeChanceReels(strength){
   const weak = [
-    "少しざわつく...",
-    "奇数が気になる。",
-    "空気が少し変わった。",
-    "何かが近い気がする。"
+    ["1","5","3"],["3","1","5"],["1","1","5"],["1","3","1"],
+    ["3","5","1"],["5","1","3"],["1","5","1"],["3","1","3"]
   ];
 
   const middle = [
-    "前兆かも？",
-    "7が絡み始めた...",
-    "ざわつきが強くなる。",
-    "怪しい気配が濃くなる。"
+    ["5","7","1"],["1","7","5"],["7","1","7"],
+    ["5","7","3"],["7","3","1"],["7","5","1"],["1","7","3"]
   ];
 
   const strong = [
-    "強い気配...！",
-    "一気に空気が変わった！",
-    "かなり怪しい出目だ！",
-    "当たりが近いかも！？"
+    ["V","3","V"],["V","5","V"],["V","7","V"],
+    ["7","V","7"],["7","3","7"],["7","5","7"],
+    ["7","0","7"],["7","1","7"]
   ];
 
-  if(remain <= 10) return randomFrom(strong);
-  if(remain <= 20) return randomFrom(middle);
+  if(strength === "strong") return randomFrom(strong);
+  if(strength === "middle") return Math.random() < 0.55 ? randomFrom(middle) : randomFrom(weak);
   return randomFrom(weak);
 }
 
-function makeMissForDisplay(){
+function makePreNoticeDisplay(){
   const remain = remainingToNormalOrCeiling();
 
   if(remain <= 32){
-    return {
-      reels: makePreNoticeReels(remain),
-      text: makePreNoticeText(remain),
-      chance: true,
-      hot: remain <= 10
-    };
+    if(remain <= 7){
+      return {reels:makeChanceReels("strong"), text:randomHotText(), type:"hot"};
+    }
+    if(remain <= 16){
+      return {reels:makeChanceReels("middle"), text:randomMiddleText(), type:"chance"};
+    }
+    return {reels:makeChanceReels("weak"), text:randomWeakText(), type:"chance"};
+  }
+
+  const roll = Math.random();
+
+  if(roll < 0.03){
+    return {reels:makeChanceReels("strong"), text:randomFalseStrongText(), type:"hot"};
+  }
+
+  if(roll < 0.13){
+    return {reels:makeChanceReels("weak"), text:randomFalseWeakText(), type:"chance"};
   }
 
   return {
-    reels: makeNormalMissReels(),
-    text: randomFrom([
+    reels:makeNormalMissReels(),
+    text:randomFrom([
       "静寂...",
       "何も起きない。",
       "バラケ目停止。",
       "風が通り過ぎた。",
-      "小さな違和感だけが残った。"
+      "小さな違和感だけが残った。",
+      "通常の空気が流れる。",
+      "淡々とゲームが進む。",
+      "まだ神の気配は遠い。"
     ]),
-    chance: false,
-    hot: false
+    type:""
   };
+}
+
+function randomWeakText(){
+  return randomFrom([
+    "少しざわつく...",
+    "奇数が気になる。",
+    "空気が少し変わった。",
+    "何かが近い気がする。",
+    "弱い前兆かも？",
+    "いつもより少しだけ怪しい。"
+  ]);
+}
+
+function randomMiddleText(){
+  return randomFrom([
+    "前兆かも？",
+    "7が絡み始めた...",
+    "ざわつきが強くなる。",
+    "怪しい気配が濃くなる。",
+    "奇数と7の気配が増えてきた。",
+    "少し期待したくなる出目だ。"
+  ]);
+}
+
+function randomHotText(){
+  return randomFrom([
+    "強い気配...！",
+    "一気に空気が変わった！",
+    "かなり怪しい出目だ！",
+    "当たりが近いかも！？",
+    "7絡みが強い！",
+    "神殿の空気が濃くなる..."
+  ]);
+}
+
+function randomFalseWeakText(){
+  return randomFrom([
+    "ざわ...でもまだ分からない。",
+    "弱い前兆っぽい。",
+    "奇数バラケ目。少し気になる。",
+    "一瞬だけ空気が変わった。",
+    "ガセか本物か..."
+  ]);
+}
+
+function randomFalseStrongText(){
+  return randomFrom([
+    "強そうな出目...でも油断禁物。",
+    "7絡み！かなり怪しい。",
+    "強い前兆っぽい出目。",
+    "期待したくなる停止形。",
+    "これは追いたくなる..."
+  ]);
 }
 
 function symbolClass(v){
   if(["0","1","3","5"].includes(v)) return "sym-red";
   if(["2","4","6","8"].includes(v)) return "sym-yellow";
   if(v === "7") return "sym-rainbow";
+  if(v === "S") return "sym-s";
   return "sym-v";
 }
 
@@ -748,45 +721,98 @@ function setOneReel(num,value){
     "<span class='" + symbolClass(value) + "'>" + value + "</span>";
 }
 
+function setEffect(text,type){
+  const box = document.getElementById("effectText");
+  box.className = "effect-box";
+  if(type === "chance") box.classList.add("effect-chance");
+  if(type === "hot") box.classList.add("effect-hot");
+  if(type === "god") box.classList.add("effect-god");
+  box.innerText = text;
+}
+
+function validateRates(){
+  const normalRate = Number(document.getElementById("normalRate").value);
+  const godRate = Number(document.getElementById("godRate").value);
+  const redRate = Number(document.getElementById("redRate").value);
+  return normalRate > 0 && godRate > 0 && redRate > 0;
+}
+
+function judgeGame(){
+  const godRate = Number(document.getElementById("godRate").value);
+  const redRate = Number(document.getElementById("redRate").value);
+
+  if(!validateRates()) return {error:true};
+
+  const god = isHit(godRate);
+  const red = isHit(redRate);
+
+  if(god){
+    nextNormalHit--;
+    return {type:"GOD揃い", cls:"hit-god", textCls:"rainbow-text", reels:["7","7","7"]};
+  }
+
+  if(red){
+    nextNormalHit--;
+    return {type:"赤7揃い", cls:"hit-red", textCls:"red-text", reels:["S","S","S"]};
+  }
+
+  ensureNextNormalHit();
+
+  if(nextNormalHit <= 1){
+    nextNormalHit = null;
+    const n = randomFrom(["1","3","5"]);
+    return {type:"初当たり", cls:"hit-normal", textCls:"gold-text", reels:[n,n,n]};
+  }
+
+  if(ceilingEnabled() && currentGame >= getCeiling()){
+    nextNormalHit = null;
+    const n = randomFrom(["1","3","5"]);
+    return {type:"天井当選", cls:"hit-ceiling", textCls:"blue-text", reels:[n,n,n]};
+  }
+
+  nextNormalHit--;
+  return null;
+}
+
 function hitEffectText(hitData){
   if(hitData.type === "GOD揃い"){
     return randomFrom([
       "ブラックアウト... GOD降臨！",
       "虹の光が走った... GOD揃い！",
       "神の気配... 7・7・7！",
-      "静寂からの衝撃... GOD揃い！"
+      "静寂からの衝撃... GOD揃い！",
+      "突然、神が降りた。"
     ]);
   }
 
   if(hitData.type === "赤7揃い"){
-    return "赤い光が走った... S・S・S！";
+    return randomFrom([
+      "赤い光が走った... S・S・S！",
+      "赤7の気配... S揃い！",
+      "赤く染まる停止形！",
+      "突然の赤7揃い！"
+    ]);
   }
 
   if(hitData.type === "天井当選"){
     return "天井到達。救済発動！";
   }
 
-  return "奇数が揃った... GG当選！";
-}
-
-function setEffect(text,type){
-  const box = document.getElementById("effectText");
-  box.className = "effect-box";
-
-  if(type === "chance") box.classList.add("effect-chance");
-  if(type === "hot") box.classList.add("effect-hot");
-  if(type === "god") box.classList.add("effect-god");
-
-  box.innerText = text;
+  return randomFrom([
+    "奇数が揃った... GG当選！",
+    "ついに奇数揃い！",
+    "前兆を抜けてGG当選！",
+    "神殿が応えた... GG当選！"
+  ]);
 }
 
 function recordHit(hitData){
   const record = {
-    game: currentGame,
-    godGame: currentGodGame,
-    type: hitData.type,
-    cls: hitData.cls,
-    textCls: hitData.textCls
+    game:currentGame,
+    godGame:currentGodGame,
+    type:hitData.type,
+    cls:hitData.cls,
+    textCls:hitData.textCls
   };
 
   history.unshift(record);
@@ -799,14 +825,6 @@ function recordHit(hitData){
   return record;
 }
 
-function validateRates(){
-  const normalRate = Number(document.getElementById("normalRate").value);
-  const godRate = Number(document.getElementById("godRate").value);
-  const redRate = Number(document.getElementById("redRate").value);
-
-  return normalRate > 0 && godRate > 0 && redRate > 0;
-}
-
 function oneGame(showEffect,fast){
   if(!validateRates()){
     document.getElementById("result").innerHTML = "確率を正しく入力してください";
@@ -815,7 +833,7 @@ function oneGame(showEffect,fast){
 
   ensureNextNormalHit();
 
-  const preDisplay = showEffect ? makeMissForDisplay() : null;
+  const preDisplay = showEffect ? makePreNoticeDisplay() : null;
 
   currentGame++;
   currentGodGame++;
@@ -832,12 +850,11 @@ function oneGame(showEffect,fast){
     const record = recordHit(hitData);
 
     if(showEffect){
-      const effect = hitEffectText(hitData);
-      setEffect(effect, hitData.type === "GOD揃い" ? "god" : "hot");
+      setEffect(hitEffectText(hitData), hitData.type === "GOD揃い" ? "god" : "hot");
       animateReels(hitData.reels, fast);
       document.getElementById("result").innerHTML =
         "<span class='" + hitData.textCls + "'>" +
-        record.game + "Gで" + record.type + "！</span>";
+        record.game + "Gで" + hitData.type + "！</span>";
     }
 
     updateDisplay();
@@ -845,7 +862,7 @@ function oneGame(showEffect,fast){
   }
 
   if(showEffect){
-    setEffect(preDisplay.text, preDisplay.hot ? "hot" : preDisplay.chance ? "chance" : "");
+    setEffect(preDisplay.text, preDisplay.type);
     animateReels(preDisplay.reels, fast);
     document.getElementById("result").innerHTML =
       "ハズレ。現在ハマリ：" + currentGame + "G<br>現在GOD間：" + currentGodGame + "G";
@@ -853,6 +870,14 @@ function oneGame(showEffect,fast){
 
   updateDisplay();
   return {hit:false};
+}
+
+function leverAction(){
+  if(autoTimer){
+    stopAuto();
+    return;
+  }
+  manualLever();
 }
 
 function manualLever(){
@@ -898,21 +923,26 @@ function runSpin(autoFast){
   updateDisplay();
 }
 
+function selectedAutoSpeed(){
+  return document.querySelector('input[name="autoSpeed"]:checked').value;
+}
+
 function startAuto(){
   const spins = getSpinCount();
+
   if(spins !== 1){
     document.getElementById("result").innerHTML = "オートは1回抽選の時だけ使えます。";
     return;
   }
 
-  stopAuto();
-
-  const speed = document.querySelector('input[name="autoSpeed"]:checked').value;
+  const speed = selectedAutoSpeed();
 
   if(speed === "off"){
     document.getElementById("result").innerHTML = "オート速度を選んでください。";
     return;
   }
+
+  stopAuto(false);
 
   const ms = Number(speed);
   const fast = ms === 300;
@@ -921,13 +951,29 @@ function startAuto(){
     oneGame(true,fast);
   },ms);
 
-  document.getElementById("result").innerHTML = "オート中...";
+  document.getElementById("leverButton").innerText = "停止";
+  document.getElementById("leverButton").classList.add("auto");
+  document.getElementById("result").innerHTML = "オート中... レバーで停止できます。";
 }
 
-function stopAuto(){
+function stopAuto(updateText=true){
   if(autoTimer){
     clearInterval(autoTimer);
     autoTimer = null;
+  }
+
+  const lever = document.getElementById("leverButton");
+  lever.innerText = "レバー";
+  lever.classList.remove("auto");
+
+  if(updateText){
+    document.getElementById("result").innerHTML = "オート停止";
+  }
+}
+
+function changeAutoSpeed(){
+  if(autoTimer){
+    startAuto();
   }
 }
 
@@ -937,7 +983,7 @@ function handleSpinModeChange(){
   if(getSpinCount() === 1){
     autoBox.classList.remove("hidden");
   }else{
-    stopAuto();
+    stopAuto(false);
     autoBox.classList.add("hidden");
   }
 }
@@ -970,7 +1016,8 @@ function updateDisplay(){
   document.getElementById("minGame").innerText = min;
   document.getElementById("maxGodGame").innerText = maxGod;
 
-  document.getElementById("godCount").innerText = rateText(godCount);
+  document.getElementById("godCount").innerHTML =
+    godCount === 0 ? "0回" : "<span class='rainbow-inline'>" + rateText(godCount) + "</span>";
   document.getElementById("redCount").innerText = rateText(redCount);
   document.getElementById("normalCount").innerText = rateText(normalCount);
   document.getElementById("ceilingCount").innerText = rateText(ceilingCount);
@@ -994,7 +1041,7 @@ function updateHistory(){
 }
 
 function resetSim(){
-  stopAuto();
+  stopAuto(false);
   currentGame = 0;
   currentGodGame = 0;
   totalGames = 0;
@@ -1007,6 +1054,7 @@ function resetSim(){
 }
 
 setReels(["-","-","-"]);
+updateCeilingVisibility();
 handleSpinModeChange();
 updateDisplay();
 </script>
