@@ -918,7 +918,7 @@ function judgeGame(){
   const red = isHit(redRate);
 
  if(god){
-  nextNormalHit--;
+nextNormalHit = null;
   return {
     type:"GOD揃い",
     cls:"hit-god",
