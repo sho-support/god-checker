@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>神々の軌跡｜ガイアモード・ガイアステージ示唆まとめ</title>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-91KST8GF26"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-91KST8GF26');
+</script>
+
+<style>
+body{
+  font-family:sans-serif;
+  background:#111;
+  color:#fff;
+  margin:0;
+  padding:18px;
+  text-align:center;
+}
+h1{
+  color:#f7d36a;
+  font-size:27px;
+  line-height:1.35;
+}
+h2{
+  color:#f7d36a;
+  margin-top:0;
+}
+h3{
+  color:#ffdf6b;
+  margin-top:24px;
+}
+.lead{
+  color:#ddd;
+  line-height:1.8;
+  max-width:860px;
+  margin:0 auto 24px;
+  font-size:15px;
+}
+.box{
+  max-width:900px;
+  margin:24px auto;
+  background:#1b1b1b;
+  border:1px solid #6b4a12;
+  border-radius:12px;
+  padding:16px;
+  text-align:left;
+  line-height:1.8;
+}
+.center{
+  text-align:center;
+}
+.info-table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:14px;
+}
+.info-table th,
+.info-table td{
+  border:1px solid #6b4a12;
+  padding:10px;
+  vertical-align:top;
+}
+.info-table th{
+  background:#3a2a08;
+  color:#ffdf6b;
+  text-align:center;
+}
+.info-table td{
+  background:#1a1a1a;
+}
+.point{
+  background:#111;
+  border:1px solid #6b4a12;
+  border-radius:10px;
+  padding:13px;
+  margin:14px 0;
+}
+.gold{
+  color:#ffdf6b;
+  font-weight:bold;
+}
+.red{
+  color:#ff6666;
+  font-weight:bold;
+}
+.blue{
+  color:#66ccff;
+  font-weight:bold;
+}
+.green{
+  color:#7ee787;
+  font-weight:bold;
+}
+.small{
+  color:#bbb;
+  font-size:13px;
+  line-height:1.7;
+}
+.back-btn{
+  display:inline-block;
+  margin:14px auto;
+  padding:13px 18px;
+  border-radius:10px;
+  background:linear-gradient(#4a3610,#241700);
+  color:#ffdf6b;
+  text-decoration:none;
+  font-weight:bold;
+  border:1px solid #c9a33a;
+}
+.menu-buttons{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  max-width:440px;
+  margin:20px auto;
+}
+.menu-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+  border-radius:12px;
+  background:linear-gradient(135deg,#d4a017,#7a5c10);
+  color:#fff;
+  text-decoration:none;
+  font-weight:bold;
+  border:1px solid #c9a33a;
+  box-shadow:0 4px 12px rgba(0,0,0,.4);
+}
+.check-list{
+  padding-left:20px;
+}
+.check-list li{
+  margin:8px 0;
+}
+.summary-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:16px;
+}
+.summary-card{
+  background:#111;
+  border:1px solid #6b4a12;
+  border-radius:12px;
+  padding:14px;
+  text-align:center;
+}
+.summary-card .big{
+  color:#ffdf6b;
+  font-size:20px;
+  font-weight:bold;
+}
+@media(max-width:620px){
+  .summary-grid{
+    grid-template-columns:1fr;
+  }
+  .info-table th,
+  .info-table td{
+    font-size:13px;
+    padding:8px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<a class="back-btn" href="index.html">← 出目チェッカーへ戻る</a>
+
+<h1>神々の軌跡<br>ガイアモード・ガイアステージ示唆まとめ</h1>
+
+<div class="lead">
+スマスロ「ミリオンゴッド 神々の軌跡」のガイアナビ、ガイアモード、ガイアステージ中の出目・演出示唆を、実戦で確認しやすい形に整理したページです。
+</div>
+
+<div class="menu-buttons">
+  <a href="index.html" class="menu-btn">出目チェッカーを使う</a>
+  <a href="reach.html" class="menu-btn">出目一覧・リーチ目まとめ</a>
+  <a href="simulator.html" class="menu-btn">同時抽選シミュレーター</a>
+  <a href="basic.html" class="menu-btn">基本情報・天井を見る</a>
+  <a href="setting.html" class="menu-btn">設定推測ツールを見る</a>
+</div>
+
+<div class="box">
+  <h2 class="center">このページの見方</h2>
+
+  <p>
+    ガイア関連は、通常時のモード示唆とは別に考えると分かりやすいです。
+    見るべきポイントは大きく分けて、
+    <span class="gold">ガイアベル時の出目</span>、
+    <span class="gold">ガイアステージ移行期待度</span>、
+    <span class="gold">ガイアステージ中のGG期待度</span>
+    の3つです。
+  </p>
+
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="big">通常時</div>
+      <div>ガイアナビ・出目を見る</div>
+    </div>
+    <div class="summary-card">
+      <div class="big">周期到達</div>
+      <div>ガイアステージ移行に期待</div>
+    </div>
+    <div class="summary-card">
+      <div class="big">ステージ中</div>
+      <div>GG・Z-ZONEに期待</div>
+    </div>
+  </div>
+</div>
+
+<div class="box">
+  <h2 class="center">ガイアモードとは</h2>
+
+  <p>
+    ガイアモードは、ガイアベルの規定回数やガイアステージ移行期待度に関係する内部状態です。
+    基本的には <span class="gold">低確 ＜ 通常 ＜ 天国</span> の順で、ガイアステージ移行に期待できます。
+  </p>
+
+  <table class="info-table">
+    <tr>
+      <th>ガイアモード</th>
+      <th>イメージ</th>
+      <th>実戦での見方</th>
+    </tr>
+    <tr>
+      <td>低確</td>
+      <td>期待度は低め</td>
+      <td>強い示唆がなければ過信しない。</td>
+    </tr>
+    <tr>
+      <td>通常</td>
+      <td>中間</td>
+      <td>ガイアベル時の出目やフラッシュ次第で様子見。</td>
+    </tr>
+    <tr>
+      <td>天国</td>
+      <td class="gold">移行期待度高め</td>
+      <td>0V7・07V・0ハサミ＋中奇数などが出たら注目。</td>
+    </tr>
+  </table>
+
+  <div class="point">
+    <span class="gold">実戦ポイント：</span><br>
+    ガイアモードはGG当選だけで必ずリセットされるものではないため、GG後もガイア関連の示唆は意識しておく価値があります。
+  </div>
+</div>
+
+<div class="box">
+  <h2 class="center">ガイアベル・ガイアナビとは</h2>
+
+  <p>
+    ガイアナビは右1stナビ系の演出で、履歴では白7として扱われます。
+    ガイアベル成立時は、液晶出目やリールフラッシュでガイアモードやガイアステージ移行期待度を示唆します。
+  </p>
+
+  <table class="info-table">
+    <tr>
+      <th>見る場所</th>
+      <th>内容</th>
+      <th>重要度</th>
+    </tr>
+    <tr>
+      <td>液晶出目</td>
+      <td>0頭、0ハサミ、0V7、07Vなど</td>
+      <td class="gold">高</td>
+    </tr>
+    <tr>
+      <td>リールフラッシュ</td>
+      <td>風、スコール、台風、落雷SPなど</td>
+      <td class="gold">高</td>
+    </tr>
+    <tr>
+      <td>BET後の移行</td>
+      <td>ガイアステージへ移行するか</td>
+      <td class="red">最重要</td>
+    </tr>
+  </table>
+</div>
+
+<div class="box">
+  <h2 class="center">ガイアベル時の液晶出目示唆</h2>
+
+  <p>
+    ガイアベル成立時は、液晶出目でガイアモードを示唆します。
+    特に <span class="gold">0ハサミ＋中奇数</span>、<span class="gold">0V7</span>、<span class="gold">07V</span> は強めに見たい出目です。
+  </p>
+
+  <table class="info-table">
+    <tr>
+      <th>液晶出目</th>
+      <th>示唆の強さ</th>
+      <th>実戦メモ</th>
+    </tr>
+    <tr>
+      <td>0頭</td>
+      <td>低め</td>
+      <td>基本パターン。単発では弱い。</td>
+    </tr>
+    <tr>
+      <td>0頭＋奇数絡み</td>
+      <td>やや注目</td>
+      <td>奇数テンパイやケツ奇数テンパイなら少し気にする。</td>
+    </tr>
+    <tr>
+      <td>0ハサミ＋中偶数</td>
+      <td>中程度</td>
+      <td>0頭よりは気にしたいが、過信は禁物。</td>
+    </tr>
+    <tr>
+      <td>0ハサミ＋中奇数</td>
+      <td class="gold">高め</td>
+      <td>ガイアモード天国に期待したい形。</td>
+    </tr>
+    <tr>
+      <td>0V7</td>
+      <td class="gold">高め</td>
+      <td>かなり注目。周期到達まで様子見したい。</td>
+    </tr>
+    <tr>
+      <td>07V</td>
+      <td class="gold">高め</td>
+      <td>0V7同様に強めの示唆として見る。</td>
+    </tr>
+  </table>
+
+  <div class="point">
+    <span class="gold">ヤメ時注意：</span><br>
+    0V7・07V・0ハサミ＋中奇数などが出た直後は、ガイアステージ移行の周期到達まで様子を見る判断もありです。
+  </div>
+</div>
+
+<div class="box">
+  <h2 class="center">ガイアベル時のリールフラッシュ</h2>
+
+  <p>
+    ガイアベル時のリールフラッシュは、ガイアステージ移行期待度や規定回数の近さを示唆します。
+    弱い順に見るなら、ざっくり <span class="gold">風 ＜ スコール ＜ 台風 ＜ 落雷SP</span> のイメージです。
+  </p>
+
+  <table class="info-table">
+    <tr>
+      <th>フラッシュ</th>
+      <th>示唆</th>
+      <th>実戦メモ</th>
+    </tr>
+    <tr>
+      <td>風</td>
+      <td>基本</td>
+      <td>デフォルト寄り。出目との複合で判断。</td>
+    </tr>
+    <tr>
+      <td>スコール</td>
+      <td>周期接近に期待</td>
+      <td>規定回数が近い可能性を意識。</td>
+    </tr>
+    <tr>
+      <td>台風</td>
+      <td class="gold">周期到達 or 本前兆級</td>
+      <td>かなり注目。BET後の移行を確認したい。</td>
+    </tr>
+    <tr>
+      <td>落雷SP</td>
+      <td class="red">強い</td>
+      <td>ガイアステージ移行やZ-ZONE本前兆に期待。</td>
+    </tr>
+    <tr>
+      <td>風＋0V7 / 07V</td>
+      <td class="red">強い複合</td>
+      <td>ガイアステージ移行やZ-ZONE本前兆に期待。</td>
+    </tr>
+  </table>
+</div>
+
+<div class="box">
+  <h2 class="center">陽炎演出の見方</h2>
+
+  <p>
+    陽炎演出は、液晶図柄の色や停止形に注目する演出です。
+    特にオール偶数系でハズレ目になった場合は、ガイアモード天国や次回ガイアベルに期待できるパターンとして見たいところです。
+  </p>
+
+  <table class="info-table">
+    <tr>
+      <th>パターン</th>
+      <th>見方</th>
+    </tr>
+    <tr>
+      <td>オール偶数系</td>
+      <td>偶数揃いだけでなく、ハズレ目停止時の示唆に注目。</td>
+    </tr>
+    <tr>
+      <td>オール奇数系</td>
+      <td>奇数テンパイなら前兆示唆として見る。</td>
+    </tr>
+    <tr>
+      <td>法則崩れ系</td>
+      <td class="red">GG前兆以上に期待したい。</td>
+    </tr>
+  </table>
+</div>
+
+<div class="box">
+  <h2 class="center">ガイアステージとは</h2>
+
+  <p>
+    ガイアステージは、ガイアベルを契機に移行するGG超高確率状態です。
+    滞在中は成立役や小役履歴でGG抽選が行われ、GG当選時はZ-ZONE突入にも期待できます。
+  </p>
+
+  <table class="info-table">
+    <tr>
+      <th>項目</th>
+      <th>内容</th>
+    </tr>
+    <tr>
+      <td>移行契機</td>
+      <td>ガイアベル規定回数到達時の抽選</td>
+    </tr>
+    <tr>
+      <td>基本性能</td>
+      <td class="gold">GG超高確率状態</td>
+    </tr>
+    <tr>
+      <td>奇数揃い</td>
+      <td>GG当選濃厚</td>
+    </tr>
+    <tr>
+      <td>0揃い</td>
+      <td class="red">GG当選＋Z-ZONE突入濃厚</td>
+    </tr>
+    <tr>
+      <td>保障ゲーム数</td>
+      <td>初期保障あり。消化後は転落に注意。</td>
+    </tr>
+  </table>
+
+  <div class="point">
+    <span class="gold">重要：</span><br>
+    ガイアステージは「入ったら必ずすぐ当たる」ではなく、保障中・成立役・履歴・演出の複合で期待度を見ます。
+  </div>
+</div>
+
+<div class="box">
+  <h2 class="center">ガイアステージ中のGG抽選</h2>
+
+  <p>
+    ガイアステージ中は、成立役によるGG抽選と、小役履歴によるGG抽選が重要です。
+    中段黄7やSP役など強い役はもちろん、青7・黄7の連続履歴も強くなります。
+  </p>
+
+  <table class="info-table">
+    <tr>
+      <th>契機</th>
+      <th>期待度</th>
+      <th>実戦メモ</th>
+    </tr>
+    <tr>
+      <td>ハズレ・押し順黄7など</td>
+      <td>低〜中</td>
+      <td>毎ゲーム抽選はあるが、単体では過信しない。</td>
+    </tr>
+    <tr>
+      <td>中段青7</td>
+      <td class="gold">高め</td>
+      <td>かなり期待できる成立役。</td>
+    </tr>
+    <tr>
+      <td>右上がり黄7</td>
+      <td class="gold">高め</td>
+      <td>GG当選にかなり期待。</td>
+    </tr>
+    <tr>
+      <td>中段黄7・SP役</td>
+      <td class="red">濃厚級</td>
+      <td>GG当選に期待大。</td>
+    </tr>
+    <tr>
+      <td>青7・黄7の履歴連続</td>
+      <td class="gold">連続するほど強い</td>
+      <td>3連以上から注目、5連以上はかなり強い。</td>
+    </tr>
+  </table>
+</div>
+
+<div class="box">
+  <h2 class="center">ガイアステージ中の演出法則</h2>
+
+  <h3>雷雲演出</h3>
+  <table class="info-table">
+    <tr>
+      <th>演出</th>
+      <th>示唆</th>
+      <th>実戦メモ</th>
+    </tr>
+    <tr>
+      <td>雲</td>
+      <td>弱告知</td>
+      <td>連続するほどチャンス。</td>
+    </tr>
+    <tr>
+      <td>雷雨</td>
+      <td>中告知</td>
+      <td>奇数テンパイと絡みやすい。奇数非テンパイなら強い。</td>
+    </tr>
+    <tr>
+      <td>雷雨＋剣</td>
+      <td class="red">強告知</td>
+      <td>対応役否定ならGG濃厚やZ-ZONEに期待。</td>
+    </tr>
+  </table>
+
+  <h3>オーロラ演出</h3>
+  <table class="info-table">
+    <tr>
+      <th>演出</th>
+      <th>見方</th>
+    </tr>
+    <tr>
+      <td>オーロラ</td>
+      <td>上段青7・中段青7・右上がり黄7などの一部で発生。対応役否定なら強い。</td>
+    </tr>
+  </table>
+
+  <h3>満月演出</h3>
+  <table class="info-table">
+    <tr>
+      <th>演出</th>
+      <th>見方</th>
+    </tr>
+    <tr>
+      <td>満月</td>
+      <td>継続ゲーム数に注目。長く続くほど0揃いに期待。</td>
+    </tr>
+  </table>
+</div>
+
+<div class="box">
+  <h2 class="center">ガイアステージ中の前兆示唆出目</h2>
+
+  <p>
+    ガイアステージ中は、通常時とは別枠で液晶出目を見る必要があります。
+    奇数テンパイ、0ハサミ、0テンパイなどは、前兆滞在を意識したい出目です。
+  </p>
+
+  <table class="info-table">
+    <tr>
+      <th>出目パターン</th>
+      <th>示唆</th>
+    </tr>
+    <tr>
+      <td>奇数テンパイ</td>
+      <td>前兆滞在に期待。</td>
+    </tr>
+    <tr>
+      <td>0ハサミ＋中偶数</td>
+      <td>前兆滞在に期待。</td>
+    </tr>
+    <tr>
+      <td>0頭＋ケツ奇数テンパイ</td>
+      <td>前兆滞在に期待。</td>
+    </tr>
+    <tr>
+      <td>奇数ハサミ＋中0</td>
+      <td>前兆滞在に期待。</td>
+    </tr>
+    <tr>
+      <td>0テンパイ＋右偶数</td>
+      <td>0揃い期待＋前兆滞在に期待。</td>
+    </tr>
+    <tr>
+      <td>0テンパイ＋右奇数</td>
+      <td class="red">0揃い期待＋前兆滞在に期待。</td>
+    </tr>
+  </table>
+</div>
+
+<div class="box">
+  <h2 class="center">ヤメ時・押し引きの考え方</h2>
+
+  <ul class="check-list">
+    <li><span class="gold">0V7・07V・0ハサミ＋中奇数</span> が出たら、ガイアベル周期到達まで様子見候補。</li>
+    <li><span class="gold">台風・落雷SP</span> など強いフラッシュは、BET後の移行まで確認したい。</li>
+    <li><span class="gold">陽炎＋強い停止形</span> は、通常時のモードや前兆も含めて判断。</li>
+    <li>ガイアステージ中は、保障ゲーム数消化後の転落に注意。</li>
+    <li>ガイアステージ中に強い演出・0絡み出目が続く場合は、0揃い・Z-ZONEにも期待。</li>
+  </ul>
+
+  <div class="point">
+    <span class="red">注意：</span><br>
+    ガイア関連の示唆は、単発で決め打つよりも「出目」「フラッシュ」「演出」「前後の流れ」の複合で見るのが安全です。
+  </div>
+</div>
+
+<div class="box">
+  <h2 class="center">出目チェッカーとの使い分け</h2>
+
+  <table class="info-table">
+    <tr>
+      <th>状況</th>
+      <th>使うページ</th>
+    </tr>
+    <tr>
+      <td>通常時の3桁出目を確認したい</td>
+      <td><a href="index.html" style="color:#ffdf6b;">出目チェッカー</a></td>
+    </tr>
+    <tr>
+      <td>リーチ目・天国系の出目を見たい</td>
+      <td><a href="reach.html" style="color:#ffdf6b;">出目一覧・リーチ目まとめ</a></td>
+    </tr>
+    <tr>
+      <td>ガイアナビ・ガイアステージの意味を見たい</td>
+      <td>このページ</td>
+    </tr>
+    <tr>
+      <td>確率の重さを遊びながら体感したい</td>
+      <td><a href="simulator.html" style="color:#ffdf6b;">同時抽選シミュレーター</a></td>
+    </tr>
+  </table>
+</div>
+
+<div class="box">
+  <h2 class="center">まとめ</h2>
+
+  <p>
+    ガイア関連は、単純に「ガイアステージに入るかどうか」だけでなく、
+    ガイアナビ時の出目、フラッシュ、陽炎、ステージ中の演出、0揃い期待までつながる重要要素です。
+  </p>
+
+  <p>
+    特に実戦では、
+    <span class="gold">0V7・07V・0ハサミ＋中奇数</span>、
+    <span class="gold">台風・落雷SP</span>、
+    <span class="gold">雷雨＋剣・オーロラ・満月</span>
+    などを見逃さないようにすると、ヤメ時や続行判断の精度が上がります。
+  </p>
+
+  <p class="small">
+    ※本ページは実戦情報・解析情報をもとに整理した非公式まとめです。掲載内容は遊技結果を保証するものではありません。
+  </p>
+</div>
+
+<div class="menu-buttons">
+  <a href="index.html" class="menu-btn">出目チェッカーへ戻る</a>
+  <a href="reach.html" class="menu-btn">出目一覧・リーチ目まとめ</a>
+  <a href="simulator.html" class="menu-btn">同時抽選シミュレーター</a>
+  <a href="setting.html" class="menu-btn">設定推測ツール</a>
+  <a href="effects.html" class="menu-btn">演出法則まとめ</a>
+</div>
+
+<div class="small center" style="margin:35px 0;">
+  <a href="privacy.html" style="color:#ffdf6b;">プライバシーポリシー・免責事項</a>
+</div>
+
+</body>
+</html>
