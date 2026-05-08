@@ -201,6 +201,18 @@ button:active{
   font-weight:bold;
   border:1px solid #555;
 }
+
+.history-detail{
+  display:block;
+  margin-top:6px;
+  padding:6px 8px;
+  border-radius:8px;
+  background:rgba(0,0,0,.45);
+  color:#fff;
+  font-size:13px;
+  line-height:1.5;
+}
+
 .hit-god{
   background:linear-gradient(135deg,#7a5c10,#d4a017,#fff1a8);
   color:#111;
@@ -505,7 +517,7 @@ button:active{
     「最後まで」は、10000回など指定したゲーム数を最後まで一気に回し、その中で発生した当選履歴をまとめて表示します。<br><br>
     1回抽選時は、初当たり・天井当選の32G前から本前兆が発生します。<br>
     さらにハズレ中にも、弱めのガセ前兆・強めのガセ前兆が発生することがあります。<br><br>
-    GOD揃いは虹、赤7揃いは赤、初当たりは金、天井当選は青で表示します。
+    GOD揃いは金、プレミアGODは虹、赤7揃いは赤、初当たりは銀、天井当選は青で表示します。
   </p>
 </div>
 
@@ -1267,7 +1279,7 @@ function updateHistory(){
 (h.premium ? "hit-premium" : h.cls) +
 "'>" +
     (history.length - i) + "回目：" + h.game + "Gで" + h.type +
-    (h.detail ? "<br><span class='small'>" + h.detail + "</span>" : "") +
+(h.detail ? "<br><span class='history-detail'>" + h.detail + "</span>" : "") +
     "</div>"
   ).join("");
 
