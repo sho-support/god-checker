@@ -202,15 +202,21 @@ button:active{
   border:1px solid #555;
 }
 .hit-god{
+  background:linear-gradient(135deg,#7a5c10,#d4a017,#fff1a8);
+  color:#111;
+}
+
+.hit-premium{
   background:linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet);
   color:#111;
+  font-weight:bold;
 }
 .hit-red{
   background:linear-gradient(135deg,#5a0000,#c70000);
   color:#fff;
 }
 .hit-normal{
-  background:linear-gradient(135deg,#6b4a00,#d4a017);
+  background:linear-gradient(135deg,#9c9c9c,#e8e8e8);
   color:#111;
 }
 .hit-ceiling{
@@ -298,6 +304,49 @@ button:active{
 }
 .hidden{
   display:none!important;
+}
+  .game-count{
+  color:#66ccff;
+  font-weight:bold;
+}
+
+.god-game-count{
+  color:#ffdf6b;
+  font-weight:bold;
+  text-shadow:0 0 8px rgba(255,215,0,.5);
+}
+  .premium-list{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+  margin-top:12px;
+}
+
+.premium-item{
+  background:#111;
+  border:1px solid #444;
+  border-radius:10px;
+  padding:10px;
+  color:#555;
+  font-weight:bold;
+}
+
+.premium-item.unlocked{
+  border:1px solid #ffdf6b;
+  color:#fff;
+  box-shadow:0 0 10px rgba(255,215,0,.35);
+}
+
+.premium-name{
+  display:block;
+  margin-top:4px;
+}
+
+.premium-rainbow{
+  background:linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  font-weight:bold;
 }
 @media(max-width:520px){
   .mode-grid{
@@ -441,7 +490,14 @@ button:active{
   <div id="history" class="history">履歴なし</div>
   <button onclick="resetSim()">リセット</button>
 </div>
-
+<div class="box">
+  <h2>プレミア図鑑</h2>
+  <div class="small">
+    プレミア演出はGOD揃い時にごくまれに発生します。出現記録は履歴リセットでは消えません。
+  </div>
+  <div id="premiumList" class="premium-list"></div>
+  <button class="stop-btn" onclick="resetPremiumCollection()">プレミア記録リセット</button>
+</div>
 <div class="box">
   <h2>使い方</h2>
   <p class="small">
@@ -472,6 +528,78 @@ let history = [];
 let autoTimer = null;
 let nextNormalHit = null;
 let historyDisplayLimit = 3;
+  const premiumNames = [
+  "天空の扉",
+  "神の雷鳴",
+  "ブラックアウト",
+  "天空神殿",
+  "虹の審判",
+  "黄金の咆哮",
+  "神々の祝福",
+  "ゼウス降臨",
+  "冥界の鼓動",
+  "GODフリーズ"
+];
+
+let premiumCollection = JSON.parse(localStorage.getItem("god_premium_collection") || "[]");
+
+function maybePremium(){
+  const godRate = Number(document.getElementById("godRate").value) || 16384;
+
+  const normalPremiumChance = godRate / 65536;
+  const ultraPremiumChance = godRate / 100000;
+
+  const r = Math.random();
+
+  let index = null;
+
+  if(r < ultraPremiumChance){
+    index = 7 + Math.floor(Math.random() * 3);
+  }else if(r < ultraPremiumChance + normalPremiumChance){
+    index = Math.floor(Math.random() * 7);
+  }else{
+    return null;
+  }
+
+  if(!premiumCollection.includes(index)){
+    premiumCollection.push(index);
+    localStorage.setItem("god_premium_collection", JSON.stringify(premiumCollection));
+  }
+
+  renderPremiumCollection();
+
+  return {
+    no:index + 1,
+    name:premiumNames[index]
+  };
+}
+function renderPremiumCollection(){
+  const box = document.getElementById("premiumList");
+  if(!box) return;
+
+  box.innerHTML = premiumNames.map((name,index)=>{
+    const unlocked = premiumCollection.includes(index);
+
+    if(unlocked){
+      return "<div class='premium-item unlocked'>" +
+        "No." + (index + 1) +
+        "<span class='premium-name premium-rainbow'>" + name + "</span>" +
+        "</div>";
+    }
+
+    return "<div class='premium-item'>" +
+      "No." + (index + 1) +
+      "<span class='premium-name'>？？？？？？</span>" +
+      "</div>";
+  }).join("");
+}
+
+function resetPremiumCollection(){
+  if(!confirm("プレミア記録をリセットしますか？")) return;
+  premiumCollection = [];
+  localStorage.removeItem("god_premium_collection");
+  renderPremiumCollection();
+}
 function saveState(){
   const data = {
     currentGame,
@@ -789,10 +917,16 @@ function judgeGame(){
   const god = isHit(godRate);
   const red = isHit(redRate);
 
-  if(god){
-    nextNormalHit--;
-    return {type:"GOD揃い", cls:"hit-god", textCls:"rainbow-text", reels:["7","7","7"]};
-  }
+ if(god){
+  nextNormalHit--;
+  return {
+    type:"GOD揃い",
+    cls:"hit-god",
+    textCls:"rainbow-text",
+    reels:["7","7","7"],
+    premium:maybePremium()
+  };
+}
 
   if(red){
     nextNormalHit--;
@@ -818,15 +952,20 @@ function judgeGame(){
 }
 
 function hitEffectText(hitData){
-  if(hitData.type === "GOD揃い"){
-    return randomFrom([
-      "ブラックアウト... GOD降臨！",
-      "虹の光が走った... GOD揃い！",
-      "神の気配... 7・7・7！",
-      "静寂からの衝撃... GOD揃い！",
-      "突然、神が降りた。"
-    ]);
+if(hitData.type === "GOD揃い"){
+
+  if(hitData.premium){
+    return "プレミアNo." + hitData.premium.no + "「" + hitData.premium.name + "」発生！ GOD揃い！";
   }
+
+  return randomFrom([
+    "ブラックアウト... GOD降臨！",
+    "虹の光が走った... GOD揃い！",
+    "神の気配... 7・7・7！",
+    "静寂からの衝撃... GOD揃い！",
+    "突然、神が降りた。"
+  ]);
+}
 
   if(hitData.type === "赤7揃い"){
     return randomFrom([
@@ -850,38 +989,16 @@ function hitEffectText(hitData){
 }
 function makeHitDetail(hitData){
   if(hitData.type === "GOD揃い"){
-    const godRate = Number(document.getElementById("godRate").value) || 16384;
-
-    const premiumChance = godRate / 65536;
-    const ultraPremiumChance = godRate / 100000;
-
-    const r = Math.random();
-
-    if(r < ultraPremiumChance){
-      return randomFrom([
-        "激レアプレミア：神の祝福",
-        "激レアプレミア：天空フリーズ",
-        "激レアプレミア：全回転風停止"
-      ]);
-    }
-
-    if(r < ultraPremiumChance + premiumChance){
-      return randomFrom([
-        "プレミア：神殿虹発光",
-        "プレミア：金扉出現",
-        "プレミア：無音からGOD揃い",
-        "プレミア：祝福の鐘",
-        "プレミア：神の一撃",
-        "プレミア：虹の風",
-        "プレミア：天空のざわめき"
-      ]);
+    if(hitData.premium){
+      return "プレミアNo." + hitData.premium.no + "「" + hitData.premium.name + "」発生！ GOD揃い！";
     }
 
     return randomFrom([
-      "ブラックアウトからGOD揃い",
-      "虹の光が走ってGOD揃い",
-      "静寂から突然のGOD揃い",
-      "通常停止からGOD揃い"
+      "ブラックアウト... GOD降臨！",
+      "虹の光が走った... GOD揃い！",
+      "神の気配... 7・7・7！",
+      "静寂からの衝撃... GOD揃い！",
+      "突然、神が降りた。"
     ]);
   }
 
@@ -919,7 +1036,8 @@ function recordHit(hitData){
   type:hitData.type,
   cls:hitData.cls,
   textCls:hitData.textCls,
-  detail: makeHitDetail(hitData)
+detail: makeHitDetail(hitData),
+premium: hitData.premium || null
 };
 
   history.unshift(record);
@@ -971,8 +1089,9 @@ function oneGame(showEffect,fast){
   if(showEffect){
     setEffect(preDisplay.text, preDisplay.type);
     animateReels(preDisplay.reels, fast);
-    document.getElementById("result").innerHTML =
-      "ハズレ。現在ハマリ：" + currentGame + "G<br>現在GOD間：" + currentGodGame + "G";
+   document.getElementById("result").innerHTML =
+  "<span class='game-count'>現在ハマリ：" + currentGame + "G</span><br>" +
+  "<span class='god-game-count'>現在GOD間：" + currentGodGame + "G</span>";
   }
 
   updateDisplay();
@@ -1144,7 +1263,9 @@ function updateHistory(){
   const shown = history.slice(0, historyDisplayLimit);
 
   let html = shown.map((h,i)=>
-    "<div class='history-item " + h.cls + "'>" +
+    "<div class='history-item " +
+(h.premium ? "hit-premium" : h.cls) +
+"'>" +
     (history.length - i) + "回目：" + h.game + "Gで" + h.type +
     (h.detail ? "<br><span class='small'>" + h.detail + "</span>" : "") +
     "</div>"
@@ -1191,6 +1312,7 @@ updateCeilingVisibility();
 handleSpinModeChange();
 applySetting();
 updateDisplay();
+  renderPremiumCollection();
 </script>
 
 </body>
