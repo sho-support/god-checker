@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-10-28",
+  "updated": "2026-10-29",
   "notice": "試作データ。未検証仕様の確率は自動生成しません。",
   "machines": [
     {
@@ -598,9 +598,772 @@
           "message": "機種名・メーカー・導入日を追加。詳細スペックは未検証。"
         }
       ]
+    },
+    {
+      "id": "future-01",
+      "name": "スマート沖スロ ハイハイシオサイRe",
+      "manufacturer": "パイオニア",
+      "type": "slot",
+      "introduction": "2026-11-16",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-29",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
+        }
+      ]
+    },
+    {
+      "id": "future-02",
+      "name": "P大海物語4スペシャル BLACK PLUS",
+      "manufacturer": "三洋物産",
+      "type": "pachinko",
+      "introduction": "2026-12-07",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-29",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
+        }
+      ]
+    },
+    {
+      "id": "future-03",
+      "name": "P大海物語5スペシャル 赤セルver.",
+      "manufacturer": "三洋物産",
+      "type": "pachinko",
+      "introduction": "2026-12-07",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-29",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
+        }
+      ]
+    },
+    {
+      "id": "future-04",
+      "name": "e大海物語5スペシャル 319遊タイムver.",
+      "manufacturer": "三洋物産",
+      "type": "pachinko",
+      "introduction": "2026-12-07",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-29",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
+        }
+      ]
+    },
+    {
+      "id": "future-05",
+      "name": "e シャングリラ・フロンティア",
+      "manufacturer": "サミー",
+      "type": "pachinko",
+      "introduction": "2026-12-07",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-29",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
+        }
+      ]
+    },
+    {
+      "id": "future-06",
+      "name": "eFダンベル何キロ持てる?2 77ver.",
+      "manufacturer": "SANKYO",
+      "type": "pachinko",
+      "introduction": "2026-12-07",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-29",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
+        }
+      ]
+    },
+    {
+      "id": "future-07",
+      "name": "eF BASTARD!! ‐暗黒の破壊神‐ Light ver.",
+      "manufacturer": "SANKYO",
+      "type": "pachinko",
+      "introduction": "2026-12-07",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-29",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
+        }
+      ]
+    },
+    {
+      "id": "future-08",
+      "name": "e女神のカフェテラス ヒロインs コレクション",
+      "manufacturer": "JFJ",
+      "type": "pachinko",
+      "introduction": "2026-12-07",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-29",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
+        }
+      ]
+    },
+    {
+      "id": "future-09",
+      "name": "スマスロゼーガペインETR",
+      "manufacturer": "山佐ネクスト",
+      "type": "slot",
+      "introduction": "2026-12-07",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-29",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
+        }
+      ]
+    },
+    {
+      "id": "future-10",
+      "name": "L アカマター",
+      "manufacturer": "オーイズミ",
+      "type": "slot",
+      "introduction": "2026-12-07",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-29",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
+        }
+      ]
+    },
+    {
+      "id": "future-11",
+      "name": "スマスロ 快盗天使ツインエンジェル2",
+      "manufacturer": "サミー",
+      "type": "slot",
+      "introduction": "2026-12-07",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-29",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
+        }
+      ]
+    },
+    {
+      "id": "future-12",
+      "name": "押忍!番長番付",
+      "manufacturer": "パオン・ディーピー",
+      "type": "slot",
+      "introduction": "2026-12-07",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-29",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
+        }
+      ]
+    },
+    {
+      "id": "future-13",
+      "name": "e ソードアート・オンライン ファントム・バレット",
+      "manufacturer": "京楽",
+      "type": "pachinko",
+      "introduction": "2026-12-21",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-29",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
+        }
+      ]
+    },
+    {
+      "id": "future-14",
+      "name": "スマスロ 魔女と野獣",
+      "manufacturer": "オレンジ",
+      "type": "slot",
+      "introduction": "2026-12-21",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-29",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
+        }
+      ]
+    },
+    {
+      "id": "future-15",
+      "name": "Lブルーリフレクション帝",
+      "manufacturer": "オリンピア",
+      "type": "slot",
+      "introduction": "2026-12-21",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-29",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
+        }
+      ]
+    },
+    {
+      "id": "future-16",
+      "name": "eアクダマドライブ79ver.",
+      "manufacturer": "三洋物産",
+      "type": "pachinko",
+      "introduction": "2027-01-04",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-29",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
+        }
+      ]
+    },
+    {
+      "id": "future-17",
+      "name": "e 北斗の拳 激闘",
+      "manufacturer": "サミー",
+      "type": "pachinko",
+      "introduction": "2027-01-12",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-29",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
+        }
+      ]
+    },
+    {
+      "id": "future-18",
+      "name": "eF戦姫絶唱シンフォギア5 超デカ×スマートスタート",
+      "manufacturer": "SANKYO",
+      "type": "pachinko",
+      "introduction": "2027-01-12",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-29",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
+        }
+      ]
+    },
+    {
+      "id": "future-19",
+      "name": "パチスロ ライザのアトリエ 常闇の女王と秘密の隠れ家",
+      "manufacturer": "北電子",
+      "type": "slot",
+      "introduction": "2027-01-12",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-29",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
+        }
+      ]
+    },
+    {
+      "id": "future-20",
+      "name": "スマスロモンキーターンRED",
+      "manufacturer": "セブンリーグ",
+      "type": "slot",
+      "introduction": "2027-01-12",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-29",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
+        }
+      ]
+    },
+    {
+      "id": "future-21",
+      "name": "スマスロ シャカラッシュ",
+      "manufacturer": "マルホン",
+      "type": "slot",
+      "introduction": "2027-01-25",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-29",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
+        }
+      ]
+    },
+    {
+      "id": "l-million-god-trajectory",
+      "name": "スマスロ ミリオンゴッド-神々の軌跡-",
+      "manufacturer": "ミズホ",
+      "type": "slot",
+      "introduction": "2026-04-20",
+      "releaseStatus": "released",
+      "specStatus": "verified_basic",
+      "simulator": null,
+      "sources": [
+        "https://www.universal-777.com/product/slot/milliongod_kiseki/",
+        "https://www.universal-777.co.jp/news/20260119002436/",
+        "https://1geki.jp/slot/l_milliongod_kiseki/"
+      ],
+      "lastVerified": "2026-10-29",
+      "summary": "機種の基本情報は確認済み。既存の専用サイトで出目判定・設定推測・シミュレーションを利用可能。",
+      "spec": {
+        "type": "slot_god",
+        "firstHitOdds": [
+          533,
+          420,
+          496,
+          338,
+          455,
+          295
+        ],
+        "payoutRate": [
+          97.2,
+          99.1,
+          102.1,
+          106.9,
+          111.7,
+          114.6
+        ],
+        "gameType": "AT",
+        "ceiling": "GG間1480G（情報元要照合）"
+      },
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "公式機種ページと初当たり設定差を確認。旧サイトへの導線を用意。"
+        }
+      ]
+    },
+    {
+      "id": "featured-01",
+      "name": "新世紀エヴァンゲリオン～未来への咆哮～",
+      "manufacturer": "ビスティ",
+      "type": "pachinko",
+      "introduction": null,
+      "releaseStatus": "released",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine.html"
+      ],
+      "lastVerified": "2026-10-29",
+      "summary": "現在掲載対象として登録。導入日・詳細スペックは個別のメーカー資料を確認して追加予定。",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
+        }
+      ]
+    },
+    {
+      "id": "featured-02",
+      "name": "PA大海物語5 Withアグネス・ラム",
+      "manufacturer": "三洋物産",
+      "type": "pachinko",
+      "introduction": null,
+      "releaseStatus": "released",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine.html"
+      ],
+      "lastVerified": "2026-10-29",
+      "summary": "現在掲載対象として登録。導入日・詳細スペックは個別のメーカー資料を確認して追加予定。",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
+        }
+      ]
+    },
+    {
+      "id": "featured-03",
+      "name": "e東京喰種",
+      "manufacturer": "ビスティ",
+      "type": "pachinko",
+      "introduction": null,
+      "releaseStatus": "released",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine.html"
+      ],
+      "lastVerified": "2026-10-29",
+      "summary": "現在掲載対象として登録。導入日・詳細スペックは個別のメーカー資料を確認して追加予定。",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
+        }
+      ]
+    },
+    {
+      "id": "featured-04",
+      "name": "e 新世紀エヴァンゲリオン ～はじまりの記憶～",
+      "manufacturer": "ビスティ",
+      "type": "pachinko",
+      "introduction": null,
+      "releaseStatus": "released",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine.html"
+      ],
+      "lastVerified": "2026-10-29",
+      "summary": "現在掲載対象として登録。導入日・詳細スペックは個別のメーカー資料を確認して追加予定。",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
+        }
+      ]
+    },
+    {
+      "id": "featured-05",
+      "name": "P大海物語5",
+      "manufacturer": "三洋物産",
+      "type": "pachinko",
+      "introduction": null,
+      "releaseStatus": "released",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine.html"
+      ],
+      "lastVerified": "2026-10-29",
+      "summary": "現在掲載対象として登録。導入日・詳細スペックは個別のメーカー資料を確認して追加予定。",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
+        }
+      ]
+    },
+    {
+      "id": "featured-06",
+      "name": "Pスーパー海物語 IN 沖縄6",
+      "manufacturer": "三洋物産",
+      "type": "pachinko",
+      "introduction": null,
+      "releaseStatus": "released",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine.html"
+      ],
+      "lastVerified": "2026-10-29",
+      "summary": "現在掲載対象として登録。導入日・詳細スペックは個別のメーカー資料を確認して追加予定。",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
+        }
+      ]
+    },
+    {
+      "id": "featured-07",
+      "name": "ネオアイムジャグラーEX",
+      "manufacturer": "北電子",
+      "type": "slot",
+      "introduction": null,
+      "releaseStatus": "released",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine.html"
+      ],
+      "lastVerified": "2026-10-29",
+      "summary": "現在掲載対象として登録。導入日・詳細スペックは個別のメーカー資料を確認して追加予定。",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
+        }
+      ]
+    },
+    {
+      "id": "featured-08",
+      "name": "マイジャグラーV",
+      "manufacturer": "北電子",
+      "type": "slot",
+      "introduction": null,
+      "releaseStatus": "released",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine.html"
+      ],
+      "lastVerified": "2026-10-29",
+      "summary": "現在掲載対象として登録。導入日・詳細スペックは個別のメーカー資料を確認して追加予定。",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
+        }
+      ]
+    },
+    {
+      "id": "featured-09",
+      "name": "L東京喰種",
+      "manufacturer": "スパイキー",
+      "type": "slot",
+      "introduction": null,
+      "releaseStatus": "released",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine.html"
+      ],
+      "lastVerified": "2026-10-29",
+      "summary": "現在掲載対象として登録。導入日・詳細スペックは個別のメーカー資料を確認して追加予定。",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
+        }
+      ]
+    },
+    {
+      "id": "featured-10",
+      "name": "スマスロ 甲鉄城のカバネリ 海門決戦",
+      "manufacturer": "サミー",
+      "type": "slot",
+      "introduction": null,
+      "releaseStatus": "released",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine.html"
+      ],
+      "lastVerified": "2026-10-29",
+      "summary": "現在掲載対象として登録。導入日・詳細スペックは個別のメーカー資料を確認して追加予定。",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
+        }
+      ]
+    },
+    {
+      "id": "featured-11",
+      "name": "ゴーゴージャグラー3",
+      "manufacturer": "北電子",
+      "type": "slot",
+      "introduction": null,
+      "releaseStatus": "released",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine.html"
+      ],
+      "lastVerified": "2026-10-29",
+      "summary": "現在掲載対象として登録。導入日・詳細スペックは個別のメーカー資料を確認して追加予定。",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
+        }
+      ]
+    },
+    {
+      "id": "featured-12",
+      "name": "スマスロ モンキーターンV",
+      "manufacturer": "山佐ネクスト",
+      "type": "slot",
+      "introduction": null,
+      "releaseStatus": "released",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine.html"
+      ],
+      "lastVerified": "2026-10-29",
+      "summary": "現在掲載対象として登録。導入日・詳細スペックは個別のメーカー資料を確認して追加予定。",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
+        }
+      ]
+    },
+    {
+      "id": "featured-13",
+      "name": "スマスロ北斗の拳",
+      "manufacturer": "サミー",
+      "type": "slot",
+      "introduction": null,
+      "releaseStatus": "released",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine.html"
+      ],
+      "lastVerified": "2026-10-29",
+      "summary": "現在掲載対象として登録。導入日・詳細スペックは個別のメーカー資料を確認して追加予定。",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
+        }
+      ]
+    },
+    {
+      "id": "featured-14",
+      "name": "スマスロ リコリス・リコイル",
+      "manufacturer": "サミー",
+      "type": "slot",
+      "introduction": null,
+      "releaseStatus": "released",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine.html"
+      ],
+      "lastVerified": "2026-10-29",
+      "summary": "現在掲載対象として登録。導入日・詳細スペックは個別のメーカー資料を確認して追加予定。",
+      "updates": [
+        {
+          "date": "2026-10-29",
+          "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
+        }
+      ]
     }
   ],
   "updates": [
+    {
+      "date": "2026-10-29",
+      "text": "ST・LTの自由設定モデルとゴッド専用サイトの導線を用意。2027年1月までの公表済み新台情報と主要機種を追加。",
+      "type": "portal"
+    },
     {
       "date": "2026-10-28",
       "text": "全機種ポータル試作開始。機種検索・種別フィルター・更新履歴・牙狼12の抽選モデルを追加。",
