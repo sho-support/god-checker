@@ -1,0 +1,44 @@
+/* Regression tests: run with node catalog/test-engine.js */
+"use strict";
+require("./engine.js");
+const {PachiEngine}=globalThis;
+let passed=0;
+function check(x,msg){if(!x)throw Error("FAILED: "+msg);passed++;console.log("PASS",msg)}
+function rng(sequence){let i=0;return ()=>sequence[i++]??.999}
+let e=PachiEngine.create({mode:"free",config:{odds:399},random:rng([0,.8])});
+check(e.step()==="symbol"&&e.step()==="miss","free win/loss");
+check(e.snapshot().hits===1&&e.snapshot().spins===2,"free counters");
+e=PachiEngine.create({mode:"garo12",random:rng([0,0,0,.1,.5,.99,.0025])});
+check(e.step()==="symbol"&&e.snapshot().phase==="challenge","garo first symbol");
+check(e.snapshot().payout===1500,"garo first payout");
+check(e.step()==="challenge_success"&&e.snapshot().phase==="rush","garo challenge success");
+check(e.snapshot().payout===9000,"garo adds 7500");
+check(e.step()==="rush_continue"&&e.snapshot().payout===16500,"garo rush 7500 continues");
+check(e.step()==="rush_continue"&&e.snapshot().payout===18000,"garo rush 1500 continues");
+check(e.step()==="rush_end"&&e.snapshot().phase==="normal","garo LT ends");
+check(e.snapshot().payout===19500,"garo LT ends with 1500");
+check(e.step()==="charge"&&e.snapshot().hama===1,"charge does not erase symbol dry spell");
+e=PachiEngine.create({mode:"garo12",random:rng([0,.9])});
+check(e.step()==="symbol"&&e.snapshot().phase==="normal","garo no challenge entry");
+e=PachiEngine.create({mode:"garo12",random:rng([0,0,.9])});e.step();
+check(e.step()==="challenge_fail"&&e.snapshot().payout===3000,"garo challenge loss payout");
+e=PachiEngine.create({mode:"custom",config:{odds:319,entryPct:100,stGames:2,stOdds:1000},random:rng([0,0,.9,.9])});
+check(e.step()==="symbol"&&e.snapshot().remaining===2,"custom ST entry");
+check(e.step()==="miss"&&e.snapshot().remaining===1,"custom ST countdown");
+check(e.step()==="rush_end"&&e.snapshot().phase==="normal","custom ST expiry");
+e=PachiEngine.create({mode:"custom",config:{odds:399,entryPct:100,stOdds:2,ltEntryPct:100,ltGames:100,ltOdds:2},random:rng([0,0,0,0,0])});
+e.step();e.step();check(e.snapshot().phase==="lt","custom LT upgrade");e.step();
+check(e.snapshot().phase==="lt"&&e.snapshot().remaining===100,"custom LT resets");
+e=PachiEngine.create({mode:"slot",config:{slotOdds:100000,slotCeiling:3,slotAtGames:2,slotCoinsPerGame:3,slotBonusPct:0},random:()=>.5});
+e.step();e.step();check(e.snapshot().phase==="normal","slot not yet ceiling");
+check(e.step()==="slot_at"&&e.snapshot().phase==="at","slot ceiling enters AT");
+e.step();check(e.snapshot().payout===3,"slot first AT game");
+check(e.step()==="slot_end"&&e.snapshot().payout===6,"slot AT ends and counts coins");
+e=PachiEngine.create({mode:"slot",config:{slotOdds:1,slotBonusPct:100,slotUpperPct:100,slotUpperGames:2,slotUpperCoinsPerGame:5},random:()=>0});
+e.step();check(e.step()==="slot_upper"&&e.snapshot().phase==="upper","slot higher AT");
+e.step();check(e.snapshot().payout===8,"slot higher AT coins");
+e=PachiEngine.create({mode:"free",config:{odds:1e6},random:()=>.5});
+check(e.stepMany(10000).performed===10000&&e.snapshot().maxHama===10000,"10,000 spins processed");
+check(e.snapshot().history.length<=50,"history bounded");
+check(Math.abs(.25+.51+.24-1)<1e-12,"garo allocation sums to 1");
+console.log("SUCCESS:",passed,"engine regression checks");
