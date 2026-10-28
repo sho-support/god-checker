@@ -1,0 +1,615 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-10-28",
+  "notice": "試作データ。未検証仕様の確率は自動生成しません。",
+  "machines": [
+    {
+      "id": "e-garo12",
+      "name": "e牙狼12黄金騎士極限",
+      "manufacturer": "サンセイR&D",
+      "type": "pachinko",
+      "introduction": "2025-08-04",
+      "releaseStatus": "released",
+      "specStatus": "verified_with_approximate_distribution",
+      "simulator": "garo12",
+      "sources": [
+        "https://www.sansei-rd.co.jp/p_garo_archive/archive/p_garo12_ok.html",
+        "https://www.p-world.co.jp/machine/database/10305",
+        "https://p.hisshobon.jp/machine/4570/1/110370"
+      ],
+      "summary": "図柄揃い・ガロチャージ・極限7500バトル・魔戒CHANCE LTを区別。LT中の割合は公表近似値による簡易モデル。",
+      "lastVerified": "2026-10-28",
+      "spec": {
+        "normalSymbolOdds": 437.49,
+        "normalChargeOdds": 1749.97,
+        "normalSymbolPayout": 1500,
+        "normalChargePayout": 300,
+        "challengeEntryProbability": 0.5,
+        "challengeWinProbability": 0.5,
+        "challengeWinPayout": 7500,
+        "challengeLosePayout": 1500,
+        "rush7500Probability": 0.25,
+        "rush1500ContinueProbability": 0.51,
+        "rush1500EndProbability": 0.24
+      },
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "メーカー公式と専門情報を照合。試作シミュレーターに対応（LT中振り分けは概数）。"
+        }
+      ]
+    },
+    {
+      "id": "new-p-01",
+      "name": "eグランベルム 319ver.",
+      "manufacturer": "サンスリー",
+      "type": "pachinko",
+      "introduction": "2026-11-02",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "導入予定リストに追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "new-p-02",
+      "name": "e ノーゲーム・ノーライフ 119Ver.",
+      "manufacturer": "高尾",
+      "type": "pachinko",
+      "introduction": "2026-11-02",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "導入予定リストに追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "new-p-03",
+      "name": "eF妖怪ウォッチ",
+      "manufacturer": "SANKYO",
+      "type": "pachinko",
+      "introduction": "2026-11-02",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "導入予定リストに追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "new-p-04",
+      "name": "e 獣王 獅子の一撃",
+      "manufacturer": "サミー",
+      "type": "pachinko",
+      "introduction": "2026-11-02",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "導入予定リストに追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "new-p-05",
+      "name": "P羽根BASTARD!! ‐暗黒の破壊神‐",
+      "manufacturer": "SANKYO",
+      "type": "pachinko",
+      "introduction": "2026-11-02",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "導入予定リストに追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "new-p-06",
+      "name": "eグランベルム 249ver.",
+      "manufacturer": "サンスリー",
+      "type": "pachinko",
+      "introduction": "2026-11-02",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "導入予定リストに追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "new-p-07",
+      "name": "eとある魔術の禁書目録3",
+      "manufacturer": "オレンジ",
+      "type": "pachinko",
+      "introduction": "2026-11-02",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "導入予定リストに追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "new-p-08",
+      "name": "eプリンセス・プリンシパル",
+      "manufacturer": "平和",
+      "type": "pachinko",
+      "introduction": "2026-11-02",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "導入予定リストに追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "new-p-09",
+      "name": "P天羽一閃 ‐王道の「紅」‐",
+      "manufacturer": "D-light",
+      "type": "pachinko",
+      "introduction": "2026-11-02",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "導入予定リストに追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "new-p-10",
+      "name": "P天羽一閃 ‐一撃の「蒼」‐",
+      "manufacturer": "D-light",
+      "type": "pachinko",
+      "introduction": "2026-11-02",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "導入予定リストに追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "new-p-11",
+      "name": "桃太郎電鉄 ～ぱちんこも定番!～",
+      "manufacturer": "コナミアミューズメント",
+      "type": "pachinko",
+      "introduction": "2026-11-02",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "導入予定リストに追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "new-p-12",
+      "name": "桃太郎電鉄 ～ぱちんこも定番!～ LTver.",
+      "manufacturer": "コナミアミューズメント",
+      "type": "pachinko",
+      "introduction": "2026-11-02",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "導入予定リストに追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "new-p-13",
+      "name": "e 仮面ライダーBLACK デカヘソ Light Version",
+      "manufacturer": "京楽",
+      "type": "pachinko",
+      "introduction": "2026-11-02",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "導入予定リストに追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "new-p-14",
+      "name": "eワンパンマン2～正義執行 99ver.",
+      "manufacturer": "ニューギン",
+      "type": "pachinko",
+      "introduction": "2026-11-02",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "導入予定リストに追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "new-s-01",
+      "name": "L ソードアート・オンライン オルタナティブ ガンゲイル・オンライン",
+      "manufacturer": "京楽",
+      "type": "slot",
+      "introduction": "2026-11-02",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "導入予定リストに追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "new-s-02",
+      "name": "L聖闘士星矢 黄金十二宮",
+      "manufacturer": "サンスリー",
+      "type": "slot",
+      "introduction": "2026-11-02",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "導入予定リストに追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "new-s-03",
+      "name": "スマスロ ラグナドール",
+      "manufacturer": "ミズホ",
+      "type": "slot",
+      "introduction": "2026-11-02",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "導入予定リストに追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "new-s-04",
+      "name": "スロット Vivy ‐Fluorite Eye's Song‐",
+      "manufacturer": "大都技研",
+      "type": "slot",
+      "introduction": "2026-11-02",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "導入予定リストに追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "new-s-05",
+      "name": "L牙狼 闇を照らす者",
+      "manufacturer": "サンセイR&D",
+      "type": "slot",
+      "introduction": "2026-11-02",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "導入予定リストに追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "new-s-06",
+      "name": "Lパチスロ ゴジラ対エヴァンゲリオン 2",
+      "manufacturer": "ビスティ",
+      "type": "slot",
+      "introduction": "2026-11-02",
+      "releaseStatus": "upcoming",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "導入予定リストに追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "installed-01",
+      "name": "e Re:ゼロから始める異世界生活 鬼がかり2",
+      "manufacturer": "大都技研",
+      "type": "pachinko",
+      "introduction": "2026-10-05",
+      "releaseStatus": "released",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine.html"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "機種名・メーカー・導入日を追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "installed-02",
+      "name": "SMART-PACHINKO GANTZ",
+      "manufacturer": "オッケー.",
+      "type": "pachinko",
+      "introduction": "2026-10-05",
+      "releaseStatus": "released",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine.html"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "機種名・メーカー・導入日を追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "installed-03",
+      "name": "スマスロ モンスターハンターライズ：サンブレイク",
+      "manufacturer": "アデリオン",
+      "type": "slot",
+      "introduction": "2026-10-05",
+      "releaseStatus": "released",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine.html"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "機種名・メーカー・導入日を追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "installed-04",
+      "name": "スマスロ 獣王",
+      "manufacturer": "サミー",
+      "type": "slot",
+      "introduction": "2026-10-05",
+      "releaseStatus": "released",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine.html"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "機種名・メーカー・導入日を追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "installed-05",
+      "name": "スマスロパリピ孔明",
+      "manufacturer": "山佐",
+      "type": "slot",
+      "introduction": "2026-10-05",
+      "releaseStatus": "released",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine.html"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "機種名・メーカー・導入日を追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "installed-06",
+      "name": "マイジャグラーVI",
+      "manufacturer": "北電子",
+      "type": "slot",
+      "introduction": "2026-10-05",
+      "releaseStatus": "released",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine.html"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "機種名・メーカー・導入日を追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "installed-07",
+      "name": "P 新世紀エヴァンゲリオン -319 RED-",
+      "manufacturer": "ビスティ",
+      "type": "pachinko",
+      "introduction": "2026-10-19",
+      "releaseStatus": "released",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine.html"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "機種名・メーカー・導入日を追加。詳細スペックは未検証。"
+        }
+      ]
+    },
+    {
+      "id": "installed-08",
+      "name": "L魔法少女にあこがれて",
+      "manufacturer": "ニューギン",
+      "type": "slot",
+      "introduction": "2026-10-19",
+      "releaseStatus": "released",
+      "specStatus": "pending",
+      "simulator": null,
+      "sources": [
+        "https://www.p-world.co.jp/database/machine.html"
+      ],
+      "lastVerified": "2026-10-28",
+      "updates": [
+        {
+          "date": "2026-10-28",
+          "message": "機種名・メーカー・導入日を追加。詳細スペックは未検証。"
+        }
+      ]
+    }
+  ],
+  "updates": [
+    {
+      "date": "2026-10-28",
+      "text": "全機種ポータル試作開始。機種検索・種別フィルター・更新履歴・牙狼12の抽選モデルを追加。",
+      "type": "portal"
+    },
+    {
+      "date": "2026-10-28",
+      "text": "2026年11月2日導入予定20機種と10月導入済み主要8機種を仮登録（仕様未検証）。",
+      "type": "database"
+    }
+  ]
+}
