@@ -1,0 +1,25 @@
+name: PACHI ATLAS catalog checks
+
+on:
+  pull_request:
+    paths: ['catalog/**', '.github/workflows/catalog-check.yml']
+  push:
+    paths: ['catalog/**', '.github/workflows/catalog-check.yml']
+  workflow_dispatch:
+  schedule:
+    - cron: '17 3 * * 1'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate catalog metadata and source links
+        run: python3 catalog/validate_catalog.py
+      - name: Parse browser scripts
+        run: |
+          node --check catalog/engine.js
+          node --check catalog/ui.js

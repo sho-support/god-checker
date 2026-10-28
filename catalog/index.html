@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="パチンコ・パチスロの機種情報、導入予定、検証状況、更新履歴と確率シミュレーター。未確認情報は明確に区別する試作ポータル。">
+<meta name="theme-color" content="#0b0f16">
+<title>PACHI ATLAS | パチンコ・パチスロ機種データベース（試作）</title>
+<style>
+:root{color-scheme:dark;--bg:#090e16;--panel:#121c2b;--panel2:#172335;--line:#2c3b4f;--text:#edf3fa;--muted:#9caec2;--gold:#f0c76a;--blue:#85c8e4;--danger:#f29c97}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% -15%,#253047 0,transparent 45%),var(--bg);color:var(--text);font:15px/1.65 system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif}
+a{color:var(--blue)}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #f0c76a;outline-offset:3px}
+.site-header{border-bottom:1px solid var(--line);background:#090e16b5}.wrap{max-width:1200px;margin:auto;padding:0 20px}
+.header-inner{display:flex;justify-content:space-between;align-items:center;gap:18px;min-height:74px}.brand{font-size:21px;letter-spacing:.13em;font-weight:900;color:var(--text);text-decoration:none}.brand span{color:var(--gold)}.old-link{font-size:12px}
+.hero{padding:42px 0 30px}.eyebrow{font-size:12px;letter-spacing:.15em;color:var(--gold);font-weight:700}.hero h1{font-size:clamp(26px,4vw,42px);line-height:1.3;margin:8px 0}.hero p{color:var(--muted);max-width:830px;margin:0}.prototype{display:inline-block;border:1px solid var(--gold);color:var(--gold);border-radius:20px;padding:2px 10px;font-size:11px;margin-left:10px;vertical-align:middle}
+.grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(320px,.9fr);gap:20px}.panel{border:1px solid var(--line);border-radius:17px;background:linear-gradient(145deg,var(--panel),#0e1725);box-shadow:0 16px 45px #0002;padding:19px;min-width:0}
+h2{font-size:19px;line-height:1.45;margin:0 0 12px}h3{font-size:16px;margin:15px 0 8px}.small{font-size:12px;color:var(--muted)}.muted{color:var(--muted)}.search-line{display:flex;gap:9px;flex-wrap:wrap}.search-line input{flex:1;min-width:190px}
+input,select{background:#08111f;color:var(--text);border:1px solid #43536a;border-radius:10px;padding:11px 12px;width:100%}
+.filters{display:flex;gap:8px;margin:13px 0;flex-wrap:wrap}.chip{border-radius:100px;border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:7px 15px}.chip[aria-pressed=true]{border-color:var(--gold);color:#10131b;background:var(--gold);font-weight:700}
+.machine-list{display:grid;gap:8px;max-height:560px;overflow:auto;padding-right:4px}.machine{width:100%;border:1px solid #314157;border-radius:12px;background:#152235;text-align:left;color:var(--text);padding:12px 13px;display:grid;gap:3px}.machine:hover,.machine[aria-current=true]{border-color:var(--gold);background:#1d2b3d}.machine-name{font-weight:750}.tag{font-size:11px;padding:2px 8px;border:1px solid #51617b;border-radius:99px;display:inline-block;color:#dce9f8}.tag.verified{color:#a9e9d2;border-color:#3e7c6a}.tag.pending{color:#f2cf97;border-color:#805e36}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:7px}.status{margin-top:8px;font-size:13px;color:var(--muted)}
+.detail-name{font-size:21px;margin:5px 0}.detail-text{font-size:13px;line-height:1.85;color:#d5e1ee}.kv{display:grid;grid-template-columns:1fr auto;border-bottom:1px solid #304052;padding:7px 0;gap:8px;font-size:13px}.kv strong{color:var(--text);text-align:right}.links{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;overflow-wrap:anywhere}
+.timeline{max-height:140px;overflow:auto;border:1px solid var(--line);border-radius:11px;padding:8px 12px;font-size:12px;color:#d0dfec;background:#0a1423}.timeline p{margin:4px 0 10px}.timeline time{color:var(--gold)}
+.section{margin:22px 0}.sim-controls{display:flex;flex-wrap:wrap;gap:7px;margin:11px 0}.action{border:1px solid #536079;border-radius:10px;background:#23364f;color:#fff;padding:10px 14px}.action.primary{background:var(--gold);border-color:var(--gold);color:#171c26;font-weight:750}.action.stop{color:#f6bdb8}.action:disabled{opacity:.5;cursor:not-allowed}
+.statgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.stat{background:#0b1728;border:1px solid #304054;border-radius:10px;padding:10px}.stat .value{font-weight:850;font-variant-numeric:tabular-nums;font-size:20px;line-height:1.25}.stat .label{color:var(--muted);font-size:11px}
+.mode{display:inline-block;border-radius:10px;border:1px solid var(--gold);padding:6px 13px;color:var(--gold);font-weight:800}.sim-note{padding:10px 12px;background:#261e15;border-left:3px solid var(--gold);font-size:12px;color:#f9ddac;margin-top:12px}
+footer{border-top:1px solid var(--line);margin:38px 0 0;padding:23px 0;color:var(--muted);font-size:12px}
+@media(max-width:860px){.grid{grid-template-columns:1fr}.hero{padding-top:30px}.header-inner{align-items:flex-start;flex-direction:column;justify-content:center;padding:14px 0;gap:2px}.machine-list{max-height:380px}}
+@media(max-width:390px){.wrap{padding:0 12px}.panel{padding:14px}.statgrid{grid-template-columns:repeat(2,1fr)}.action{padding:9px 10px}}
+
+.custom-config{margin:12px 0 15px;padding:15px;border:1px solid #465a70;border-radius:14px;background:#0b1626}
+.custom-config[hidden],#free-odds-box[hidden]{display:none!important}
+.custom-heading{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap;margin-bottom:10px}
+.field-grid{display:grid;grid-template-columns:repeat(4,minmax(130px,1fr));gap:11px;margin-bottom:14px}
+.field-grid label{min-width:0}.field-grid .small{display:block;min-height:35px;margin-bottom:3px}.field-grid input{font-variant-numeric:tabular-nums}
+.error{font-size:13px;color:#ffacac;min-height:1em;margin:6px 0}
+#phase{transition:background .2s}.machine[aria-current="true"]{box-shadow:inset 3px 0 var(--gold)}
+@media(max-width:850px){.field-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.field-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.field-grid input{padding:8px}}
+
+</style>
+</head>
+<body>
+<header class="site-header"><div class="wrap header-inner"><a class="brand" href="./index.html">PACHI <span>ATLAS</span></a><a class="old-link" href="../index.html">元のミリオンゴッド専用サイト</a></div></header>
+<main class="wrap">
+<section class="hero"><div class="eyebrow">PACHINKO &amp; PACHISLOT DATABASE <span class="prototype">公開ベータ・仕様確認中</span></div><h1>機種を探す。確率を体感する。</h1><p>導入済み・導入予定の機種情報と抽選シミュレーターを統合。公表値と未確認情報は混ぜず、仕様を検証できた機種から順次シミュレーターに対応します。</p></section>
+<div class="grid">
+<section class="panel" aria-labelledby="list-head"><h2 id="list-head">機種を探す <span id="count" class="small"></span></h2>
+<div class="search-line"><label style="flex:1"><span class="small">機種名・メーカー検索</span><input id="query" type="search" placeholder="例：牙狼 / エヴァ / サミー" autocomplete="off"></label><label style="width:165px"><span class="small">導入状況</span><select id="release"><option value="all">すべて</option><option value="released">導入済み</option><option value="upcoming">導入予定</option></select></label></div>
+<div class="filters" role="group" aria-label="機種区分"><button type="button" class="chip" data-type="all" aria-pressed="true">すべて</button><button type="button" class="chip" data-type="slot" aria-pressed="false">パチスロ</button><button type="button" class="chip" data-type="pachinko" aria-pressed="false">パチンコ</button></div>
+<div id="list" class="machine-list" aria-live="polite"><div class="muted">機種データを読み込んでいます。</div></div><p id="load-status" class="status">データ確認日：2026/10/28</p>
+</section>
+<section class="panel" aria-labelledby="detail-head"><h2 id="detail-head">機種情報</h2><div id="detail"><p class="muted">一覧から機種を選んでください。</p></div></section>
+</div>
+<section class="section panel" aria-labelledby="sim-head"><h2 id="sim-head">抽選シミュレーター</h2>
+<p class="small">実機の映像や内部プログラムは再現しません。公開済みの数値を利用した独立した疑似抽選です。</p>
+<div class="search-line"><label style="max-width:280px"><span class="small">抽選モデル</span><select id="sim-model"><option value="free">フリー確率モード</option><option value="garo12">e牙狼12黄金騎士極限（公表値モデル）</option></select></label><label style="max-width:160px" id="free-odds-box"><span class="small">大当たり確率 1 /</span><input type="number" id="free-odds" min="1" max="10000000" step="0.01" value="399"></label></div>
+<div id="custom-config" class="custom-config" hidden>
+  <div class="custom-heading"><strong>カスタム ST / LT シミュレーター</strong><span class="small">入力した確率で疑似遊技（実機との一致保証なし）</span></div>
+  <div class="field-grid">
+    <label><span class="small">通常・図柄揃い 1 /</span><input data-config="odds" type="number" value="319.7" min="1" max="10000000" step="any"></label>
+    <label><span class="small">チャージ 1 /（0＝なし）</span><input data-config="chargeOdds" type="number" value="0" min="0" max="10000000" step="any"></label>
+    <label><span class="small">図柄揃い時の払出し個数</span><input data-config="firstPayout" type="number" value="1500" min="0" max="100000" step="1"></label>
+    <label><span class="small">チャージ払出し個数</span><input data-config="chargePayout" type="number" value="300" min="0" max="100000" step="1"></label>
+    <label><span class="small">初当たりからST突入 %</span><input data-config="entryPct" type="number" value="55" min="0" max="100" step="any"></label>
+    <label><span class="small">ST継続回転数</span><input data-config="stGames" type="number" value="100" min="1" max="10000" step="1"></label>
+    <label><span class="small">ST中当たり 1 /</span><input data-config="stOdds" type="number" value="99.9" min="1" max="10000000" step="any"></label>
+    <label><span class="small">ST中当たり払出し個数</span><input data-config="stPayout" type="number" value="1500" min="0" max="100000" step="1"></label>
+    <label><span class="small">ST当たり後のLT昇格 %</span><input data-config="ltEntryPct" type="number" value="0" min="0" max="100" step="any"></label>
+    <label><span class="small">LT継続回転数</span><input data-config="ltGames" type="number" value="150" min="1" max="10000" step="1"></label>
+    <label><span class="small">LT中当たり 1 /</span><input data-config="ltOdds" type="number" value="90" min="1" max="10000000" step="any"></label>
+    <label><span class="small">LT中当たり払出し個数</span><input data-config="ltPayout" type="number" value="1500" min="0" max="100000" step="1"></label>
+  </div>
+  <button id="custom-apply" class="action primary" type="button">この設定を適用して最初から</button>
+</div>
+<div id="slot-config" class="custom-config" hidden>
+  <div class="custom-heading"><strong>スロット AT 自由設定</strong><span class="small">天井・AT・上乗せ・上位ATの概念を再現する架空モデル</span></div>
+  <div class="field-grid">
+    <label><span class="small">通常初当たり 1 /</span><input data-slot="slotOdds" type="number" min="1" max="10000000" step="any" value="350"></label>
+    <label><span class="small">天井ゲーム数</span><input data-slot="slotCeiling" type="number" min="1" max="100000" step="1" value="1200"></label>
+    <label><span class="small">AT初期ゲーム数</span><input data-slot="slotAtGames" type="number" min="1" max="10000" step="1" value="50"></label>
+    <label><span class="small">AT純増（枚/G）</span><input data-slot="slotCoinsPerGame" type="number" min="0" max="100" step="any" value="3"></label>
+    <label><span class="small">AT中の上乗せ抽選 %/G</span><input data-slot="slotBonusPct" type="number" min="0" max="100" step="any" value="2"></label>
+    <label><span class="small">上乗せゲーム数</span><input data-slot="slotAddGames" type="number" min="1" max="10000" step="1" value="30"></label>
+    <label><span class="small">上乗せ当選時の上位移行 %</span><input data-slot="slotUpperPct" type="number" min="0" max="100" step="any" value="10"></label>
+    <label><span class="small">上位ATゲーム数</span><input data-slot="slotUpperGames" type="number" min="1" max="10000" step="1" value="100"></label>
+    <label><span class="small">上位AT純増（枚/G）</span><input data-slot="slotUpperCoinsPerGame" type="number" min="0" max="100" step="any" value="5"></label>
+  </div>
+  <button id="slot-apply" class="action primary" type="button">この設定を適用して最初から</button>
+</div>
+<div class="meta" style="margin:14px 0"><span class="small">現在の状態</span><span id="phase" class="mode">通常</span><span id="phase-help" class="small"></span></div>
+<div class="statgrid">
+<div class="stat"><div class="label">総抽選回数</div><div class="value" id="spins">0</div></div><div class="stat"><div class="label">通常回転数</div><div class="value" id="normal-spins">0</div></div><div class="stat"><div class="label">現在のハマり</div><div class="value" id="hama">0</div></div>
+<div class="stat"><div class="label">最大ハマり</div><div class="value" id="max-hama">0</div></div><div class="stat"><div class="label">当たり回数（右打ち含む）</div><div class="value" id="wins">0</div></div><div class="stat"><div class="label">獲得（玉・枚）</div><div class="value" id="payout">0</div></div>
+<div class="stat"><div class="label">チャージ回数</div><div class="value" id="charges">0</div></div><div class="stat"><div class="label">ST・LT突入回数</div><div class="value" id="rush-entries">0</div></div><div class="stat"><div class="label">LT昇格回数</div><div class="value" id="lt-entries">0</div></div>
+</div>
+<div class="sim-controls"><button id="one" class="action primary" type="button">1回抽選</button><button id="hundred" class="action" type="button">100回</button><button id="thousand" class="action" type="button">1,000回</button><button id="ten-thousand" class="action" type="button">10,000回</button><button id="auto" class="action" type="button" aria-pressed="false">オート開始</button><button id="reset" class="action stop" type="button">リセット</button></div>
+<p id="validation" class="error" role="alert" aria-live="assertive"></p><div class="small">抽選履歴（最新50件）</div><div class="timeline" id="sim-history" aria-live="polite">まだ抽選していません。</div>
+<div class="sim-note" id="sim-notice">フリー確率モードは指定した確率で当たりだけを抽選します。チャージ、RUSH、ST、出玉は機種別モデルで扱います。</div>
+</section>
+<section class="section panel"><h2>サイト全体の更新履歴</h2><div id="updates" class="timeline" style="max-height:180px">読み込み中</div></section>
+</main>
+<footer><div class="wrap">試作版｜メーカー・ホールとは無関係の独立した情報サイトです。数値は公開情報を参考にした疑似抽選であり、実機の結果・期待収支・設定・勝敗を保証しません。18歳未満の遊技を推奨しません。<div><a href="../privacy.html">プライバシー・免責事項</a></div></div></footer>
+<script defer src="./engine.js"></script>
+<script defer src="./ui.js"></script>
+</body>
+</html>
