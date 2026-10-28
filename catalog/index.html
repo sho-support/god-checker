@@ -43,7 +43,7 @@ footer{border-top:1px solid var(--line);margin:38px 0 0;padding:23px 0;color:var
 <body>
 <header class="site-header"><div class="wrap header-inner"><a class="brand" href="./index.html">PACHI <span>ATLAS</span></a><a class="old-link" href="../index.html">元のミリオンゴッド専用サイト</a></div></header>
 <main class="wrap">
-<section class="hero"><div class="eyebrow">PACHINKO &amp; PACHISLOT DATABASE <span class="prototype">試作・非公開ブランチ</span></div><h1>機種を探す。確率を体感する。</h1><p>導入済み・導入予定の機種情報と抽選シミュレーターを統合。公表値と未確認情報は混ぜず、仕様を検証できた機種から順次シミュレーターに対応します。</p></section>
+<section class="hero"><div class="eyebrow">PACHINKO &amp; PACHISLOT DATABASE <span class="prototype">公開ベータ・仕様確認中</span></div><h1>機種を探す。確率を体感する。</h1><p>導入済み・導入予定の機種情報と抽選シミュレーターを統合。公表値と未確認情報は混ぜず、仕様を検証できた機種から順次シミュレーターに対応します。</p></section>
 <div class="grid">
 <section class="panel" aria-labelledby="list-head"><h2 id="list-head">機種を探す <span id="count" class="small"></span></h2>
 <div class="search-line"><label style="flex:1"><span class="small">機種名・メーカー検索</span><input id="query" type="search" placeholder="例：牙狼 / エヴァ / サミー" autocomplete="off"></label><label style="width:165px"><span class="small">導入状況</span><select id="release"><option value="all">すべて</option><option value="released">導入済み</option><option value="upcoming">導入予定</option></select></label></div>
@@ -73,10 +73,25 @@ footer{border-top:1px solid var(--line);margin:38px 0 0;padding:23px 0;color:var
   </div>
   <button id="custom-apply" class="action primary" type="button">この設定を適用して最初から</button>
 </div>
+<div id="slot-config" class="custom-config" hidden>
+  <div class="custom-heading"><strong>スロット AT 自由設定</strong><span class="small">天井・AT・上乗せ・上位ATの概念を再現する架空モデル</span></div>
+  <div class="field-grid">
+    <label><span class="small">通常初当たり 1 /</span><input data-slot="slotOdds" type="number" min="1" max="10000000" step="any" value="350"></label>
+    <label><span class="small">天井ゲーム数</span><input data-slot="slotCeiling" type="number" min="1" max="100000" step="1" value="1200"></label>
+    <label><span class="small">AT初期ゲーム数</span><input data-slot="slotAtGames" type="number" min="1" max="10000" step="1" value="50"></label>
+    <label><span class="small">AT純増（枚/G）</span><input data-slot="slotCoinsPerGame" type="number" min="0" max="100" step="any" value="3"></label>
+    <label><span class="small">AT中の上乗せ抽選 %/G</span><input data-slot="slotBonusPct" type="number" min="0" max="100" step="any" value="2"></label>
+    <label><span class="small">上乗せゲーム数</span><input data-slot="slotAddGames" type="number" min="1" max="10000" step="1" value="30"></label>
+    <label><span class="small">上乗せ当選時の上位移行 %</span><input data-slot="slotUpperPct" type="number" min="0" max="100" step="any" value="10"></label>
+    <label><span class="small">上位ATゲーム数</span><input data-slot="slotUpperGames" type="number" min="1" max="10000" step="1" value="100"></label>
+    <label><span class="small">上位AT純増（枚/G）</span><input data-slot="slotUpperCoinsPerGame" type="number" min="0" max="100" step="any" value="5"></label>
+  </div>
+  <button id="slot-apply" class="action primary" type="button">この設定を適用して最初から</button>
+</div>
 <div class="meta" style="margin:14px 0"><span class="small">現在の状態</span><span id="phase" class="mode">通常</span><span id="phase-help" class="small"></span></div>
 <div class="statgrid">
 <div class="stat"><div class="label">総抽選回数</div><div class="value" id="spins">0</div></div><div class="stat"><div class="label">通常回転数</div><div class="value" id="normal-spins">0</div></div><div class="stat"><div class="label">現在のハマり</div><div class="value" id="hama">0</div></div>
-<div class="stat"><div class="label">最大ハマり</div><div class="value" id="max-hama">0</div></div><div class="stat"><div class="label">当たり回数（右打ち含む）</div><div class="value" id="wins">0</div></div><div class="stat"><div class="label">獲得払出し個数</div><div class="value" id="payout">0</div></div>
+<div class="stat"><div class="label">最大ハマり</div><div class="value" id="max-hama">0</div></div><div class="stat"><div class="label">当たり回数（右打ち含む）</div><div class="value" id="wins">0</div></div><div class="stat"><div class="label">獲得（玉・枚）</div><div class="value" id="payout">0</div></div>
 <div class="stat"><div class="label">チャージ回数</div><div class="value" id="charges">0</div></div><div class="stat"><div class="label">ST・LT突入回数</div><div class="value" id="rush-entries">0</div></div><div class="stat"><div class="label">LT昇格回数</div><div class="value" id="lt-entries">0</div></div>
 </div>
 <div class="sim-controls"><button id="one" class="action primary" type="button">1回抽選</button><button id="hundred" class="action" type="button">100回</button><button id="thousand" class="action" type="button">1,000回</button><button id="ten-thousand" class="action" type="button">10,000回</button><button id="auto" class="action" type="button" aria-pressed="false">オート開始</button><button id="reset" class="action stop" type="button">リセット</button></div>
