@@ -21,6 +21,9 @@ function renderList(){
 }
 function detailSpec(m){
  if(!m.spec)return '<p class="muted">抽選仕様はまだ検証できていません。数値を推測で埋めず、出典を確認した項目から追加します。</p>';
+ if(m.spec.type==="slot_god"){
+  const s=m.spec;return '<p class="small">タイプ：AT / 6号機スマスロ</p>'+s.firstHitOdds.map((v,i)=>'<div class="kv"><span>設定'+(i+1)+' / GG初当たり</span><strong>1/'+esc(v)+' ／ 出玉率'+esc(s.payoutRate[i])+'%</strong></div>').join("")+'<p class="small">天井：'+esc(s.ceiling)+'</p><p class="small">※設定値・割合は参照元の解析数値です。メーカー保証の数値と区別してください。</p>';
+ }
  const s=m.spec,rows=[["通常・図柄揃い確率","1/"+s.normalSymbolOdds],["ガロチャージ確率","1/"+s.normalChargeOdds],["初当たり出玉",fmt(s.normalSymbolPayout)+"個"],["チャージ出玉",fmt(s.normalChargePayout)+"個"],["7500バトル突入率",(s.challengeEntryProbability*100)+"%"],["7500バトル突破率",(s.challengeWinProbability*100)+"%"],["LT継続率","約76%"],["LT中7500個","約25%"],["LT中1500個継続","約51%"],["LT中1500個終了","約24%"]];
  return rows.map(a=>'<div class="kv"><span>'+esc(a[0])+'</span><strong>'+esc(a[1])+'</strong></div>').join("");
 }
