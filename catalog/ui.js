@@ -35,14 +35,22 @@ function renderDetail(){
  if(m.simulator==="garo12"){const b=document.createElement("button");b.type="button";b.className="action primary";b.style.marginTop="13px";b.textContent="牙狼12の抽選を試す";b.addEventListener("click",()=>{setModel("garo12");$("sim-head").scrollIntoView({behavior:"smooth",block:"start"})});$("detail").appendChild(b)}
  else if(m.type==="pachinko"){const b=document.createElement("button");b.type="button";b.className="action";b.style.marginTop="13px";b.textContent="自由設定で疑似遊技を試す";b.addEventListener("click",()=>{setModel("custom");$("sim-head").scrollIntoView({behavior:"smooth",block:"start"})});$("detail").appendChild(b)}
  else if(m.id==="l-million-god-trajectory"){const a=document.createElement("a");a.href="../simulator.html";a.textContent="従来のGODシミュレーターを開く";a.className="action primary";a.style.cssText="display:inline-block;margin-top:13px;text-decoration:none";$("detail").appendChild(a)}
+ else if(m.type==="slot"){const b=document.createElement("button");b.type="button";b.className="action";b.style.marginTop="13px";b.textContent="スロットATの自由設定で試す";b.addEventListener("click",()=>{setModel("slot");$("sim-head").scrollIntoView({behavior:"smooth",block:"start"})});$("detail").appendChild(b)}
 }
 function modelConfig(){
  if($("sim-model").value==="free")return {odds:Number($("free-odds").value)};
+ if($("sim-model").value==="slot"){const cfg={};document.querySelectorAll("[data-slot]").forEach(x=>cfg[x.dataset.slot]=Number(x.value));return cfg;}
  const cfg={};document.querySelectorAll("[data-config]").forEach(x=>cfg[x.dataset.config]=Number(x.value));return cfg;
 }
 function validate(){
  const model=$("sim-model").value;
  if(model==="free"){const n=Number($("free-odds").value);return Number.isFinite(n)&&n>=1&&n<=1e7?"":"確率分母は1～10,000,000の範囲で入力してください"}
+ if(model==="slot"){
+  for(const el of document.querySelectorAll("[data-slot]")){
+   const n=Number(el.value),min=Number(el.min),max=Number(el.max);
+   if(!el.value.trim()||!Number.isFinite(n)||n<min||n>max)return "スロット自由設定の入力値を確認してください（"+el.dataset.slot+"）";
+  }
+ }
  if(model==="custom"){
   for(const el of document.querySelectorAll("[data-config]")){
    const n=Number(el.value),min=Number(el.min),max=Number(el.max);
@@ -59,19 +67,21 @@ function renderSim(){
  const s=engine.snapshot(),model=$("sim-model").value;
  $("free-odds-box").hidden=model!=="free";
  $("custom-config").hidden=model!=="custom";
- $("phase").textContent=({normal:"通常",challenge:"極限7500バトル",rush:model==="garo12"?"魔戒CHANCE LT":"ST中",lt:"LT中"})[s.phase]||s.phase;
- $("phase-help").textContent=s.phase==="rush"||s.phase==="lt"?(s.remaining>0?"残り"+s.remaining+"回":model==="garo12"?"次回当選まで":""):"";
+ $("slot-config").hidden=model!=="slot";
+ $("phase").textContent=({normal:"通常",challenge:"極限7500バトル",rush:model==="garo12"?"魔戒CHANCE LT":"ST中",lt:"LT中",at:"AT中",upper:"上位AT中"})[s.phase]||s.phase;
+ $("phase-help").textContent=s.phase==="rush"||s.phase==="lt"||s.phase==="at"||s.phase==="upper"?(s.remaining>0?"残り"+s.remaining+"回":model==="garo12"?"次回当選まで":""):"";
  for(const [id,v] of [["spins",s.spins],["normal-spins",s.normalSpins],["hama",s.hama],["max-hama",s.maxHama],["wins",s.hits],["payout",s.payout],["charges",s.charges],["rush-entries",s.rushEntries],["lt-entries",s.ltEntries]])if($(id))$(id).textContent=fmt(v);
  $("sim-history").innerHTML=s.history.length?s.history.map(h=>'<p><span class="small">#'+fmt(h.spin)+'</span>　'+esc(h.message)+'</p>').join(""):"まだ抽選していません。";
- $("sim-notice").textContent=model==="garo12"?"牙狼12：出典照合済みの通常図柄揃い/チャージ確率と約25・51・24%のLT振り分けを使用。簡易モデルで実機の内部挙動、演出、保留、実際の払い出しとは一致しない場合があります。":model==="custom"?"カスタム疑似遊技：自分で入力した数値から状態を抽選。ST中の当たりで残回数をリセットし、指定した割合でLTへ移行します。実機スペックを自動反映する機能ではありません。":"フリー確率：1/分母の独立抽選のみ。出玉・チャージ・確変・ST/LTを再現しません。";
+ $("sim-notice").textContent=model==="garo12"?"牙狼12：出典照合済みの通常図柄揃い/チャージ確率と約25・51・24%のLT振り分けを使用。簡易モデルで実機の内部挙動、演出、保留、実際の払い出しとは一致しない場合があります。":model==="custom"?"カスタム疑似遊技：自分で入力した数値から状態を抽選。ST中の当たりで残回数をリセットし、指定した割合でLTへ移行します。実機スペックを自動反映する機能ではありません。":model==="slot"?"スロット自由設定：入力した初当たり率・天井・ATゲーム数・純増・上乗せ・上位AT移行率を使う架空モデル。実機と同一の機械割・出玉率・設定挙動にはなりません。":"フリー確率：1/分母の独立抽選のみ。出玉・チャージ・確変・ST/LTを再現しません。";
 }
 function showUpdates(){if(!catalog)return;$("updates").innerHTML=catalog.updates.map(x=>'<p><time>'+esc(x.date)+'</time>　'+esc(x.text)+'</p>').join("")}
 function init(){
  const params=new URL(location.href).searchParams;
- $("sim-model").insertAdjacentHTML("beforeend",'<option value="custom">自由設定 ST / LT（試作）</option>');
+ $("sim-model").insertAdjacentHTML("beforeend",'<option value="custom">自由設定 ST / LT（試作）</option><option value="slot">自由設定 スロット AT（試作）</option>');
  $("sim-model").addEventListener("change",()=>setModel($("sim-model").value));
  $("free-odds").addEventListener("change",()=>setModel("free"));
  $("custom-apply").addEventListener("click",()=>setModel("custom"));
+ $("slot-apply").addEventListener("click",()=>setModel("slot"));
  $("one").addEventListener("click",()=>run(1));$("hundred").addEventListener("click",()=>run(100));$("thousand").addEventListener("click",()=>run(1000));$("ten-thousand").addEventListener("click",()=>run(10000));
  $("reset").addEventListener("click",()=>{stop();engine.reset();renderSim()});
  $("auto").addEventListener("click",()=>{if(timer!==null){stop();return}const error=validate();if(error){$("validation").textContent=error;return}if(engine.snapshot().mode!==$("sim-model").value)engine.update($("sim-model").value,modelConfig());timer=setInterval(()=>{try{engine.step();renderSim()}catch(e){stop();$("validation").textContent=String(e.message)}},80);$("auto").textContent="オート停止";$("auto").setAttribute("aria-pressed","true")});
