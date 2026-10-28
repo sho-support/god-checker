@@ -1,0 +1,31 @@
+name: PACHI ATLAS news candidate watcher
+
+on:
+  schedule:
+    - cron: '23 1 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Collect public RSS news candidates
+        run: python3 catalog/watch_news.py
+      - name: Create review-only pull request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet -- catalog/discovered.json; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          BRANCH="bot/catalog-watch-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          git checkout -b "$BRANCH"
+          git add catalog/discovered.json
+          git commit -m 'chore: add review-only RSS candidates'
+          git push origin "$BRANCH"
+          gh pr create --base main --head "$BRANCH" --title 'Machine news candidates for review' --body 'Review candidate news. This does not publish machine data or unverified odds.'
