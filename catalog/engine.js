@@ -3,10 +3,10 @@
  const GARO12={symbolOdds:437.49,chargeOdds:1749.97,firstPayout:1500,chargePayout:300,challengeEntry:.5,challengeWin:.5,challengeSuccessPayout:7500,challengeFailPayout:1500,rushOutcomes:[{rate:.25,payout:7500,next:"rush",label:"7500個・継続"},{rate:.51,payout:1500,next:"rush",label:"1500個・継続"},{rate:.24,payout:1500,next:"normal",label:"1500個・終了"}]};
  const num=(v,d)=>Number.isFinite(Number(v))?Number(v):d;
  const clamp=(v,min,max,d)=>Math.min(max,Math.max(min,num(v,d)));
- function normalizeCustom(x={}){return {odds:clamp(x.odds,1,1e7,399),chargeOdds:clamp(x.chargeOdds,0,1e7,0),firstPayout:clamp(x.firstPayout,0,1e5,1500),chargePayout:clamp(x.chargePayout,0,1e5,300),entryPct:clamp(x.entryPct,0,100,55),stGames:Math.round(clamp(x.stGames,1,1e4,100)),stOdds:clamp(x.stOdds,1,1e7,99.9),stPayout:clamp(x.stPayout,0,1e5,1500),ltEntryPct:clamp(x.ltEntryPct,0,100,0),ltGames:Math.round(clamp(x.ltGames,1,1e4,150)),ltOdds:clamp(x.ltOdds,1,1e7,90),ltPayout:clamp(x.ltPayout,0,1e5,1500)}}
+ function normalizeCustom(x={}){return {odds:clamp(x.odds,1,1e7,399),chargeOdds:clamp(x.chargeOdds,0,1e7,0),firstPayout:clamp(x.firstPayout,0,1e5,1500),chargePayout:clamp(x.chargePayout,0,1e5,300),entryPct:clamp(x.entryPct,0,100,55),stGames:Math.round(clamp(x.stGames,1,1e4,100)),stOdds:clamp(x.stOdds,1,1e7,99.9),stPayout:clamp(x.stPayout,0,1e5,1500),ltEntryPct:clamp(x.ltEntryPct,0,100,0),ltGames:Math.round(clamp(x.ltGames,1,1e4,150)),ltOdds:clamp(x.ltOdds,1,1e7,90),ltPayout:clamp(x.ltPayout,0,1e5,1500),slotOdds:clamp(x.slotOdds,1,1e7,350),slotCeiling:Math.round(clamp(x.slotCeiling,1,100000,1200)),slotAtGames:Math.round(clamp(x.slotAtGames,1,10000,50)),slotCoinsPerGame:clamp(x.slotCoinsPerGame,0,100,3),slotBonusPct:clamp(x.slotBonusPct,0,100,2),slotAddGames:Math.round(clamp(x.slotAddGames,1,10000,30)),slotUpperPct:clamp(x.slotUpperPct,0,100,10),slotUpperGames:Math.round(clamp(x.slotUpperGames,1,10000,100)),slotUpperCoinsPerGame:clamp(x.slotUpperCoinsPerGame,0,100,5)}}
  function create(options={}){
   const random=typeof options.random==="function"?options.random:Math.random;
-  let mode=["free","custom","garo12"].includes(options.mode)?options.mode:"free",config=normalizeCustom(options.config),state;
+  let mode=["free","custom","garo12","slot"].includes(options.mode)?options.mode:"free",config=normalizeCustom(options.config),state;
   function reset(){state={mode,phase:"normal",spins:0,normalSpins:0,specialSpins:0,hama:0,maxHama:0,hits:0,charges:0,payout:0,rushEntries:0,ltEntries:0,remaining:0,lastEvent:"開始",history:[]}}
   function roll(){const r=random();if(!Number.isFinite(r)||r<0||r>=1)throw Error("乱数が0以上1未満ではありません");return r}
   function event(message,kind="info"){state.lastEvent=message;state.history.unshift({spin:state.spins,message,kind,phase:state.phase});if(state.history.length>50)state.history.length=50}
@@ -32,11 +32,33 @@
     if(roll()<1/odds){const prize=lt?c.ltPayout:c.stPayout;reward(prize);if(!lt&&c.ltEntryPct>0&&roll()<c.ltEntryPct/100){enter("lt",c.ltGames);event("ST中当たり："+prize+"個 → LT昇格（"+c.ltGames+"回）","win")}else{state.remaining=lt?c.ltGames:c.stGames;event((lt?"LT":"ST")+"中当たり："+prize+"個、残り"+state.remaining+"回へ復帰","win")}return "rush_hit"}
     if(state.remaining<=0){const old=lt?"LT":"ST";enter("normal");event(old+"終了 → 通常","loss");return "rush_end"}return "miss";
    }
+   if(mode==="slot"){
+    const c=config,s=state;
+    if(s.phase==="normal"){
+      s.spins++;s.normalSpins++;s.hama++;s.maxHama=Math.max(s.maxHama,s.hama);
+      const ceilingHit=s.hama>=c.slotCeiling,randomHit=roll()<1/c.slotOdds;
+      if(ceilingHit||randomHit){
+        s.hama=0;s.hits++;enter("at",c.slotAtGames);
+        event(ceilingHit?"天井に到達：AT突入（簡易モデル）":"初当たり：AT突入（簡易モデル）","win");
+        return "slot_at";
+      }
+      return "miss";
+    }
+    if(s.phase!=="at"&&s.phase!=="upper")throw Error("スロット状態が不正");
+    s.spins++;s.specialSpins++;s.remaining--;
+    s.payout+=s.phase==="upper"?c.slotUpperCoinsPerGame:c.slotCoinsPerGame;
+    if(s.phase==="at"&&roll()<c.slotBonusPct/100){
+      if(roll()<c.slotUpperPct/100){enter("upper",c.slotUpperGames);event("上位AT移行（簡易モデル）","win");return "slot_upper"}
+      s.remaining+=c.slotAddGames;event("AT上乗せ +"+c.slotAddGames+"G（簡易モデル）","win");return "slot_bonus";
+    }
+    if(s.remaining<=0){enter("normal");event("AT終了 → 通常","loss");return "slot_end"}
+    return "miss";
+   }
    throw Error("未対応のモード");
   }
-  function stepMany(n){if(!Number.isSafeInteger(n)||n<1||n>1000000)throw Error("抽選は1〜100万回まで");let wins=0,charges=0;for(let i=0;i<n;i++){const r=step();if(r==="symbol"||r==="rush_hit"||r==="challenge_success"||r==="challenge_fail"||r==="rush_continue"||r==="rush_end")wins++;if(r==="charge")charges++}return {performed:n,wins,charges}}
+  function stepMany(n){if(!Number.isSafeInteger(n)||n<1||n>1000000)throw Error("抽選は1〜100万回まで");let wins=0,charges=0;for(let i=0;i<n;i++){const r=step();if(r==="symbol"||r==="rush_hit"||r==="challenge_success"||r==="challenge_fail"||r==="rush_continue"||r==="rush_end"||r==="slot_at"||r==="slot_upper"||r==="slot_bonus")wins++;if(r==="charge")charges++}return {performed:n,wins,charges}}
   function snapshot(){return JSON.parse(JSON.stringify(state))}
-  function update(nextMode,nextConfig){if(nextMode&&!["free","custom","garo12"].includes(nextMode))throw Error("未対応モード");mode=nextMode||mode;config=normalizeCustom(nextConfig||config);reset()}
+  function update(nextMode,nextConfig){if(nextMode&&!["free","custom","garo12","slot"].includes(nextMode))throw Error("未対応モード");mode=nextMode||mode;config=normalizeCustom(nextConfig||config);reset()}
   reset();return {step,stepMany,snapshot,reset,update,getConfig:()=>({...config}),getGaroSpec:()=>({...GARO12})}
  }
  root.PachiEngine={create,normalizeCustom,GARO12};
