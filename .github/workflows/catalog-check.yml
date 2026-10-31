@@ -27,3 +27,4 @@ jobs:
       - name: Execute deterministic probability and state regression tests
         run: node catalog/test-engine.js
           node catalog/test-machine-engine.js
+          node catalog/test-ui.js
