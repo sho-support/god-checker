@@ -43,10 +43,14 @@ function detailSpec(m){
 }
 function renderDetail(){
  const m=machine();if(!m){$("detail").innerHTML='<p>機種を選択してください。</p>';return}
+ const a=m.analysis||null;
+ const analysisHTML=a?'<h3>天井・解析情報</h3>'+
+   [['天井',a.ceiling],['設定変更時',a.reset],['補足',a.notes]].filter(row=>row[1]).map(row=>'<div class="kv"><span>'+esc(row[0])+'</span><strong>'+esc(row[1])+'</strong></div>').join("")+
+   '<p class="small">確認元：<a href="'+esc(a.source)+'" target="_blank" rel="noopener noreferrer">参考資料を確認</a> ／ 確認日：'+esc(a.checkedAt)+'</p>':''; 
  const logs=(m.updates||[]).map(v=>'<p><time>'+esc(v.date)+'</time>　'+esc(v.message)+'</p>').join("");
  $("detail").innerHTML='<span class="tag">'+(m.type==="slot"?"スロット":"パチンコ")+'</span> <span class="tag">'+esc(dateStatus(m))+'</span>'+
  '<h3 class="detail-name">'+esc(m.name)+'</h3><div class="detail-text">メーカー：'+esc(m.manufacturer)+'<br>導入日：'+esc(m.introduction||"未確認")+'<br>情報確認：'+esc(m.lastVerified||"未確認")+'</div>'+
- '<h3>確認済みスペック</h3>'+detailSpec(m)+(m.summary?'<p class="small">'+esc(m.summary)+'</p>':'')+
+ '<h3>基本スペック</h3>'+detailSpec(m)+analysisHTML+(m.summary?'<p class="small">'+esc(m.summary)+'</p>':'')+
  '<h3>参考情報・出典</h3><div class="links">'+(safeSources(m)||'<span class="muted">確認中</span>')+'</div>'+
  '<h3>この機種の更新履歴</h3><div class="timeline">'+(logs||'<p>更新記録なし</p>')+'</div>';
  const b=document.createElement("button");b.type="button";b.className="action primary";b.style.marginTop="14px";
@@ -162,7 +166,7 @@ function renderRecentUpdates(){
  if(!catalog)return;
  const global=catalog.updates.slice(0,3).map(x=>({date:x.date,text:x.text,global:true}));
  const machines=catalog.machines.filter(m=>m.updates?.length && m.introduction==="2026-11-02")
-  .sort((a,b)=>b.updates[0].date.localeCompare(a.updates[0].date))
+  .sort((a,b)=>(b.analysis?1:0)-(a.analysis?1:0)||b.updates[0].date.localeCompare(a.updates[0].date))
   .slice(0,6).map(m=>({date:m.updates[0].date,text:"基本スペック・機種情報を追加",name:m.name,id:m.id}));
  const rows=[...global,...machines].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,8);
  $("recent-updates").innerHTML=rows.map(x=>'<article class="news-entry"><time datetime="'+esc(x.date)+'">'+esc(x.date.replaceAll("-","/"))+'</time>'+
