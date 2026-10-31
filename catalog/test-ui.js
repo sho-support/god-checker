@@ -29,6 +29,10 @@ for(const name of ["engine.js","machine-engine.js","ui.js"])vm.runInContext(fs.r
 (async()=>{
  for(let i=0;i<12;i++)await Promise.resolve();
  yes(node("count").textContent.includes(String(db.machines.length)),"catalog loaded");
+ yes(node("launch-heading").textContent.includes("11月2日"),"new-release headline selected");
+ yes((node("launch-slot").innerHTML.match(/class="launch-item"/g)||[]).length===6,"six November slots listed in release module");
+ yes((node("launch-pachinko").innerHTML.match(/class="launch-item"/g)||[]).length===14,"fourteen November pachinko listed in release module");
+ yes(node("recent-updates").innerHTML.includes("news-entry"),"recent update feed rendered");
  node("release").value="nov02";node("release").change();
  yes(node("count").textContent.includes("20件"),"20 Nov 2 machines");
  for(const machine of db.machines.filter(m=>m.introduction==="2026-11-02")){
@@ -37,7 +41,7 @@ for(const name of ["engine.js","machine-engine.js","ui.js"])vm.runInContext(fs.r
   yes(node("detail").innerHTML.includes(machine.name.slice(0,5)),"detail "+machine.id);
   const button=node("detail").children.find(x=>x.tag==="button");
   yes(!!button,"button "+machine.id);button.click();
-  yes(node("sim-model").value==="machine","mode "+machine.id);
+  yes(node("sim-model").value==="machine","mode "+machine.id); yes(node("sim-section").open===true,"simulator opens from machine detail");
   node("one").click();yes(node("spins").textContent==="1","1 draw "+machine.id);
   node("hundred").click();yes(node("spins").textContent==="101","101 draws "+machine.id);
  }
