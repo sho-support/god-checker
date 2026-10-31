@@ -1,4 +1,5 @@
 name: PACHI ATLAS catalog checks
+# Validates catalog metadata, both simulation engines, and the per-machine UI.
 
 on:
   pull_request:
