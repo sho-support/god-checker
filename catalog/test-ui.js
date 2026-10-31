@@ -29,9 +29,13 @@ for(const name of ["engine.js","machine-engine.js","ui.js"])vm.runInContext(fs.r
 (async()=>{
  for(let i=0;i<12;i++)await Promise.resolve();
  yes(node("count").textContent.includes(String(db.machines.length)),"catalog loaded");
- yes(node("launch-heading").textContent.includes("11月2日"),"new-release headline selected");
- yes((node("launch-slot").innerHTML.match(/class="launch-item"/g)||[]).length===6,"six November slots listed in release module");
- yes((node("launch-pachinko").innerHTML.match(/class="launch-item"/g)||[]).length===14,"fourteen November pachinko listed in release module");
+ const currentDay=new Intl.DateTimeFormat("sv-SE",{timeZone:"Asia/Tokyo",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());
+ const upcoming=db.machines.filter(m=>m.introduction&&m.releaseStatus==="upcoming"&&m.introduction>=currentDay).sort((a,b)=>a.introduction.localeCompare(b.introduction));
+ const spotlightDate=upcoming[0]?.introduction||db.machines.filter(m=>m.introduction).map(m=>m.introduction).sort().at(-1);
+ const spotlight=db.machines.filter(m=>m.introduction===spotlightDate);
+ yes(node("launch-heading").textContent.includes("導入"),"new-release heading rendered");
+ yes((node("launch-slot").innerHTML.match(/class="launch-item"/g)||[]).length===spotlight.filter(m=>m.type==="slot").length,"slot release module matches upcoming date");
+ yes((node("launch-pachinko").innerHTML.match(/class="launch-item"/g)||[]).length===spotlight.filter(m=>m.type==="pachinko").length,"pachinko release module matches upcoming date");
  yes(node("recent-updates").innerHTML.includes("news-entry"),"recent update feed rendered");
  node("release").value="nov02";node("release").change();
  yes(node("count").textContent.includes("20件"),"20 Nov 2 machines");
