@@ -13,8 +13,8 @@ function select(id,updateHistory=true){if(!catalog?.machines.some(m=>m.id===id))
 function renderList(){
  if(!catalog)return;
  const query=norm($("query").value),release=$("release").value;
- const items=catalog.machines.filter(m=>(kind==="all"||m.type===kind)&&(release==="all"||(release==="upcoming"?m.releaseStatus==="upcoming"&&m.introduction>=today():m.releaseStatus==="released"))&&norm(m.name+" "+m.manufacturer+" "+(m.searchAliases||[]).join(" ")).includes(query));
- items.sort((a,b)=>{const aUp=a.releaseStatus==="upcoming"&&a.introduction>=today(),bUp=b.releaseStatus==="upcoming"&&b.introduction>=today();if(aUp!==bUp)return aUp?-1:1;return (b.introduction||"").localeCompare(a.introduction||"")||a.name.localeCompare(b.name,"ja")});
+ const items=catalog.machines.filter(m=>(kind==="all"||m.type===kind)&&(release==="all"||(release==="nov02"?m.introduction==="2026-11-02":release==="upcoming"?m.releaseStatus==="upcoming"&&m.introduction>=today():m.releaseStatus==="released"))&&norm(m.name+" "+m.manufacturer+" "+(m.searchAliases||[]).join(" ")).includes(query));
+ items.sort((a,b)=>{const aUp=a.releaseStatus==="upcoming"&&a.introduction>=today(),bUp=b.releaseStatus==="upcoming"&&b.introduction>=today();if(aUp!==bUp)return aUp?-1:1;return (aUp?a.introduction.localeCompare(b.introduction):(b.introduction||"").localeCompare(a.introduction||""))||a.name.localeCompare(b.name,"ja")});
  $("count").textContent="（"+fmt(items.length)+"件 / 全"+fmt(catalog.machines.length)+"件）";
  $("list").innerHTML=items.length?items.map(m=>'<button type="button" class="machine" data-id="'+esc(m.id)+'" aria-current="'+(m.id===selected)+'"><span class="machine-name">'+esc(m.name)+'</span><span class="meta"><span class="tag">'+(m.type==="slot"?"スロット":"パチンコ")+'</span><span class="tag '+(m.specStatus==="pending"?"pending":"verified")+'">'+(m.specStatus==="pending"?"詳細仕様確認中":"仕様照合済み")+'</span><span class="small">'+esc(m.manufacturer)+' · '+esc(m.introduction||"導入日未確認")+' · '+esc(dateStatus(m))+'</span></span></button>').join(""):'<p class="muted">該当する機種はありません。キーワードや絞り込みを変えてください。</p>';
  $("list").querySelectorAll("[data-id]").forEach(b=>b.addEventListener("click",()=>select(b.dataset.id)));
@@ -106,7 +106,7 @@ function renderSim(){
   (p.kind==="hane"?'<span class="warn">羽根に拾われた玉の役物内V入賞を抽選。通常回転数ではありません。</span>':
   p.confidence==="demo_only"?'<span class="warn">機種固有の確率は未確認。仮設定 1/'+engine.getOdds()+' で試遊します。</span>':
   '<span>確認できた初当たり確率から開始します。未公表の抽選は再現しません。</span>');
- $("phase").textContent=({normal:"通常",role:"役物内試行",st:"ST中",challenge:"7500チャレンジ",rush:"LT/RUSH中",lt:"LT中",at:"AT中",upper:"上位AT中"})[s.phase]||s.phase;
+ $("phase").textContent=({normal:"通常",role:"役物内試行",st:"ST中",challenge:"7500チャレンジ",rush:model==="garo12"?"魔戒CHANCE LT":"LT/RUSH中",lt:"LT中",at:"AT中",upper:"上位AT中"})[s.phase]||s.phase;
  $("phase-help").textContent=s.remaining>0?"残り"+s.remaining+"回":"";
  for(const [id,v] of [["spins",s.spins],["normal-spins",s.normalSpins],["hama",s.hama],["max-hama",s.maxHama],["wins",s.hits],["payout",s.payout],["charges",s.charges],["rush-entries",s.rushEntries],["lt-entries",s.ltEntries]])if($(id))$(id).textContent=fmt(v);
  $("sim-history").innerHTML=s.history.length?s.history.map(v=>'<p><span class="small">#'+fmt(v.spin)+'</span>　'+esc(v.message)+'</p>').join(""):"まだ抽選していません。";
@@ -142,7 +142,7 @@ function init(){
  window.addEventListener("pagehide",stop);renderSim();
  fetch("./machines.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("HTTP "+r.status);return r.json()}).then(json=>{
   if(!Array.isArray(json.machines)||!Array.isArray(json.updates))throw Error("データ形式が不正です");
-  catalog=json;selected=json.machines.some(m=>m.id===params.get("machine"))?params.get("machine"):json.machines[0]?.id;
+  catalog=json;selected=json.machines.some(m=>m.id===params.get("machine"))?params.get("machine"):json.machines.find(m=>m.introduction==="2026-11-02")?.id||json.machines[0]?.id;
   $("load-status").textContent="データ更新："+json.updated+" ／ 詳細未確認の機種は確認中と表示";renderList();renderDetail();showUpdates()
  }).catch(e=>{$("list").textContent="機種データの読み込みに失敗しました。";$("load-status").textContent="読み込みエラー："+e.message});
 }
