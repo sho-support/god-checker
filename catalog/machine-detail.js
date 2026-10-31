@@ -26,6 +26,7 @@ document.querySelectorAll(".close-section[data-close]").forEach(btn=>{
   if(!panel)return;
   if(panel.id==="section-sim")stopAuto();
   panel.open=false;
+  if(location.hash==="#"+panel.id)history.replaceState(null,"",location.pathname+location.search);
   scrollToSummary(panel);
  });
 });
