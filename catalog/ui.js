@@ -9,15 +9,15 @@ let engine=window.PachiEngine.create({mode:"free",config:{odds:399}});
 function machine(){return catalog?.machines.find(m=>m.id===selected)||null}
 function dateStatus(m){if(m.releaseStatus!=="upcoming")return "導入済み（掲載時点）";return m.introduction&&m.introduction<today()?"導入予定日経過・設置未確認":"導入予定"}
 function safeSources(m){return (m.sources||[]).filter(url).map((s,i)=>'<a href="'+esc(s)+'" target="_blank" rel="noopener noreferrer">'+esc(new URL(s).hostname)+' ↗</a>').join("")}
-function select(id,updateHistory=true){if(!catalog?.machines.some(m=>m.id===id))return;selected=id;if(updateHistory){const u=new URL(location.href);u.searchParams.set("machine",id);history.replaceState(null,"",u.pathname+u.search+u.hash)}renderList();renderDetail();if($("sim-model")?.value==="machine")setModel("machine")}
+function select(id){if(!catalog?.machines.some(m=>m.id===id))return;location.href="./m/"+encodeURIComponent(id)+".html"}
 function renderList(){
  if(!catalog)return;
  const query=norm($("query").value),release=$("release").value;
  const items=catalog.machines.filter(m=>(kind==="all"||m.type===kind)&&(release==="all"||(release==="nov02"?m.introduction==="2026-11-02":release==="upcoming"?m.releaseStatus==="upcoming"&&m.introduction>=today():m.releaseStatus==="released"))&&norm(m.name+" "+m.manufacturer+" "+(m.searchAliases||[]).join(" ")).includes(query));
  items.sort((a,b)=>{const aUp=a.releaseStatus==="upcoming"&&a.introduction>=today(),bUp=b.releaseStatus==="upcoming"&&b.introduction>=today();if(aUp!==bUp)return aUp?-1:1;return (aUp?a.introduction.localeCompare(b.introduction):(b.introduction||"").localeCompare(a.introduction||""))||a.name.localeCompare(b.name,"ja")});
  $("count").textContent="（"+fmt(items.length)+"件 / 全"+fmt(catalog.machines.length)+"件）";
- $("list").innerHTML=items.length?items.map(m=>'<button type="button" class="machine" data-id="'+esc(m.id)+'" aria-current="'+(m.id===selected)+'"><span class="machine-name">'+esc(m.name)+'</span><span class="meta"><span class="tag">'+(m.type==="slot"?"スロット":"パチンコ")+'</span><span class="tag '+(m.simProfile?.confidence==="demo_only"?"pending":"verified")+'">'+(m.simProfile?.confidence==="demo_only"?"詳細スペック確認中":m.simProfile?.normalOdds||m.simProfile?.roleOdds?"基本確率掲載":"基本情報あり")+'</span><span class="small">'+esc(m.manufacturer)+' · '+esc(m.introduction||"導入日未確認")+' · '+esc(dateStatus(m))+'</span></span></button>').join(""):'<p class="muted">該当する機種はありません。キーワードや絞り込みを変えてください。</p>';
- $("list").querySelectorAll("[data-id]").forEach(b=>b.addEventListener("click",()=>select(b.dataset.id)));
+ $("list").innerHTML=items.length?items.map(m=>'<a class="machine" href="./m/'+encodeURIComponent(m.id)+'.html" data-id="'+esc(m.id)+'"><span class="machine-name">'+esc(m.name)+'</span><span class="meta"><span class="tag">'+(m.type==="slot"?"スロット":"パチンコ")+'</span><span class="tag '+(m.simProfile?.confidence==="demo_only"?"pending":"verified")+'">'+(m.simProfile?.confidence==="demo_only"?"詳細スペック確認中":m.simProfile?.normalOdds||m.simProfile?.roleOdds?"基本確率掲載":"基本情報あり")+'</span><span class="small">'+esc(m.manufacturer)+' · '+esc(m.introduction||"導入日未確認")+' · '+esc(dateStatus(m))+'</span></span></a>').join(""):'<p class="muted">該当する機種はありません。キーワードや絞り込みを変えてください。</p>';
+
 }
 function detailSpec(m){
  if(m.id==="e-garo12"&&m.spec){
@@ -146,14 +146,9 @@ function renderLaunch(){
   const items=featured.filter(m=>m.type===type),container=$("launch-"+type);
   $("launch-"+type+"-count").textContent=items.length+"機種";
   container.innerHTML=items.length?items.map(m=>
-   '<button type="button" class="launch-item" data-launch-id="'+esc(m.id)+'"><strong>'+esc(m.name)+'</strong><span class="meta-line">'+esc(m.manufacturer)+' ／ <span class="odds">'+esc(launchOdds(m))+'</span></span></button>'
+   '<a class="launch-item" href="./m/'+encodeURIComponent(m.id)+'.html" data-launch-id="'+esc(m.id)+'"><strong>'+esc(m.name)+'</strong><span class="meta-line">'+esc(m.manufacturer)+' ／ <span class="odds">'+esc(launchOdds(m))+'</span></span></a>'
   ).join(""):'<p class="muted">この日の導入機種はありません。</p>';
-  container.querySelectorAll("[data-launch-id]").forEach(btn=>btn.addEventListener("click",()=>{
-   $("release").value="all";$("query").value="";kind="all";
-   document.querySelectorAll("[data-type]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.type==="all")));
-   select(btn.dataset.launchId);
-   $("machine-detail").scrollIntoView({behavior:"smooth",block:"start"});
-  }));
+
  }
  $("launch-all").onclick=()=>{
   $("release").value=date==="2026-11-02"?"nov02":"upcoming";
@@ -170,13 +165,13 @@ function renderRecentUpdates(){
   .slice(0,6).map(m=>({date:m.updates[0].date,text:"基本スペック・機種情報を追加",name:m.name,id:m.id}));
  const rows=[...global,...machines].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,8);
  $("recent-updates").innerHTML=rows.map(x=>'<article class="news-entry"><time datetime="'+esc(x.date)+'">'+esc(x.date.replaceAll("-","/"))+'</time>'+
-  (x.global?'<span class="update-label">'+esc(x.text)+'</span>':'<a href="?machine='+encodeURIComponent(x.id)+'#machine-detail">'+esc(x.name)+'</a><p>'+esc(x.text)+'</p>')+'</article>').join("");
+  (x.global?'<span class="update-label">'+esc(x.text)+'</span>':'<a href="./m/'+encodeURIComponent(x.id)+'.html#section-updates">'+esc(x.name)+'</a><p>'+esc(x.text)+'</p>')+'</article>').join("");
 }
 
 function showUpdates(){if(!catalog)return;$("updates").innerHTML=catalog.updates.map(x=>'<p><time>'+esc(x.date)+'</time>　'+esc(x.text)+'</p>').join("")}
 function init(){
  const params=new URL(location.href).searchParams;
- $("sim-model").insertAdjacentHTML("beforeend",'<option value="machine">選択中の機種で抽選</option><option value="custom">自由設定 ST / LT（試作）</option><option value="slot">自由設定 スロット AT（試作）</option>');
+ $("sim-model").insertAdjacentHTML("beforeend",'<option value="custom">自由設定 ST / LT（試作）</option><option value="slot">自由設定 スロット AT（試作）</option>');
  $("sim-model").addEventListener("change",()=>setModel($("sim-model").value));
  $("free-odds").addEventListener("change",()=>setModel("free"));
  $("machine-setting").addEventListener("change",()=>{
@@ -200,7 +195,8 @@ function init(){
  fetch("./machines.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("HTTP "+r.status);return r.json()}).then(json=>{
   if(!Array.isArray(json.machines)||!Array.isArray(json.updates))throw Error("データ形式が不正です");
   catalog=json;selected=json.machines.some(m=>m.id===params.get("machine"))?params.get("machine"):json.machines.find(m=>m.introduction==="2026-11-02")?.id||json.machines[0]?.id;
-  $("load-status").textContent="データ更新："+json.updated+" ／ 詳細未確認の機種は確認中と表示";renderList();renderDetail();showUpdates();renderLaunch();renderRecentUpdates()
+  if(params.get("machine")&&json.machines.some(m=>m.id===params.get("machine"))){location.replace("./m/"+encodeURIComponent(params.get("machine"))+".html");return;}
+  $("load-status").textContent="データ更新："+json.updated+" ／ 詳細未確認の機種は確認中と表示";renderList();showUpdates();renderLaunch();renderRecentUpdates()
  }).catch(e=>{$("list").textContent="機種データの読み込みに失敗しました。";$("load-status").textContent="読み込みエラー："+e.message});
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
