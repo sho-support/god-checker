@@ -103,7 +103,7 @@ function render(m){
  '<meta name="description" content="'+esc(summary)+'"><meta name="theme-color" content="#13283b">'+
  '<link rel="canonical" href="https://sho-support.github.io/god-checker/catalog/m/'+esc(m.id)+'.html"><title>'+esc(title)+'</title>'+
  '<link rel="stylesheet" href="../site.css"><link rel="stylesheet" href="../machine-detail.css"></head>\n'+
- '<body data-machine-id="'+esc(m.id)+'"><header class="site-header"><div class="wrap machine-header"><a href="../" class="brand"><span class="brand-mark">P</span><span class="brand-stack"><strong>PACHI ATLAS</strong><small>パチンコ・パチスロ機種情報</small></span></a><a class="return-link" href="../">機種一覧に戻る</a></div></header>'+
+ '<body id="top" data-machine-id="'+esc(m.id)+'"><header class="site-header"><div class="wrap machine-header"><a href="../" class="brand"><span class="brand-mark">P</span><span class="brand-stack"><strong>PACHI ATLAS</strong><small>パチンコ・パチスロ機種情報</small></span></a><a class="return-link" href="../">機種一覧に戻る</a></div></header>'+
  '<main class="wrap machine-main"><nav class="breadcrumbs" aria-label="パンくず"><a href="../">機種一覧</a><span aria-hidden="true"> › </span>'+esc(m.name)+'</nav>'+
  '<div class="machine-title-panel"><div class="machine-meta"><span class="machine-type">'+kind+'</span><span class="machine-verification">'+esc(dataStatus)+'</span></div><h1>'+esc(m.name)+'</h1><div class="machine-subline"><span>メーカー：'+esc(m.manufacturer)+'</span><span>導入日：'+intro+'</span></div></div>'+
  '<nav class="machine-toc" aria-label="この機種の目次"><h2>目次</h2><div class="toc-links">'+toc+'</div><p>項目を押すと内容が開き、その位置に移動します。</p></nav>'+
