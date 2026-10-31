@@ -665,11 +665,16 @@
       "specStatus": "pending",
       "simulator": "machine",
       "sources": [
+        "https://1geki.jp/slot/l_sao_ggo/3/",
         "https://1geki.jp/slot/l_sao_ggo/",
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
       "lastVerified": "2026-10-31",
       "updates": [
+        {
+          "date": "2026-10-31",
+          "message": "天井・ゲーム性の参考情報を追加。確認元は機種ページに掲載。"
+        },
         {
           "date": "2026-10-31",
           "message": "公開スペックの初当たり/役物確率を照合。機種別の疑似抽選を追加（特殊な抽選は一部未再現）。"
@@ -695,6 +700,13 @@
         "confidence": "published_base_with_simplified_transitions",
         "source": "https://1geki.jp/slot/l_sao_ggo/",
         "checkedAt": "2026-10-31"
+      },
+      "analysis": {
+        "ceiling": "ボーナス間975G＋α",
+        "notes": "SJ駆け抜け後は3回目、それ以外は7回目のボーナスでSJ間スルー天井",
+        "source": "https://1geki.jp/slot/l_sao_ggo/3/",
+        "checkedAt": "2026-10-31",
+        "status": "source_confirmed"
       }
     },
     {
@@ -707,11 +719,16 @@
       "specStatus": "pending",
       "simulator": "machine",
       "sources": [
+        "https://1geki.jp/slot/l_seiya_ougon/3/",
         "https://1geki.jp/slot/l_seiya_ougon/",
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
       "lastVerified": "2026-10-31",
       "updates": [
+        {
+          "date": "2026-10-31",
+          "message": "天井・ゲーム性の参考情報を追加。確認元は機種ページに掲載。"
+        },
         {
           "date": "2026-10-31",
           "message": "公開スペックの初当たり/役物確率を照合。機種別の疑似抽選を追加（特殊な抽選は一部未再現）。"
@@ -737,6 +754,13 @@
         "confidence": "published_base_with_simplified_transitions",
         "source": "https://1geki.jp/slot/l_seiya_ougon/",
         "checkedAt": "2026-10-31"
+      },
+      "analysis": {
+        "ceiling": "AT間最大1200G",
+        "notes": "CZ間最大600G＋α、周期天井は最大6周期",
+        "source": "https://1geki.jp/slot/l_seiya_ougon/3/",
+        "checkedAt": "2026-10-31",
+        "status": "source_confirmed"
       }
     },
     {
@@ -749,11 +773,16 @@
       "specStatus": "pending",
       "simulator": "machine",
       "sources": [
+        "https://chonborista.com/slot/universal-slot/266983/",
         "https://1geki.jp/slot/l_ragnador/",
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
       "lastVerified": "2026-10-31",
       "updates": [
+        {
+          "date": "2026-10-31",
+          "message": "天井・ゲーム性の参考情報を追加。確認元は機種ページに掲載。"
+        },
         {
           "date": "2026-10-31",
           "message": "公開スペックの初当たり/役物確率を照合。機種別の疑似抽選を追加（特殊な抽選は一部未再現）。"
@@ -779,6 +808,13 @@
         "confidence": "published_base_with_simplified_transitions",
         "source": "https://1geki.jp/slot/l_ragnador/",
         "checkedAt": "2026-10-31"
+      },
+      "analysis": {
+        "ceiling": "CZ間500G＋α／AT間999G＋α",
+        "reset": "設定変更後のAT間天井500G＋α",
+        "source": "https://chonborista.com/slot/universal-slot/266983/",
+        "checkedAt": "2026-10-31",
+        "status": "source_confirmed"
       }
     },
     {
@@ -791,11 +827,16 @@
       "specStatus": "pending",
       "simulator": "machine",
       "sources": [
+        "https://1geki.jp/slot/l_vivy/3/",
         "https://1geki.jp/slot/l_vivy/",
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
       "lastVerified": "2026-10-31",
       "updates": [
+        {
+          "date": "2026-10-31",
+          "message": "天井・ゲーム性の参考情報を追加。確認元は機種ページに掲載。"
+        },
         {
           "date": "2026-10-31",
           "message": "公開スペックの初当たり/役物確率を照合。機種別の疑似抽選を追加（特殊な抽選は一部未再現）。"
@@ -821,6 +862,13 @@
         "confidence": "published_base_with_simplified_transitions",
         "source": "https://1geki.jp/slot/l_vivy/",
         "checkedAt": "2026-10-31"
+      },
+      "analysis": {
+        "ceiling": "ゲーム数800G＋α／最大6周期",
+        "reset": "設定変更時はゲーム数天井500G＋α",
+        "source": "https://1geki.jp/slot/l_vivy/3/",
+        "checkedAt": "2026-10-31",
+        "status": "source_confirmed"
       }
     },
     {
@@ -833,11 +881,16 @@
       "specStatus": "pending",
       "simulator": "machine",
       "sources": [
+        "https://chonborista.com/slot/sansei-slot/270768/",
         "https://1geki.jp/slot/l_garo/",
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
       "lastVerified": "2026-10-31",
       "updates": [
+        {
+          "date": "2026-10-31",
+          "message": "天井・ゲーム性の参考情報を追加。確認元は機種ページに掲載。"
+        },
         {
           "date": "2026-10-31",
           "message": "公開スペックの初当たり/役物確率を照合。機種別の疑似抽選を追加（特殊な抽選は一部未再現）。"
@@ -863,6 +916,13 @@
         "confidence": "published_base_with_simplified_transitions",
         "source": "https://1geki.jp/slot/l_garo/",
         "checkedAt": "2026-10-31"
+      },
+      "analysis": {
+        "ceiling": "最大999G＋α",
+        "notes": "純増約9.1枚/GのAT機",
+        "source": "https://chonborista.com/slot/sansei-slot/270768/",
+        "checkedAt": "2026-10-31",
+        "status": "source_confirmed"
       }
     },
     {
@@ -2187,6 +2247,11 @@
     }
   ],
   "updates": [
+    {
+      "date": "2026-10-31",
+      "type": "editorial",
+      "text": "新台と機種情報を中心とするホーム構成に刷新。11月2日導入のスロット5機種に天井関連情報を追加。"
+    },
     {
       "date": "2026-10-31",
       "text": "11/2導入予定の20機種を再照合。65機種すべてに疑似抽選プロフィールを設定し、実機公表値と仮設定を区別。",

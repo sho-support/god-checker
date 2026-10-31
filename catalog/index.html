@@ -3,9 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="パチンコ・パチスロの機種情報、導入予定、検証状況、更新履歴と確率シミュレーター。未確認情報は明確に区別する試作ポータル。">
-<meta name="theme-color" content="#0b0f16">
-<title>PACHI ATLAS | パチンコ・パチスロ機種データベース（試作）</title>
+<meta name="description" content="パチンコ・パチスロの新台導入予定、機種一覧、基本スペック、設定差、天井、攻略・解析情報を検索。機種別の更新履歴や確率シミュレーターも掲載。">
+<meta name="theme-color" content="#14283d">
+<link rel="canonical" href="https://sho-support.github.io/god-checker/catalog/">
+<title>パチンコ・パチスロ機種情報・解析｜PACHI ATLAS</title>
 <style>
 :root{color-scheme:dark;--bg:#090e16;--panel:#121c2b;--panel2:#172335;--line:#2c3b4f;--text:#edf3fa;--muted:#9caec2;--gold:#f0c76a;--blue:#85c8e4;--danger:#f29c97}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% -15%,#253047 0,transparent 45%),var(--bg);color:var(--text);font:15px/1.65 system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif}
@@ -46,20 +47,50 @@ footer{border-top:1px solid var(--line);margin:38px 0 0;padding:23px 0;color:var
 @media(max-width:620px){.search-line{display:grid;grid-template-columns:1fr}.search-line label{max-width:none!important;width:100%!important}}
 
 </style>
+<link rel="stylesheet" href="./site.css">
 </head>
 <body>
-<header class="site-header"><div class="wrap header-inner"><a class="brand" href="./index.html">PACHI <span>ATLAS</span></a><a class="old-link" href="../index.html">元のミリオンゴッド専用サイト</a></div></header>
+<a class="skip" href="#machines">本文へ移動</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="./" aria-label="PACHI ATLAS トップ"><span class="brand-mark">P</span><span class="brand-stack"><strong>PACHI ATLAS</strong><small>パチンコ・パチスロ機種情報</small></span></a>
+    <nav class="main-nav" aria-label="サイト内ナビゲーション">
+      <a href="#new-machines">新台情報</a><a href="#machines">機種一覧</a><a href="#news">更新情報</a><a href="#sim-section">シミュレーター</a><a class="god-nav" href="../index.html">GOD出目チェッカー</a>
+    </nav>
+  </div>
+</header>
 <main class="wrap">
-<section class="hero"><div class="eyebrow">PACHINKO &amp; PACHISLOT DATABASE <span class="prototype">公開ベータ・仕様確認中</span></div><h1>機種を探す。確率を体感する。</h1><p>導入済み・導入予定の機種情報と抽選シミュレーターを統合。公表値と未確認情報は混ぜず、仕様を検証できた機種から順次シミュレーターに対応します。</p></section>
+  <section class="hero" aria-labelledby="site-title">
+    <div class="eyebrow">新台・スペック・解析情報</div>
+    <h1 id="site-title">パチンコ・パチスロ機種情報・解析</h1>
+    <p>新台の導入予定、機種別スペック、設定差や天井などの情報をまとめています。</p>
+    <div class="hero-links"><a href="#new-machines">新台を確認</a><a href="#machines">機種名から検索</a></div>
+  </section>
+  <div class="editorial-layout">
+    <section class="panel launch-panel" id="new-machines" aria-labelledby="launch-heading">
+      <div class="section-header"><div><p class="kicker">NEW MACHINES</p><h2 id="launch-heading">新台・導入予定</h2></div><button type="button" id="launch-all" class="text-action">対象機種を一覧で見る</button></div>
+      <div class="launch-columns">
+        <div><div class="list-subhead"><h3>スロット</h3><span id="launch-slot-count" class="small"></span></div><div id="launch-slot" class="launch-list"><p class="muted">読み込み中</p></div></div>
+        <div><div class="list-subhead"><h3>パチンコ</h3><span id="launch-pachinko-count" class="small"></span></div><div id="launch-pachinko" class="launch-list"><p class="muted">読み込み中</p></div></div>
+      </div>
+      <p class="footnote">導入予定は変更される場合があります。機種名を押すと基本情報・解析項目へ移動します。</p>
+    </section>
+    <aside class="panel news-panel" id="news" aria-labelledby="news-heading">
+      <div class="section-header"><div><p class="kicker">UPDATES</p><h2 id="news-heading">最新の更新情報</h2></div></div>
+      <div id="recent-updates" class="news-list" aria-live="polite">読み込み中</div>
+      <a class="text-action archive-link" href="#updates-section">更新履歴をすべて見る</a>
+    </aside>
+  </div>
+  <div id="machines" class="content-marker"></div>
 <div class="grid">
-<section class="panel" aria-labelledby="list-head"><h2 id="list-head">機種を探す <span id="count" class="small"></span></h2>
+<section class="panel machines-panel" aria-labelledby="list-head"><div class="section-header"><div><p class="kicker">MACHINE INDEX</p><h2 id="list-head">機種一覧 <span id="count" class="small"></span></h2></div></div>
 <div class="search-line"><label style="flex:1"><span class="small">機種名・メーカー検索</span><input id="query" type="search" placeholder="例：牙狼 / エヴァ / サミー" autocomplete="off"></label><label style="width:165px"><span class="small">導入状況</span><select id="release"><option value="all">すべて</option><option value="released">導入済み</option><option value="upcoming">導入予定</option><option value="nov02">11/2導入予定20機種</option></select></label></div>
 <div class="filters" role="group" aria-label="機種区分"><button type="button" class="chip" data-type="all" aria-pressed="true">すべて</button><button type="button" class="chip" data-type="slot" aria-pressed="false">パチスロ</button><button type="button" class="chip" data-type="pachinko" aria-pressed="false">パチンコ</button></div>
 <div id="list" class="machine-list" aria-live="polite"><div class="muted">機種データを読み込んでいます。</div></div><p id="load-status" class="status">データ確認日：2026/10/28</p>
 </section>
-<section class="panel" aria-labelledby="detail-head"><h2 id="detail-head">機種情報</h2><div id="detail"><p class="muted">一覧から機種を選んでください。</p></div></section>
+<section class="panel details-panel" id="machine-detail" aria-labelledby="detail-head"><div class="section-header"><div><p class="kicker">MACHINE GUIDE</p><h2 id="detail-head">機種別情報</h2></div></div><div id="detail"><p class="muted">一覧から機種を選んでください。</p></div></section>
 </div>
-<section class="section panel" aria-labelledby="sim-head"><h2 id="sim-head">抽選シミュレーター</h2><div id="machine-selected" class="machine-selected" hidden>機種を選んで「この機種をシミュレーション」を押してください。</div>
+<details class="section panel sim-section" id="sim-section"><summary id="sim-head"><span>確率シミュレーター</span><small>機種ごとの抽選を試す（任意の娯楽機能）</small></summary><div class="sim-body"><div id="machine-selected" class="machine-selected" hidden>機種を選んで「この機種をシミュレーション」を押してください。</div>
 <p class="small">実機の映像や内部プログラムは再現しません。公開済みの数値を利用した独立した疑似抽選です。</p>
 <div class="search-line"><label style="max-width:280px"><span class="small">抽選モデル</span><select id="sim-model"><option value="free">フリー確率モード</option><option value="garo12">e牙狼12黄金騎士極限（公表値モデル）</option></select></label><label id="machine-setting-box" style="max-width:135px" hidden><span class="small">設定</span><select id="machine-setting"><option value="0">設定1</option><option value="1">設定2</option><option value="2">設定3</option><option value="3">設定4</option><option value="4">設定5</option><option value="5">設定6</option></select></label><label id="machine-odds-box" style="max-width:170px" hidden><span class="small">初当たり分母 1 /</span><input id="machine-odds" type="number" min="1" max="10000000" step="any" value="399"></label><label style="max-width:160px" id="free-odds-box"><span class="small">大当たり確率 1 /</span><input type="number" id="free-odds" min="1" max="10000000" step="0.01" value="399"></label></div>
 <div id="custom-config" class="custom-config" hidden>
@@ -104,10 +135,10 @@ footer{border-top:1px solid var(--line);margin:38px 0 0;padding:23px 0;color:var
 <div class="sim-controls"><button id="one" class="action primary" type="button">1回抽選</button><button id="hundred" class="action" type="button">100回</button><button id="thousand" class="action" type="button">1,000回</button><button id="ten-thousand" class="action" type="button">10,000回</button><button id="auto" class="action" type="button" aria-pressed="false">オート開始</button><button id="reset" class="action stop" type="button">リセット</button></div>
 <p id="validation" class="error" role="alert" aria-live="assertive"></p><div class="small">抽選履歴（最新50件）</div><div class="timeline" id="sim-history" aria-live="polite">まだ抽選していません。</div>
 <div class="sim-note" id="sim-notice">フリー確率モードは指定した確率で当たりだけを抽選します。チャージ、RUSH、ST、出玉は機種別モデルで扱います。</div>
-</section>
-<section class="section panel"><h2>サイト全体の更新履歴</h2><div id="updates" class="timeline" style="max-height:180px">読み込み中</div></section>
+</div></details>
+<section class="section panel full-updates" id="updates-section"><h2>サイトの更新履歴</h2><div id="updates" class="timeline" style="max-height:180px">読み込み中</div></section>
 </main>
-<footer><div class="wrap">試作版｜メーカー・ホールとは無関係の独立した情報サイトです。数値は公開情報を参考にした疑似抽選であり、実機の結果・期待収支・設定・勝敗を保証しません。18歳未満の遊技を推奨しません。<div><a href="../privacy.html">プライバシー・免責事項</a></div></div></footer>
+<footer><div class="wrap"><div class="footer-row"><strong>PACHI ATLAS</strong><a href="../privacy.html">プライバシー・免責事項</a><a href="../contact.html">お問い合わせ</a></div><p>パチンコ・パチスロの非公式機種情報サイト。メーカー・ホールとは無関係です。情報に未確認部分がある場合は明示しています。シミュレーターは遊技結果を保証しません。</p></div></footer>
 <script defer src="./engine.js"></script>
 <script defer src="./machine-engine.js"></script>
 <script defer src="./ui.js"></script>
