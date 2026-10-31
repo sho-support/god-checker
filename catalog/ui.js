@@ -16,7 +16,7 @@ function renderList(){
  const items=catalog.machines.filter(m=>(kind==="all"||m.type===kind)&&(release==="all"||(release==="nov02"?m.introduction==="2026-11-02":release==="upcoming"?m.releaseStatus==="upcoming"&&m.introduction>=today():m.releaseStatus==="released"))&&norm(m.name+" "+m.manufacturer+" "+(m.searchAliases||[]).join(" ")).includes(query));
  items.sort((a,b)=>{const aUp=a.releaseStatus==="upcoming"&&a.introduction>=today(),bUp=b.releaseStatus==="upcoming"&&b.introduction>=today();if(aUp!==bUp)return aUp?-1:1;return (aUp?a.introduction.localeCompare(b.introduction):(b.introduction||"").localeCompare(a.introduction||""))||a.name.localeCompare(b.name,"ja")});
  $("count").textContent="（"+fmt(items.length)+"件 / 全"+fmt(catalog.machines.length)+"件）";
- $("list").innerHTML=items.length?items.map(m=>'<button type="button" class="machine" data-id="'+esc(m.id)+'" aria-current="'+(m.id===selected)+'"><span class="machine-name">'+esc(m.name)+'</span><span class="meta"><span class="tag">'+(m.type==="slot"?"スロット":"パチンコ")+'</span><span class="tag '+(m.specStatus==="pending"?"pending":"verified")+'">'+(m.specStatus==="pending"?"詳細仕様確認中":"仕様照合済み")+'</span><span class="small">'+esc(m.manufacturer)+' · '+esc(m.introduction||"導入日未確認")+' · '+esc(dateStatus(m))+'</span></span></button>').join(""):'<p class="muted">該当する機種はありません。キーワードや絞り込みを変えてください。</p>';
+ $("list").innerHTML=items.length?items.map(m=>'<button type="button" class="machine" data-id="'+esc(m.id)+'" aria-current="'+(m.id===selected)+'"><span class="machine-name">'+esc(m.name)+'</span><span class="meta"><span class="tag">'+(m.type==="slot"?"スロット":"パチンコ")+'</span><span class="tag '+(m.simProfile?.confidence==="demo_only"?"pending":"verified")+'">'+(m.simProfile?.confidence==="demo_only"?"詳細スペック確認中":m.simProfile?.normalOdds||m.simProfile?.roleOdds?"基本確率掲載":"基本情報あり")+'</span><span class="small">'+esc(m.manufacturer)+' · '+esc(m.introduction||"導入日未確認")+' · '+esc(dateStatus(m))+'</span></span></button>').join(""):'<p class="muted">該当する機種はありません。キーワードや絞り込みを変えてください。</p>';
  $("list").querySelectorAll("[data-id]").forEach(b=>b.addEventListener("click",()=>select(b.dataset.id)));
 }
 function detailSpec(m){
@@ -94,7 +94,7 @@ function setModel(model){
   const error=validate();if(error){$("validation").textContent=error;return false}
   engine=window.PachiEngine.create({mode:model,config:modelConfig()});
  }
- $("validation").textContent="";renderSim();return true;
+ $("validation").textContent="";if($("sim-section"))$("sim-section").open=true;renderSim();return true;
 }
 function run(n){stop();const error=validate();if(error){$("validation").textContent=error;return}$("validation").textContent="";if(engine.snapshot().mode!==$("sim-model").value){setModel($("sim-model").value)}try{engine.stepMany(n);renderSim()}catch(e){$("validation").textContent=String(e.message)}}
 function renderSim(){
@@ -119,6 +119,56 @@ function renderSim(){
  model==="slot"?"自由設定のAT・天井・上位AT抽選。実機と同じではありません。":
  "フリー確率：独立抽選のみ。ST・チャージ・出玉は反映しません。";
 }
+
+function readableDate(value){
+ if(!value)return "導入日確認中";
+ return Number(value.slice(5,7))+"月"+Number(value.slice(8,10))+"日";
+}
+function launchOdds(m){
+ const p=m.simProfile||{};
+ if(p.kind==="hane"&&p.roleOdds)return "役物内V 約1/"+p.roleOdds;
+ if(p.normalOdds)return (m.type==="slot"?(p.hitKind||"初当たり"):"図柄揃い")+" 1/"+p.normalOdds;
+ return "基本スペック確認中";
+}
+function renderLaunch(){
+ if(!catalog)return;
+ const dated=catalog.machines.filter(m=>m.introduction&&m.releaseStatus==="upcoming"&&m.introduction>=today()).sort((a,b)=>a.introduction.localeCompare(b.introduction));
+ const fallback=catalog.machines.filter(m=>m.introduction).sort((a,b)=>b.introduction.localeCompare(a.introduction));
+ const date=(dated[0]||fallback[0])?.introduction;
+ if(!date){$("launch-heading").textContent="新台・導入予定";return}
+ const featured=catalog.machines.filter(m=>m.introduction===date);
+ $("launch-heading").textContent=readableDate(date)+(date>=today()?"導入予定の新台":"導入済みの新台");
+ for(const type of ["slot","pachinko"]){
+  const items=featured.filter(m=>m.type===type),container=$("launch-"+type);
+  $("launch-"+type+"-count").textContent=items.length+"機種";
+  container.innerHTML=items.length?items.map(m=>
+   '<button type="button" class="launch-item" data-launch-id="'+esc(m.id)+'"><strong>'+esc(m.name)+'</strong><span class="meta-line">'+esc(m.manufacturer)+' ／ <span class="odds">'+esc(launchOdds(m))+'</span></span></button>'
+  ).join(""):'<p class="muted">この日の導入機種はありません。</p>';
+  container.querySelectorAll("[data-launch-id]").forEach(btn=>btn.addEventListener("click",()=>{
+   $("release").value="all";$("query").value="";kind="all";
+   document.querySelectorAll("[data-type]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.type==="all")));
+   select(btn.dataset.launchId);
+   $("machine-detail").scrollIntoView({behavior:"smooth",block:"start"});
+  }));
+ }
+ $("launch-all").onclick=()=>{
+  $("release").value=date==="2026-11-02"?"nov02":"upcoming";
+  $("query").value="";kind="all";
+  document.querySelectorAll("[data-type]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.type==="all")));
+  renderList();$("machines").scrollIntoView({behavior:"smooth",block:"start"});
+ };
+}
+function renderRecentUpdates(){
+ if(!catalog)return;
+ const global=catalog.updates.slice(0,3).map(x=>({date:x.date,text:x.text,global:true}));
+ const machines=catalog.machines.filter(m=>m.updates?.length && m.introduction==="2026-11-02")
+  .sort((a,b)=>b.updates[0].date.localeCompare(a.updates[0].date))
+  .slice(0,6).map(m=>({date:m.updates[0].date,text:"基本スペック・機種情報を追加",name:m.name,id:m.id}));
+ const rows=[...global,...machines].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,8);
+ $("recent-updates").innerHTML=rows.map(x=>'<article class="news-entry"><time datetime="'+esc(x.date)+'">'+esc(x.date.replaceAll("-","/"))+'</time>'+
+  (x.global?'<span class="update-label">'+esc(x.text)+'</span>':'<a href="?machine='+encodeURIComponent(x.id)+'#machine-detail">'+esc(x.name)+'</a><p>'+esc(x.text)+'</p>')+'</article>').join("");
+}
+
 function showUpdates(){if(!catalog)return;$("updates").innerHTML=catalog.updates.map(x=>'<p><time>'+esc(x.date)+'</time>　'+esc(x.text)+'</p>').join("")}
 function init(){
  const params=new URL(location.href).searchParams;
@@ -146,7 +196,7 @@ function init(){
  fetch("./machines.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("HTTP "+r.status);return r.json()}).then(json=>{
   if(!Array.isArray(json.machines)||!Array.isArray(json.updates))throw Error("データ形式が不正です");
   catalog=json;selected=json.machines.some(m=>m.id===params.get("machine"))?params.get("machine"):json.machines.find(m=>m.introduction==="2026-11-02")?.id||json.machines[0]?.id;
-  $("load-status").textContent="データ更新："+json.updated+" ／ 詳細未確認の機種は確認中と表示";renderList();renderDetail();showUpdates()
+  $("load-status").textContent="データ更新："+json.updated+" ／ 詳細未確認の機種は確認中と表示";renderList();renderDetail();showUpdates();renderLaunch();renderRecentUpdates()
  }).catch(e=>{$("list").textContent="機種データの読み込みに失敗しました。";$("load-status").textContent="読み込みエラー："+e.message});
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
