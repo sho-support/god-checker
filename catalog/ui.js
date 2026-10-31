@@ -8,8 +8,6 @@ let catalog=null,selected=null,kind="all",timer=null;
 let engine=window.PachiEngine.create({mode:"free",config:{odds:399}});
 function machine(){return catalog?.machines.find(m=>m.id===selected)||null}
 function dateStatus(m){if(m.releaseStatus!=="upcoming")return "導入済み（掲載時点）";return m.introduction&&m.introduction<today()?"導入予定日経過・設置未確認":"導入予定"}
-function safeSources(m){return (m.sources||[]).filter(url).map((s,i)=>'<a href="'+esc(s)+'" target="_blank" rel="noopener noreferrer">'+esc(new URL(s).hostname)+' ↗</a>').join("")}
-function select(id){if(!catalog?.machines.some(m=>m.id===id))return;location.href="./m/"+encodeURIComponent(id)+".html"}
 function renderList(){
  if(!catalog)return;
  const query=norm($("query").value),release=$("release").value;
@@ -18,45 +16,6 @@ function renderList(){
  $("count").textContent="（"+fmt(items.length)+"件 / 全"+fmt(catalog.machines.length)+"件）";
  $("list").innerHTML=items.length?items.map(m=>'<a class="machine" href="./m/'+encodeURIComponent(m.id)+'.html" data-id="'+esc(m.id)+'"><span class="machine-name">'+esc(m.name)+'</span><span class="meta"><span class="tag">'+(m.type==="slot"?"スロット":"パチンコ")+'</span><span class="tag '+(m.simProfile?.confidence==="demo_only"?"pending":"verified")+'">'+(m.simProfile?.confidence==="demo_only"?"詳細スペック確認中":m.simProfile?.normalOdds||m.simProfile?.roleOdds?"基本確率掲載":"基本情報あり")+'</span><span class="small">'+esc(m.manufacturer)+' · '+esc(m.introduction||"導入日未確認")+' · '+esc(dateStatus(m))+'</span></span></a>').join(""):'<p class="muted">該当する機種はありません。キーワードや絞り込みを変えてください。</p>';
 
-}
-function detailSpec(m){
- if(m.id==="e-garo12"&&m.spec){
-  const s=m.spec;return [["通常・図柄揃い","1/"+s.normalSymbolOdds],["ガロチャージ","1/"+s.normalChargeOdds],["バトル突入率",s.challengeEntryProbability*100+"%"],["バトル突破率",s.challengeWinProbability*100+"%"]].map(v=>'<div class="kv"><span>'+esc(v[0])+'</span><strong>'+esc(v[1])+'</strong></div>').join("")+'<p class="small">LT継続：約76%。公表値の概数を使用。</p>';
- }
- const p=m.simProfile||{},rows=[];
- if(m.id==="l-million-god-trajectory"&&m.spec?.firstHitOdds){
-  m.spec.firstHitOdds.forEach((n,i)=>rows.push(["設定"+(i+1)+" GG初当たり","1/"+n+"・出玉率"+m.spec.payoutRate[i]+"%"]));
- }else if(p.kind==="hane"){
-  rows.push(["役物V入賞",p.roleOdds?"約1/"+p.roleOdds:"未確認"]);
-  if(p.payouts)rows.push(["V入賞振り分け",p.payouts.map(v=>Math.round(v.p*1000)/10+"% "+v.payout+"個").join(" / ")]);
- }else{
-  rows.push([m.type==="slot"?(p.hitKind||"初当たり")+"（設定1）":"図柄揃い確率（設定1）",p.normalOdds?"1/"+p.normalOdds:"未確認"]);
-  if(p.settingOdds)rows.push(["設定別確率",p.settingOdds.map((n,i)=>(i+1)+":1/"+n).join(" / ")]);
-  if(p.entryPct!=null)rows.push(["ST/RUSH突入率","約"+p.entryPct+"%"]);
-  if(p.stGames!=null)rows.push(["ST回数",p.stGames+"回"+(p.reserveGames?"＋残保留"+p.reserveGames:"")]);
-  if(p.rightOdds!=null)rows.push(["右打ち当選率","約1/"+p.rightOdds]);
-  if(p.rushContinuationPct!=null)rows.push(["公表RUSH継続率","約"+p.rushContinuationPct+"% ※代替抽選"]);
- }
- const info=rows.map(v=>'<div class="kv"><span>'+esc(v[0])+'</span><strong>'+esc(v[1])+'</strong></div>').join("");
- return info+'<p class="small">'+esc(p.notes||"機種固有の未公表抽選は確認中。")+'</p>'+
- (p.confidence==="demo_only"?'<p class="small" style="color:#ffdaa4">初当たり確率は未確認。仮設定で遊べます。</p>':'');
-}
-function renderDetail(){
- const m=machine();if(!m){$("detail").innerHTML='<p>機種を選択してください。</p>';return}
- const a=m.analysis||null;
- const analysisHTML=a?'<h3>天井・解析情報</h3>'+
-   [['天井',a.ceiling],['設定変更時',a.reset],['補足',a.notes]].filter(row=>row[1]).map(row=>'<div class="kv"><span>'+esc(row[0])+'</span><strong>'+esc(row[1])+'</strong></div>').join("")+
-   '<p class="small">確認元：<a href="'+esc(a.source)+'" target="_blank" rel="noopener noreferrer">参考資料を確認</a> ／ 確認日：'+esc(a.checkedAt)+'</p>':''; 
- const logs=(m.updates||[]).map(v=>'<p><time>'+esc(v.date)+'</time>　'+esc(v.message)+'</p>').join("");
- $("detail").innerHTML='<span class="tag">'+(m.type==="slot"?"スロット":"パチンコ")+'</span> <span class="tag">'+esc(dateStatus(m))+'</span>'+
- '<h3 class="detail-name">'+esc(m.name)+'</h3><div class="detail-text">メーカー：'+esc(m.manufacturer)+'<br>導入日：'+esc(m.introduction||"未確認")+'<br>情報確認：'+esc(m.lastVerified||"未確認")+'</div>'+
- '<h3>基本スペック</h3>'+detailSpec(m)+analysisHTML+(m.summary?'<p class="small">'+esc(m.summary)+'</p>':'')+
- '<h3>参考情報・出典</h3><div class="links">'+(safeSources(m)||'<span class="muted">確認中</span>')+'</div>'+
- '<h3>この機種の更新履歴</h3><div class="timeline">'+(logs||'<p>更新記録なし</p>')+'</div>';
- const b=document.createElement("button");b.type="button";b.className="action primary";b.style.marginTop="14px";
- b.textContent=m.simProfile?.kind==="hane"?"この機種の役物抽選を試す":m.simProfile?.confidence==="demo_only"?"仮設定でシミュレーション":"この機種でシミュレーション";
- b.addEventListener("click",()=>{setModel(m.id==="e-garo12"?"garo12":"machine");$("sim-head").scrollIntoView({behavior:"smooth",block:"start"})});$("detail").appendChild(b);
- if(m.id==="l-million-god-trajectory"){const a=document.createElement("a");a.href="../simulator.html";a.className="action";a.textContent="GOD従来版の詳細シミュレーター";a.style.cssText="display:inline-block;text-decoration:none;margin:12px 0 0 8px";$("detail").appendChild(a)}
 }
 function modelConfig(){
  if($("sim-model").value==="machine")return {};
