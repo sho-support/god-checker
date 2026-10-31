@@ -83,12 +83,12 @@ footer{border-top:1px solid var(--line);margin:38px 0 0;padding:23px 0;color:var
   </div>
   <div id="machines" class="content-marker"></div>
 <div class="grid">
-<section class="panel machines-panel" aria-labelledby="list-head"><div class="section-header"><div><p class="kicker">MACHINE INDEX</p><h2 id="list-head">機種一覧 <span id="count" class="small"></span></h2></div></div>
+<section class="panel machines-panel" aria-labelledby="list-head"><div class="section-header"><div><p class="kicker">MACHINE INDEX</p><h2 id="list-head">機種一覧・解析情報 <span id="count" class="small"></span></h2></div></div>
 <div class="search-line"><label style="flex:1"><span class="small">機種名・メーカー検索</span><input id="query" type="search" placeholder="例：牙狼 / エヴァ / サミー" autocomplete="off"></label><label style="width:165px"><span class="small">導入状況</span><select id="release"><option value="all">すべて</option><option value="released">導入済み</option><option value="upcoming">導入予定</option><option value="nov02">11/2導入予定20機種</option></select></label></div>
 <div class="filters" role="group" aria-label="機種区分"><button type="button" class="chip" data-type="all" aria-pressed="true">すべて</button><button type="button" class="chip" data-type="slot" aria-pressed="false">パチスロ</button><button type="button" class="chip" data-type="pachinko" aria-pressed="false">パチンコ</button></div>
-<div id="list" class="machine-list" aria-live="polite"><div class="muted">機種データを読み込んでいます。</div></div><p id="load-status" class="status">データ確認日：2026/10/28</p>
+<div id="list" class="machine-list" aria-live="polite"><div class="muted">機種データを読み込んでいます。</div></div><p class="footnote">機種名を選ぶと、目次つきの専用ページが開きます。</p><p id="load-status" class="status">データ確認日：2026/10/28</p>
 </section>
-<section class="panel details-panel" id="machine-detail" aria-labelledby="detail-head"><div class="section-header"><div><p class="kicker">MACHINE GUIDE</p><h2 id="detail-head">機種別情報</h2></div></div><div id="detail"><p class="muted">一覧から機種を選んでください。</p></div></section>
+
 </div>
 <details class="section panel sim-section" id="sim-section"><summary id="sim-head"><span>確率シミュレーター</span><small>機種ごとの抽選を試す（任意の娯楽機能）</small></summary><div class="sim-body"><div id="machine-selected" class="machine-selected" hidden>機種を選んで「この機種をシミュレーション」を押してください。</div>
 <p class="small">実機の映像や内部プログラムは再現しません。公開済みの数値を利用した独立した疑似抽選です。</p>
