@@ -25,6 +25,7 @@ jobs:
           node --check catalog/ui.js
           node --check catalog/machine-engine.js
       - name: Execute deterministic probability and state regression tests
-        run: node catalog/test-engine.js
+        run: |
+          node catalog/test-engine.js
           node catalog/test-machine-engine.js
           node catalog/test-ui.js
