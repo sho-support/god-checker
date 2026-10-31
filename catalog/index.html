@@ -38,6 +38,13 @@ footer{border-top:1px solid var(--line);margin:38px 0 0;padding:23px 0;color:var
 @media(max-width:850px){.field-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:480px){.field-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.field-grid input{padding:8px}}
 
+
+.machine-selected{border-radius:12px;border:1px solid #607895;background:#101f32;padding:10px 14px;margin-bottom:15px;font-size:13px;line-height:1.6}
+.machine-selected .machine-mode-label{font-weight:800;color:#f0c76a;font-size:15px;display:block}
+.machine-selected .warn{color:#ffdda5}
+.machine-selected[hidden],#machine-odds-box[hidden]{display:none!important}
+@media(max-width:620px){.search-line{display:grid;grid-template-columns:1fr}.search-line label{max-width:none!important;width:100%!important}}
+
 </style>
 </head>
 <body>
@@ -46,15 +53,15 @@ footer{border-top:1px solid var(--line);margin:38px 0 0;padding:23px 0;color:var
 <section class="hero"><div class="eyebrow">PACHINKO &amp; PACHISLOT DATABASE <span class="prototype">公開ベータ・仕様確認中</span></div><h1>機種を探す。確率を体感する。</h1><p>導入済み・導入予定の機種情報と抽選シミュレーターを統合。公表値と未確認情報は混ぜず、仕様を検証できた機種から順次シミュレーターに対応します。</p></section>
 <div class="grid">
 <section class="panel" aria-labelledby="list-head"><h2 id="list-head">機種を探す <span id="count" class="small"></span></h2>
-<div class="search-line"><label style="flex:1"><span class="small">機種名・メーカー検索</span><input id="query" type="search" placeholder="例：牙狼 / エヴァ / サミー" autocomplete="off"></label><label style="width:165px"><span class="small">導入状況</span><select id="release"><option value="all">すべて</option><option value="released">導入済み</option><option value="upcoming">導入予定</option></select></label></div>
+<div class="search-line"><label style="flex:1"><span class="small">機種名・メーカー検索</span><input id="query" type="search" placeholder="例：牙狼 / エヴァ / サミー" autocomplete="off"></label><label style="width:165px"><span class="small">導入状況</span><select id="release"><option value="all">すべて</option><option value="released">導入済み</option><option value="upcoming">導入予定</option><option value="nov02">11/2導入予定20機種</option></select></label></div>
 <div class="filters" role="group" aria-label="機種区分"><button type="button" class="chip" data-type="all" aria-pressed="true">すべて</button><button type="button" class="chip" data-type="slot" aria-pressed="false">パチスロ</button><button type="button" class="chip" data-type="pachinko" aria-pressed="false">パチンコ</button></div>
 <div id="list" class="machine-list" aria-live="polite"><div class="muted">機種データを読み込んでいます。</div></div><p id="load-status" class="status">データ確認日：2026/10/28</p>
 </section>
 <section class="panel" aria-labelledby="detail-head"><h2 id="detail-head">機種情報</h2><div id="detail"><p class="muted">一覧から機種を選んでください。</p></div></section>
 </div>
-<section class="section panel" aria-labelledby="sim-head"><h2 id="sim-head">抽選シミュレーター</h2>
+<section class="section panel" aria-labelledby="sim-head"><h2 id="sim-head">抽選シミュレーター</h2><div id="machine-selected" class="machine-selected" hidden>機種を選んで「この機種をシミュレーション」を押してください。</div>
 <p class="small">実機の映像や内部プログラムは再現しません。公開済みの数値を利用した独立した疑似抽選です。</p>
-<div class="search-line"><label style="max-width:280px"><span class="small">抽選モデル</span><select id="sim-model"><option value="free">フリー確率モード</option><option value="garo12">e牙狼12黄金騎士極限（公表値モデル）</option></select></label><label style="max-width:160px" id="free-odds-box"><span class="small">大当たり確率 1 /</span><input type="number" id="free-odds" min="1" max="10000000" step="0.01" value="399"></label></div>
+<div class="search-line"><label style="max-width:280px"><span class="small">抽選モデル</span><select id="sim-model"><option value="free">フリー確率モード</option><option value="garo12">e牙狼12黄金騎士極限（公表値モデル）</option></select></label><label id="machine-setting-box" style="max-width:135px" hidden><span class="small">設定</span><select id="machine-setting"><option value="0">設定1</option><option value="1">設定2</option><option value="2">設定3</option><option value="3">設定4</option><option value="4">設定5</option><option value="5">設定6</option></select></label><label id="machine-odds-box" style="max-width:170px" hidden><span class="small">初当たり分母 1 /</span><input id="machine-odds" type="number" min="1" max="10000000" step="any" value="399"></label><label style="max-width:160px" id="free-odds-box"><span class="small">大当たり確率 1 /</span><input type="number" id="free-odds" min="1" max="10000000" step="0.01" value="399"></label></div>
 <div id="custom-config" class="custom-config" hidden>
   <div class="custom-heading"><strong>カスタム ST / LT シミュレーター</strong><span class="small">入力した確率で疑似遊技（実機との一致保証なし）</span></div>
   <div class="field-grid">
@@ -90,8 +97,8 @@ footer{border-top:1px solid var(--line);margin:38px 0 0;padding:23px 0;color:var
 </div>
 <div class="meta" style="margin:14px 0"><span class="small">現在の状態</span><span id="phase" class="mode">通常</span><span id="phase-help" class="small"></span></div>
 <div class="statgrid">
-<div class="stat"><div class="label">総抽選回数</div><div class="value" id="spins">0</div></div><div class="stat"><div class="label">通常回転数</div><div class="value" id="normal-spins">0</div></div><div class="stat"><div class="label">現在のハマり</div><div class="value" id="hama">0</div></div>
-<div class="stat"><div class="label">最大ハマり</div><div class="value" id="max-hama">0</div></div><div class="stat"><div class="label">当たり回数（右打ち含む）</div><div class="value" id="wins">0</div></div><div class="stat"><div class="label">獲得（玉・枚）</div><div class="value" id="payout">0</div></div>
+<div class="stat"><div id="spin-label" class="label">総抽選回数</div><div class="value" id="spins">0</div></div><div class="stat"><div id="normal-label" class="label">通常回転数</div><div class="value" id="normal-spins">0</div></div><div class="stat"><div id="hama-label" class="label">現在のハマり</div><div class="value" id="hama">0</div></div>
+<div class="stat"><div class="label">最大ハマり</div><div class="value" id="max-hama">0</div></div><div class="stat"><div class="label">当たり回数（右打ち含む）</div><div class="value" id="wins">0</div></div><div class="stat"><div class="label">払出し（玉・枚）</div><div class="value" id="payout">0</div></div>
 <div class="stat"><div class="label">チャージ回数</div><div class="value" id="charges">0</div></div><div class="stat"><div class="label">ST・LT突入回数</div><div class="value" id="rush-entries">0</div></div><div class="stat"><div class="label">LT昇格回数</div><div class="value" id="lt-entries">0</div></div>
 </div>
 <div class="sim-controls"><button id="one" class="action primary" type="button">1回抽選</button><button id="hundred" class="action" type="button">100回</button><button id="thousand" class="action" type="button">1,000回</button><button id="ten-thousand" class="action" type="button">10,000回</button><button id="auto" class="action" type="button" aria-pressed="false">オート開始</button><button id="reset" class="action stop" type="button">リセット</button></div>
@@ -102,6 +109,7 @@ footer{border-top:1px solid var(--line);margin:38px 0 0;padding:23px 0;color:var
 </main>
 <footer><div class="wrap">試作版｜メーカー・ホールとは無関係の独立した情報サイトです。数値は公開情報を参考にした疑似抽選であり、実機の結果・期待収支・設定・勝敗を保証しません。18歳未満の遊技を推奨しません。<div><a href="../privacy.html">プライバシー・免責事項</a></div></div></footer>
 <script defer src="./engine.js"></script>
+<script defer src="./machine-engine.js"></script>
 <script defer src="./ui.js"></script>
 </body>
 </html>

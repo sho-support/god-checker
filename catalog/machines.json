@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-10-29",
+  "updated": "2026-10-31",
   "notice": "試作データ。未検証仕様の確率は自動生成しません。",
   "machines": [
     {
@@ -37,7 +37,14 @@
           "date": "2026-10-28",
           "message": "メーカー公式と専門情報を照合。試作シミュレーターに対応（LT中振り分けは概数）。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "garo12",
+        "normalOdds": 437.49,
+        "confidence": "published_approximate",
+        "source": "https://www.sansei-rd.co.jp/p_garo_archive/archive/p_garo12_ok.html",
+        "checkedAt": "2026-10-31"
+      }
     },
     {
       "id": "new-p-01",
@@ -47,17 +54,34 @@
       "introduction": "2026-11-02",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
+        "https://1geki.jp/pachinko/e_granbelm/",
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
-      "lastVerified": "2026-10-28",
+      "lastVerified": "2026-10-31",
       "updates": [
+        {
+          "date": "2026-10-31",
+          "message": "公開スペックの初当たり/役物確率を照合。機種別の疑似抽選を追加（特殊な抽選は一部未再現）。"
+        },
         {
           "date": "2026-10-28",
           "message": "導入予定リストに追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "st",
+        "normalOdds": 319.6,
+        "entryPct": 51,
+        "stGames": 130,
+        "rushContinuationPct": 77,
+        "firstPayout": 1500,
+        "notes": "ST中はジャッジ約1/62と特図2の引き戻し約1/1.4。77%からの代替抽選であり実機のジャッジを再現しない。",
+        "confidence": "published_base_with_simplified_transitions",
+        "source": "https://1geki.jp/pachinko/e_granbelm/",
+        "checkedAt": "2026-10-31"
+      }
     },
     {
       "id": "new-p-02",
@@ -67,36 +91,84 @@
       "introduction": "2026-11-02",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
+        "https://1geki.jp/pachinko/e_ngnl_119/",
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
-      "lastVerified": "2026-10-28",
+      "lastVerified": "2026-10-31",
       "updates": [
+        {
+          "date": "2026-10-31",
+          "message": "公開スペックの初当たり/役物確率を照合。機種別の疑似抽選を追加（特殊な抽選は一部未再現）。"
+        },
         {
           "date": "2026-10-28",
           "message": "導入予定リストに追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "st",
+        "normalOdds": 119.8,
+        "entryPct": 50,
+        "stGames": 12,
+        "reserveGames": 4,
+        "rightOdds": 23.1,
+        "firstPayout": 1000,
+        "rushPayoutDistribution": [
+          {
+            "p": 50,
+            "payout": 300
+          },
+          {
+            "p": 50,
+            "payout": 1000
+          }
+        ],
+        "notes": "本来は通常RUSH12回+残保留4回とHYPER32回+4回。HYPER昇格条件は未再現。",
+        "confidence": "published_base_with_simplified_transitions",
+        "source": "https://1geki.jp/pachinko/e_ngnl_119/",
+        "checkedAt": "2026-10-31"
+      }
     },
     {
       "id": "new-p-03",
-      "name": "eF妖怪ウォッチ",
+      "name": "eフィーバー妖怪ウォッチ",
       "manufacturer": "SANKYO",
       "type": "pachinko",
       "introduction": "2026-11-02",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
+        "https://1geki.jp/pachinko/e_youkai_watch/",
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
-      "lastVerified": "2026-10-28",
+      "lastVerified": "2026-10-31",
       "updates": [
+        {
+          "date": "2026-10-31",
+          "message": "公開スペックの初当たり/役物確率を照合。機種別の疑似抽選を追加（特殊な抽選は一部未再現）。"
+        },
         {
           "date": "2026-10-28",
           "message": "導入予定リストに追加。詳細スペックは未検証。"
         }
+      ],
+      "simProfile": {
+        "kind": "st",
+        "normalOdds": 319.7,
+        "entryPct": 61,
+        "stGames": 100,
+        "rushContinuationPct": 80,
+        "firstPayout": 1500,
+        "notes": "突入約61%は時短の引き戻し込み、継続約80%はRUSHと時短の合算。実機の最終決戦/コマチャレンジ/ウバウネ決戦は未再現。",
+        "confidence": "published_base_with_simplified_transitions",
+        "source": "https://1geki.jp/pachinko/e_youkai_watch/",
+        "checkedAt": "2026-10-31"
+      },
+      "searchAliases": [
+        "eF妖怪ウォッチ"
       ]
     },
     {
@@ -107,17 +179,34 @@
       "introduction": "2026-11-02",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
+        "https://1geki.jp/pachinko/e_juuou_sisi/",
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
-      "lastVerified": "2026-10-28",
+      "lastVerified": "2026-10-31",
       "updates": [
+        {
+          "date": "2026-10-31",
+          "message": "公開スペックの初当たり/役物確率を照合。機種別の疑似抽選を追加（特殊な抽選は一部未再現）。"
+        },
         {
           "date": "2026-10-28",
           "message": "導入予定リストに追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "st",
+        "normalOdds": 319.7,
+        "entryPct": 50,
+        "stGames": 100,
+        "rightOdds": 144.7,
+        "firstPayout": 1500,
+        "notes": "RUSH中当たりからサバンナチャンス50%の上乗せ構造は未再現。",
+        "confidence": "published_base_with_simplified_transitions",
+        "source": "https://1geki.jp/pachinko/e_juuou_sisi/",
+        "checkedAt": "2026-10-31"
+      }
     },
     {
       "id": "new-p-05",
@@ -127,17 +216,45 @@
       "introduction": "2026-11-02",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
+        "https://1geki.jp/pachinko/p_hane_bastard/",
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
-      "lastVerified": "2026-10-28",
+      "lastVerified": "2026-10-31",
       "updates": [
+        {
+          "date": "2026-10-31",
+          "message": "公開スペックの初当たり/役物確率を照合。機種別の疑似抽選を追加（特殊な抽選は一部未再現）。"
+        },
         {
           "date": "2026-10-28",
           "message": "導入予定リストに追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "hane",
+        "roleOdds": 13.4,
+        "roleBasis": "羽根から役物へ入った場合のV入賞役物確率",
+        "payouts": [
+          {
+            "p": 0.3333333333333333,
+            "payout": 1080
+          },
+          {
+            "p": 0.3333333333333333,
+            "payout": 480
+          },
+          {
+            "p": 0.3333333333333333,
+            "payout": 240
+          }
+        ],
+        "notes": "1/13.4は役物入賞時の確率。通常回転や始動口入賞の確率としては使わない。3R/5Rの+αは未反映。",
+        "confidence": "published_base_with_simplified_transitions",
+        "source": "https://1geki.jp/pachinko/p_hane_bastard/",
+        "checkedAt": "2026-10-31"
+      }
     },
     {
       "id": "new-p-06",
@@ -147,17 +264,34 @@
       "introduction": "2026-11-02",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
+        "https://1geki.jp/pachinko/e_granbelm249/",
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
-      "lastVerified": "2026-10-28",
+      "lastVerified": "2026-10-31",
       "updates": [
+        {
+          "date": "2026-10-31",
+          "message": "公開スペックの初当たり/役物確率を照合。機種別の疑似抽選を追加（特殊な抽選は一部未再現）。"
+        },
         {
           "date": "2026-10-28",
           "message": "導入予定リストに追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "st",
+        "normalOdds": 249.1,
+        "entryPct": 50,
+        "stGames": 130,
+        "rushContinuationPct": 75,
+        "firstPayout": 1500,
+        "notes": "ジャッジ約1/59.7と1回転成功期待約1/1.6を複合する特殊抽選。ST中は75%から代替確率を算出して疑似遊技。",
+        "confidence": "published_base_with_simplified_transitions",
+        "source": "https://1geki.jp/pachinko/e_granbelm249/",
+        "checkedAt": "2026-10-31"
+      }
     },
     {
       "id": "new-p-07",
@@ -167,17 +301,34 @@
       "introduction": "2026-11-02",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
+        "https://1geki.jp/pachinko/e_toaruindex3/",
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
-      "lastVerified": "2026-10-28",
+      "lastVerified": "2026-10-31",
       "updates": [
+        {
+          "date": "2026-10-31",
+          "message": "公開スペックの初当たり/役物確率を照合。機種別の疑似抽選を追加（特殊な抽選は一部未再現）。"
+        },
         {
           "date": "2026-10-28",
           "message": "導入予定リストに追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "st",
+        "normalOdds": 348,
+        "entryPct": 50,
+        "stGames": 131,
+        "rushContinuationPct": 75,
+        "firstPayout": 1500,
+        "notes": "液晶図柄揃い約1/348。ST前半30回・後半100回・最終1回で仕様が異なる。本モデルは75%からの代替値であり実機の段階抽選ではない。",
+        "confidence": "published_base_with_simplified_transitions",
+        "source": "https://1geki.jp/pachinko/e_toaruindex3/",
+        "checkedAt": "2026-10-31"
+      }
     },
     {
       "id": "new-p-08",
@@ -187,17 +338,48 @@
       "introduction": "2026-11-02",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
+        "https://1geki.jp/pachinko/e_pripri/",
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
-      "lastVerified": "2026-10-28",
+      "lastVerified": "2026-10-31",
       "updates": [
+        {
+          "date": "2026-10-31",
+          "message": "公開スペックの初当たり/役物確率を照合。機種別の疑似抽選を追加（特殊な抽選は一部未再現）。"
+        },
         {
           "date": "2026-10-28",
           "message": "導入予定リストに追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "st",
+        "normalOdds": 319.6,
+        "entryPct": 50,
+        "stGames": 14,
+        "rightOdds": 10.6,
+        "firstPayout": 1500,
+        "rushPayoutDistribution": [
+          {
+            "p": 50,
+            "payout": 1500
+          },
+          {
+            "p": 25,
+            "payout": 6000
+          },
+          {
+            "p": 25,
+            "payout": 10500
+          }
+        ],
+        "notes": "ST1〜10回で1500/6000/10500の振り分け。11〜14回は出玉なしリセットもあり、現モデルはこの差を簡略化している。",
+        "confidence": "published_base_with_simplified_transitions",
+        "source": "https://1geki.jp/pachinko/e_pripri/",
+        "checkedAt": "2026-10-31"
+      }
     },
     {
       "id": "new-p-09",
@@ -207,17 +389,45 @@
       "introduction": "2026-11-02",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
+        "https://1geki.jp/pachinko/p_tenhaissen_aka/",
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
-      "lastVerified": "2026-10-28",
+      "lastVerified": "2026-10-31",
       "updates": [
+        {
+          "date": "2026-10-31",
+          "message": "公開スペックの初当たり/役物確率を照合。機種別の疑似抽選を追加（特殊な抽選は一部未再現）。"
+        },
         {
           "date": "2026-10-28",
           "message": "導入予定リストに追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "hane",
+        "roleOdds": 12.6,
+        "roleBasis": "羽根に拾われた玉の役物内V入賞確率",
+        "payouts": [
+          {
+            "p": 0.34,
+            "payout": 1134
+          },
+          {
+            "p": 0.33,
+            "payout": 504
+          },
+          {
+            "p": 0.33,
+            "payout": 252
+          }
+        ],
+        "notes": "役物内確率であって通常デジタル抽選の分母ではない。盤面上の羽根拾い率や釘の影響は扱わない。",
+        "confidence": "published_base_with_simplified_transitions",
+        "source": "https://1geki.jp/pachinko/p_tenhaissen_aka/",
+        "checkedAt": "2026-10-31"
+      }
     },
     {
       "id": "new-p-10",
@@ -227,17 +437,45 @@
       "introduction": "2026-11-02",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
+        "https://1geki.jp/pachinko/p_tenbaissen_ao/",
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
-      "lastVerified": "2026-10-28",
+      "lastVerified": "2026-10-31",
       "updates": [
+        {
+          "date": "2026-10-31",
+          "message": "公開スペックの初当たり/役物確率を照合。機種別の疑似抽選を追加（特殊な抽選は一部未再現）。"
+        },
         {
           "date": "2026-10-28",
           "message": "導入予定リストに追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "hane",
+        "roleOdds": 16,
+        "roleBasis": "羽根に拾われた玉の役物内V入賞確率",
+        "payouts": [
+          {
+            "p": 0.75,
+            "payout": 1134
+          },
+          {
+            "p": 0.125,
+            "payout": 504
+          },
+          {
+            "p": 0.125,
+            "payout": 252
+          }
+        ],
+        "notes": "役物確率1/16で、通常回転数やチャッカー1回ごとの大当たり率とは異なる。",
+        "confidence": "published_base_with_simplified_transitions",
+        "source": "https://1geki.jp/pachinko/p_tenbaissen_ao/",
+        "checkedAt": "2026-10-31"
+      }
     },
     {
       "id": "new-p-11",
@@ -247,17 +485,42 @@
       "introduction": "2026-11-02",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
+        "https://1geki.jp/pachinko/p_momotetu/",
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
-      "lastVerified": "2026-10-28",
+      "lastVerified": "2026-10-31",
       "updates": [
+        {
+          "date": "2026-10-31",
+          "message": "公開スペックの初当たり/役物確率を照合。機種別の疑似抽選を追加（特殊な抽選は一部未再現）。"
+        },
         {
           "date": "2026-10-28",
           "message": "導入予定リストに追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "st",
+        "normalOdds": 89.8,
+        "settingOdds": [
+          89.8,
+          89.7,
+          89.6,
+          89.5,
+          89.4,
+          89.2
+        ],
+        "entryPct": 45.3,
+        "stGames": 77,
+        "rightOdds": 60.3,
+        "firstPayout": 800,
+        "notes": "設定1基準。突入約45.3%は50回+残保留4の引き戻しで、通常当たりからの直接ST率ではない。遊タイム・右打ち10000回は未再現。",
+        "confidence": "published_base_with_simplified_transitions",
+        "source": "https://1geki.jp/pachinko/p_momotetu/",
+        "checkedAt": "2026-10-31"
+      }
     },
     {
       "id": "new-p-12",
@@ -267,17 +530,42 @@
       "introduction": "2026-11-02",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
+        "https://1geki.jp/pachinko/p_momotetult_lt/",
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
-      "lastVerified": "2026-10-28",
+      "lastVerified": "2026-10-31",
       "updates": [
+        {
+          "date": "2026-10-31",
+          "message": "公開スペックの初当たり/役物確率を照合。機種別の疑似抽選を追加（特殊な抽選は一部未再現）。"
+        },
         {
           "date": "2026-10-28",
           "message": "導入予定リストに追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "st",
+        "normalOdds": 129.7,
+        "settingOdds": [
+          129.7,
+          129.5,
+          129.2,
+          129,
+          128.7,
+          128.5
+        ],
+        "entryPct": 53.3,
+        "stGames": 77,
+        "rushContinuationPct": 73,
+        "firstPayout": 1000,
+        "notes": "設定1基準。右打ちはジャッジ1/42×成功約70%の合成。9回の大当たり後の黄金列車LT昇格等は未再現。",
+        "confidence": "published_base_with_simplified_transitions",
+        "source": "https://1geki.jp/pachinko/p_momotetult_lt/",
+        "checkedAt": "2026-10-31"
+      }
     },
     {
       "id": "new-p-13",
@@ -287,17 +575,34 @@
       "introduction": "2026-11-02",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
+        "https://1geki.jp/pachinko/e_kmnr_blacklight/",
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
-      "lastVerified": "2026-10-28",
+      "lastVerified": "2026-10-31",
       "updates": [
+        {
+          "date": "2026-10-31",
+          "message": "公開スペックの初当たり/役物確率を照合。機種別の疑似抽選を追加（特殊な抽選は一部未再現）。"
+        },
         {
           "date": "2026-10-28",
           "message": "導入予定リストに追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "st",
+        "normalOdds": 129.9,
+        "entryPct": 60,
+        "stGames": 120,
+        "rightOdds": 96,
+        "firstPayout": 400,
+        "notes": "JUSTICE RUSH中の25%で宿命BATTLEへ進むが、1G連の連鎖抽選は未再現。",
+        "confidence": "published_base_with_simplified_transitions",
+        "source": "https://1geki.jp/pachinko/e_kmnr_blacklight/",
+        "checkedAt": "2026-10-31"
+      }
     },
     {
       "id": "new-p-14",
@@ -307,17 +612,48 @@
       "introduction": "2026-11-02",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
+        "https://1geki.jp/pachinko/e_onepanman2_99/",
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
-      "lastVerified": "2026-10-28",
+      "lastVerified": "2026-10-31",
       "updates": [
+        {
+          "date": "2026-10-31",
+          "message": "公開スペックの初当たり/役物確率を照合。機種別の疑似抽選を追加（特殊な抽選は一部未再現）。"
+        },
         {
           "date": "2026-10-28",
           "message": "導入予定リストに追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "st",
+        "normalOdds": 99.9,
+        "entryPct": 40,
+        "stGames": 66,
+        "rightOdds": 96.5,
+        "firstPayout": 840,
+        "rushPayoutDistribution": [
+          {
+            "p": 22,
+            "payout": 5040
+          },
+          {
+            "p": 56,
+            "payout": 1120
+          },
+          {
+            "p": 22,
+            "payout": 0
+          }
+        ],
+        "notes": "右打ちの22%はST回数リセットのみ。個別演出は未再現。",
+        "confidence": "published_base_with_simplified_transitions",
+        "source": "https://1geki.jp/pachinko/e_onepanman2_99/",
+        "checkedAt": "2026-10-31"
+      }
     },
     {
       "id": "new-s-01",
@@ -327,17 +663,39 @@
       "introduction": "2026-11-02",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
+        "https://1geki.jp/slot/l_sao_ggo/",
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
-      "lastVerified": "2026-10-28",
+      "lastVerified": "2026-10-31",
       "updates": [
+        {
+          "date": "2026-10-31",
+          "message": "公開スペックの初当たり/役物確率を照合。機種別の疑似抽選を追加（特殊な抽選は一部未再現）。"
+        },
         {
           "date": "2026-10-28",
           "message": "導入予定リストに追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": 192,
+        "hitKind": "ボーナス初当たり",
+        "settingOdds": [
+          192,
+          189.2,
+          180.9,
+          168.6,
+          155.4,
+          153.9
+        ],
+        "notes": "スクワッドジャムST突入までのCZやボーナス振り分けは未再現。設定1ボーナス初当たりを抽選。",
+        "confidence": "published_base_with_simplified_transitions",
+        "source": "https://1geki.jp/slot/l_sao_ggo/",
+        "checkedAt": "2026-10-31"
+      }
     },
     {
       "id": "new-s-02",
@@ -347,17 +705,39 @@
       "introduction": "2026-11-02",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
+        "https://1geki.jp/slot/l_seiya_ougon/",
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
-      "lastVerified": "2026-10-28",
+      "lastVerified": "2026-10-31",
       "updates": [
+        {
+          "date": "2026-10-31",
+          "message": "公開スペックの初当たり/役物確率を照合。機種別の疑似抽選を追加（特殊な抽選は一部未再現）。"
+        },
         {
           "date": "2026-10-28",
           "message": "導入予定リストに追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": 364.2,
+        "hitKind": "AT初当たり",
+        "settingOdds": [
+          364.2,
+          356.1,
+          345.6,
+          322.3,
+          313.7,
+          310.5
+        ],
+        "notes": "CZ確率とは区別したAT初当たり。セット継続・上位ATへの移行は未再現。",
+        "confidence": "published_base_with_simplified_transitions",
+        "source": "https://1geki.jp/slot/l_seiya_ougon/",
+        "checkedAt": "2026-10-31"
+      }
     },
     {
       "id": "new-s-03",
@@ -367,17 +747,39 @@
       "introduction": "2026-11-02",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
+        "https://1geki.jp/slot/l_ragnador/",
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
-      "lastVerified": "2026-10-28",
+      "lastVerified": "2026-10-31",
       "updates": [
+        {
+          "date": "2026-10-31",
+          "message": "公開スペックの初当たり/役物確率を照合。機種別の疑似抽選を追加（特殊な抽選は一部未再現）。"
+        },
         {
           "date": "2026-10-28",
           "message": "導入予定リストに追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": 326.4,
+        "hitKind": "AT初当たり",
+        "settingOdds": [
+          326.4,
+          317.2,
+          307.7,
+          271.2,
+          260.8,
+          258.3
+        ],
+        "notes": "CZ確率とは区別したAT初当たり。Chain・ガチャチャレンジ等の振り分けは未再現。",
+        "confidence": "published_base_with_simplified_transitions",
+        "source": "https://1geki.jp/slot/l_ragnador/",
+        "checkedAt": "2026-10-31"
+      }
     },
     {
       "id": "new-s-04",
@@ -387,17 +789,39 @@
       "introduction": "2026-11-02",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
+        "https://1geki.jp/slot/l_vivy/",
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
-      "lastVerified": "2026-10-28",
+      "lastVerified": "2026-10-31",
       "updates": [
+        {
+          "date": "2026-10-31",
+          "message": "公開スペックの初当たり/役物確率を照合。機種別の疑似抽選を追加（特殊な抽選は一部未再現）。"
+        },
         {
           "date": "2026-10-28",
           "message": "導入予定リストに追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": 276.5,
+        "hitKind": "AT初当たり",
+        "settingOdds": [
+          276.5,
+          251.7,
+          272.1,
+          222.8,
+          235.9,
+          210.3
+        ],
+        "notes": "設定1のAT初当たり。差枚管理AT・レア役再生・バトルは未再現。",
+        "confidence": "published_base_with_simplified_transitions",
+        "source": "https://1geki.jp/slot/l_vivy/",
+        "checkedAt": "2026-10-31"
+      }
     },
     {
       "id": "new-s-05",
@@ -407,17 +831,39 @@
       "introduction": "2026-11-02",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
+        "https://1geki.jp/slot/l_garo/",
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
-      "lastVerified": "2026-10-28",
+      "lastVerified": "2026-10-31",
       "updates": [
+        {
+          "date": "2026-10-31",
+          "message": "公開スペックの初当たり/役物確率を照合。機種別の疑似抽選を追加（特殊な抽選は一部未再現）。"
+        },
         {
           "date": "2026-10-28",
           "message": "導入予定リストに追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": 291.1,
+        "hitKind": "ボーナス初当たり",
+        "settingOdds": [
+          291.1,
+          283.7,
+          276.1,
+          265.8,
+          259.4,
+          256.5
+        ],
+        "notes": "初当たりボーナスの確率であり、上位AT突入率ではない。",
+        "confidence": "published_base_with_simplified_transitions",
+        "source": "https://1geki.jp/slot/l_garo/",
+        "checkedAt": "2026-10-31"
+      }
     },
     {
       "id": "new-s-06",
@@ -427,17 +873,47 @@
       "introduction": "2026-11-02",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
+        "https://1geki.jp/slot/l_goji_eva2/",
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
-      "lastVerified": "2026-10-28",
+      "lastVerified": "2026-10-31",
       "updates": [
+        {
+          "date": "2026-10-31",
+          "message": "公開スペックの初当たり/役物確率を照合。機種別の疑似抽選を追加（特殊な抽選は一部未再現）。"
+        },
         {
           "date": "2026-10-28",
           "message": "導入予定リストに追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": 234.2,
+        "hitKind": "ボーナス初当たり",
+        "settingOdds": [
+          234.2,
+          229,
+          221.8,
+          207,
+          201.5,
+          195
+        ],
+        "atOdds": [
+          460.5,
+          446.5,
+          425.5,
+          390.4,
+          374.2,
+          355.5
+        ],
+        "notes": "通常ボーナス1/234.2とAT初当たり1/460.5は別の統計値。直接AT抽選には置き換えられない。",
+        "confidence": "published_base_with_simplified_transitions",
+        "source": "https://1geki.jp/slot/l_goji_eva2/",
+        "checkedAt": "2026-10-31"
+      }
     },
     {
       "id": "installed-01",
@@ -447,7 +923,7 @@
       "introduction": "2026-10-05",
       "releaseStatus": "released",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine.html"
       ],
@@ -457,7 +933,15 @@
           "date": "2026-10-28",
           "message": "機種名・メーカー・導入日を追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "pachinko",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine.html",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "installed-02",
@@ -467,7 +951,7 @@
       "introduction": "2026-10-05",
       "releaseStatus": "released",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine.html"
       ],
@@ -477,7 +961,15 @@
           "date": "2026-10-28",
           "message": "機種名・メーカー・導入日を追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "pachinko",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine.html",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "installed-03",
@@ -487,7 +979,7 @@
       "introduction": "2026-10-05",
       "releaseStatus": "released",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine.html"
       ],
@@ -497,7 +989,15 @@
           "date": "2026-10-28",
           "message": "機種名・メーカー・導入日を追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine.html",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "installed-04",
@@ -507,7 +1007,7 @@
       "introduction": "2026-10-05",
       "releaseStatus": "released",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine.html"
       ],
@@ -517,7 +1017,15 @@
           "date": "2026-10-28",
           "message": "機種名・メーカー・導入日を追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine.html",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "installed-05",
@@ -527,7 +1035,7 @@
       "introduction": "2026-10-05",
       "releaseStatus": "released",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine.html"
       ],
@@ -537,7 +1045,15 @@
           "date": "2026-10-28",
           "message": "機種名・メーカー・導入日を追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine.html",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "installed-06",
@@ -547,7 +1063,7 @@
       "introduction": "2026-10-05",
       "releaseStatus": "released",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine.html"
       ],
@@ -557,7 +1073,15 @@
           "date": "2026-10-28",
           "message": "機種名・メーカー・導入日を追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine.html",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "installed-07",
@@ -567,7 +1091,7 @@
       "introduction": "2026-10-19",
       "releaseStatus": "released",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine.html"
       ],
@@ -577,7 +1101,15 @@
           "date": "2026-10-28",
           "message": "機種名・メーカー・導入日を追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "pachinko",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine.html",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "installed-08",
@@ -587,7 +1119,7 @@
       "introduction": "2026-10-19",
       "releaseStatus": "released",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine.html"
       ],
@@ -597,7 +1129,15 @@
           "date": "2026-10-28",
           "message": "機種名・メーカー・導入日を追加。詳細スペックは未検証。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine.html",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "future-01",
@@ -607,7 +1147,7 @@
       "introduction": "2026-11-16",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
@@ -617,7 +1157,15 @@
           "date": "2026-10-29",
           "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "future-02",
@@ -627,7 +1175,7 @@
       "introduction": "2026-12-07",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
@@ -637,7 +1185,15 @@
           "date": "2026-10-29",
           "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "pachinko",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "future-03",
@@ -647,7 +1203,7 @@
       "introduction": "2026-12-07",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
@@ -657,7 +1213,15 @@
           "date": "2026-10-29",
           "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "pachinko",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "future-04",
@@ -667,7 +1231,7 @@
       "introduction": "2026-12-07",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
@@ -677,7 +1241,15 @@
           "date": "2026-10-29",
           "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "pachinko",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "future-05",
@@ -687,7 +1259,7 @@
       "introduction": "2026-12-07",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
@@ -697,7 +1269,15 @@
           "date": "2026-10-29",
           "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "pachinko",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "future-06",
@@ -707,7 +1287,7 @@
       "introduction": "2026-12-07",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
@@ -717,7 +1297,15 @@
           "date": "2026-10-29",
           "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "pachinko",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "future-07",
@@ -727,7 +1315,7 @@
       "introduction": "2026-12-07",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
@@ -737,7 +1325,15 @@
           "date": "2026-10-29",
           "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "pachinko",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "future-08",
@@ -747,7 +1343,7 @@
       "introduction": "2026-12-07",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
@@ -757,7 +1353,15 @@
           "date": "2026-10-29",
           "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "pachinko",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "future-09",
@@ -767,7 +1371,7 @@
       "introduction": "2026-12-07",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
@@ -777,7 +1381,15 @@
           "date": "2026-10-29",
           "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "future-10",
@@ -787,7 +1399,7 @@
       "introduction": "2026-12-07",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
@@ -797,7 +1409,15 @@
           "date": "2026-10-29",
           "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "future-11",
@@ -807,7 +1427,7 @@
       "introduction": "2026-12-07",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
@@ -817,7 +1437,15 @@
           "date": "2026-10-29",
           "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "future-12",
@@ -827,7 +1455,7 @@
       "introduction": "2026-12-07",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
@@ -837,7 +1465,15 @@
           "date": "2026-10-29",
           "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "future-13",
@@ -847,7 +1483,7 @@
       "introduction": "2026-12-21",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
@@ -857,7 +1493,15 @@
           "date": "2026-10-29",
           "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "pachinko",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "future-14",
@@ -867,7 +1511,7 @@
       "introduction": "2026-12-21",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
@@ -877,7 +1521,15 @@
           "date": "2026-10-29",
           "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "future-15",
@@ -887,7 +1539,7 @@
       "introduction": "2026-12-21",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
@@ -897,7 +1549,15 @@
           "date": "2026-10-29",
           "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "future-16",
@@ -907,7 +1567,7 @@
       "introduction": "2027-01-04",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
@@ -917,7 +1577,15 @@
           "date": "2026-10-29",
           "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "pachinko",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "future-17",
@@ -927,7 +1595,7 @@
       "introduction": "2027-01-12",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
@@ -937,7 +1605,15 @@
           "date": "2026-10-29",
           "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "pachinko",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "future-18",
@@ -947,7 +1623,7 @@
       "introduction": "2027-01-12",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
@@ -957,7 +1633,15 @@
           "date": "2026-10-29",
           "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "pachinko",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "future-19",
@@ -967,7 +1651,7 @@
       "introduction": "2027-01-12",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
@@ -977,7 +1661,15 @@
           "date": "2026-10-29",
           "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "future-20",
@@ -987,7 +1679,7 @@
       "introduction": "2027-01-12",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
@@ -997,7 +1689,15 @@
           "date": "2026-10-29",
           "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "future-21",
@@ -1007,7 +1707,7 @@
       "introduction": "2027-01-25",
       "releaseStatus": "upcoming",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi"
       ],
@@ -1017,7 +1717,15 @@
           "date": "2026-10-29",
           "message": "メーカー・導入予定日を登録。詳細仕様は確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine/introduce_calendar.cgi?type=Pachi",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "l-million-god-trajectory",
@@ -1027,7 +1735,7 @@
       "introduction": "2026-04-20",
       "releaseStatus": "released",
       "specStatus": "verified_basic",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.universal-777.com/product/slot/milliongod_kiseki/",
         "https://www.universal-777.co.jp/news/20260119002436/",
@@ -1061,7 +1769,15 @@
           "date": "2026-10-29",
           "message": "公式機種ページと初当たり設定差を確認。旧サイトへの導線を用意。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": 533,
+        "confidence": "verified_basic",
+        "source": "https://www.universal-777.com/product/slot/milliongod_kiseki/",
+        "checkedAt": "2026-10-31",
+        "notes": "公表の初当たり確率のみ反映。AT・CZやRUSHの特殊抽選は未再現。"
+      }
     },
     {
       "id": "featured-01",
@@ -1071,7 +1787,7 @@
       "introduction": null,
       "releaseStatus": "released",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine.html"
       ],
@@ -1082,7 +1798,15 @@
           "date": "2026-10-29",
           "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "pachinko",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine.html",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "featured-02",
@@ -1092,7 +1816,7 @@
       "introduction": null,
       "releaseStatus": "released",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine.html"
       ],
@@ -1103,7 +1827,15 @@
           "date": "2026-10-29",
           "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "pachinko",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine.html",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "featured-03",
@@ -1113,7 +1845,7 @@
       "introduction": null,
       "releaseStatus": "released",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine.html"
       ],
@@ -1124,7 +1856,15 @@
           "date": "2026-10-29",
           "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "pachinko",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine.html",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "featured-04",
@@ -1134,7 +1874,7 @@
       "introduction": null,
       "releaseStatus": "released",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine.html"
       ],
@@ -1145,7 +1885,15 @@
           "date": "2026-10-29",
           "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "pachinko",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine.html",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "featured-05",
@@ -1155,7 +1903,7 @@
       "introduction": null,
       "releaseStatus": "released",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine.html"
       ],
@@ -1166,7 +1914,15 @@
           "date": "2026-10-29",
           "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "pachinko",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine.html",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "featured-06",
@@ -1176,7 +1932,7 @@
       "introduction": null,
       "releaseStatus": "released",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine.html"
       ],
@@ -1187,7 +1943,15 @@
           "date": "2026-10-29",
           "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "pachinko",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine.html",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "featured-07",
@@ -1197,7 +1961,7 @@
       "introduction": null,
       "releaseStatus": "released",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine.html"
       ],
@@ -1208,7 +1972,15 @@
           "date": "2026-10-29",
           "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine.html",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "featured-08",
@@ -1218,7 +1990,7 @@
       "introduction": null,
       "releaseStatus": "released",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine.html"
       ],
@@ -1229,7 +2001,15 @@
           "date": "2026-10-29",
           "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine.html",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "featured-09",
@@ -1239,7 +2019,7 @@
       "introduction": null,
       "releaseStatus": "released",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine.html"
       ],
@@ -1250,7 +2030,15 @@
           "date": "2026-10-29",
           "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine.html",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "featured-10",
@@ -1260,7 +2048,7 @@
       "introduction": null,
       "releaseStatus": "released",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine.html"
       ],
@@ -1271,7 +2059,15 @@
           "date": "2026-10-29",
           "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine.html",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "featured-11",
@@ -1281,7 +2077,7 @@
       "introduction": null,
       "releaseStatus": "released",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine.html"
       ],
@@ -1292,7 +2088,15 @@
           "date": "2026-10-29",
           "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine.html",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "featured-12",
@@ -1302,7 +2106,7 @@
       "introduction": null,
       "releaseStatus": "released",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine.html"
       ],
@@ -1313,7 +2117,15 @@
           "date": "2026-10-29",
           "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine.html",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "featured-13",
@@ -1323,7 +2135,7 @@
       "introduction": null,
       "releaseStatus": "released",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine.html"
       ],
@@ -1334,7 +2146,15 @@
           "date": "2026-10-29",
           "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine.html",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     },
     {
       "id": "featured-14",
@@ -1344,7 +2164,7 @@
       "introduction": null,
       "releaseStatus": "released",
       "specStatus": "pending",
-      "simulator": null,
+      "simulator": "machine",
       "sources": [
         "https://www.p-world.co.jp/database/machine.html"
       ],
@@ -1355,10 +2175,23 @@
           "date": "2026-10-29",
           "message": "機種名とメーカーを仮登録。詳細スペックは確認中。"
         }
-      ]
+      ],
+      "simProfile": {
+        "kind": "slot",
+        "normalOdds": null,
+        "confidence": "demo_only",
+        "source": "https://www.p-world.co.jp/database/machine.html",
+        "checkedAt": "2026-10-31",
+        "notes": "機種固有の確率を未検証。仮の分母から開始し、ユーザーが変更できる試遊版。"
+      }
     }
   ],
   "updates": [
+    {
+      "date": "2026-10-31",
+      "text": "11/2導入予定の20機種を再照合。65機種すべてに疑似抽選プロフィールを設定し、実機公表値と仮設定を区別。",
+      "type": "simulator"
+    },
     {
       "date": "2026-10-29",
       "text": "ST・LTの自由設定モデルとゴッド専用サイトの導線を用意。2027年1月までの公表済み新台情報と主要機種を追加。",

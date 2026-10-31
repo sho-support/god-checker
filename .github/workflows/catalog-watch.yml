@@ -20,7 +20,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          if git diff --quiet -- catalog/discovered.json; then exit 0; fi
+          if [ -z "$(git status --porcelain -- catalog/discovered.json)" ]; then echo 'No new candidates'; exit 0; fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           BRANCH="bot/catalog-watch-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
